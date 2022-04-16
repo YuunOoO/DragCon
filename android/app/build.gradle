@@ -25,6 +25,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
+
 android {
     compileSdkVersion flutter.compileSdkVersion
 
@@ -46,6 +47,12 @@ android {
         applicationId "com.example.dragcon"
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
+       // compileSdkVersion 29
+       // buildToolsVersion "29.0.0"
+       // minSdkVersion 15
+       // targetSdkVersion 29
+      //  versionCode = 1
+       // versionName = "1.0"
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
