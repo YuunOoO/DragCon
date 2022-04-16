@@ -1,9 +1,20 @@
+import 'package:dragcon/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:path/path.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
+}
+
+bool Authentication(String password) {
+  bool accepted = false;
+  if (password == "haslo") accepted = true; //jesli przejdzie to true
+
+  return accepted;
 }
 
 Widget buildEmail() {
@@ -85,7 +96,7 @@ Widget buildPassword() {
   );
 }
 
-Widget loginButton() {
+Widget loginButton(BuildContext context) {
   return ConstrainedBox(
       constraints: BoxConstraints.tightFor(width: double.infinity, height: 55),
       child: ElevatedButton(
@@ -96,7 +107,18 @@ Widget loginButton() {
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                       side: BorderSide(color: Colors.grey)))),
-          onPressed: () {},
+          onPressed: () {
+            if (Authentication("haslo")) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return homepage();
+                }),
+              );
+            } else {
+              //to komunikat tu bedzie
+            }
+          },
           child: Text('Log in', style: TextStyle(fontSize: 25))));
 }
 
@@ -142,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   buildEmail(),
                   buildPassword(),
                   SizedBox(height: 20),
-                  loginButton()
+                  loginButton(context),
                 ],
               ),
             )
