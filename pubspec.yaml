@@ -30,6 +30,15 @@ dependencies:
   flutter:
     sdk: flutter
 
+  #Database storage 
+  sqflite: ^2.0.0+3
+
+  #format DataTime
+  intl: ^0.17.0
+  
+  #display todos in grid
+  flutter_staggered_grid_view: ^0.4.0-nullsafety.3
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
