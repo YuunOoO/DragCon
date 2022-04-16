@@ -15,7 +15,7 @@ Widget buildEmail() {
         style: TextStyle(
             fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
       ),
-      SizedBox(height: 15),
+      SizedBox(height: 6),
       Container(
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
@@ -25,7 +25,7 @@ Widget buildEmail() {
               BoxShadow(
                   color: Colors.black26, blurRadius: 6, offset: Offset(0, 2))
             ]),
-        height: 60,
+        height: 55,
         child: TextField(
           keyboardType: TextInputType.emailAddress,
           style: TextStyle(color: Colors.black87),
@@ -49,13 +49,13 @@ Widget buildPassword() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      Padding(padding: EdgeInsets.only(top: 20)),
+      Padding(padding: EdgeInsets.only(top: 10)),
       Text(
         'Password',
         style: TextStyle(
             fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
       ),
-      SizedBox(height: 15),
+      SizedBox(height: 6),
       Container(
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
@@ -65,9 +65,9 @@ Widget buildPassword() {
               BoxShadow(
                   color: Colors.black26, blurRadius: 6, offset: Offset(0, 2))
             ]),
-        height: 60,
+        height: 55,
         child: TextField(
-          keyboardType: TextInputType.emailAddress,
+          keyboardType: TextInputType.visiblePassword,
           style: TextStyle(color: Colors.black87),
           decoration: InputDecoration(
               border: InputBorder.none,
@@ -83,6 +83,21 @@ Widget buildPassword() {
       )
     ],
   );
+}
+
+Widget loginButton() {
+  return ConstrainedBox(
+      constraints: BoxConstraints.tightFor(width: double.infinity, height: 55),
+      child: ElevatedButton(
+          style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.grey),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      side: BorderSide(color: Colors.grey)))),
+          onPressed: () {},
+          child: Text('Log in', style: TextStyle(fontSize: 25))));
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -111,16 +126,23 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  Image.asset(
+                    'assets/images/logotest.jpg',
+                    height: 150,
+                    width: 100,
+                  ),
                   Text(
                     'Sign In',
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 70,
+                        fontSize: 50,
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 50),
+                  SizedBox(height: 10),
                   buildEmail(),
-                  buildPassword()
+                  buildPassword(),
+                  SizedBox(height: 20),
+                  loginButton()
                 ],
               ),
             )
