@@ -1,6 +1,7 @@
-# dragcon
+#Dragcon
 
-A new Flutter project.
+A new Flutter project for work management
+Kanban  tasking
 
 ## Getting Started
 
