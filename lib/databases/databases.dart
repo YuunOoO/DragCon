@@ -37,7 +37,70 @@ class Databases {
     )''');
   }
 
+  Future<Users> create(Users users) async {
+    //tworzenie
+    final db = await instance.database;
+    final key_id = await db.insert(userNotes, users.toJson());
+
+    return users.copy(key_id: key_id);
+  }
+
+//czytanie jednego elementu
+  Future<Users> readNote(int key_id) async {
+    final db = await instance.database;
+
+    final maps = await db.query(
+      userNotes,
+      columns: UsersFields.values,
+      where: '${UsersFields.key_id} = ?',
+      whereArgs: [key_id],
+    );
+
+    if (maps.isNotEmpty) {
+      return Users.fromJson(maps.first);
+    } else {
+      throw Exception('ID $key_id not found');
+    }
+  }
+
+//wczytaj wszystkie
+  Future<List<Users>> readAllNotes() async {
+    final db = await instance.database;
+    ///////////////////////////////////////////////////
+    // final result =
+    //     await db.rawQuery('SELECT * FROM $tableNotes ORDER BY $orderBy');
+    //tak mozna tworzyc polecenia takie jak z SQL
+    /////////////////////////////////////////
+    final result = await db.query(userNotes);
+
+    return result.map((json) => Users.fromJson(json)).toList();
+  }
+
+//aktualizacja danego elementu po numerze
+  Future<int> update(Users users) async {
+    final db = await instance.database;
+
+    return db.update(
+      userNotes,
+      users.toJson(),
+      where: '${UsersFields.key_id} = ?',
+      whereArgs: [users.key_id],
+    );
+  }
+
+//usuwanie danego wpisu po jego numerze
+  Future<int> delete(int key_id) async {
+    final db = await instance.database;
+
+    return await db.delete(
+      userNotes,
+      where: '${UsersFields.key_id} = ?',
+      whereArgs: [key_id],
+    );
+  }
+
   Future close() async {
+    //zamykanie
     final db = await instance.database;
 
     db.close();
