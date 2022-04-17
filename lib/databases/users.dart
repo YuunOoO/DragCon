@@ -1,5 +1,3 @@
-import 'dart:html';
-
 final String userNotes = "users";
 
 class UsersFields {
