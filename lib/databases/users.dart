@@ -3,6 +3,11 @@ import 'dart:html';
 final String userNotes = "users";
 
 class UsersFields {
+  static final List<String> values = [
+    /// Add all fields
+    key_id, admin, id, password
+  ];
+
   static final String key_id = '_key_id';
   static final String admin = 'admin';
   static final String password = 'password';
@@ -28,6 +33,7 @@ class Users {
         UsersFields.password: password
       };
 
+  //kopiowanie
   Users copy({
     int? key_id,
     bool? admin,
@@ -39,5 +45,12 @@ class Users {
         admin: admin ?? this.admin,
         id: id ?? this.id,
         password: password ?? this.password,
+      );
+
+  static Users fromJson(Map<String, Object?> json) => Users(
+        key_id: json[UsersFields.key_id] as int?,
+        admin: json[UsersFields.admin] == 1,
+        id: json[UsersFields.id] as String,
+        password: json[UsersFields.password] as String,
       );
 }
