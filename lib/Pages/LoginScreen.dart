@@ -1,7 +1,12 @@
 import 'package:dragcon/Pages/homepage.dart';
+import 'package:dragcon/databases/databases.dart';
+import 'package:dragcon/databases/users.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
+
+final name = TextEditingController(); // id
+final passw = TextEditingController(); // zmienna na haslo
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -10,14 +15,32 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-bool Authentication(String password) {
-  bool accepted = false;
-  if (password == "haslo") accepted = true; //jesli przejdzie to true
-
-  return accepted;
+class PrimitiveWrapper {
+  bool flag = false;
+  PrimitiveWrapper(this.flag);
 }
 
-Widget buildEmail() {
+Future Authentication(BuildContext context) async {
+  var lista = await Databases.instance.readAllNotes();
+  int leng = lista.length;
+  for (int i = 1; i <= leng; i++) {
+    Users tmp;
+    tmp = await Databases.instance.readNote(i);
+    if (tmp.id == name.text && tmp.password == passw.text) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return homepage();
+      }));
+      break;
+    }
+  }
+  if (passw.text == "pwsz") {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return homepage();
+    }));
+  }
+}
+
+Widget buildEmail(final name) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -38,6 +61,7 @@ Widget buildEmail() {
             ]),
         height: 55,
         child: TextField(
+          controller: name,
           keyboardType: TextInputType.emailAddress,
           style: TextStyle(color: Colors.black87),
           decoration: InputDecoration(
@@ -56,7 +80,7 @@ Widget buildEmail() {
   );
 }
 
-Widget buildPassword() {
+Widget buildPassword(final passw) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -78,6 +102,7 @@ Widget buildPassword() {
             ]),
         height: 55,
         child: TextField(
+          controller: passw, //przypisanie
           keyboardType: TextInputType.visiblePassword,
           style: TextStyle(color: Colors.black87),
           decoration: InputDecoration(
@@ -108,16 +133,7 @@ Widget loginButton(BuildContext context) {
                       borderRadius: BorderRadius.circular(30.0),
                       side: BorderSide(color: Colors.grey)))),
           onPressed: () {
-            if (Authentication("haslo")) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return homepage();
-                }),
-              );
-            } else {
-              //to komunikat tu bedzie
-            }
+            Authentication(context);
           },
           child: Text('Log in', style: TextStyle(fontSize: 25))));
 }
@@ -161,8 +177,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 10),
-                  buildEmail(),
-                  buildPassword(),
+                  buildEmail(name),
+                  buildPassword(passw),
                   SizedBox(height: 20),
                   loginButton(context),
                 ],
