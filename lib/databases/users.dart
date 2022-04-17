@@ -20,4 +20,24 @@ class Users {
       required this.admin,
       required this.id,
       required this.password});
+
+  Map<String, Object?> toJson() => {
+        UsersFields.key_id: key_id,
+        UsersFields.admin: admin ? 1 : 0,
+        UsersFields.id: id,
+        UsersFields.password: password
+      };
+
+  Users copy({
+    int? key_id,
+    bool? admin,
+    String? id,
+    String? password,
+  }) =>
+      Users(
+        key_id: key_id ?? this.key_id,
+        admin: admin ?? this.admin,
+        id: id ?? this.id,
+        password: password ?? this.password,
+      );
 }

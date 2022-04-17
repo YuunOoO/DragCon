@@ -37,6 +37,13 @@ class Databases {
     )''');
   }
 
+  Future<Users> create(Users users) async {
+    final db = await instance.database;
+    final id = await db.insert(userNotes, users.toJson());
+
+    return users.copy(id: id);
+  }
+
   Future close() async {
     final db = await instance.database;
 
