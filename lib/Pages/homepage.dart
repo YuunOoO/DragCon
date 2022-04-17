@@ -15,6 +15,14 @@ Future<void> dodajemy_test() async {
   await Databases.instance.create(users);
 }
 
+Widget buildAppbar() {
+  return AppBar(
+    leading: Icon(Icons.menu),
+    title: Text('DragCon'),
+    backgroundColor: Colors.deepPurple,
+  );
+}
+
 Widget loginButton(BuildContext context) {
   return ConstrainedBox(
       constraints: BoxConstraints.tightFor(width: double.infinity, height: 55),
@@ -33,7 +41,7 @@ Widget loginButton(BuildContext context) {
               content: Text(user1.password),
             ));
           },
-          child: Text('Log in', style: TextStyle(fontSize: 25))));
+          child: Text('test', style: TextStyle(fontSize: 25))));
 }
 
 class _homepage extends State<homepage> {
@@ -44,6 +52,7 @@ class _homepage extends State<homepage> {
         child: GestureDetector(
           child: Stack(
             children: <Widget>[
+              buildAppbar(),
               Container(
                 padding: new EdgeInsets.all(10.0),
                 height: double.infinity,
@@ -67,13 +76,50 @@ class _homepage extends State<homepage> {
                       width: 100,
                     ),
                     Text(
-                      'Sign In',
+                      'Homepage',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 50,
                           fontWeight: FontWeight.bold),
                     ),
+                    SizedBox(height: 20),
                     loginButton(context),
+                    SizedBox(height: 30),
+                    Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Container(
+                              width: 20,
+                              height: 80,
+                              decoration: BoxDecoration(color: Colors.black),
+                              child: Text(
+                                "Backlog",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                              child: Container(
+                            width: 20,
+                            height: 80,
+                            decoration: BoxDecoration(color: Colors.blue),
+                            child: Text(
+                              "In progress",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )),
+                          Expanded(
+                              child: Container(
+                            width: 20,
+                            height: 80,
+                            decoration: BoxDecoration(color: Colors.green),
+                            child: Text(
+                              "Done",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )),
+                        ])
                   ],
                 ),
               )
