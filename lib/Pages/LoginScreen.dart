@@ -15,11 +15,6 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class PrimitiveWrapper {
-  bool flag = false;
-  PrimitiveWrapper(this.flag);
-}
-
 Future Authentication(BuildContext context) async {
   var lista = await Databases.instance.readAllNotes();
   int leng = lista.length;
@@ -38,6 +33,9 @@ Future Authentication(BuildContext context) async {
       return homepage();
     }));
   }
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text("Valid username or password"),
+  ));
 }
 
 Widget buildEmail(final name) {
@@ -54,17 +52,19 @@ Widget buildEmail(final name) {
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
                   color: Colors.black26, blurRadius: 6, offset: Offset(0, 2))
             ]),
         height: 55,
         child: TextField(
+          obscureText: false,
           controller: name,
           keyboardType: TextInputType.emailAddress,
           style: TextStyle(color: Colors.black87),
           decoration: InputDecoration(
+              floatingLabelBehavior: FloatingLabelBehavior.auto,
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(top: 16),
               prefixIcon: Icon(
@@ -95,13 +95,14 @@ Widget buildPassword(final passw) {
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
                   color: Colors.black26, blurRadius: 6, offset: Offset(0, 2))
             ]),
         height: 55,
         child: TextField(
+          obscureText: true,
           controller: passw, //przypisanie
           keyboardType: TextInputType.visiblePassword,
           style: TextStyle(color: Colors.black87),
