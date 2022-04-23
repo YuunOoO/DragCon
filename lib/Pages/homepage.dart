@@ -26,13 +26,12 @@ Widget buildAppbar() {
 }
 
 class _homepage extends State<homepage> {
-  List<Tasks> tasks = []; //lista naszych taskow
   @override //pobieramy je na starcie z bazy
   void initState() {
     super.initState();
     String table = "tasks";
-    getData(table, tasks) => (tasks = this.tasks); //za pomoca lambdy
-    //idziemy do getData i zczytrujemy z tej funkcji taski podmieniajac je
+    getData(table, tasks);
+    //print(tasks[1].about);
   }
 
   @override
@@ -66,7 +65,8 @@ class _homepage extends State<homepage> {
                             MaterialStateProperty.all<Color>(Colors.black),
                       ),
                       onPressed: () {
-                        getData("tasks", tasks);
+                        // getData("tasks");
+                        print(tasks[1].about);
                       },
                       child: Text('TextButton'),
                     ),

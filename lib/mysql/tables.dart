@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+List<Tasks> tasks = [];
+
 class Tasks {
   final int? task_id;
   final String about;
@@ -43,7 +45,7 @@ class Tasks {
   }
 }
 
-Future<dynamic> getData(String table, List<Tasks> copy) async {
+Future<List<Tasks>> getData(String table, List<Tasks> copy) async {
   //funkcja do odbierania danych z danej tabeli
   Map mapdate = {
     //mapa danych przesylanych
@@ -59,5 +61,6 @@ Future<dynamic> getData(String table, List<Tasks> copy) async {
 
   var list = json.decode(response.body); //z php dostajemy liste
   copy = await list.map<Tasks>((json) => Tasks.fromJson(json)).toList();
+  tasks = copy;
   return copy;
 }
