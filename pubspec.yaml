@@ -30,6 +30,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+
+  #Weebsite
+  http: ^0.12.2
   #Database storage 
   sqflite: ^2.0.0+3
 

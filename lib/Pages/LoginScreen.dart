@@ -1,9 +1,14 @@
+import 'dart:convert';
+
 import 'package:dragcon/Pages/homepage.dart';
 import 'package:dragcon/databases/databases.dart';
 import 'package:dragcon/databases/users.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
+import 'package:http/http.dart' as http;
+
+import '../global.dart';
 
 final name = TextEditingController(); // id
 final passw = TextEditingController(); // zmienna na haslo
@@ -15,29 +20,18 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class PrimitiveWrapper {
-  bool flag = false;
-  PrimitiveWrapper(this.flag);
-}
-
 Future Authentication(BuildContext context) async {
-  var lista = await Databases.instance.readAllNotes();
-  int leng = lista.length;
-  for (int i = 1; i <= leng; i++) {
-    Users tmp;
-    tmp = await Databases.instance.readNote(i);
-    if (tmp.id == name.text && tmp.password == passw.text) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return homepage();
-      }));
-      break;
-    }
-  }
+  //funkcja do wyrzucienia przy dalszej obrobce
+  Login(context); //sprawdzenie
   if (passw.text == "pwsz") {
+    //dla testow
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return homepage();
     }));
   }
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text("Valid username or password"),
+  ));
 }
 
 Widget buildEmail(final name) {
@@ -54,17 +48,19 @@ Widget buildEmail(final name) {
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
                   color: Colors.black26, blurRadius: 6, offset: Offset(0, 2))
             ]),
         height: 55,
         child: TextField(
+          obscureText: false,
           controller: name,
           keyboardType: TextInputType.emailAddress,
           style: TextStyle(color: Colors.black87),
           decoration: InputDecoration(
+              floatingLabelBehavior: FloatingLabelBehavior.auto,
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(top: 16),
               prefixIcon: Icon(
@@ -95,13 +91,14 @@ Widget buildPassword(final passw) {
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
                   color: Colors.black26, blurRadius: 6, offset: Offset(0, 2))
             ]),
         height: 55,
         child: TextField(
+          obscureText: true,
           controller: passw, //przypisanie
           keyboardType: TextInputType.visiblePassword,
           style: TextStyle(color: Colors.black87),
@@ -134,6 +131,8 @@ Widget loginButton(BuildContext context) {
                       side: BorderSide(color: Colors.grey)))),
           onPressed: () {
             Authentication(context);
+            // Registration();
+            // Login();
           },
           child: Text('Log in', style: TextStyle(fontSize: 25))));
 }
@@ -188,5 +187,52 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     ));
+  }
+}
+
+//Juz gotowa funkcja do tworzenia wpisów w bazie z apk
+Future Registration() async {
+  //var URL = 'http://192.168.2.4/flutter/reg.php'; - global.dart
+  // laczymy z naszym localhost tyle ze po naszym ip    cmd -> ipconfig
+  // zeby odroznic localhosta fluttera od xampa
+  Map mapdate = {
+    //mapa danych przesylanych
+    'name': name.text,
+    'password': passw.text,
+    'admin': '0' //false
+  };
+  print(mapdate.toString()); //info w logach flutera
+  //http.Response response = await http.post(URL, body: mapdate);
+  final response = await http.post(URL_reg,
+      body: mapdate, encoding: Encoding.getByName("utf-8"));
+  if (response.statusCode == 200) {
+    print(response.body);
+  } else {
+    print('A network error occurred');
+  }
+}
+
+Future Login(BuildContext context) async {
+  Map mapdate = {
+    //mapa danych przesylanych
+    'name': name.text,
+    'password': passw.text,
+  };
+  final response = await http.post(URL_log,
+      body: mapdate, encoding: Encoding.getByName("utf-8"));
+  if (response.statusCode == 200) {
+    print(response.body);
+  } else {
+    print('A network error occurred');
+  }
+
+  var gate = json.decode(response.body); //z php dostajemy jakies info czy
+  //udalo sie znalezc takiego uzytkownika
+  if (gate == "Open") {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return homepage();
+    }));
+  } else {
+    print('wrong id/pass');
   }
 }
