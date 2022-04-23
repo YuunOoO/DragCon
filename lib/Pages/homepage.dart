@@ -125,14 +125,16 @@ class _homepage extends State<homepage> {
         // lastListTargetSize: 30,
         listPadding: EdgeInsets.all(16),
         listInnerDecoration: BoxDecoration(
-          color: Theme.of(context).canvasColor,
-          borderRadius: BorderRadius.circular(10),
+          color: Colors.deepPurple,
+          borderRadius: BorderRadius.circular(20),
         ),
         children: lists,
         itemDivider: Divider(thickness: 2, height: 2, color: backgroundColor),
         itemDecorationWhileDragging: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4)],
+          color: Color.fromARGB(255, 225, 159, 236),
+          boxShadow: [
+            BoxShadow(color: Color.fromARGB(255, 189, 184, 184), blurRadius: 12)
+          ],
         ),
         listDragHandle: buildDragHandle(isList: true),
         itemDragHandle: buildDragHandle(),
@@ -146,7 +148,7 @@ class _homepage extends State<homepage> {
     final verticalAlignment = isList
         ? DragHandleVerticalAlignment.top
         : DragHandleVerticalAlignment.center;
-    final color = isList ? Colors.blueGrey : Colors.black26;
+    final color = isList ? Color.fromARGB(255, 7, 28, 39) : Colors.black26;
 
     return DragHandle(
       verticalAlignment: verticalAlignment,
@@ -159,10 +161,11 @@ class _homepage extends State<homepage> {
 
   DragAndDropList buildList(DraggableList list) => DragAndDropList(
         header: Container(
-          padding: EdgeInsets.all(8),
+          padding: EdgeInsets.all(12),
           child: Text(
             list.header,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 25, color: Colors.blue),
           ),
         ),
         children: list.items
