@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:dragcon/Pages/homepage.dart';
 import 'package:dragcon/databases/databases.dart';
 import 'package:dragcon/databases/users.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
+import 'package:http/http.dart' as http;
 
 final name = TextEditingController(); // id
 final passw = TextEditingController(); // zmienna na haslo
@@ -134,7 +137,8 @@ Widget loginButton(BuildContext context) {
                       borderRadius: BorderRadius.circular(30.0),
                       side: BorderSide(color: Colors.grey)))),
           onPressed: () {
-            Authentication(context);
+            //Authentication(context);
+            Registration();
           },
           child: Text('Log in', style: TextStyle(fontSize: 25))));
 }
@@ -190,4 +194,28 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     ));
   }
+}
+
+Future Registration() async {
+  var URL = 'http://192.168.2.4/flutter/reg.php';
+
+  Map mapdate = {
+    //mapa danych przesylanych
+    'name': name.text,
+    'password': passw.text,
+    'admin': '0' //false
+  };
+  print(mapdate.toString());
+
+  //http.Response response = await http.post(URL, body: mapdate);
+  final response = await http.post(URL,
+      body: mapdate, encoding: Encoding.getByName("utf-8"));
+  if (response.statusCode == 200) {
+    print(response.body);
+  } else {
+    print('A network error occurred');
+  }
+
+  //var data = jsonDecode(response.body);
+  // print("$data");
 }
