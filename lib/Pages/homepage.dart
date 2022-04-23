@@ -1,5 +1,6 @@
 import 'package:dragcon/databases/databases.dart';
 import 'package:dragcon/databases/users.dart';
+import 'package:dragcon/mysql/tables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../main.dart';
@@ -25,6 +26,15 @@ Widget buildAppbar() {
 }
 
 class _homepage extends State<homepage> {
+  List<Tasks> tasks = []; //lista naszych taskow
+  @override //pobieramy je na starcie z bazy
+  void initState() {
+    super.initState();
+    String table = "tasks";
+    getData(table, tasks) => (tasks = this.tasks); //za pomoca lambdy
+    //idziemy do getData i zczytrujemy z tej funkcji taski podmieniajac je
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
           body: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -50,6 +60,16 @@ class _homepage extends State<homepage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    TextButton(
+                      style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.black),
+                      ),
+                      onPressed: () {
+                        getData("tasks", tasks);
+                      },
+                      child: Text('TextButton'),
+                    ),
                     Image.asset(
                       'assets/images/logotest.jpg',
                       height: 150,
@@ -98,7 +118,7 @@ class _homepage extends State<homepage> {
                         ])
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
