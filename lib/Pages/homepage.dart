@@ -15,12 +15,15 @@ List<DraggableList> allLists = [
     items: [
       DraggableListItem(
         title: 'Task',
+        task: tasks[1],
       ),
       DraggableListItem(
         title: 'Task',
+        task: tasks[2],
       ),
       DraggableListItem(
         title: 'Task',
+        task: tasks[3],
       ),
     ],
   ),
@@ -29,12 +32,15 @@ List<DraggableList> allLists = [
     items: [
       DraggableListItem(
         title: 'Task',
+        task: tasks[4],
       ),
       DraggableListItem(
         title: 'Task',
+        task: tasks[5],
       ),
       DraggableListItem(
         title: 'Task',
+        task: tasks[6],
       ),
     ],
   ),
@@ -43,12 +49,15 @@ List<DraggableList> allLists = [
     items: [
       DraggableListItem(
         title: 'Task',
+        task: tasks[7],
       ),
       DraggableListItem(
         title: 'Task',
+        task: tasks[8],
       ),
       DraggableListItem(
         title: 'Task',
+        task: tasks[9],
       ),
     ],
   ),
@@ -67,8 +76,9 @@ class DraggableList {
 
 class DraggableListItem {
   final String title;
-
+  final Tasks task;
   const DraggableListItem({
+    required this.task,
     required this.title,
   });
 }
@@ -95,23 +105,20 @@ Widget buildAppbar() {
 
 class _homepage extends State<homepage> {
   static final String title = 'Drag & Drop ListView';
-
-  // @override //pobieramy je na starcie z bazy
-  //void initState() {
-  // super.initState();
-  // String table = "tasks";
-  //getData(table, tasks);
-  //print(tasks[1].about);
-  //}
+  @override //pobieramy je na starcie z bazy
+  void initState() {
+    super.initState();
+    lists = allLists.map(buildList).toList();
+  }
 
   late List<DragAndDropList> lists;
 
-  @override
-  void initState() {
-    super.initState();
+  //@override
+  //void initState() {
+  // super.initState();
 
-    lists = allLists.map(buildList).toList();
-  }
+  // lists = allLists.map(buildList).toList();
+  //}
 
   @override
   Widget build(BuildContext context) {
@@ -125,14 +132,16 @@ class _homepage extends State<homepage> {
         // lastListTargetSize: 30,
         listPadding: EdgeInsets.all(16),
         listInnerDecoration: BoxDecoration(
-          color: Theme.of(context).canvasColor,
-          borderRadius: BorderRadius.circular(10),
+          color: Colors.deepPurple,
+          borderRadius: BorderRadius.circular(20),
         ),
         children: lists,
         itemDivider: Divider(thickness: 2, height: 2, color: backgroundColor),
         itemDecorationWhileDragging: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4)],
+          color: Color.fromARGB(255, 225, 159, 236),
+          boxShadow: [
+            BoxShadow(color: Color.fromARGB(255, 189, 184, 184), blurRadius: 12)
+          ],
         ),
         listDragHandle: buildDragHandle(isList: true),
         itemDragHandle: buildDragHandle(),
@@ -146,7 +155,7 @@ class _homepage extends State<homepage> {
     final verticalAlignment = isList
         ? DragHandleVerticalAlignment.top
         : DragHandleVerticalAlignment.center;
-    final color = isList ? Colors.blueGrey : Colors.black26;
+    final color = isList ? Color.fromARGB(255, 7, 28, 39) : Colors.black26;
 
     return DragHandle(
       verticalAlignment: verticalAlignment,
@@ -159,10 +168,11 @@ class _homepage extends State<homepage> {
 
   DragAndDropList buildList(DraggableList list) => DragAndDropList(
         header: Container(
-          padding: EdgeInsets.all(8),
+          padding: EdgeInsets.all(12),
           child: Text(
             list.header,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 25, color: Colors.blue),
           ),
         ),
         children: list.items
@@ -174,7 +184,7 @@ class _homepage extends State<homepage> {
                       height: 40,
                       fit: BoxFit.cover,
                     ),
-                    title: Text(item.title),
+                    title: Text(item.task.about),
                   ),
                 ))
             .toList(),

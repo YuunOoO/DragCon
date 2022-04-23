@@ -29,7 +29,7 @@ class Tasks {
       required this.priority});
 
   factory Tasks.fromJson(Map<String, dynamic> json) {
-    //funkcja odkodowanie z PHP Jsona do normalnych danych
+    // function PHP Json decode to normal data
     return Tasks(
         task_id: int.parse(json['task_id']),
         about: json['about'] as String,
@@ -45,10 +45,10 @@ class Tasks {
   }
 }
 
-Future<List<Tasks>> getData(String table, List<Tasks> copy) async {
-  //funkcja do odbierania danych z danej tabeli
+Future<dynamic> getData(String table) async {
+  // function to receive data from the given table
   Map mapdate = {
-    //mapa danych przesylanych
+    // transferred data map
     'table': table,
   };
   final response = await http.post(URL_getData,
@@ -59,8 +59,9 @@ Future<List<Tasks>> getData(String table, List<Tasks> copy) async {
     print('A network error occurred');
   }
 
-  var list = json.decode(response.body); //z php dostajemy liste
-  copy = await list.map<Tasks>((json) => Tasks.fromJson(json)).toList();
+  var list = json.decode(response.body); // from php we get a list
+  List<Tasks> copy =
+      await list.map<Tasks>((json) => Tasks.fromJson(json)).toList();
   tasks = copy;
   return copy;
 }

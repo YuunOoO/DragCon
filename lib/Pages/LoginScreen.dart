@@ -9,6 +9,7 @@ import 'package:path/path.dart';
 import 'package:http/http.dart' as http;
 
 import '../global.dart';
+import '../mysql/tables.dart';
 
 final name = TextEditingController(); // id
 final passw = TextEditingController(); // zmienna na haslo
@@ -138,6 +139,12 @@ Widget loginButton(BuildContext context) {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  void initState() {
+    super.initState();
+    String table = "tasks";
+    getData(table);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
