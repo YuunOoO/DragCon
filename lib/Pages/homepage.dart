@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:dragcon/databases/databases.dart';
 import 'package:dragcon/databases/users.dart';
@@ -105,7 +107,7 @@ Widget buildAppbar() {
 
 class _homepage extends State<homepage> {
   static final String title = 'Drag & Drop ListView';
-  @override //pobieramy je na starcie z bazy
+  @override
   void initState() {
     super.initState();
     lists = allLists.map(buildList).toList();
@@ -199,7 +201,6 @@ class _homepage extends State<homepage> {
     setState(() {
       final oldListItems = lists[oldListIndex].children;
       final newListItems = lists[newListIndex].children;
-
       final movedItem = oldListItems.removeAt(oldItemIndex);
       newListItems.insert(newItemIndex, movedItem);
     });
@@ -213,5 +214,18 @@ class _homepage extends State<homepage> {
       final movedList = lists.removeAt(oldListIndex);
       lists.insert(newListIndex, movedList);
     });
+  }
+
+  void podmiana(int idx, List<DraggableListItem> tmp) {
+    String table = 'tasks';
+    String type = "xd"; //do upgrade'u
+    int? task_id = tasks[idx].task_id;
+    Map mapdate = {
+      // transferred data map
+      'table': table,
+      'type': type,
+      'task_id': task_id
+    };
+    Update(table, mapdate);
   }
 }

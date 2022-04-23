@@ -65,3 +65,14 @@ Future<dynamic> getData(String table) async {
   tasks = copy;
   return copy;
 }
+
+Future<dynamic> Update(String table, Map map) async {
+  final response = await http.post(URL_update,
+      body: map, encoding: Encoding.getByName("utf-8"));
+  if (response.statusCode == 200) {
+    print(response.body);
+  } else {
+    print('A network error occurred');
+  }
+  print(response);
+}
