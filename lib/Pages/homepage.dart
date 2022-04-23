@@ -15,12 +15,15 @@ List<DraggableList> allLists = [
     items: [
       DraggableListItem(
         title: 'Task',
+        task: tasks[1],
       ),
       DraggableListItem(
         title: 'Task',
+        task: tasks[2],
       ),
       DraggableListItem(
         title: 'Task',
+        task: tasks[3],
       ),
     ],
   ),
@@ -29,12 +32,15 @@ List<DraggableList> allLists = [
     items: [
       DraggableListItem(
         title: 'Task',
+        task: tasks[4],
       ),
       DraggableListItem(
         title: 'Task',
+        task: tasks[5],
       ),
       DraggableListItem(
         title: 'Task',
+        task: tasks[6],
       ),
     ],
   ),
@@ -43,12 +49,15 @@ List<DraggableList> allLists = [
     items: [
       DraggableListItem(
         title: 'Task',
+        task: tasks[7],
       ),
       DraggableListItem(
         title: 'Task',
+        task: tasks[8],
       ),
       DraggableListItem(
         title: 'Task',
+        task: tasks[9],
       ),
     ],
   ),
@@ -67,8 +76,9 @@ class DraggableList {
 
 class DraggableListItem {
   final String title;
-
+  final Tasks task;
   const DraggableListItem({
+    required this.task,
     required this.title,
   });
 }
@@ -95,23 +105,20 @@ Widget buildAppbar() {
 
 class _homepage extends State<homepage> {
   static final String title = 'Drag & Drop ListView';
-
-  // @override //pobieramy je na starcie z bazy
-  //void initState() {
-  // super.initState();
-  // String table = "tasks";
-  //getData(table, tasks);
-  //print(tasks[1].about);
-  //}
+  @override //pobieramy je na starcie z bazy
+  void initState() {
+    super.initState();
+    lists = allLists.map(buildList).toList();
+  }
 
   late List<DragAndDropList> lists;
 
-  @override
-  void initState() {
-    super.initState();
+  //@override
+  //void initState() {
+  // super.initState();
 
-    lists = allLists.map(buildList).toList();
-  }
+  // lists = allLists.map(buildList).toList();
+  //}
 
   @override
   Widget build(BuildContext context) {
@@ -177,7 +184,7 @@ class _homepage extends State<homepage> {
                       height: 40,
                       fit: BoxFit.cover,
                     ),
-                    title: Text(item.title),
+                    title: Text(item.task.about),
                   ),
                 ))
             .toList(),
