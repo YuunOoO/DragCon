@@ -175,14 +175,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: <Widget>[
                   Image.asset(
                     'assets/images/logotest.jpg',
-                    height: 150,
+                    height: 120,
                     width: 100,
                   ),
                   Text(
                     'Sign In',
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 50,
+                        fontSize: 40,
                         fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 10),
