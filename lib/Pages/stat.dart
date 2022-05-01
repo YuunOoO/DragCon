@@ -9,12 +9,12 @@ import '../NavBar.dart';
 import '../main.dart';
 import 'dart:collection';
 
-class settings extends StatefulWidget {
+class stat extends StatefulWidget {
   @override
-  _settings createState() => _settings();
+  _stat createState() => _stat();
 }
 
-class _settings extends State<settings> {
+class _stat extends State<stat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -12,23 +12,20 @@ import '../global.dart';
 
 //
 List<DraggableList> allLists = [
-  DraggableList(
-    header: 'Backlog',
-    items: [
-      DraggableListItem(
-        title: 'Task',
-        task: tasks[1],
-      ),
-      DraggableListItem(
-        title: 'Task',
-        task: tasks[2],
-      ),
-      DraggableListItem(
-        title: 'Task',
-        task: tasks[3],
-      ),
-    ],
-  ),
+  DraggableList(header: 'Backlog', items: [
+    DraggableListItem(
+      title: 'Task',
+      task: tasks[1],
+    ),
+    DraggableListItem(
+      title: 'Task',
+      task: tasks[2],
+    ),
+    DraggableListItem(
+      title: 'Task',
+      task: tasks[3],
+    ),
+  ]),
   DraggableList(
     header: 'In Process',
     items: [
@@ -97,9 +94,15 @@ class homepage extends StatefulWidget {
 
 class _homepage extends State<homepage> {
   static final String title = 'Drag & Drop ListView';
+
   @override
   void initState() {
     super.initState();
+    // for (var task in tasks) {
+    //  if (task.ekipa_id == user.ekipa_id) {
+    // ekip_tasks.add(task);
+    //  }
+    //  }
     lists = allLists.map(buildList).toList();
   }
 
