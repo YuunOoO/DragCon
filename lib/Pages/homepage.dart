@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import '../NavBar.dart';
 import '../main.dart';
 import 'dart:collection';
+import '../global.dart';
 
 //
 List<DraggableList> allLists = [
@@ -94,12 +95,6 @@ class homepage extends StatefulWidget {
   _homepage createState() => _homepage();
 }
 
-//Future<void> dodajemy_test() async {
-// Users users = new Users(admin: true, id: "admin", password: "12345");
-//
-// await Databases.instance.create(users);
-//}
-
 class _homepage extends State<homepage> {
   static final String title = 'Drag & Drop ListView';
   @override
@@ -110,12 +105,12 @@ class _homepage extends State<homepage> {
 
   late List<DragAndDropList> lists;
 
-  //@override
-  //void initState() {
-  // super.initState();
-
-  // lists = allLists.map(buildList).toList();
-  //}
+  bool DragFlag() {
+    if (user.admin <= 1)
+      return true; //master ekipy lub root
+    else
+      return false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -171,6 +166,7 @@ class _homepage extends State<homepage> {
                   child: ListTile(
                     title: Text(item.task.about),
                   ),
+                  canDrag: DragFlag(),
                 ))
             .toList(),
       );
@@ -186,6 +182,17 @@ class _homepage extends State<homepage> {
       final newListItems = lists[newListIndex].children;
       final movedItem = oldListItems.removeAt(oldItemIndex);
       newListItems.insert(newItemIndex, movedItem);
+
+      podmiana(newListIndex, newItemIndex);
+      // allLists[1].items[1].task.
+      //getKeys(allLists);
+      //final item = newListItems.elementAt(newListIndex);
+    });
+  }
+
+  void getKeys(Map map) {
+    map.keys.forEach((element) {
+      print(element);
     });
   }
 
@@ -199,17 +206,21 @@ class _homepage extends State<homepage> {
     });
   }
 
-  void podmiana(int idx, DragAndDropList tmp2) {
-    //String table = 'tasks';
-    //String type = "xd"; //do upgrade'u
-    //lists.map((e) => null).
-    //  int? task_id = tasks[idx].task_id;
-    //Map mapdate = {
-    // transferred data map
-    //   'table': table,
-    //  'type': type,
-    //  'task_id': task_id
-    // };
-    //Update(table, mapdate);
+  void podmiana(int idx, int idx2) {
+    var task_tmp = allLists[idx].items[idx2].task;
+    String table = 'tasks';
+    String? type = task_tmp.type; //do upgrade'u
+    int? task_id = task_tmp.task_id;
+
+    Map mapdate = {
+      // transferred data map
+      'table': table,
+      'type': type,
+      'task_id': task_id,
+    };
+    print(task_tmp.about);
+    print(mapdate);
+    print("jebac");
+    Update(table, mapdate);
   }
 }
