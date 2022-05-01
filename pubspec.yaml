@@ -50,7 +50,9 @@ dependencies:
   flutter_svg: ^0.17.4
   drag_and_drop_lists: ^0.3.2+2
   shared_preferences: ^2.0.13
-
+  animated_splash_screen: ^1.1.0
+  page_transition: "^2.0.5"
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
