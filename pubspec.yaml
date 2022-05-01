@@ -29,7 +29,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+    #klucze 
+  
 
   #Weebsite
   http: ^0.12.2
@@ -48,6 +49,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: ^0.17.4
   drag_and_drop_lists: ^0.3.2+2
+  shared_preferences: ^2.0.13
 
 dev_dependencies:
   flutter_test:

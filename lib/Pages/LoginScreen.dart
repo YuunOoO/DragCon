@@ -1,12 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dragcon/Pages/homepage.dart';
-import 'package:dragcon/databases/databases.dart';
-import 'package:dragcon/databases/users.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../global.dart';
 import '../mysql/tables.dart';
@@ -30,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    autoLogin(context);
     return Scaffold(
         body: AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,
@@ -82,12 +83,6 @@ class _LoginScreenState extends State<LoginScreen> {
   Future Authentication(BuildContext context) async {
     //funkcja do wyrzucienia przy dalszej obrobce
     Login(context); //sprawdzenie
-    if (passw.text == "pwsz") {
-      //dla testow
-      Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return homepage();
-      }));
-    }
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text("Valid username or password"),
     ));
@@ -237,8 +232,45 @@ Future Login(BuildContext context) async {
   }
 
   var gate = json.decode(response.body); //z php dostajemy jakies info czy
+  print(gate);
+  //user = await gate.map<Users>((json) => Users.fromJson(json));
   //udalo sie znalezc takiego uzytkownika
-  if (gate == "Open") {
+  if (gate != "Close") {
+    final _user = await SharedPreferences.getInstance();
+    await _user.setString('name', name.text);
+    await _user.setString('password', passw.text);
+    user.id = name.text;
+    //await _user.setString('email', user.email);
+    //await _user.setInt('admin', user.admin);
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return homepage();
+    }));
+  } else {
+    print('wrong id/pass');
+  }
+}
+
+void autoLogin(BuildContext context) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  final String? check = prefs.getString('name');
+  if (check == null) return;
+  Map mapdate = {
+    //mapa danych przesylanych
+    'name': prefs.getString('name'),
+    'password': prefs.getString('password'),
+  };
+  sleep(Duration(milliseconds: 200));
+  final response = await http.post(URL_log,
+      body: mapdate, encoding: Encoding.getByName("utf-8"));
+  if (response.statusCode == 200) {
+    print(response.body);
+  } else {
+    print('A network error occurred');
+  }
+  var gate = json.decode(response.body); //z php dostajemy jakies info czy
+  //user = await gate.map<Users>((json) => Users.fromJson(json));
+  //udalo sie znalezc takiego uzytkownika
+  if (gate != "Close") {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return homepage();
     }));

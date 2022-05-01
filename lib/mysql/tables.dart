@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:dragcon/global.dart';
 import 'package:http/http.dart' as http;
@@ -6,6 +7,40 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 List<Tasks> tasks = [];
+
+class Users {
+  final int? key_id;
+  final String id;
+  final String password;
+  final int admin;
+  final String email;
+
+  const Users({
+    this.key_id,
+    required this.id,
+    required this.password,
+    required this.admin,
+    required this.email,
+  });
+
+  // factory Users.fromJson(Map<String, dynamic> json) => Users(
+  //     key_id: int.parse(json['key_id']),
+  //    id: json['id'] as String,
+  //    password: json['password'] as String,
+  //    admin: json['admin'] as String,
+  //    email: json['email'] as String,
+  // );
+
+  factory Users.fromJson(Map<String, dynamic> json) {
+    return Users(
+      key_id: int.parse(json['key_id']),
+      id: json['id'] as String,
+      password: json['password'] as String,
+      admin: int.parse(json['admin']),
+      email: json['email'] as String,
+    );
+  }
+}
 
 class Tasks {
   final int? task_id;

@@ -1,8 +1,6 @@
 import 'dart:io';
 
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
-import 'package:dragcon/databases/databases.dart';
-import 'package:dragcon/databases/users.dart';
 import 'package:dragcon/mysql/tables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -96,11 +94,11 @@ class homepage extends StatefulWidget {
   _homepage createState() => _homepage();
 }
 
-Future<void> dodajemy_test() async {
-  Users users = new Users(admin: true, id: "admin", password: "12345");
-
-  await Databases.instance.create(users);
-}
+//Future<void> dodajemy_test() async {
+// Users users = new Users(admin: true, id: "admin", password: "12345");
+//
+// await Databases.instance.create(users);
+//}
 
 class _homepage extends State<homepage> {
   static final String title = 'Drag & Drop ListView';

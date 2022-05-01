@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'global.dart';
+
 class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -9,8 +11,8 @@ class NavBar extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text('Nazwa usera Wartość zmienna'),
-            accountEmail: Text('E mail Wartość zmienna'),
+            accountName: Text(user.id),
+            accountEmail: Text(user.email),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
                 child: Image.asset(
