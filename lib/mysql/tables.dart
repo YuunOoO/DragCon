@@ -79,7 +79,7 @@ class Tasks {
       time_reg: json['time_reg'] as String,
       data_exec: json['data_exec'] as String,
       time_exec: json['time_exec'] as String,
-      type: json['designation'] as String,
+      type: json['type'] as String,
       priority: int.parse(json['priority']),
       ekipa_id: int.parse(json['ekipa_id']),
     );
