@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dragcon/Pages/LoginScreen.dart';
 import 'package:flutter/material.dart';
 import 'Pages/LoginScreen.dart';
@@ -18,7 +20,7 @@ class _SplashState extends State<Splash> {
   }
 
   _navigatetohome() async {
-    await Future.delayed(Duration(milliseconds: 2000), () {});
+    await Future.delayed(Duration(milliseconds: 5000), () {});
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => LoginScreen()));
   }
@@ -47,7 +49,7 @@ class _SplashState extends State<Splash> {
                 FAProgressBar(
                   currentValue: 100,
                   size: 15,
-                  animatedDuration: const Duration(milliseconds: 1650),
+                  animatedDuration: const Duration(milliseconds: 4600),
                   backgroundColor: Color.fromARGB(59, 248, 101, 228),
                   progressColor: Color.fromARGB(255, 252, 188, 248),
                 )
