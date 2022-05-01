@@ -42,7 +42,10 @@ Widget buildEmail(final name) {
       Text(
         'Email',
         style: TextStyle(
-            fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
+          fontSize: 20,
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+        ),
       ),
       SizedBox(height: 6),
       Container(
@@ -121,7 +124,7 @@ Widget buildPassword(final passw) {
 
 Widget loginButton(BuildContext context) {
   return ConstrainedBox(
-      constraints: BoxConstraints.tightFor(width: double.infinity, height: 55),
+      constraints: BoxConstraints.tightFor(width: 320, height: 55),
       child: ElevatedButton(
           style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
@@ -172,14 +175,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: <Widget>[
                   Image.asset(
                     'assets/images/logotest.jpg',
-                    height: 150,
+                    height: 120,
                     width: 100,
                   ),
                   Text(
                     'Sign In',
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 50,
+                        fontSize: 40,
                         fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 10),

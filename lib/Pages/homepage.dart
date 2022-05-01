@@ -5,6 +5,7 @@ import 'package:dragcon/mysql/tables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import '../NavBar.dart';
 import '../main.dart';
 import 'dart:collection';
 
@@ -59,6 +60,10 @@ List<DraggableList> allLists = [
         title: 'Task',
         task: tasks[9],
       ),
+      DraggableListItem(
+        title: 'Task',
+        task: tasks[0],
+      ),
     ],
   ),
 ];
@@ -95,14 +100,6 @@ Future<void> dodajemy_test() async {
   await Databases.instance.create(users);
 }
 
-Widget buildAppbar() {
-  return AppBar(
-    leading: Icon(Icons.menu),
-    title: Text('DragCon'),
-    backgroundColor: Colors.deepPurple,
-  );
-}
-
 class _homepage extends State<homepage> {
   static final String title = 'Drag & Drop ListView';
   @override //pobieramy je na starcie z bazy
@@ -122,33 +119,39 @@ class _homepage extends State<homepage> {
 
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = Color.fromARGB(155, 94, 14, 168);
-
     return Scaffold(
-      backgroundColor: backgroundColor,
-      body: DragAndDropLists(
-        // lastItemTargetHeight: 50,
-        // addLastItemTargetHeightToTop: true,
-        // lastListTargetSize: 30,
-        listPadding: EdgeInsets.all(16),
-        listInnerDecoration: BoxDecoration(
-          color: Colors.deepPurple,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        children: lists,
-        itemDivider: Divider(thickness: 2, height: 2, color: backgroundColor),
-        itemDecorationWhileDragging: BoxDecoration(
-          color: Color.fromARGB(255, 225, 159, 236),
-          boxShadow: [
-            BoxShadow(color: Color.fromARGB(255, 189, 184, 184), blurRadius: 12)
-          ],
-        ),
-        listDragHandle: buildDragHandle(isList: true),
-        itemDragHandle: buildDragHandle(),
-        onItemReorder: onReorderListItem,
-        onListReorder: onReorderList,
-      ),
-    );
+        drawer: NavBar(),
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/japback.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: DragAndDropLists(
+            // lastItemTargetHeight: 50,
+            // addLastItemTargetHeightToTop: true,
+            // lastListTargetSize: 30,
+            listPadding: EdgeInsets.all(10),
+            listInnerDecoration: BoxDecoration(
+              color: Color.fromARGB(211, 104, 58, 183),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            children: lists,
+            itemDivider: Divider(thickness: 2, height: 2),
+            itemDecorationWhileDragging: BoxDecoration(
+              color: Color.fromARGB(255, 225, 159, 236),
+              boxShadow: [
+                BoxShadow(
+                    color: Color.fromARGB(255, 189, 184, 184), blurRadius: 12)
+              ],
+            ),
+            listDragHandle: buildDragHandle(isList: true),
+            itemDragHandle: buildDragHandle(),
+            onItemReorder: onReorderListItem,
+            onListReorder: onReorderList,
+          ),
+        ));
   }
 
   DragHandle buildDragHandle({bool isList = false}) {
@@ -172,18 +175,14 @@ class _homepage extends State<homepage> {
           child: Text(
             list.header,
             style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 25, color: Colors.blue),
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+                color: Color.fromARGB(255, 182, 10, 250)),
           ),
         ),
         children: list.items
             .map((item) => DragAndDropItem(
                   child: ListTile(
-                    leading: Image.asset(
-                      'assets/images/logotest.jpg',
-                      width: 40,
-                      height: 40,
-                      fit: BoxFit.cover,
-                    ),
                     title: Text(item.task.about),
                   ),
                 ))
