@@ -24,6 +24,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
+    //getting tasks from start (not safe right now)
     String table = "tasks";
     getData(table);
   }
@@ -156,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
           height: 55,
           child: TextField(
             obscureText: true,
-            controller: passw, //przypisanie
+            controller: passw,
             keyboardType: TextInputType.visiblePassword,
             style: TextStyle(color: Colors.black87),
             decoration: InputDecoration(
@@ -188,8 +189,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         side: BorderSide(color: Colors.grey)))),
             onPressed: () {
               Authentication(context);
-              // Registration();
-              // Login();
             },
             child: Text('Log in', style: TextStyle(fontSize: 25))));
   }
@@ -201,7 +200,7 @@ Future Registration() async {
   // laczymy z naszym localhost tyle ze po naszym ip    cmd -> ipconfig
   // zeby odroznic localhosta fluttera od xampa
   Map mapdate = {
-    //mapa danych przesylanych
+    //mapa date which we are sending to APi
     'name': name.text,
     'password': passw.text,
     'admin': '0' //false
@@ -219,7 +218,7 @@ Future Registration() async {
 
 Future Login(BuildContext context) async {
   Map mapdate = {
-    //mapa danych przesylanych
+    //mapa date which we are sending to APi
     'name': name.text,
     'password': passw.text,
   };
@@ -230,21 +229,30 @@ Future Login(BuildContext context) async {
   } else {
     print('A network error occurred');
   }
+  List<Users> tmp = [];
+  var gate = json.decode(response.body); //we are getting info from php
 
-  var gate = json.decode(response.body); //z php dostajemy jakies info czy
-  print(gate);
-  //user = await gate.map<Users>((json) => Users.fromJson(json));
-  //udalo sie znalezc takiego uzytkownika
+  tmp = await gate.map<Users>((json) => Users.fromJson(json)).toList();
+  //we found correct user
   if (gate != "Close") {
+    //tworzymy shared preferences
     final _user = await SharedPreferences.getInstance();
+    //getting user data from mysql
+    user.id = tmp[0].id;
+    user.email = tmp[0].email;
+    user.password = tmp[0].password;
+    user.admin = tmp[0].admin;
+    user.ekipa_id = tmp[0].ekipa_id;
+    //saving data
     await _user.setString('name', name.text);
     await _user.setString('password', passw.text);
-    user.id = name.text;
-    //await _user.setString('email', user.email);
-    //await _user.setInt('admin', user.admin);
+    await _user.setString('email', user.email);
+    await _user.setInt('admin', user.admin);
     sleep(Duration(milliseconds: 10));
+    //loginpage input clear
     passw.clear();
     name.clear();
+    //homepage navigation
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return homepage();
     }));
@@ -265,15 +273,15 @@ void autoLogin(BuildContext context) async {
   sleep(Duration(milliseconds: 200));
   final response = await http.post(URL_log,
       body: mapdate, encoding: Encoding.getByName("utf-8"));
-  if (response.statusCode == 200) {
-    print(response.body);
-  } else {
-    print('A network error occurred');
-  }
-  var gate = json.decode(response.body); //z php dostajemy jakies info czy
+
+  var gate = json.decode(response.body);
   //user = await gate.map<Users>((json) => Users.fromJson(json));
   //udalo sie znalezc takiego uzytkownika
   if (gate != "Close") {
+    user.id = prefs.getString('name')!;
+    user.admin = prefs.getInt('admin')!;
+    user.email = prefs.getString('email')!;
+    user.password = prefs.getString("password")!;
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return homepage();
     }));

@@ -14,6 +14,7 @@ class Users {
   final String password;
   final int admin;
   final String email;
+  final int ekipa_id;
 
   const Users({
     this.key_id,
@@ -21,6 +22,7 @@ class Users {
     required this.password,
     required this.admin,
     required this.email,
+    required this.ekipa_id,
   });
 
   // factory Users.fromJson(Map<String, dynamic> json) => Users(
@@ -38,6 +40,7 @@ class Users {
       password: json['password'] as String,
       admin: int.parse(json['admin']),
       email: json['email'] as String,
+      ekipa_id: int.parse(json['ekipa_id']),
     );
   }
 }

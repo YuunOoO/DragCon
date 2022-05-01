@@ -94,12 +94,6 @@ class homepage extends StatefulWidget {
   _homepage createState() => _homepage();
 }
 
-//Future<void> dodajemy_test() async {
-// Users users = new Users(admin: true, id: "admin", password: "12345");
-//
-// await Databases.instance.create(users);
-//}
-
 class _homepage extends State<homepage> {
   static final String title = 'Drag & Drop ListView';
   @override
@@ -109,13 +103,6 @@ class _homepage extends State<homepage> {
   }
 
   late List<DragAndDropList> lists;
-
-  //@override
-  //void initState() {
-  // super.initState();
-
-  // lists = allLists.map(buildList).toList();
-  //}
 
   @override
   Widget build(BuildContext context) {
