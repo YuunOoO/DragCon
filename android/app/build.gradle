@@ -45,7 +45,8 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.dragcon"
-        minSdkVersion flutter.minSdkVersion
+        //minSdkVersion flutter.minSdkVersion
+        minSdkVersion 20 
         targetSdkVersion flutter.targetSdkVersion
        // compileSdkVersion 29
        // buildToolsVersion "29.0.0"

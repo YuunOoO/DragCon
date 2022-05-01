@@ -1,57 +1,38 @@
-import 'dart:io';
-
-import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
-import 'package:dragcon/mysql/tables.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/material.dart';
-import '../NavBar.dart';
-import '../main.dart';
-import 'dart:collection';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class geopage extends StatefulWidget {
+  const geopage({Key? key}) : super(key: key);
+
   @override
   _geopage createState() => _geopage();
 }
 
 class _geopage extends State<geopage> {
+  late GoogleMapController mapController;
+
+  final LatLng _center = const LatLng(45.521563, -122.677433);
+
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.light,
-      child: GestureDetector(
-        child: Stack(
-          children: <Widget>[
-            Container(
-              padding: new EdgeInsets.all(10.0),
-              height: double.infinity,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                    Color(0xcc606060),
-                    Color(0xcc0000FF),
-                    Color(0xD90000CC),
-                    Color(0xff660066),
-                  ])),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Image.asset(
-                    'assets/images/logotest.jpg',
-                    height: 120,
-                    width: 100,
-                  ),
-                  SizedBox(height: 10),
-                ],
-              ),
-            )
-          ],
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Maps Sample App'),
+          backgroundColor: Colors.green[700],
+        ),
+        body: GoogleMap(
+          onMapCreated: _onMapCreated,
+          initialCameraPosition: CameraPosition(
+            target: _center,
+            zoom: 11.0,
+          ),
         ),
       ),
-    ));
+    );
   }
 }

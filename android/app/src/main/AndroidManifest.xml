@@ -4,6 +4,11 @@
         android:label="dragcon"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+         <!-- TODO: Add your Google Maps API key here -->
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyB7RKmyIA-bqXY731zMuuEiKqYHyJ553hs"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
