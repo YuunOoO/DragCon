@@ -242,6 +242,9 @@ Future Login(BuildContext context) async {
     user.id = name.text;
     //await _user.setString('email', user.email);
     //await _user.setInt('admin', user.admin);
+    sleep(Duration(milliseconds: 10));
+    passw.clear();
+    name.clear();
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return homepage();
     }));

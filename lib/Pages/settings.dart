@@ -9,12 +9,12 @@ import '../NavBar.dart';
 import '../main.dart';
 import 'dart:collection';
 
-class adminpage extends StatefulWidget {
+class settings extends StatefulWidget {
   @override
-  _adminpage createState() => _adminpage();
+  _settings createState() => _settings();
 }
 
-class _adminpage extends State<adminpage> {
+class _settings extends State<settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
