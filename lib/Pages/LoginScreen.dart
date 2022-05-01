@@ -232,9 +232,10 @@ Future Login(BuildContext context) async {
   List<Users> tmp = [];
   var gate = json.decode(response.body); //we are getting info from php
 
-  tmp = await gate.map<Users>((json) => Users.fromJson(json)).toList();
   //we found correct user
   if (gate != "Close") {
+    tmp = await gate.map<Users>((json) => Users.fromJson(json)).toList();
+
     //tworzymy shared preferences
     final _user = await SharedPreferences.getInstance();
     //getting user data from mysql

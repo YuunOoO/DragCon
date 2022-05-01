@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import '../NavBar.dart';
 import '../main.dart';
 import 'dart:collection';
+import '../global.dart';
 
 //
 List<DraggableList> allLists = [
@@ -104,6 +105,13 @@ class _homepage extends State<homepage> {
 
   late List<DragAndDropList> lists;
 
+  bool DragFlag() {
+    if (user.admin <= 1)
+      return true; //master ekipy lub root
+    else
+      return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -158,6 +166,7 @@ class _homepage extends State<homepage> {
                   child: ListTile(
                     title: Text(item.task.about),
                   ),
+                  canDrag: DragFlag(),
                 ))
             .toList(),
       );
