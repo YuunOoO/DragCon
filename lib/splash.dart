@@ -45,9 +45,9 @@ class _SplashState extends State<Splash> {
                 ),
                 FAProgressBar(
                   currentValue: 100,
-                  size: 25,
+                  size: 15,
                   animatedDuration: const Duration(milliseconds: 1650),
-                  backgroundColor: Color(0xFFf88865),
+                  backgroundColor: Color.fromARGB(59, 248, 101, 228),
                   progressColor: Color.fromARGB(255, 252, 188, 248),
                 )
               ],
