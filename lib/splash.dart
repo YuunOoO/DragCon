@@ -27,7 +27,8 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-            padding: EdgeInsets.all(15),
+            padding:
+                EdgeInsetsDirectional.only(start: 10.0, end: 10.0, top: 85.0),
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/loadingback.jpg"),
@@ -36,7 +37,7 @@ class _SplashState extends State<Splash> {
             ),
             child: Center(
                 child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Image.asset(
                   'assets/icons/logo.png',
