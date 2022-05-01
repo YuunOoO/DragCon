@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'Pages/LoginScreen.dart';
 import 'splash.dart';
+import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 
 void main() async {
   runApp(MyApp());
