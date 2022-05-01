@@ -9,12 +9,12 @@ import '../NavBar.dart';
 import '../main.dart';
 import 'dart:collection';
 
-class settings extends StatefulWidget {
+class geopage extends StatefulWidget {
   @override
-  _settings createState() => _settings();
+  _geopage createState() => _geopage();
 }
 
-class _settings extends State<settings> {
+class _geopage extends State<geopage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,6 +1,9 @@
 import 'package:dragcon/Pages/LoginScreen.dart';
 import 'package:dragcon/Pages/adminpage.dart';
+import 'package:dragcon/Pages/equippage.dart';
+import 'package:dragcon/Pages/geopage.dart';
 import 'package:dragcon/Pages/settings.dart';
+import 'package:dragcon/Pages/stat.dart';
 import 'package:flutter/material.dart';
 
 import 'global.dart';
@@ -45,17 +48,26 @@ class NavBar extends StatelessWidget {
           ListTile(
               title: Text('Lokalizacja'),
               leading: Icon(Icons.gps_fixed_outlined),
-              onTap: () => null),
+              onTap: () =>
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return geopage();
+                  }))),
           Divider(),
           ListTile(
               title: Text('Wyposażenie'),
               leading: Icon(Icons.airport_shuttle_rounded),
-              onTap: () => null),
+              onTap: () =>
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return equippage();
+                  }))),
           Divider(),
           ListTile(
               title: Text('Statystyki'),
               leading: Icon(Icons.bar_chart),
-              onTap: () => null),
+              onTap: () =>
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return stat();
+                  }))),
           Divider(),
           ListTile(
               leading: Icon(Icons.settings),
