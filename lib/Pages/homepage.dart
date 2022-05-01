@@ -47,7 +47,7 @@ List<DraggableList> allLists = [
     ],
   ),
   DraggableList(
-    header: 'Complited',
+    header: 'Completed',
     items: [
       DraggableListItem(
         title: 'Task',
@@ -178,15 +178,12 @@ class _homepage extends State<homepage> {
     int newListIndex,
   ) {
     setState(() {
+      podmiana(oldListIndex, oldItemIndex, newListIndex);
+      sleep(Duration(milliseconds: 40));
       final oldListItems = lists[oldListIndex].children;
       final newListItems = lists[newListIndex].children;
       final movedItem = oldListItems.removeAt(oldItemIndex);
       newListItems.insert(newItemIndex, movedItem);
-      sleep(Duration(milliseconds: 100));
-      podmiana(newListIndex, newItemIndex);
-      // allLists[1].items[1].task.
-      //getKeys(allLists);
-      //final item = newListItems.elementAt(newListIndex);
     });
   }
 
@@ -206,7 +203,7 @@ class _homepage extends State<homepage> {
     });
   }
 
-  void podmiana(int idx, int idx2) async {
+  void podmiana(int idx, int idx2, int idx3) async {
     var task_tmp = allLists[idx].items[idx2].task;
     String table = 'tasks';
     String? type = task_tmp.type; //do upgrade'u
@@ -215,12 +212,12 @@ class _homepage extends State<homepage> {
     Map mapdate = {
       // transferred data map
       'table': table,
-      'type': allLists[idx].header,
+      'type': allLists[idx3].header,
       'task_id': task_id,
     };
     print(task_tmp.about);
     print(mapdate);
-    print("jebac");
+    print("xd");
     Update(table, mapdate);
   }
 }
