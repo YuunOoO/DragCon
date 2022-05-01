@@ -52,31 +52,34 @@ class Tasks {
   final String time_exec;
   final String type;
   final int priority;
-  const Tasks(
-      {this.task_id,
-      required this.about,
-      required this.location,
-      required this.data_reg,
-      required this.time_reg,
-      required this.data_exec,
-      required this.time_exec,
-      required this.type,
-      required this.priority});
+  final int ekipa_id;
+  const Tasks({
+    this.task_id,
+    required this.about,
+    required this.location,
+    required this.data_reg,
+    required this.time_reg,
+    required this.data_exec,
+    required this.time_exec,
+    required this.type,
+    required this.priority,
+    required this.ekipa_id,
+  });
 
   factory Tasks.fromJson(Map<String, dynamic> json) {
     // function PHP Json decode to normal data
     return Tasks(
-        task_id: int.parse(json['task_id']),
-        about: json['about'] as String,
-        location: json['location'] as String,
-        data_reg: json['data_reg'] as String,
-        time_reg: json['time_reg'] as String,
-        data_exec: json['data_exec'] as String,
-        time_exec: json['time_exec'] as String,
-        type: json['designation'] as String,
-        priority: int.parse(
-          json['priority'],
-        ));
+      task_id: int.parse(json['task_id']),
+      about: json['about'] as String,
+      location: json['location'] as String,
+      data_reg: json['data_reg'] as String,
+      time_reg: json['time_reg'] as String,
+      data_exec: json['data_exec'] as String,
+      time_exec: json['time_exec'] as String,
+      type: json['designation'] as String,
+      priority: int.parse(json['priority']),
+      ekipa_id: int.parse(json['ekipa_id']),
+    );
   }
 }
 
