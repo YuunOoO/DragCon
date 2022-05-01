@@ -43,22 +43,18 @@ class _LoginScreenState extends State<LoginScreen> {
               height: double.infinity,
               width: double.infinity,
               decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                    Color(0xcc606060),
-                    Color(0xcc0000FF),
-                    Color(0xD90000CC),
-                    Color(0xff660066),
-                  ])),
+                image: DecorationImage(
+                  image: AssetImage("assets/images/loginback.jpg"),
+                  fit: BoxFit.cover,
+                ),
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Image.asset(
-                    'assets/images/logotest.jpg',
-                    height: 120,
-                    width: 100,
+                    'assets/icons/logo.png',
+                    height: 180,
+                    width: 180,
                   ),
                   Text(
                     'Sign In',
@@ -97,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
           'Email',
           style: TextStyle(
             fontSize: 20,
-            color: Colors.black,
+            color: Color.fromARGB(255, 255, 255, 255),
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -105,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Container(
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(
-              color: Colors.white,
+              color: Color.fromARGB(127, 119, 60, 106),
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
@@ -116,18 +112,18 @@ class _LoginScreenState extends State<LoginScreen> {
             obscureText: false,
             controller: name,
             keyboardType: TextInputType.emailAddress,
-            style: TextStyle(color: Colors.black87),
+            style: TextStyle(color: Color.fromARGB(221, 255, 254, 254)),
             decoration: InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.auto,
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(top: 16),
                 prefixIcon: Icon(
                   Icons.email,
-                  color: Color(0xff000000),
+                  color: Color.fromARGB(255, 255, 255, 255),
                   size: 30,
                 ),
                 hintText: 'Email',
-                hintStyle: TextStyle(color: Colors.black38)),
+                hintStyle: TextStyle(color: Color.fromARGB(96, 255, 255, 255))),
           ),
         )
       ],
@@ -142,13 +138,15 @@ class _LoginScreenState extends State<LoginScreen> {
         Text(
           'Password',
           style: TextStyle(
-              fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
+              fontSize: 20,
+              color: Color.fromARGB(255, 255, 255, 255),
+              fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 6),
         Container(
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(
-              color: Colors.white,
+              color: Color.fromARGB(127, 119, 60, 106),
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
@@ -159,17 +157,17 @@ class _LoginScreenState extends State<LoginScreen> {
             obscureText: true,
             controller: passw,
             keyboardType: TextInputType.visiblePassword,
-            style: TextStyle(color: Colors.black87),
+            style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
             decoration: InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(top: 16),
                 prefixIcon: Icon(
                   Icons.lock,
-                  color: Color(0xff000000),
+                  color: Color.fromARGB(255, 255, 255, 255),
                   size: 30,
                 ),
                 hintText: 'Password',
-                hintStyle: TextStyle(color: Colors.black38)),
+                hintStyle: TextStyle(color: Color.fromARGB(96, 255, 255, 255))),
           ),
         )
       ],
@@ -181,12 +179,15 @@ class _LoginScreenState extends State<LoginScreen> {
         constraints: BoxConstraints.tightFor(width: 320, height: 55),
         child: ElevatedButton(
             style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.grey),
+                foregroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromARGB(255, 255, 255, 255)),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromARGB(202, 119, 60, 106)),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
-                        side: BorderSide(color: Colors.grey)))),
+                        side: BorderSide(
+                            color: Color.fromARGB(125, 97, 0, 105))))),
             onPressed: () {
               Authentication(context);
             },
