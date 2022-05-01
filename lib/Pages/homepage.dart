@@ -182,6 +182,17 @@ class _homepage extends State<homepage> {
       final newListItems = lists[newListIndex].children;
       final movedItem = oldListItems.removeAt(oldItemIndex);
       newListItems.insert(newItemIndex, movedItem);
+
+      podmiana(newListIndex, newItemIndex);
+      // allLists[1].items[1].task.
+      //getKeys(allLists);
+      //final item = newListItems.elementAt(newListIndex);
+    });
+  }
+
+  void getKeys(Map map) {
+    map.keys.forEach((element) {
+      print(element);
     });
   }
 
@@ -195,17 +206,21 @@ class _homepage extends State<homepage> {
     });
   }
 
-  void podmiana(int idx, DragAndDropList tmp2) {
-    //String table = 'tasks';
-    //String type = "xd"; //do upgrade'u
-    //lists.map((e) => null).
-    //  int? task_id = tasks[idx].task_id;
-    //Map mapdate = {
-    // transferred data map
-    //   'table': table,
-    //  'type': type,
-    //  'task_id': task_id
-    // };
-    //Update(table, mapdate);
+  void podmiana(int idx, int idx2) {
+    var task_tmp = allLists[idx].items[idx2].task;
+    String table = 'tasks';
+    String? type = task_tmp.type; //do upgrade'u
+    int? task_id = task_tmp.task_id;
+
+    Map mapdate = {
+      // transferred data map
+      'table': table,
+      'type': type,
+      'task_id': task_id,
+    };
+    print(task_tmp.about);
+    print(mapdate);
+    print("jebac");
+    Update(table, mapdate);
   }
 }
