@@ -11,7 +11,7 @@ const String URL_update = 'http://192.168.2.4/flutter/update.php';
 //zmienne globalne
 //Users user = new Users(admin: 2, id: '', password: '', email: '');
 class global {
-  late String id;
+  late String id = "12";
   late String password;
   late String email = " ";
 }

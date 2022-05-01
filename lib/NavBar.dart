@@ -1,3 +1,6 @@
+import 'package:dragcon/Pages/LoginScreen.dart';
+import 'package:dragcon/Pages/adminpage.dart';
+import 'package:dragcon/Pages/settings.dart';
 import 'package:flutter/material.dart';
 
 import 'global.dart';
@@ -32,21 +35,25 @@ class NavBar extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.description),
-            title: Text('Zadania'),
-            onTap: () => null,
+            title: Text('Admin panel'),
+            onTap: () =>
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return adminpage();
+            })),
           ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Ustawienia'),
-            onTap: () => null,
-          ),
+              leading: Icon(Icons.settings),
+              title: Text('Ustawienia'),
+              onTap: () =>
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return settings();
+                  }))),
           Divider(),
           ListTile(
-            title: Text('Wyloguj'),
-            leading: Icon(Icons.exit_to_app),
-            onTap: () => null,
-          ),
+              title: Text('Wyloguj'),
+              leading: Icon(Icons.exit_to_app),
+              onTap: () => {Navigator.pop(context), Navigator.pop(context)}),
         ],
       ),
     );
