@@ -1,12 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dragcon/Pages/homepage.dart';
-import 'package:dragcon/databases/databases.dart';
-import 'package:dragcon/databases/users.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../global.dart';
 import '../mysql/tables.dart';
@@ -21,126 +21,6 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-Future Authentication(BuildContext context) async {
-  //funkcja do wyrzucienia przy dalszej obrobce
-  Login(context); //sprawdzenie
-  if (passw.text == "pwsz") {
-    //dla testow
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return homepage();
-    }));
-  }
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    content: Text("Valid username or password"),
-  ));
-}
-
-Widget buildEmail(final name) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      Text(
-        'Email',
-        style: TextStyle(
-          fontSize: 20,
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      SizedBox(height: 6),
-      Container(
-        alignment: Alignment.centerLeft,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.black26, blurRadius: 6, offset: Offset(0, 2))
-            ]),
-        height: 55,
-        child: TextField(
-          obscureText: false,
-          controller: name,
-          keyboardType: TextInputType.emailAddress,
-          style: TextStyle(color: Colors.black87),
-          decoration: InputDecoration(
-              floatingLabelBehavior: FloatingLabelBehavior.auto,
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 16),
-              prefixIcon: Icon(
-                Icons.email,
-                color: Color(0xff000000),
-                size: 30,
-              ),
-              hintText: 'Email',
-              hintStyle: TextStyle(color: Colors.black38)),
-        ),
-      )
-    ],
-  );
-}
-
-Widget buildPassword(final passw) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      Padding(padding: EdgeInsets.only(top: 10)),
-      Text(
-        'Password',
-        style: TextStyle(
-            fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
-      ),
-      SizedBox(height: 6),
-      Container(
-        alignment: Alignment.centerLeft,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.black26, blurRadius: 6, offset: Offset(0, 2))
-            ]),
-        height: 55,
-        child: TextField(
-          obscureText: true,
-          controller: passw, //przypisanie
-          keyboardType: TextInputType.visiblePassword,
-          style: TextStyle(color: Colors.black87),
-          decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 16),
-              prefixIcon: Icon(
-                Icons.lock,
-                color: Color(0xff000000),
-                size: 30,
-              ),
-              hintText: 'Password',
-              hintStyle: TextStyle(color: Colors.black38)),
-        ),
-      )
-    ],
-  );
-}
-
-Widget loginButton(BuildContext context) {
-  return ConstrainedBox(
-      constraints: BoxConstraints.tightFor(width: 320, height: 55),
-      child: ElevatedButton(
-          style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.grey),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      side: BorderSide(color: Colors.grey)))),
-          onPressed: () {
-            Authentication(context);
-            // Registration();
-            // Login();
-          },
-          child: Text('Log in', style: TextStyle(fontSize: 25))));
-}
-
 class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
@@ -150,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    autoLogin(context);
     return Scaffold(
         body: AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,
@@ -198,6 +79,120 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     ));
   }
+
+  Future Authentication(BuildContext context) async {
+    //funkcja do wyrzucienia przy dalszej obrobce
+    Login(context); //sprawdzenie
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text("Valid username or password"),
+    ));
+  }
+
+  Widget buildEmail(final name) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Email',
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: 6),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black26, blurRadius: 6, offset: Offset(0, 2))
+              ]),
+          height: 55,
+          child: TextField(
+            obscureText: false,
+            controller: name,
+            keyboardType: TextInputType.emailAddress,
+            style: TextStyle(color: Colors.black87),
+            decoration: InputDecoration(
+                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.only(top: 16),
+                prefixIcon: Icon(
+                  Icons.email,
+                  color: Color(0xff000000),
+                  size: 30,
+                ),
+                hintText: 'Email',
+                hintStyle: TextStyle(color: Colors.black38)),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget buildPassword(final passw) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(padding: EdgeInsets.only(top: 10)),
+        Text(
+          'Password',
+          style: TextStyle(
+              fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 6),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black26, blurRadius: 6, offset: Offset(0, 2))
+              ]),
+          height: 55,
+          child: TextField(
+            obscureText: true,
+            controller: passw, //przypisanie
+            keyboardType: TextInputType.visiblePassword,
+            style: TextStyle(color: Colors.black87),
+            decoration: InputDecoration(
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.only(top: 16),
+                prefixIcon: Icon(
+                  Icons.lock,
+                  color: Color(0xff000000),
+                  size: 30,
+                ),
+                hintText: 'Password',
+                hintStyle: TextStyle(color: Colors.black38)),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget loginButton(BuildContext context) {
+    return ConstrainedBox(
+        constraints: BoxConstraints.tightFor(width: 320, height: 55),
+        child: ElevatedButton(
+            style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.grey),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                        side: BorderSide(color: Colors.grey)))),
+            onPressed: () {
+              Authentication(context);
+              // Registration();
+              // Login();
+            },
+            child: Text('Log in', style: TextStyle(fontSize: 25))));
+  }
 }
 
 //Juz gotowa funkcja do tworzenia wpisów w bazie z apk
@@ -237,8 +232,45 @@ Future Login(BuildContext context) async {
   }
 
   var gate = json.decode(response.body); //z php dostajemy jakies info czy
+  print(gate);
+  //user = await gate.map<Users>((json) => Users.fromJson(json));
   //udalo sie znalezc takiego uzytkownika
-  if (gate == "Open") {
+  if (gate != "Close") {
+    final _user = await SharedPreferences.getInstance();
+    await _user.setString('name', name.text);
+    await _user.setString('password', passw.text);
+    user.id = name.text;
+    //await _user.setString('email', user.email);
+    //await _user.setInt('admin', user.admin);
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return homepage();
+    }));
+  } else {
+    print('wrong id/pass');
+  }
+}
+
+void autoLogin(BuildContext context) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  final String? check = prefs.getString('name');
+  if (check == null) return;
+  Map mapdate = {
+    //mapa danych przesylanych
+    'name': prefs.getString('name'),
+    'password': prefs.getString('password'),
+  };
+  sleep(Duration(milliseconds: 200));
+  final response = await http.post(URL_log,
+      body: mapdate, encoding: Encoding.getByName("utf-8"));
+  if (response.statusCode == 200) {
+    print(response.body);
+  } else {
+    print('A network error occurred');
+  }
+  var gate = json.decode(response.body); //z php dostajemy jakies info czy
+  //user = await gate.map<Users>((json) => Users.fromJson(json));
+  //udalo sie znalezc takiego uzytkownika
+  if (gate != "Close") {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return homepage();
     }));

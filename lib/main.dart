@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'Pages/LoginScreen.dart';
 
-void main() {
+void main() async {
   runApp(MyApp());
 }
 

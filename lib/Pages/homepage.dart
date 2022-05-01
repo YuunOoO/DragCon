@@ -1,6 +1,6 @@
+import 'dart:io';
+
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
-import 'package:dragcon/databases/databases.dart';
-import 'package:dragcon/databases/users.dart';
 import 'package:dragcon/mysql/tables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -94,15 +94,15 @@ class homepage extends StatefulWidget {
   _homepage createState() => _homepage();
 }
 
-Future<void> dodajemy_test() async {
-  Users users = new Users(admin: true, id: "admin", password: "12345");
-
-  await Databases.instance.create(users);
-}
+//Future<void> dodajemy_test() async {
+// Users users = new Users(admin: true, id: "admin", password: "12345");
+//
+// await Databases.instance.create(users);
+//}
 
 class _homepage extends State<homepage> {
   static final String title = 'Drag & Drop ListView';
-  @override //pobieramy je na starcie z bazy
+  @override
   void initState() {
     super.initState();
     lists = allLists.map(buildList).toList();
@@ -146,27 +146,13 @@ class _homepage extends State<homepage> {
                     color: Color.fromARGB(255, 189, 184, 184), blurRadius: 12)
               ],
             ),
-            listDragHandle: buildDragHandle(isList: true),
-            itemDragHandle: buildDragHandle(),
             onItemReorder: onReorderListItem,
             onListReorder: onReorderList,
+            axis: Axis.horizontal,
+            listWidth: 400,
+            listDraggingWidth: 400,
           ),
         ));
-  }
-
-  DragHandle buildDragHandle({bool isList = false}) {
-    final verticalAlignment = isList
-        ? DragHandleVerticalAlignment.top
-        : DragHandleVerticalAlignment.center;
-    final color = isList ? Color.fromARGB(255, 7, 28, 39) : Colors.black26;
-
-    return DragHandle(
-      verticalAlignment: verticalAlignment,
-      child: Container(
-        padding: EdgeInsets.only(right: 10),
-        child: Icon(Icons.menu, color: color),
-      ),
-    );
   }
 
   DragAndDropList buildList(DraggableList list) => DragAndDropList(
@@ -198,7 +184,6 @@ class _homepage extends State<homepage> {
     setState(() {
       final oldListItems = lists[oldListIndex].children;
       final newListItems = lists[newListIndex].children;
-
       final movedItem = oldListItems.removeAt(oldItemIndex);
       newListItems.insert(newItemIndex, movedItem);
     });
@@ -212,5 +197,19 @@ class _homepage extends State<homepage> {
       final movedList = lists.removeAt(oldListIndex);
       lists.insert(newListIndex, movedList);
     });
+  }
+
+  void podmiana(int idx, DragAndDropList tmp2) {
+    //String table = 'tasks';
+    //String type = "xd"; //do upgrade'u
+    //lists.map((e) => null).
+    //  int? task_id = tasks[idx].task_id;
+    //Map mapdate = {
+    // transferred data map
+    //   'table': table,
+    //  'type': type,
+    //  'task_id': task_id
+    // };
+    //Update(table, mapdate);
   }
 }
