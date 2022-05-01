@@ -43,6 +43,21 @@ class NavBar extends StatelessWidget {
           ),
           Divider(),
           ListTile(
+              title: Text('Lokalizacja'),
+              leading: Icon(Icons.gps_fixed_outlined),
+              onTap: () => null),
+          Divider(),
+          ListTile(
+              title: Text('Wyposażenie'),
+              leading: Icon(Icons.airport_shuttle_rounded),
+              onTap: () => null),
+          Divider(),
+          ListTile(
+              title: Text('Statystyki'),
+              leading: Icon(Icons.bar_chart),
+              onTap: () => null),
+          Divider(),
+          ListTile(
               leading: Icon(Icons.settings),
               title: Text('Ustawienia'),
               onTap: () =>
