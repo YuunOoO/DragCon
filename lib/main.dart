@@ -1,4 +1,5 @@
 // @dart=2.9
+import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'Pages/LoginScreen.dart';
 import 'splash.dart';
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'jyunjun',
       ),
       home: Splash(),
     );

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dragcon/Pages/LoginScreen.dart';
 import 'package:flutter/material.dart';
 import 'Pages/LoginScreen.dart';
@@ -18,7 +20,7 @@ class _SplashState extends State<Splash> {
   }
 
   _navigatetohome() async {
-    await Future.delayed(Duration(milliseconds: 2000), () {});
+    await Future.delayed(Duration(milliseconds: 5000), () {});
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => LoginScreen()));
   }
@@ -27,7 +29,8 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-            padding: EdgeInsets.all(15),
+            padding:
+                EdgeInsetsDirectional.only(start: 10.0, end: 10.0, top: 85.0),
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/loadingback.jpg"),
@@ -36,7 +39,7 @@ class _SplashState extends State<Splash> {
             ),
             child: Center(
                 child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Image.asset(
                   'assets/icons/logo.png',
@@ -45,9 +48,9 @@ class _SplashState extends State<Splash> {
                 ),
                 FAProgressBar(
                   currentValue: 100,
-                  size: 25,
-                  animatedDuration: const Duration(milliseconds: 1650),
-                  backgroundColor: Color(0xFFf88865),
+                  size: 15,
+                  animatedDuration: const Duration(milliseconds: 4600),
+                  backgroundColor: Color.fromARGB(59, 248, 101, 228),
                   progressColor: Color.fromARGB(255, 252, 188, 248),
                 )
               ],

@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
+
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:dragcon/mysql/tables.dart';
 import 'package:flutter/material.dart';
@@ -147,7 +147,7 @@ class _homepage extends State<homepage> {
             onItemReorder: onReorderListItem,
             onListReorder: onReorderList,
             axis: Axis.horizontal,
-            listWidth: 400,
+            listWidth: 390,
             listDraggingWidth: 400,
           ),
         ));
@@ -155,15 +155,20 @@ class _homepage extends State<homepage> {
 
   DragAndDropList buildList(DraggableList list) => DragAndDropList(
         header: Container(
-          padding: EdgeInsets.all(12),
-          child: Text(
-            list.header,
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
-                color: Color.fromARGB(255, 182, 10, 250)),
-          ),
-        ),
+            padding:
+                EdgeInsetsDirectional.only(start: 20.0, end: 20.0, top: 40.0),
+            child: Center(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                  Text(
+                    list.header,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
+                        color: Color.fromARGB(255, 0, 0, 0)),
+                  ),
+                ]))),
         children: list.items
             .map((item) => DragAndDropItem(
                   child: ListTile(
