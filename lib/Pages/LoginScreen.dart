@@ -27,6 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
     //getting tasks from start (not safe right now)
     String table = "tasks";
     getData(table);
+    sleep(Duration(milliseconds: 200));
   }
 
   @override
