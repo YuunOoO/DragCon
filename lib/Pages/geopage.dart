@@ -17,6 +17,18 @@ class _geopage extends State<geopage> {
     mapController = controller;
   }
 
+  static final Marker _kLakeMarker = Marker(
+      markerId: MarkerId('_kGooglePlex'),
+      infoWindow: InfoWindow(title: 'Google Plex'),
+      icon: BitmapDescriptor.defaultMarker,
+      position: LatLng(37.43296265331129, -122.08832357078792));
+
+  static final Marker _kGooglePlexMarker = Marker(
+      markerId: MarkerId('_kGooglePlex'),
+      infoWindow: InfoWindow(title: 'Google Plex'),
+      icon: BitmapDescriptor.defaultMarker,
+      position: LatLng(45.521563, -122.677433));
+
   static final CameraPosition _kLake = CameraPosition(
       bearing: 192.8334901395799,
       target: LatLng(37.43296265331129, -122.08832357078792),
@@ -27,11 +39,12 @@ class _geopage extends State<geopage> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-      appBar: AppBar(
-        title: const Text('Maps Sample App'),
-        backgroundColor: Colors.green[700],
-      ),
       body: GoogleMap(
+        markers: {
+          _kGooglePlexMarker,
+          _kLakeMarker,
+        },
+        mapType: MapType.normal,
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
           target: _center,
@@ -40,7 +53,7 @@ class _geopage extends State<geopage> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _goToTheLake,
-        label: Text('To the lake!'),
+        label: Text('Test marker'),
         icon: Icon(Icons.directions_boat),
       ),
     ));
