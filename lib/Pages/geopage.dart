@@ -1,3 +1,4 @@
+import 'package:dragcon/location.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -9,6 +10,22 @@ class geopage extends StatefulWidget {
 }
 
 class _geopage extends State<geopage> {
+  @override
+  void initState() {
+    super.initState();
+    initLocat();
+  }
+
+  LatLng tmp = LatLng(45.521563, -122.677433);
+  //pobieramy lokalizacje z location.dart
+  void initLocat() async {
+    Locations locations = new Locations();
+    locations.checkpermissions();
+    tmp = await locations.getLocation();
+    print(tmp);
+  }
+  
+
   late GoogleMapController mapController;
 
   final LatLng _center = const LatLng(45.521563, -122.677433);
@@ -21,7 +38,7 @@ class _geopage extends State<geopage> {
       markerId: MarkerId('_kGooglePlex'),
       infoWindow: InfoWindow(title: 'Google Plex'),
       icon: BitmapDescriptor.defaultMarker,
-      position: LatLng(37.43296265331129, -122.08832357078792));
+      position: LatLng(45.521563, -122.677433));
 
   static final Marker _kGooglePlexMarker = Marker(
       markerId: MarkerId('_kGooglePlex'),
@@ -58,7 +75,6 @@ class _geopage extends State<geopage> {
       ),
     ));
   }
-
   Future<void> _goToTheLake() async {
     final GoogleMapController controller = await mapController;
     controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));

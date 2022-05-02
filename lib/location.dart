@@ -1,5 +1,4 @@
-import 'dart:html';
-
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
 import 'package:permission_handler/permission_handler.dart';
 
@@ -15,9 +14,14 @@ class Locations {
     }
   }
 
-//Location location = new Location();
-//loc.LocationData? _locationData;
+  loc.Location location = new loc.Location();
+//final loc.LocationData _locationData;
+  Future<LatLng> getLocation() async {
+    var _locationData = await location.getLocation();
 
-//_locationData = await location.getLocation();
-
+    print(_locationData.latitude);
+    print(_locationData.longitude);
+    LatLng tmp = new LatLng(_locationData.latitude, _locationData.latitude);
+    return tmp;
+  }
 }
