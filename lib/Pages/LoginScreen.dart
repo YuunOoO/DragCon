@@ -246,17 +246,20 @@ Future Login(BuildContext context) async {
     user.password = tmp[0].password;
     user.admin = tmp[0].admin;
     user.ekipa_id = tmp[0].ekipa_id;
+    print(user.ekipa_id);
     //saving data
     await _user.setString('name', name.text);
     await _user.setString('password', passw.text);
     await _user.setString('email', user.email);
     await _user.setInt('admin', user.admin);
-    sleep(Duration(milliseconds: 10));
+    await _user.setInt('ekipa', user.ekipa_id);
+    sleep(Duration(milliseconds: 50));
 
     //loginpage input clear
     passw.clear();
     name.clear();
     //homepage navigation
+    //sleep(Duration(milliseconds: 500));
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return homepage();
     }));
@@ -286,6 +289,7 @@ void autoLogin(BuildContext context) async {
     user.admin = prefs.getInt('admin')!;
     user.email = prefs.getString('email')!;
     user.password = prefs.getString("password")!;
+    user.ekipa_id = prefs.getInt("ekipa")!;
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return homepage();
     }));
