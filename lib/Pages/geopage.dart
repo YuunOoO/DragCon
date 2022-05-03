@@ -1,6 +1,7 @@
 import 'package:dragcon/location.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../NavBar.dart';
 
 class geopage extends StatefulWidget {
   const geopage({Key? key}) : super(key: key);
@@ -55,7 +56,7 @@ class _geopage extends State<geopage> {
   // ignore: unnecessary_new
   late final CameraPosition _kLake = new CameraPosition(
       bearing: 192.8334901395799,
-      target: LatLng(tmp.latitude, 20.7153317),
+      target: LatLng(tmp.latitude, tmp.latitude),
       tilt: 59.440717697143555,
       zoom: 19.151926040649414);
 
