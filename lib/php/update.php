@@ -4,7 +4,7 @@
     $task_id = $_POST['task_id'];
     $type = $_POST['type'];
 $backlog = "Backlog";
-$process = "In Process";
+$process = "Inprocess";
 	
 	if($type == $backlog  || $type == $process){
 	$sql = "UPDATE tasks SET type = '$type',date_exec=NULL,time_exec=NULL WHERE task_id = '$task_id';" ;

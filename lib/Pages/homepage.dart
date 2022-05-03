@@ -13,6 +13,9 @@ import '../global.dart';
 //
 List<DraggableList> allLists = [];
 List<Tasks> teamtasks = [];
+List<DraggableListItem> _Backlog = [];
+List<DraggableListItem> _InProcess = [];
+List<DraggableListItem> _Completed = [];
 
 ///////////////////////////
 class DraggableList {
@@ -44,27 +47,32 @@ class _homepage extends State<homepage> {
   static final String title = 'Drag & Drop ListView';
 
   void LoadTeamTasks() {
+    allLists.clear();
+    teamtasks.clear();
+    _Backlog.clear();
+    _InProcess.clear();
+    _Completed.clear();
     //choose only your team tasks
     for (var item in tasks) {
       if (user.ekipa_id == item.ekipa_id) {
         teamtasks.add(item);
       }
     }
-    List<DraggableListItem> _Backlog = [];
-    List<DraggableListItem> _InProcess = [];
-    List<DraggableListItem> _Completed = [];
     //teraz porzadkujemy
     for (var item in teamtasks) {
       DraggableListItem tmp = new DraggableListItem(task: item, title: "task");
-      if (item.type == "Backlog") _Backlog.add(tmp);
-      if (item.type == "In Process") _InProcess.add(tmp);
-      if (item.type == "Completed") _Completed.add(tmp);
+
+      if (item.type == "Backlog")
+        _Backlog.add(tmp);
+      else if (item.type == "Inprocess")
+        _InProcess.add(tmp);
+      else if (item.type == "Completed") _Completed.add(tmp);
     }
 
     DraggableList Backlog =
         new DraggableList(header: "Backlog", items: _Backlog);
     DraggableList InProcess =
-        new DraggableList(header: "In Process", items: _InProcess);
+        new DraggableList(header: "Inprocess", items: _InProcess);
     DraggableList Completed =
         new DraggableList(header: "Completed", items: _Completed);
 
@@ -197,9 +205,6 @@ class _homepage extends State<homepage> {
       'type': allLists[idx3].header,
       'task_id': task_id,
     };
-    print(task_tmp.about);
-    print(mapdate);
-    print("xd");
     Update(table, mapdate);
   }
 }

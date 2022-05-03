@@ -15,7 +15,7 @@ class global {
   late String password;
   late String email = " hejka ";
   late int admin;
-  late int ekipa_id = 1;
+  late int ekipa_id;
 }
 
 global user = new global();
