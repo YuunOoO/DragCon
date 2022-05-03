@@ -77,7 +77,6 @@ class _homepage extends State<homepage> {
   void initState() {
     super.initState();
     LoadTeamTasks();
-    sleep(Duration(seconds: 1));
     lists = allLists.map(buildList).toList();
   }
 
