@@ -16,7 +16,6 @@ class _geopage extends State<geopage> {
 
   Locations locations = new Locations();
   late LatLng tmp;
-
   _geopage() {
     initLocat();
     mapLists.add(LatLng(37.43296265331129, -122.08832357078792));
@@ -29,8 +28,8 @@ class _geopage extends State<geopage> {
   void initLocat() async {
     locations.checkpermissions();
     tmp = await locations.getLocation();
-    print(tmp);
-    mapLists.add(tmp);
+    mapLists.add(LatLng(tmp.latitude, tmp.longitude));
+    print(mapLists);
   }
 
   late GoogleMapController mapController;
@@ -41,22 +40,10 @@ class _geopage extends State<geopage> {
     mapController = controller;
   }
 
-  static final Marker _kLakeMarker = Marker(
-      markerId: MarkerId('_kGooglePlex'),
-      infoWindow: InfoWindow(title: 'Google Plex'),
-      icon: BitmapDescriptor.defaultMarker,
-      position: LatLng(45.521563, -122.677433));
-
-  static final Marker _kGooglePlexMarker = Marker(
-      markerId: MarkerId('_kGooglePlex'),
-      infoWindow: InfoWindow(title: 'Google Plex'),
-      icon: BitmapDescriptor.defaultMarker,
-      position: LatLng(45.521563, -122.677433));
-
   // ignore: unnecessary_new
   late final CameraPosition _kLake = new CameraPosition(
       bearing: 192.8334901395799,
-      target: LatLng(tmp.latitude, tmp.latitude),
+      target: tmp,
       tilt: 59.440717697143555,
       zoom: 19.151926040649414);
 
@@ -85,7 +72,14 @@ class _geopage extends State<geopage> {
   Future<void> _goToTheLake() async {
     final GoogleMapController controller = await mapController;
     mapLists.add(tmp);
+    refresh_markers();
     controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+  }
+
+  void refresh_markers() {
+    setState(() {
+      _initMarkers();
+    });
   }
 
   void _initMarkers() async {
