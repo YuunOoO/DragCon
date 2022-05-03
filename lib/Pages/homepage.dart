@@ -11,60 +11,8 @@ import 'dart:collection';
 import '../global.dart';
 
 //
-List<DraggableList> allLists = [
-  DraggableList(header: 'Backlog', items: [
-    DraggableListItem(
-      title: 'Task',
-      task: tasks[1],
-    ),
-    DraggableListItem(
-      title: 'Task',
-      task: tasks[2],
-    ),
-    DraggableListItem(
-      title: 'Task',
-      task: tasks[3],
-    ),
-  ]),
-  DraggableList(
-    header: 'In Process',
-    items: [
-      DraggableListItem(
-        title: 'Task',
-        task: tasks[4],
-      ),
-      DraggableListItem(
-        title: 'Task',
-        task: tasks[5],
-      ),
-      DraggableListItem(
-        title: 'Task',
-        task: tasks[6],
-      ),
-    ],
-  ),
-  DraggableList(
-    header: 'Completed',
-    items: [
-      DraggableListItem(
-        title: 'Task',
-        task: tasks[7],
-      ),
-      DraggableListItem(
-        title: 'Task',
-        task: tasks[8],
-      ),
-      DraggableListItem(
-        title: 'Task',
-        task: tasks[9],
-      ),
-      DraggableListItem(
-        title: 'Task',
-        task: tasks[0],
-      ),
-    ],
-  ),
-];
+List<DraggableList> allLists = [];
+List<Tasks> teamtasks = [];
 
 ///////////////////////////
 class DraggableList {
@@ -95,14 +43,41 @@ class homepage extends StatefulWidget {
 class _homepage extends State<homepage> {
   static final String title = 'Drag & Drop ListView';
 
+  void LoadTeamTasks() {
+    //choose only your team tasks
+    for (var item in tasks) {
+      if (user.ekipa_id == item.ekipa_id) {
+        teamtasks.add(item);
+      }
+    }
+    List<DraggableListItem> _Backlog = [];
+    List<DraggableListItem> _InProcess = [];
+    List<DraggableListItem> _Completed = [];
+    //teraz porzadkujemy
+    for (var item in teamtasks) {
+      DraggableListItem tmp = new DraggableListItem(task: item, title: "task");
+      if (item.type == "Backlog") _Backlog.add(tmp);
+      if (item.type == "In Process") _InProcess.add(tmp);
+      if (item.type == "Completed") _Completed.add(tmp);
+    }
+
+    DraggableList Backlog =
+        new DraggableList(header: "Backlog", items: _Backlog);
+    DraggableList InProcess =
+        new DraggableList(header: "In Process", items: _InProcess);
+    DraggableList Completed =
+        new DraggableList(header: "Completed", items: _Completed);
+
+    allLists.add(Backlog);
+    allLists.add(InProcess);
+    allLists.add(Completed);
+  }
+
   @override
   void initState() {
     super.initState();
-    // for (var task in tasks) {
-    //  if (task.ekipa_id == user.ekipa_id) {
-    // ekip_tasks.add(task);
-    //  }
-    //  }
+    LoadTeamTasks();
+    sleep(Duration(seconds: 1));
     lists = allLists.map(buildList).toList();
   }
 

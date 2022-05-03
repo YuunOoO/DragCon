@@ -10,21 +10,27 @@ class geopage extends StatefulWidget {
 }
 
 class _geopage extends State<geopage> {
-  @override
-  void initState() {
-    super.initState();
+  List<Marker> _marker = [];
+  List<LatLng> mapLists = [];
+
+  Locations locations = new Locations();
+  late LatLng tmp;
+
+  _geopage() {
     initLocat();
+    mapLists.add(LatLng(37.43296265331129, -122.08832357078792));
+    mapLists.add(LatLng(45.521563, -122.677433));
+    print(mapLists);
+    _initMarkers();
   }
 
-  LatLng tmp = LatLng(45.521563, -122.677433);
   //pobieramy lokalizacje z location.dart
   void initLocat() async {
-    Locations locations = new Locations();
     locations.checkpermissions();
     tmp = await locations.getLocation();
     print(tmp);
+    mapLists.add(tmp);
   }
-  
 
   late GoogleMapController mapController;
 
@@ -46,9 +52,10 @@ class _geopage extends State<geopage> {
       icon: BitmapDescriptor.defaultMarker,
       position: LatLng(45.521563, -122.677433));
 
-  static final CameraPosition _kLake = CameraPosition(
+  // ignore: unnecessary_new
+  late final CameraPosition _kLake = new CameraPosition(
       bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
+      target: LatLng(tmp.latitude, 20.7153317),
       tilt: 59.440717697143555,
       zoom: 19.151926040649414);
 
@@ -57,10 +64,7 @@ class _geopage extends State<geopage> {
     return MaterialApp(
         home: Scaffold(
       body: GoogleMap(
-        markers: {
-          _kGooglePlexMarker,
-          _kLakeMarker,
-        },
+        markers: {for (int i = 0; i < _marker.length; i++) _marker[i]},
         mapType: MapType.normal,
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
@@ -75,8 +79,33 @@ class _geopage extends State<geopage> {
       ),
     ));
   }
+
   Future<void> _goToTheLake() async {
     final GoogleMapController controller = await mapController;
+    mapLists.add(tmp);
     controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+  }
+
+  void _initMarkers() async {
+    if (mapLists != null) {
+      _marker.clear();
+      for (int i = 0; i < mapLists.length; i++) {
+        MarkerId markerId = new MarkerId(i.toString());
+
+        if (mapLists[i].latitude != null && mapLists[i].longitude != null) {
+          _marker.add(
+            new Marker(
+              markerId: markerId,
+              position: LatLng(mapLists[i].latitude, mapLists[i].longitude),
+              onTap: () {
+                // Handle on marker tap
+              },
+              icon: BitmapDescriptor.defaultMarkerWithHue(
+                  BitmapDescriptor.hueBlue),
+            ),
+          );
+        }
+      }
+    }
   }
 }
