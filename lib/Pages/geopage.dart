@@ -64,6 +64,7 @@ class _geopage extends State<geopage> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
+      drawer: NavBar(),
       body: GoogleMap(
         markers: {for (int i = 0; i < _marker.length; i++) _marker[i]},
         mapType: MapType.normal,
