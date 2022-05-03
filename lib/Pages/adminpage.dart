@@ -45,14 +45,6 @@ class _adminpage extends State<adminpage> {
                     height: 120,
                     width: 100,
                   ),
-                  Text(
-                    'Sign In',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 10),
                 ],
               ),
             )

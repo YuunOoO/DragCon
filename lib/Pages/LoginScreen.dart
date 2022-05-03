@@ -22,14 +22,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  void initState() {
-    super.initState();
-    //getting tasks from start (not safe right now)
-    //String table = "tasks";
-    //getData(table);
-    //sleep(Duration(milliseconds: 400));
-  }
-
   @override
   Widget build(BuildContext context) {
     autoLogin(context);
