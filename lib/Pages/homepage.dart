@@ -130,7 +130,7 @@ class _homepage extends State<homepage> {
             onItemReorder: onReorderListItem,
             onListReorder: onReorderList,
             axis: Axis.horizontal,
-            listWidth: 400,
+            listWidth: 350,
             listDraggingWidth: 400,
           ),
         ));
