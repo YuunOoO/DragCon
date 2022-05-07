@@ -117,7 +117,8 @@ class _homepage extends State<homepage> {
             lastItemTargetHeight: 20,
             //addLastItemTargetHeightToTop: true,
             lastListTargetSize: 1,
-            listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 0.h),
+
+            listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
             listInnerDecoration: BoxDecoration(
               color: Color.fromARGB(211, 104, 58, 183),
               borderRadius: BorderRadius.circular(20),
@@ -164,10 +165,7 @@ class _homepage extends State<homepage> {
                           textAlign: TextAlign.left,
                         ),
                         Spacer(),
-                        Text(
-                          item.task.time_reg,
-                          textAlign: TextAlign.right,
-                        ),
+                        Text(item.task.data_reg),
                       ],
                     ),
                     Text(
