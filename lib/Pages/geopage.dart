@@ -1,6 +1,9 @@
 import 'package:dragcon/location.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../NavBar.dart';
+import '../main.dart';
+import 'dart:collection';
 
 class geopage extends StatefulWidget {
   const geopage({Key? key}) : super(key: key);
@@ -59,6 +62,7 @@ class _geopage extends State<geopage> {
     // }
     return MaterialApp(
         home: Scaffold(
+      drawer: NavBar(),
       body: GoogleMap(
         markers: {for (int i = 0; i < _marker.length; i++) _marker[i]},
         mapType: MapType.normal,
