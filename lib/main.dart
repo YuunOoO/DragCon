@@ -10,6 +10,7 @@ import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.da
 void main() async {
   String table = "tasks";
   getData(table);
+
   runApp(MyApp());
 }
 
