@@ -2,6 +2,7 @@ import 'package:dragcon/Pages/LoginScreen.dart';
 import 'package:dragcon/Pages/adminpage.dart';
 import 'package:dragcon/Pages/equippage.dart';
 import 'package:dragcon/Pages/geopage.dart';
+import 'package:dragcon/Pages/homepage.dart';
 import 'package:dragcon/Pages/settings.dart';
 import 'package:dragcon/Pages/stat.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,15 @@ class NavBar extends StatelessWidget {
             onTap: () =>
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
               return adminpage();
+            })),
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.home),
+            title: Text('Home'),
+            onTap: () =>
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return homepage();
             })),
           ),
           Divider(),

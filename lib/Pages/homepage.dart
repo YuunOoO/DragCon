@@ -111,14 +111,15 @@ class _homepage extends State<homepage> {
             ),
           ),
           child: DragAndDropLists(
-            // lastItemTargetHeight: 50,
-            // addLastItemTargetHeightToTop: true,
-            // lastListTargetSize: 30,
+            lastItemTargetHeight: 50,
+            //addLastItemTargetHeightToTop: true,
+            //lastListTargetSize: 50,
             listPadding: EdgeInsets.all(10),
             listInnerDecoration: BoxDecoration(
               color: Color.fromARGB(211, 104, 58, 183),
               borderRadius: BorderRadius.circular(20),
             ),
+
             children: lists,
             itemDivider: Divider(thickness: 2, height: 2),
             itemDecorationWhileDragging: BoxDecoration(
@@ -131,7 +132,7 @@ class _homepage extends State<homepage> {
             onItemReorder: onReorderListItem,
             onListReorder: onReorderList,
             axis: Axis.horizontal,
-            listWidth: 390,
+            listWidth: 350,
             listDraggingWidth: 400,
           ),
         ));
@@ -156,8 +157,25 @@ class _homepage extends State<homepage> {
         children: list.items
             .map((item) => DragAndDropItem(
                   child: ListTile(
-                    title: Text(item.task.about),
-                  ),
+                      title: Column(children: <Widget>[
+                    Row(
+                      children: [
+                        Text(
+                          item.task.location,
+                          textAlign: TextAlign.left,
+                        ),
+                        Spacer(),
+                        Text(
+                          item.task.time_reg,
+                          textAlign: TextAlign.right,
+                        ),
+                      ],
+                    ),
+                    Text(
+                      item.task.about,
+                      textAlign: TextAlign.center,
+                    ),
+                  ])),
                   canDrag: DragFlag(),
                 ))
             .toList(),
