@@ -47,18 +47,20 @@ class _homepage extends State<homepage> {
   static final String title = 'Drag & Drop ListView';
 
   void LoadTeamTasks() {
+    //clean everything
     allLists.clear();
     teamtasks.clear();
     _Backlog.clear();
     _InProcess.clear();
     _Completed.clear();
+
     //choose only your team tasks
     for (var item in tasks) {
       if (user.ekipa_id == item.ekipa_id) {
         teamtasks.add(item);
       }
     }
-    //teraz porzadkujemy
+    //ordering tasks
     for (var item in teamtasks) {
       DraggableListItem tmp = new DraggableListItem(task: item, title: "task");
 
@@ -92,7 +94,7 @@ class _homepage extends State<homepage> {
 
   bool DragFlag() {
     if (user.admin <= 1)
-      return true; //master ekipy lub root
+      return true; //team master or root
     else
       return false;
   }
@@ -192,12 +194,6 @@ class _homepage extends State<homepage> {
       final newListItems = lists[newListIndex].children;
       final movedItem = oldListItems.removeAt(oldItemIndex);
       newListItems.insert(newItemIndex, movedItem);
-    });
-  }
-
-  void getKeys(Map map) {
-    map.keys.forEach((element) {
-      print(element);
     });
   }
 

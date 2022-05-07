@@ -25,14 +25,6 @@ class Users {
     required this.ekipa_id,
   });
 
-  // factory Users.fromJson(Map<String, dynamic> json) => Users(
-  //     key_id: int.parse(json['key_id']),
-  //    id: json['id'] as String,
-  //    password: json['password'] as String,
-  //    admin: json['admin'] as String,
-  //    email: json['email'] as String,
-  // );
-
   factory Users.fromJson(Map<String, dynamic> json) {
     return Users(
       key_id: int.parse(json['key_id']),

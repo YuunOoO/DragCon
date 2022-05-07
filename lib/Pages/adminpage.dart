@@ -18,14 +18,39 @@ class _adminpage extends State<adminpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: NavBar(),
-        body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/japback.jpg"),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ));
+        body: AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.light,
+      child: GestureDetector(
+        child: Stack(
+          children: <Widget>[
+            Container(
+              padding: new EdgeInsets.all(10.0),
+              height: double.infinity,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                    Color(0xcc606060),
+                    Color(0xcc0000FF),
+                    Color(0xD90000CC),
+                    Color(0xff660066),
+                  ])),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset(
+                    'assets/images/logotest.jpg',
+                    height: 120,
+                    width: 100,
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    ));
   }
 }
