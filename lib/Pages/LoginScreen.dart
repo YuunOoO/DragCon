@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dragcon/Pages/homepage.dart';
+import 'package:dragcon/localauth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:path/path.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -260,32 +262,71 @@ Future Login(BuildContext context) async {
   }
 }
 
-void autoLogin(BuildContext context) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  final String? check = prefs.getString('name');
-  if (check == null) return;
-  Map mapdate = {
-    //mapa danych przesylanych
-    'name': prefs.getString('name'),
-    'password': prefs.getString('password'),
-  };
-  sleep(Duration(milliseconds: 200));
-  final response = await http.post(URL_log,
-      body: mapdate, encoding: Encoding.getByName("utf-8"));
+Widget buildText(String text, bool checked) => Container(
+      margin: EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        children: [
+          checked
+              ? Icon(Icons.check, color: Colors.green, size: 24)
+              : Icon(Icons.close, color: Colors.red, size: 24),
+          const SizedBox(width: 12),
+          Text(text, style: TextStyle(fontSize: 24)),
+        ],
+      ),
+    );
 
-  var gate = json.decode(response.body);
-  //user = await gate.map<Users>((json) => Users.fromJson(json));
-  //udalo sie znalezc takiego uzytkownika
-  if (gate != "Close") {
-    user.id = prefs.getString('name')!;
-    user.admin = prefs.getInt('admin')!;
-    user.email = prefs.getString('email')!;
-    user.password = prefs.getString("password")!;
-    user.ekipa_id = prefs.getInt("ekipa")!;
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return homepage();
-    }));
-  } else {
-    print('wrong id/pass');
+void autoLogin(BuildContext context) async {
+  final isAvailable = await localauth.hasBiometrics();
+  final biometrics = await localauth.getBiometrics();
+  // check if we have biometry and saved fingerprint
+  final hasFingerprint = biometrics.contains(BiometricType.fingerprint);
+
+//if we dont have bio or fingerprint then show error
+  if (!isAvailable || !hasFingerprint) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Availability Autologin'),
+        content: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            buildText('Biometrics', isAvailable),
+            buildText('Fingerprint', hasFingerprint),
+          ],
+        ),
+      ),
+    );
+    return;
+  }
+  final isAuthenticated = await localauth.authenticate();
+  if (isAuthenticated) {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? check = prefs.getString('name');
+    if (check == null) return;
+    Map mapdate = {
+      //mapa danych przesylanych
+      'name': prefs.getString('name'),
+      'password': prefs.getString('password'),
+    };
+    sleep(Duration(milliseconds: 200));
+    final response = await http.post(URL_log,
+        body: mapdate, encoding: Encoding.getByName("utf-8"));
+
+    var gate = json.decode(response.body);
+    //user = await gate.map<Users>((json) => Users.fromJson(json));
+    //udalo sie znalezc takiego uzytkownika
+    if (gate != "Close") {
+      user.id = prefs.getString('name')!;
+      user.admin = prefs.getInt('admin')!;
+      user.email = prefs.getString('email')!;
+      user.password = prefs.getString("password")!;
+      user.ekipa_id = prefs.getInt("ekipa")!;
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return homepage();
+      }));
+    } else {
+      print('wrong id/pass');
+    }
   }
 }

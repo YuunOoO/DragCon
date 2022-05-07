@@ -113,7 +113,7 @@ class _homepage extends State<homepage> {
           child: DragAndDropLists(
             lastItemTargetHeight: 50,
             //addLastItemTargetHeightToTop: true,
-            //lastListTargetSize: 50,
+            lastListTargetSize: 5,
             listPadding: EdgeInsets.all(10),
             listInnerDecoration: BoxDecoration(
               color: Color.fromARGB(211, 104, 58, 183),
