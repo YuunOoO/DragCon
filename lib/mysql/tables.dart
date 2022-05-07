@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 List<Tasks> tasks = [];
+List<Tools> tools = [];
 
 class Users {
   final int? key_id;
@@ -78,6 +79,31 @@ class Tasks {
   }
 }
 
+class Tools {
+  final int? tool_id;
+  final String type;
+  final int amount;
+  final String mark;
+  final String model;
+
+  const Tools(
+      {this.tool_id,
+      required this.type,
+      required this.amount,
+      required this.mark,
+      required this.model});
+
+  factory Tools.fromJson(Map<String, dynamic> json) {
+    return Tools(
+      tool_id: int.parse(json['tool_id']),
+      type: json['type'] as String,
+      amount: int.parse(json['amount']),
+      mark: json['mark'] as String,
+      model: json['model'] as String,
+    );
+  }
+}
+
 Future<dynamic> getData(String table) async {
   // function to receive data from the given table
   Map mapdate = {
@@ -93,10 +119,18 @@ Future<dynamic> getData(String table) async {
   }
 
   var list = json.decode(response.body); // from php we get a list
-  List<Tasks> copy =
-      await list.map<Tasks>((json) => Tasks.fromJson(json)).toList();
-  tasks = copy;
-  return copy;
+  if (table == 'tasks') {
+    List<Tasks> copy =
+        await list.map<Tasks>((json) => Tasks.fromJson(json)).toList();
+    tasks = copy;
+    return copy;
+  }
+  if (table == 'tools') {
+    List<Tools> copy =
+        await list.map<Tools>((json) => Tools.fromJson(json)).toList();
+    tools = copy;
+    return copy;
+  }
 }
 
 Future<dynamic> Update(String table, Map map) async {

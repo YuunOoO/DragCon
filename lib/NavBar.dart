@@ -40,8 +40,8 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.description),
             title: Text('Admin panel'),
-            onTap: () =>
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
+            onTap: () => Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) {
               return adminpage();
             })),
           ),
@@ -49,8 +49,8 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.home),
             title: Text('Home'),
-            onTap: () =>
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
+            onTap: () => Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) {
               return homepage();
             })),
           ),
@@ -58,32 +58,32 @@ class NavBar extends StatelessWidget {
           ListTile(
               title: Text('Lokalizacja'),
               leading: Icon(Icons.gps_fixed_outlined),
-              onTap: () =>
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+              onTap: () => Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) {
                     return geopage();
                   }))),
           Divider(),
           ListTile(
               title: Text('Wyposażenie'),
               leading: Icon(Icons.airport_shuttle_rounded),
-              onTap: () =>
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+              onTap: () => Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) {
                     return equippage();
                   }))),
           Divider(),
           ListTile(
               title: Text('Statystyki'),
               leading: Icon(Icons.bar_chart),
-              onTap: () =>
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+              onTap: () => Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) {
                     return stat();
                   }))),
           Divider(),
           ListTile(
               leading: Icon(Icons.settings),
               title: Text('Ustawienia'),
-              onTap: () =>
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+              onTap: () => Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) {
                     return settings();
                   }))),
           Divider(),

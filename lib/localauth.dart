@@ -27,12 +27,11 @@ class localauth {
         localizedReason: 'Scan your fingerprint to authenticate',
         options: const AuthenticationOptions(
           useErrorDialogs: true,
-          stickyAuth: false,
+          stickyAuth: true,
           biometricOnly: false,
         ),
       );
     } on PlatformException catch (e) {
-      print('nie ma');
       return false;
     }
   }
