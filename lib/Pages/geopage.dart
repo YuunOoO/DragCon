@@ -14,7 +14,7 @@ class _geopage extends State<geopage> {
   List<LatLng> mapLists = [];
 
   Locations locations = new Locations();
-  late LatLng tmp;
+  LatLng tmp = LatLng(37.43296265331129, -122.08832357078792);
   _geopage() {
     initLocat();
     mapLists.add(LatLng(37.43296265331129, -122.08832357078792));
@@ -33,10 +33,16 @@ class _geopage extends State<geopage> {
 
   late GoogleMapController mapController;
 
-  final LatLng _center = const LatLng(45.521563, -122.677433);
+  LatLng _center = LatLng(45.521563, -122.677433);
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
+
+    //real time location update
+    locations.location.onLocationChanged().listen((event) {
+      mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+          target: LatLng(event.latitude, event.longitude), zoom: 15)));
+    });
   }
 
   // ignore: unnecessary_new
@@ -48,6 +54,9 @@ class _geopage extends State<geopage> {
 
   @override
   Widget build(BuildContext context) {
+    //  if (tmp != null) {
+    //   _center = tmp;
+    // }
     return MaterialApp(
         home: Scaffold(
       body: GoogleMap(
