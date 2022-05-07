@@ -15,21 +15,24 @@ class localauth {
     try {
       return await _auth.getAvailableBiometrics();
     } on PlatformException catch (e) {
+      print(e);
       return <BiometricType>[];
     }
   }
 
   static Future<bool> authenticate() async {
-    final isAvailable = await hasBiometrics();
-    if (!isAvailable) return false;
-
+    _auth.getAvailableBiometrics();
     try {
       return await _auth.authenticate(
-        localizedReason: 'Scan Fingerprint to Authenticate',
-        //useErrorDialogs: true,
-        //stickyAuth: true,
+        localizedReason: 'Scan your fingerprint to authenticate',
+        options: const AuthenticationOptions(
+          useErrorDialogs: true,
+          stickyAuth: false,
+          biometricOnly: false,
+        ),
       );
     } on PlatformException catch (e) {
+      print('nie ma');
       return false;
     }
   }
