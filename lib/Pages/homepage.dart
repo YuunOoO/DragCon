@@ -9,6 +9,7 @@ import '../NavBar.dart';
 import '../main.dart';
 import 'dart:collection';
 import '../global.dart';
+import 'package:sizer/sizer.dart';
 
 //
 List<DraggableList> allLists = [];
@@ -104,17 +105,19 @@ class _homepage extends State<homepage> {
     return Scaffold(
         drawer: NavBar(),
         body: Container(
-          decoration: BoxDecoration(
+          width: 100.w,
+          height: 100.h,
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/japback.jpg"),
               fit: BoxFit.cover,
             ),
           ),
           child: DragAndDropLists(
-            lastItemTargetHeight: 50,
+            lastItemTargetHeight: 20,
             //addLastItemTargetHeightToTop: true,
-            lastListTargetSize: 5,
-            listPadding: EdgeInsets.all(10),
+            lastListTargetSize: 1,
+            listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 0.h),
             listInnerDecoration: BoxDecoration(
               color: Color.fromARGB(211, 104, 58, 183),
               borderRadius: BorderRadius.circular(20),
@@ -132,28 +135,24 @@ class _homepage extends State<homepage> {
             onItemReorder: onReorderListItem,
             onListReorder: onReorderList,
             axis: Axis.horizontal,
-            listWidth: 350,
-            listDraggingWidth: 400,
+            listWidth: 50.h,
+            listDraggingWidth: 50.h,
           ),
         ));
   }
 
   DragAndDropList buildList(DraggableList list) => DragAndDropList(
         header: Container(
-            padding:
-                EdgeInsetsDirectional.only(start: 20.0, end: 20.0, top: 40.0),
             child: Center(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                  Text(
-                    list.header,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25,
-                        color: Color.fromARGB(255, 0, 0, 0)),
-                  ),
-                ]))),
+                child: Column(children: [
+          Text(
+            list.header,
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+                color: Color.fromARGB(255, 0, 0, 0)),
+          ),
+        ]))),
         children: list.items
             .map((item) => DragAndDropItem(
                   child: ListTile(
