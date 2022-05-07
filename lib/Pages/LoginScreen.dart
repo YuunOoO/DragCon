@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:path/path.dart';
 import 'package:http/http.dart' as http;
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../global.dart';
@@ -276,13 +277,11 @@ Widget buildText(String text, bool checked) => Container(
     );
 
 void autoLogin(BuildContext context) async {
+  // check if we have biometry and saved fingerprint
   final isAvailable = await localauth.hasBiometrics();
   final biometrics = await localauth.getBiometrics();
-  // check if we have biometry and saved fingerprint
-  final hasFingerprint = biometrics.contains(BiometricType.fingerprint);
-
-//if we dont have bio or fingerprint then show error
-  if (!isAvailable || !hasFingerprint) {
+  print(biometrics.toString());
+  if (!isAvailable) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -292,13 +291,14 @@ void autoLogin(BuildContext context) async {
           mainAxisSize: MainAxisSize.min,
           children: [
             buildText('Biometrics', isAvailable),
-            buildText('Fingerprint', hasFingerprint),
           ],
         ),
       ),
     );
     return;
   }
+
+//if we dont have bio or fingerprint then show error
   final isAuthenticated = await localauth.authenticate();
   if (isAuthenticated) {
     SharedPreferences prefs = await SharedPreferences.getInstance();
