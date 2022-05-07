@@ -30,7 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
     #klucze 
-  
+  sizer: ^2.0.15
 
   #Weebsite
   http: ^0.12.2

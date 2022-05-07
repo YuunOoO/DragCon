@@ -20,7 +20,7 @@ class _SplashState extends State<Splash> {
   }
 
   _navigatetohome() async {
-    await Future.delayed(Duration(milliseconds: 5000), () {});
+    await Future.delayed(Duration(milliseconds: 4000), () {});
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => LoginScreen()));
   }
@@ -29,9 +29,9 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-            padding:
-                EdgeInsetsDirectional.only(start: 10.0, end: 10.0, top: 85.0),
-            decoration: BoxDecoration(
+            padding: const EdgeInsetsDirectional.only(
+                start: 70.0, end: 70.0, top: 75.0),
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/loadingback.jpg"),
                 fit: BoxFit.cover,
@@ -49,7 +49,7 @@ class _SplashState extends State<Splash> {
                 FAProgressBar(
                   currentValue: 100,
                   size: 15,
-                  animatedDuration: const Duration(milliseconds: 4600),
+                  animatedDuration: const Duration(milliseconds: 3600),
                   backgroundColor: Color.fromARGB(59, 248, 101, 228),
                   progressColor: Color.fromARGB(255, 252, 188, 248),
                 )

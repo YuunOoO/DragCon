@@ -13,7 +13,7 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Color.fromARGB(202, 122, 41, 112),
+      backgroundColor: Color.fromARGB(169, 253, 1, 219),
       child: ListView(
         padding: EdgeInsets.zero,
         children: [

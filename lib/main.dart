@@ -6,6 +6,7 @@ import 'Pages/LoginScreen.dart';
 import 'mysql/tables.dart';
 import 'splash.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
+import 'package:sizer/sizer.dart';
 
 void main() async {
   String table = "tasks";
@@ -17,14 +18,18 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Drag and Config',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        fontFamily: 'jyunjun',
-      ),
-      home: Splash(),
+    return Sizer(
+      builder: (context, orientation, deviceType) {
+        return MaterialApp(
+          title: 'Drag and Config',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            fontFamily: 'jyunjun',
+          ),
+          home: Splash(),
+        );
+      },
     );
   }
 }
