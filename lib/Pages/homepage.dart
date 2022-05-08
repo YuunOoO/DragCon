@@ -106,7 +106,7 @@ class _homepage extends State<homepage> {
         drawer: NavBar(),
         body: Container(
           width: 100.w,
-          height: 100.h,
+          height: double.infinity,
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/japback.jpg"),
@@ -114,7 +114,7 @@ class _homepage extends State<homepage> {
             ),
           ),
           child: DragAndDropLists(
-            lastItemTargetHeight: 20,
+            lastItemTargetHeight: 35,
             //addLastItemTargetHeightToTop: true,
             lastListTargetSize: 1,
 
@@ -161,11 +161,14 @@ class _homepage extends State<homepage> {
                     Row(
                       children: [
                         Text(
-                          item.task.location,
-                          textAlign: TextAlign.left,
+                          "Lokalizacja: \n" + item.task.location,
+                          textAlign: TextAlign.center,
                         ),
                         Spacer(),
-                        Text(item.task.data_reg),
+                        Text(
+                          "Data zgłoszenia: \n" + item.task.data_reg,
+                          textAlign: TextAlign.center,
+                        ),
                       ],
                     ),
                     Text(
