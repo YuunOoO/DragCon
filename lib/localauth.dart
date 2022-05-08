@@ -1,5 +1,9 @@
+import 'package:dragcon/NavigationService.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
+import 'NavigationService.dart';
+import 'Pages/adminpage.dart';
 
 class localauth {
   static final _auth = LocalAuthentication();
@@ -32,6 +36,8 @@ class localauth {
         ),
       );
     } on PlatformException catch (e) {
+      NavigationService nav = new NavigationService();
+      nav.LogOut();
       return false;
     }
   }
