@@ -106,7 +106,7 @@ class _homepage extends State<homepage> {
         drawer: NavBar(),
         body: Container(
           width: 100.w,
-          height: 100.h,
+          height: double.infinity,
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/japback.jpg"),
@@ -114,10 +114,11 @@ class _homepage extends State<homepage> {
             ),
           ),
           child: DragAndDropLists(
-            lastItemTargetHeight: 20,
+            lastItemTargetHeight: 35,
             //addLastItemTargetHeightToTop: true,
             lastListTargetSize: 1,
-            listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 0.h),
+
+            listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
             listInnerDecoration: BoxDecoration(
               color: Color.fromARGB(211, 104, 58, 183),
               borderRadius: BorderRadius.circular(20),
@@ -160,13 +161,13 @@ class _homepage extends State<homepage> {
                     Row(
                       children: [
                         Text(
-                          item.task.location,
-                          textAlign: TextAlign.left,
+                          "Lokalizacja: \n" + item.task.location,
+                          textAlign: TextAlign.center,
                         ),
                         Spacer(),
                         Text(
-                          item.task.time_reg,
-                          textAlign: TextAlign.right,
+                          "Data zgłoszenia: \n" + item.task.data_reg,
+                          textAlign: TextAlign.center,
                         ),
                       ],
                     ),
