@@ -56,7 +56,7 @@ class _adminpage extends State<adminpage> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             image: DecorationImage(
-                              image: AssetImage("assets/images/adm1.jpg"),
+                              image: AssetImage("assets/images/adm2.jpg"),
                               fit: BoxFit.cover,
                               opacity: 0.5,
                             ),
@@ -139,7 +139,7 @@ class _adminpage extends State<adminpage> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             image: DecorationImage(
-                              image: AssetImage("assets/images/adm1.jpg"),
+                              image: AssetImage("assets/images/adm3.jpg"),
                               fit: BoxFit.cover,
                               opacity: 0.5,
                             ),
