@@ -116,6 +116,10 @@ class _TaskToTeam extends State<TaskToTeam> {
     LoadTeamTasks(dropdownValue);
     return Scaffold(
         drawer: NavBar(),
+        endDrawer: Drawer(
+          backgroundColor: Color.fromARGB(169, 253, 1, 219),
+          child: ListView(padding: EdgeInsets.zero, children: []),
+        ),
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light,
           child: GestureDetector(
