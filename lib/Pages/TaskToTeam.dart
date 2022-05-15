@@ -47,6 +47,7 @@ List<Ekipa> ekip_names = [];
 late List<DragAndDropList> lists;
 Ekipa dropdownValue = allTeams[0];
 //
+bool drag = false;
 
 //get all team names to choose
 void getTeamNames() {
@@ -64,6 +65,11 @@ class _TaskToTeam extends State<TaskToTeam> {
   }
 
   void LoadTeamTasks(Ekipa values) {
+    print(drag.toString());
+    if (drag == true) {
+      drag = false;
+      return;
+    }
     //clean everything
     allLists.clear();
     teamtasks.clear();
@@ -108,7 +114,6 @@ class _TaskToTeam extends State<TaskToTeam> {
     if (ekip_names.isEmpty || ekip_names == null)
       getTeamNames(); // get only once -> fix return page
     LoadTeamTasks(dropdownValue);
-    sleep(Duration(milliseconds: 50));
     return Scaffold(
         drawer: NavBar(),
         body: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -239,6 +244,7 @@ class _TaskToTeam extends State<TaskToTeam> {
     int newListIndex,
   ) {
     setState(() {
+      drag = true; //reorder fix :DD
       //podmiana(oldListIndex, oldItemIndex, newListIndex);
       final oldListItems = lists[oldListIndex].children;
       final newListItems = lists[newListIndex].children;
