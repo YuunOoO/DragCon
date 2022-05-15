@@ -54,17 +54,11 @@ class _adminpage extends State<adminpage> {
                           height: 15.h,
                           width: 90.w,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
                             image: DecorationImage(
                               image: AssetImage("assets/images/adm2.jpg"),
                               fit: BoxFit.cover,
-                              opacity: 0.5,
+                              opacity: 0.7,
                             ),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Color.fromARGB(185, 0, 0, 0),
-                                  spreadRadius: 3),
-                            ],
                           ),
                           child: ElevatedButton(
                               style: ButtonStyle(
@@ -90,23 +84,17 @@ class _adminpage extends State<adminpage> {
                               ))),
                       SizedBox(
                         width: 10,
-                        height: 10,
+                        height: 30,
                       ),
                       Container(
                           height: 40.h,
                           width: 90.w,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
                             image: DecorationImage(
                               image: AssetImage("assets/images/adm1.jpg"),
                               fit: BoxFit.cover,
-                              opacity: 0.5,
+                              opacity: 0.7,
                             ),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Color.fromARGB(185, 0, 0, 0),
-                                  spreadRadius: 3),
-                            ],
                           ),
                           child: ElevatedButton(
                               style: ButtonStyle(
@@ -131,23 +119,17 @@ class _adminpage extends State<adminpage> {
                               ))),
                       SizedBox(
                         width: 10,
-                        height: 10,
+                        height: 30,
                       ),
                       Container(
                           height: 20.h,
                           width: 90.w,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
                             image: DecorationImage(
                               image: AssetImage("assets/images/adm3.jpg"),
                               fit: BoxFit.cover,
-                              opacity: 0.5,
+                              opacity: 0.7,
                             ),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Color.fromARGB(185, 0, 0, 0),
-                                  spreadRadius: 3),
-                            ],
                           ),
                           child: ElevatedButton(
                               style: ButtonStyle(
