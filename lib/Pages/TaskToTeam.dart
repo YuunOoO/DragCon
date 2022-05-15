@@ -8,17 +8,77 @@ import 'package:flutter/material.dart';
 import '../NavBar.dart';
 import '../main.dart';
 import 'dart:collection';
+import 'package:sizer/sizer.dart';
+import 'homepage.dart';
 
 class TaskToTeam extends StatefulWidget {
   @override
   _TaskToTeam createState() => _TaskToTeam();
 }
 
-class _TaskToTeam extends State<TaskToTeam> {
-  String dropdownValue = 'One';
+List<DraggableListItem> _Backlog = [];
+List<DraggableListItem> _InProcess = [];
+List<DraggableListItem> _Completed = [];
 
+List<Ekipa> ekip_names = [];
+void getTeamNames() {
+  for (var team in allTeams) {
+    ekip_names.add(team);
+  }
+}
+
+class _TaskToTeam extends State<TaskToTeam> {
+  late List<DragAndDropList> lists;
+  @override
+  void initState() {
+    super.initState();
+    getTeamNames();
+  }
+
+  void LoadTeamTasks(Ekipa values) {
+    //clean everything
+    allLists.clear();
+    teamtasks.clear();
+    _Backlog.clear();
+    _InProcess.clear();
+    _Completed.clear();
+
+    //choose only your team tasks
+    for (var item in tasks) {
+      if (values.ekipa_id == item.ekipa_id) {
+        teamtasks.add(item);
+      }
+    }
+    //ordering tasks
+    for (var item in teamtasks) {
+      DraggableListItem tmp = new DraggableListItem(task: item, title: "task");
+
+      if (item.type == "Backlog")
+        _Backlog.add(tmp);
+      else if (item.type == "Inprocess")
+        _InProcess.add(tmp);
+      else if (item.type == "Completed") _Completed.add(tmp);
+    }
+
+    DraggableList Backlog =
+        new DraggableList(header: "Backlog", items: _Backlog);
+    DraggableList InProcess =
+        new DraggableList(header: "Inprocess", items: _InProcess);
+    DraggableList Completed =
+        new DraggableList(header: "Completed", items: _Completed);
+
+    allLists.add(Backlog);
+    allLists.add(InProcess);
+    allLists.add(Completed);
+    lists = allLists.map(buildList).toList();
+  }
+
+  Ekipa dropdownValue = allTeams[0];
   @override
   Widget build(BuildContext context) {
+    LoadTeamTasks(dropdownValue);
+    print(dropdownValue);
+    print(ekip_names);
     return Scaffold(
         body: AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,
@@ -26,9 +86,8 @@ class _TaskToTeam extends State<TaskToTeam> {
         child: Stack(
           children: <Widget>[
             Container(
-              padding: new EdgeInsets.all(10.0),
-              height: double.infinity,
-              width: double.infinity,
+              height: 100.h,
+              width: 100.w,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/loginback.jpg"),
@@ -38,27 +97,60 @@ class _TaskToTeam extends State<TaskToTeam> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  DropdownButton<String>(
+                  SizedBox(
+                    height: 30,
+                  ),
+                  DropdownButton<Ekipa>(
                     value: dropdownValue,
                     icon: const Icon(Icons.arrow_downward),
                     elevation: 30,
-                    style: const TextStyle(color: Colors.deepPurple),
+                    style: const TextStyle(color: Colors.black),
                     underline: Container(
                       height: 4,
-                      color: Colors.deepPurpleAccent,
+                      color: Colors.deepPurple,
                     ),
-                    onChanged: (String? newValue) {
+                    onChanged: (Ekipa? newValue) {
                       setState(() {
                         dropdownValue = newValue!;
                       });
                     },
-                    items: <String>['One', 'Two', 'Free', 'Four']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
+                    items:
+                        ekip_names.map<DropdownMenuItem<Ekipa>>((Ekipa value) {
+                      return DropdownMenuItem<Ekipa>(
                         value: value,
-                        child: Text(value),
+                        child: Text(value.name),
                       );
                     }).toList(),
+                  ),
+                  Container(
+                    height: 100.h,
+                    width: 100.w,
+                    child: DragAndDropLists(
+                      lastItemTargetHeight: 20,
+                      //addLastItemTargetHeightToTop: true,
+                      lastListTargetSize: 1,
+                      listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 0.h),
+                      listInnerDecoration: BoxDecoration(
+                        color: Color.fromARGB(211, 104, 58, 183),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+
+                      children: lists,
+                      itemDivider: Divider(thickness: 2, height: 2),
+                      itemDecorationWhileDragging: BoxDecoration(
+                        color: Color.fromARGB(255, 225, 159, 236),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Color.fromARGB(255, 189, 184, 184),
+                              blurRadius: 12)
+                        ],
+                      ),
+                      onItemReorder: onReorderListItem,
+                      onListReorder: onReorderList,
+                      axis: Axis.horizontal,
+                      listWidth: 50.h,
+                      listDraggingWidth: 50.h,
+                    ),
                   ),
                 ],
               ),
@@ -68,4 +160,68 @@ class _TaskToTeam extends State<TaskToTeam> {
       ),
     ));
   }
+
+  void onReorderListItem(
+    int oldItemIndex,
+    int oldListIndex,
+    int newItemIndex,
+    int newListIndex,
+  ) {
+    setState(() {
+      // podmiana(oldListIndex, oldItemIndex, newListIndex);
+      sleep(Duration(milliseconds: 40));
+      final oldListItems = lists[oldListIndex].children;
+      final newListItems = lists[newListIndex].children;
+      final movedItem = oldListItems.removeAt(oldItemIndex);
+      newListItems.insert(newItemIndex, movedItem);
+    });
+  }
+
+  void onReorderList(
+    int oldListIndex,
+    int newListIndex,
+  ) {
+    setState(() {
+      final movedList = lists.removeAt(oldListIndex);
+      lists.insert(newListIndex, movedList);
+    });
+  }
+
+  DragAndDropList buildList(DraggableList list) => DragAndDropList(
+        header: Container(
+            child: Center(
+                child: Column(children: [
+          Text(
+            list.header,
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+                color: Color.fromARGB(255, 0, 0, 0)),
+          ),
+        ]))),
+        children: list.items
+            .map((item) => DragAndDropItem(
+                  child: ListTile(
+                      title: Column(children: <Widget>[
+                    Row(
+                      children: [
+                        Text(
+                          item.task.location,
+                          textAlign: TextAlign.left,
+                        ),
+                        Spacer(),
+                        Text(
+                          item.task.time_reg,
+                          textAlign: TextAlign.right,
+                        ),
+                      ],
+                    ),
+                    Text(
+                      item.task.about,
+                      textAlign: TextAlign.center,
+                    ),
+                  ])),
+                ))
+            .toList(),
+      );
 }
