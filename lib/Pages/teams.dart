@@ -71,6 +71,10 @@ class _teams extends State<teams> {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: NavBar(),
+        endDrawer: Drawer(
+          backgroundColor: Color.fromARGB(169, 253, 1, 219),
+          child: ListView(padding: EdgeInsets.zero, children: []),
+        ),
         body: Container(
           width: 100.w,
           height: double.infinity,
