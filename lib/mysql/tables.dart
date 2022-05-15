@@ -32,6 +32,12 @@ class Ekipa {
       name: json['name'] as String,
     );
   }
+  bool operator ==(o) =>
+      o is Ekipa &&
+      o.name == name &&
+      o.ekipa_id == ekipa_id &&
+      o.users_count == users_count &&
+      o.car_id == car_id;
 }
 
 class Users {

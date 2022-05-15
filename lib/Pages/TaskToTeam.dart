@@ -22,6 +22,9 @@ List<DraggableListItem> _InProcess = [];
 List<DraggableListItem> _Completed = [];
 List<DraggableListItem> _tmp = []; // new tasks list
 List<Ekipa> ekip_names = [];
+late List<DragAndDropList> lists;
+Ekipa dropdownValue = allTeams[0];
+
 void getTeamNames() {
   for (var team in allTeams) {
     ekip_names.add(team);
@@ -29,12 +32,10 @@ void getTeamNames() {
 }
 
 class _TaskToTeam extends State<TaskToTeam> {
-  late List<DragAndDropList> lists;
   @override
   void initState() {
     super.initState();
-    //if (ekip_names.isEmpty)
-    getTeamNames();
+    LoadTeamTasks(dropdownValue);
   }
 
   void LoadTeamTasks(Ekipa values) {
@@ -77,10 +78,12 @@ class _TaskToTeam extends State<TaskToTeam> {
     lists = allLists.map(buildList).toList();
   }
 
-  Ekipa dropdownValue = allTeams[0];
   @override
   Widget build(BuildContext context) {
+    if (ekip_names.isEmpty || ekip_names == null)
+      getTeamNames(); // get only once -> fix return page
     LoadTeamTasks(dropdownValue);
+    sleep(Duration(milliseconds: 50));
     return Scaffold(
         drawer: NavBar(),
         body: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -102,27 +105,6 @@ class _TaskToTeam extends State<TaskToTeam> {
                     children: <Widget>[
                       SizedBox(
                         height: 30,
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            Expanded(
-                              child: Container(
-                                color: Colors.blue,
-                                child: Center(
-                                  child: Draggable<DragAndDropItem>(
-                                    feedback: Icon(Icons.photo),
-                                    child: Icon(Icons.photo),
-                                    data: DragAndDropItem(
-                                        child: Text('New default item')),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
                       ),
                       SizedBox(
                         height: 30,

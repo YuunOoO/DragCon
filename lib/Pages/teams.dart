@@ -90,7 +90,6 @@ class _teams extends State<teams> {
               color: Color.fromARGB(211, 104, 58, 183),
               borderRadius: BorderRadius.circular(20),
             ),
-
             children: lists,
             itemDivider: Divider(thickness: 2, height: 2),
             itemDecorationWhileDragging: BoxDecoration(
