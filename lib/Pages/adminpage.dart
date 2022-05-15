@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import '../NavBar.dart';
 import '../main.dart';
 import 'dart:collection';
+import 'package:sizer/sizer.dart';
 
 class adminpage extends StatefulWidget {
   @override
@@ -38,8 +39,8 @@ class _adminpage extends State<adminpage> {
               children: <Widget>[
                 Container(
                   padding: new EdgeInsets.all(10.0),
-                  height: double.infinity,
-                  width: double.infinity,
+                  height: 100.h,
+                  width: 100.w,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/images/loginback.jpg"),
@@ -47,92 +48,128 @@ class _adminpage extends State<adminpage> {
                     ),
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      SizedBox(
-                        height: 20,
-                      ),
-                      ConstrainedBox(
-                          constraints:
-                              BoxConstraints.tightFor(width: 320, height: 55),
+                      Container(
+                          height: 15.h,
+                          width: 90.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: DecorationImage(
+                              image: AssetImage("assets/images/adm1.jpg"),
+                              fit: BoxFit.cover,
+                              opacity: 0.5,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Color.fromARGB(185, 0, 0, 0),
+                                  spreadRadius: 3),
+                            ],
+                          ),
                           child: ElevatedButton(
                               style: ButtonStyle(
-                                  foregroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Color.fromARGB(255, 255, 255, 255)),
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Color.fromARGB(202, 119, 60, 106)),
-                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30.0),
-                                          side: BorderSide(
-                                              color:
-                                                  Color.fromARGB(125, 97, 0, 105))))),
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                  Color.fromARGB(255, 255, 255, 255),
+                                ),
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                  Color.fromARGB(0, 0, 0, 0),
+                                ),
+                              ),
                               onPressed: () {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
                                   return teams();
                                 }));
                               },
-                              child: Text('ADD/DEL teams and SET users to team', style: TextStyle(fontSize: 25)))),
+                              child: Text(
+                                'ADD/DEL teams and SET users to team',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 25),
+                              ))),
                       SizedBox(
-                        height: 40,
+                        width: 10,
+                        height: 10,
                       ),
-                      ConstrainedBox(
-                          constraints:
-                              BoxConstraints.tightFor(width: 320, height: 55),
+                      Container(
+                          height: 40.h,
+                          width: 90.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: DecorationImage(
+                              image: AssetImage("assets/images/adm1.jpg"),
+                              fit: BoxFit.cover,
+                              opacity: 0.5,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Color.fromARGB(185, 0, 0, 0),
+                                  spreadRadius: 3),
+                            ],
+                          ),
                           child: ElevatedButton(
                               style: ButtonStyle(
-                                  foregroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Color.fromARGB(255, 255, 255, 255)),
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Color.fromARGB(202, 119, 60, 106)),
-                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30.0),
-                                          side: BorderSide(
-                                              color:
-                                                  Color.fromARGB(125, 97, 0, 105))))),
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                  Color.fromARGB(255, 255, 255, 255),
+                                ),
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                  Color.fromARGB(0, 0, 0, 0),
+                                ),
+                              ),
                               onPressed: () {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
                                   return TaskToTeam();
                                 }));
                               },
-                              child: Text('Set task to teams', style: TextStyle(fontSize: 25)))),
+                              child: Text(
+                                'Set task to teams',
+                                style: TextStyle(fontSize: 25),
+                              ))),
                       SizedBox(
-                        height: 40,
+                        width: 10,
+                        height: 10,
                       ),
-                      ConstrainedBox(
-                          constraints:
-                              BoxConstraints.tightFor(width: 320, height: 55),
+                      Container(
+                          height: 20.h,
+                          width: 90.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: DecorationImage(
+                              image: AssetImage("assets/images/adm1.jpg"),
+                              fit: BoxFit.cover,
+                              opacity: 0.5,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Color.fromARGB(185, 0, 0, 0),
+                                  spreadRadius: 3),
+                            ],
+                          ),
                           child: ElevatedButton(
                               style: ButtonStyle(
-                                  foregroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Color.fromARGB(255, 255, 255, 255)),
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Color.fromARGB(202, 119, 60, 106)),
-                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30.0),
-                                          side: BorderSide(
-                                              color:
-                                                  Color.fromARGB(125, 97, 0, 105))))),
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                  Color.fromARGB(255, 255, 255, 255),
+                                ),
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                  Color.fromARGB(0, 0, 0, 0),
+                                ),
+                              ),
                               onPressed: () {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
                                   return ToolsToTeam();
                                 }));
                               },
-                              child: Text('Set equipment to team', style: TextStyle(fontSize: 25))))
+                              child: Text(
+                                'Set equipment to team',
+                                style: TextStyle(fontSize: 25),
+                              )))
                     ],
                   ),
                 )
