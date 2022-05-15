@@ -63,7 +63,6 @@ class _teams extends State<teams> {
     for (var team in allTeams) {
       allLists.add(new DraggableList(header: team.name, items: getItems(team)));
     }
-    allLists.add(new DraggableList(header: "unassigned workers", items: tmp2));
 
     lists = allLists.map(buildList).toList();
   }
@@ -74,7 +73,7 @@ class _teams extends State<teams> {
         drawer: NavBar(),
         body: Container(
           width: 100.w,
-          height: 100.h,
+          height: double.infinity,
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/japback.jpg"),
@@ -90,7 +89,6 @@ class _teams extends State<teams> {
               color: Color.fromARGB(211, 104, 58, 183),
               borderRadius: BorderRadius.circular(20),
             ),
-
             children: lists,
             itemDivider: Divider(thickness: 2, height: 2),
             itemDecorationWhileDragging: BoxDecoration(
