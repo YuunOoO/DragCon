@@ -8,6 +8,31 @@ import 'package:flutter/services.dart';
 
 List<Tasks> tasks = [];
 List<Tools> tools = [];
+List<Users> allUsers = [];
+List<Ekipa> allTeams = [];
+
+class Ekipa {
+  final int? ekipa_id;
+  final int users_count;
+  final int car_id;
+  final String name;
+
+  const Ekipa({
+    this.ekipa_id,
+    required this.users_count,
+    required this.car_id,
+    required this.name,
+  });
+
+  factory Ekipa.fromJson(Map<String, dynamic> json) {
+    return Ekipa(
+      ekipa_id: int.parse(json['ekipa_id']),
+      users_count: int.parse(json['users_count']),
+      car_id: int.parse(json['car_id']),
+      name: json['name'] as String,
+    );
+  }
+}
 
 class Users {
   final int? key_id;
@@ -85,13 +110,16 @@ class Tools {
   final int amount;
   final String mark;
   final String model;
+  final int ekipa_id;
 
-  const Tools(
-      {this.tool_id,
-      required this.type,
-      required this.amount,
-      required this.mark,
-      required this.model});
+  const Tools({
+    this.tool_id,
+    required this.type,
+    required this.amount,
+    required this.mark,
+    required this.model,
+    required this.ekipa_id,
+  });
 
   factory Tools.fromJson(Map<String, dynamic> json) {
     return Tools(
@@ -100,6 +128,7 @@ class Tools {
       amount: int.parse(json['amount']),
       mark: json['mark'] as String,
       model: json['model'] as String,
+      ekipa_id: int.parse(json['ekipa_id']),
     );
   }
 }
@@ -129,6 +158,18 @@ Future<dynamic> getData(String table) async {
     List<Tools> copy =
         await list.map<Tools>((json) => Tools.fromJson(json)).toList();
     tools = copy;
+    return copy;
+  }
+  if (table == 'users') {
+    List<Users> copy =
+        await list.map<Users>((json) => Users.fromJson(json)).toList();
+    allUsers = copy;
+    return copy;
+  }
+  if (table == 'ekipa') {
+    List<Ekipa> copy =
+        await list.map<Ekipa>((json) => Ekipa.fromJson(json)).toList();
+    allTeams = copy;
     return copy;
   }
 }

@@ -17,9 +17,20 @@ class settings extends StatefulWidget {
 class _settings extends State<settings> {
   @override
   Widget build(BuildContext context) {
+    double rating = 400;
     return Scaffold(
         drawer: NavBar(),
         body: Container(
+          child: Slider(
+            value: rating,
+            onChanged: (newRating) {
+              setState(() {
+                rating = newRating;
+              });
+            },
+            min: 200,
+            max: 600,
+          ),
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/japback.jpg"),
