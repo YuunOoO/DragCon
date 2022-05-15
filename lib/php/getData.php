@@ -4,7 +4,7 @@
     $table = $_POST['table'];
     // Get all records from the database
  
-    $sql = "SELECT * from $table ORDER BY task_id ";
+    $sql = "SELECT * from $table";
     $db_data = array();
  
     $result = $conn->query($sql);

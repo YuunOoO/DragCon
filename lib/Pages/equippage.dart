@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import '../NavBar.dart';
 import '../main.dart';
 import 'dart:collection';
+import '../global.dart';
 
 class equippage extends StatefulWidget {
   @override
@@ -15,12 +16,21 @@ class equippage extends StatefulWidget {
 }
 
 ///////////////////////// wstepne
+///
+List<Tools> _tools = [];
 
 int selectedIndex = 0; //will highlight first item
-List<String> youList = ['1', '2', '3', '4']; //dynamic
-int leng = youList.length;
+int leng = _tools.length;
 
 class _equippage extends State<equippage> {
+  @override
+  void initState() {
+    super.initState();
+    for (var tool in tools) {
+      if (user.ekipa_id == tool.ekipa_id) _tools.add(tool);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +62,7 @@ Widget list(BuildContext context) {
             color: selectedIndex == index ? Colors.green : Colors.red,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(),
-              child: Text(youList[index]),
+              child: Text(_tools[index].type),
               onPressed: () => {},
             ));
       },

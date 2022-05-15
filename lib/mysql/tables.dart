@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 
 List<Tasks> tasks = [];
 List<Tools> tools = [];
+List<Users> allUsers = [];
 
 class Users {
   final int? key_id;
@@ -85,13 +86,16 @@ class Tools {
   final int amount;
   final String mark;
   final String model;
+  final int ekipa_id;
 
-  const Tools(
-      {this.tool_id,
-      required this.type,
-      required this.amount,
-      required this.mark,
-      required this.model});
+  const Tools({
+    this.tool_id,
+    required this.type,
+    required this.amount,
+    required this.mark,
+    required this.model,
+    required this.ekipa_id,
+  });
 
   factory Tools.fromJson(Map<String, dynamic> json) {
     return Tools(
@@ -100,6 +104,7 @@ class Tools {
       amount: int.parse(json['amount']),
       mark: json['mark'] as String,
       model: json['model'] as String,
+      ekipa_id: int.parse(json['ekipa_id']),
     );
   }
 }
@@ -129,6 +134,12 @@ Future<dynamic> getData(String table) async {
     List<Tools> copy =
         await list.map<Tools>((json) => Tools.fromJson(json)).toList();
     tools = copy;
+    return copy;
+  }
+  if (table == 'users') {
+    List<Users> copy =
+        await list.map<Users>((json) => Users.fromJson(json)).toList();
+    allUsers = copy;
     return copy;
   }
 }
