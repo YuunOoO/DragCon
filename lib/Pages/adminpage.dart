@@ -22,6 +22,8 @@ class _adminpage extends State<adminpage> {
     super.initState();
     String table = "users";
     getData(table);
+    table = "ekipa";
+    getData(table);
   }
 
   @override
