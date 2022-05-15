@@ -3,10 +3,10 @@
 //sciezki do naszych plikow z php na serwerze
 import 'mysql/tables.dart';
 
-const String URL_reg = 'http://192.168.2.4/flutter/reg.php';
-const String URL_log = 'http://192.168.2.4/flutter/login.php';
-const String URL_getData = 'http://192.168.2.4/flutter/get_data.php';
-const String URL_update = 'http://192.168.2.4/flutter/update.php';
+const String URL_reg = 'http://192.168.1.106/flutter/reg.php';
+const String URL_log = 'http://192.168.1.106/flutter/login.php';
+const String URL_getData = 'http://192.168.1.106/flutter/get_data.php';
+const String URL_update = 'http://192.168.1.106/flutter/update.php';
 
 //zmienne globalne
 //Users user = new Users(admin: 2, id: '', password: '', email: '');
