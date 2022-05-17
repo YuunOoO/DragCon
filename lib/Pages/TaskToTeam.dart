@@ -123,6 +123,7 @@ class _TaskToTeam extends State<TaskToTeam> {
             child: Stack(
               children: <Widget>[
                 Container(
+                  padding: EdgeInsets.symmetric(vertical: 4.h),
                   width: 100.w,
                   height: double.infinity,
                   decoration: BoxDecoration(
@@ -134,35 +135,39 @@ class _TaskToTeam extends State<TaskToTeam> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      SizedBox(
-                        height: 10,
-                      ),
-                      DropdownButton<Ekipa>(
-                        value: dropdownValue,
-                        icon: const Icon(Icons.arrow_downward),
-                        elevation: 30,
-                        style: const TextStyle(color: Colors.black),
-                        underline: Container(
-                          height: 4,
-                          color: Colors.deepPurple,
+                      Container(
+                        width: 270,
+                        child: DropdownButtonFormField<Ekipa>(
+                          icon: const Icon(Icons.arrow_downward),
+                          dropdownColor: Color.fromARGB(146, 146, 88, 247),
+                          value: dropdownValue,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(
+                                  const Radius.circular(30.0),
+                                ),
+                              ),
+                              filled: true,
+                              fillColor: Color.fromARGB(146, 146, 88, 247)),
+                          onChanged: (Ekipa? newValue) {
+                            setState(() {
+                              dropdownValue = newValue!;
+                            });
+                          },
+                          items: ekip_names
+                              .map<DropdownMenuItem<Ekipa>>((Ekipa value) {
+                            return DropdownMenuItem<Ekipa>(
+                              value: value,
+                              child: Text(value.name),
+                            );
+                          }).toList(),
                         ),
-                        onChanged: (Ekipa? newValue) {
-                          setState(() {
-                            dropdownValue = newValue!;
-                          });
-                        },
-                        items: ekip_names
-                            .map<DropdownMenuItem<Ekipa>>((Ekipa value) {
-                          return DropdownMenuItem<Ekipa>(
-                            value: value,
-                            child: Text(value.name),
-                          );
-                        }).toList(),
                       ),
                     ],
                   ),
                 ),
                 Container(
+                  padding: EdgeInsets.symmetric(vertical: 5.h),
                   margin: const EdgeInsets.only(top: 40.0),
                   height: 100.h,
                   width: 100.w,
