@@ -204,7 +204,7 @@ Future Registration() async {
   };
   print(mapdate.toString()); //info w logach flutera
   //http.Response response = await http.post(URL, body: mapdate);
-  final response = await http.post(URL_reg,
+  final response = await http.post(Uri.parse(URL_reg),
       body: mapdate, encoding: Encoding.getByName("utf-8"));
   if (response.statusCode == 200) {
     print(response.body);
@@ -219,7 +219,7 @@ Future Login(BuildContext context) async {
     'name': name.text,
     'password': passw.text,
   };
-  final response = await http.post(URL_log,
+  final response = await http.post(Uri.parse(URL_log),
       body: mapdate, encoding: Encoding.getByName("utf-8"));
   if (response.statusCode == 200) {
     print(response.body);
@@ -310,7 +310,7 @@ void autoLogin(BuildContext context) async {
       'password': prefs.getString('password'),
     };
     sleep(Duration(milliseconds: 200));
-    final response = await http.post(URL_log,
+    final response = await http.post(Uri.parse(URL_log),
         body: mapdate, encoding: Encoding.getByName("utf-8"));
 
     var gate = json.decode(response.body);

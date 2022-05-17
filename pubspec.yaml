@@ -33,7 +33,7 @@ dependencies:
   sizer: ^2.0.15
 
   #Weebsite
-  http: ^0.12.2
+  http: ^0.13.1
   #Database storage 
   sqflite: ^2.0.0+3
 

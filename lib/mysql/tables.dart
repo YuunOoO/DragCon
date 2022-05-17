@@ -14,13 +14,12 @@ List<Ekipa> allTeams = [];
 class Ekipa {
   final int? ekipa_id;
   final int users_count;
-  final int car_id;
+
   final String name;
 
   const Ekipa({
     this.ekipa_id,
     required this.users_count,
-    required this.car_id,
     required this.name,
   });
 
@@ -28,7 +27,6 @@ class Ekipa {
     return Ekipa(
       ekipa_id: int.parse(json['ekipa_id']),
       users_count: int.parse(json['users_count']),
-      car_id: int.parse(json['car_id']),
       name: json['name'] as String,
     );
   }
@@ -36,8 +34,7 @@ class Ekipa {
       o is Ekipa &&
       o.name == name &&
       o.ekipa_id == ekipa_id &&
-      o.users_count == users_count &&
-      o.car_id == car_id;
+      o.users_count == users_count;
 }
 
 class Users {
@@ -145,7 +142,7 @@ Future<dynamic> getData(String table) async {
     // transferred data map
     'table': table,
   };
-  final response = await http.post(URL_getData,
+  final response = await http.post(Uri.parse(URL_getData),
       body: mapdate, encoding: Encoding.getByName("utf-8"));
   if (response.statusCode == 200) {
     print(response.body);
@@ -181,7 +178,7 @@ Future<dynamic> getData(String table) async {
 }
 
 Future<dynamic> Update(String table, Map map) async {
-  final response = await http.post(URL_update,
+  final response = await http.post(Uri.parse(URL_update),
       body: map, encoding: Encoding.getByName("utf-8"));
   if (response.statusCode == 200) {
     print(response.body);
