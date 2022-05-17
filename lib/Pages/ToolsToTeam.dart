@@ -1,14 +1,16 @@
 import 'dart:io';
-
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:dragcon/mysql/tables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import '../NavBar.dart';
+import '../NavBarTools.dart';
 import '../main.dart';
 import 'dart:collection';
 import 'package:sizer/sizer.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class ToolsToTeam extends StatefulWidget {
   @override
@@ -83,10 +85,7 @@ class _ToolsToTeam extends State<ToolsToTeam> {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: NavBar(),
-        endDrawer: Drawer(
-          backgroundColor: Color.fromARGB(169, 253, 1, 219),
-          child: ListView(padding: EdgeInsets.zero, children: []),
-        ),
+        endDrawer: WriteSQLdata(),
         body: Container(
           width: 100.w,
           height: 100.h,
