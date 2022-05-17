@@ -1,11 +1,11 @@
 import 'dart:io';
-
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:dragcon/mysql/tables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import '../NavBar.dart';
+import '../NavBarUserTeams.dart';
 import '../main.dart';
 import 'dart:collection';
 import 'package:sizer/sizer.dart';
@@ -71,10 +71,7 @@ class _teams extends State<teams> {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: NavBar(),
-        endDrawer: Drawer(
-          backgroundColor: Color.fromARGB(169, 253, 1, 219),
-          child: ListView(padding: EdgeInsets.zero, children: []),
-        ),
+        endDrawer: WriteSQLdataUser(),
         body: Container(
           width: 100.w,
           height: double.infinity,
