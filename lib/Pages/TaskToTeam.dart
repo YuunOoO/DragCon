@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import '../NavBar.dart';
+import '../NavBarTasks.dart';
 import '../main.dart';
 import 'dart:collection';
 import 'package:sizer/sizer.dart';
@@ -116,10 +117,7 @@ class _TaskToTeam extends State<TaskToTeam> {
     LoadTeamTasks(dropdownValue);
     return Scaffold(
         drawer: NavBar(),
-        endDrawer: Drawer(
-          backgroundColor: Color.fromARGB(169, 253, 1, 219),
-          child: ListView(padding: EdgeInsets.zero, children: []),
-        ),
+        endDrawer: WriteSQLdataTasks(),
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light,
           child: GestureDetector(
