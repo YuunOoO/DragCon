@@ -14,7 +14,7 @@
        $type = $_POST["type"]; //grabing the data from headers
        $amount = $_POST["amount"];
        $mark = $_POST["mark"];
-       //validation name if there is no error before
+
        if($return["error"] == false && strlen($type) < 3){
            $return["error"] = true;
            $return["message"] = "Enter name up to 3 characters.";
