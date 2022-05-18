@@ -27,7 +27,7 @@
             $mark = mysqli_real_escape_string($link, $mark);
             //escape inverted comma query conflict from string
             $sql = "INSERT INTO tools VALUES (DEFAULT,'$type','$amount','$mark',NULL)";
-            //student_id is with AUTO_INCREMENT, so its value will increase automatically
+
             $res = mysqli_query($link, $sql);
             if($res){
                 //write success
