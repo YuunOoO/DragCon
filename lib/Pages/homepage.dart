@@ -10,6 +10,7 @@ import '../main.dart';
 import 'dart:collection';
 import '../global.dart';
 import 'package:sizer/sizer.dart';
+import 'package:expandable/expandable.dart';
 
 //
 List<DraggableList> allLists = [];
@@ -120,8 +121,11 @@ class _homepage extends State<homepage> {
 
             listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
             listInnerDecoration: BoxDecoration(
-              color: Color.fromARGB(211, 104, 58, 183),
-              borderRadius: BorderRadius.circular(20),
+              color: Color.fromARGB(255, 104, 58, 183),
+              border: Border.all(
+                color: Color.fromARGB(255, 12, 12, 12),
+                width: 5,
+              ),
             ),
 
             children: lists,
@@ -157,25 +161,30 @@ class _homepage extends State<homepage> {
         children: list.items
             .map((item) => DragAndDropItem(
                   child: ListTile(
-                      title: Column(children: <Widget>[
-                    Row(
-                      children: [
-                        Text(
-                          "Lokalizacja: \n" + item.task.location,
+                    title: Column(children: <Widget>[
+                      Row(
+                        children: [
+                          Text(
+                            "Lokalizacja: \n" + item.task.location,
+                            textAlign: TextAlign.center,
+                          ),
+                          Spacer(),
+                          Text(
+                            "Data zgłoszenia: \n" + item.task.data_reg,
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                      ExpandablePanel(
+                        header: Text(
+                          'Krótki opis: ' + item.task.about,
                           textAlign: TextAlign.center,
                         ),
-                        Spacer(),
-                        Text(
-                          "Data zgłoszenia: \n" + item.task.data_reg,
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                    Text(
-                      item.task.about,
-                      textAlign: TextAlign.center,
-                    ),
-                  ])),
+                        expanded: Text('MIEJSCE NA ZMIENNĄ DO DŁUGIEGO OPISU'),
+                        collapsed: Text(''),
+                      ),
+                    ]),
+                  ),
                   canDrag: DragFlag(),
                 ))
             .toList(),
