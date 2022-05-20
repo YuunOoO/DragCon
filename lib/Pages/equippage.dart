@@ -88,10 +88,8 @@ Widget list(BuildContext context) {
                     expanded: Text(
                       "Marka narzędzia: " +
                           _tools[index].mark +
-                          "\n Ilość: " +
+                          " \nIlość: " +
                           _tools[index].amount.toString(),
-                      softWrap: true,
-                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
