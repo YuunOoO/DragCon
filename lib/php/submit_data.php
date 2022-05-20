@@ -14,7 +14,7 @@
        $type = $_POST["type"]; //grabing the data from headers
        $amount = $_POST["amount"];
        $mark = $_POST["mark"];
-       //validation name if there is no error before
+
        if($return["error"] == false && strlen($type) < 3){
            $return["error"] = true;
            $return["message"] = "Enter name up to 3 characters.";
@@ -27,7 +27,7 @@
             $mark = mysqli_real_escape_string($link, $mark);
             //escape inverted comma query conflict from string
             $sql = "INSERT INTO tools VALUES (DEFAULT,'$type','$amount','$mark',NULL)";
-            //student_id is with AUTO_INCREMENT, so its value will increase automatically
+
             $res = mysqli_query($link, $sql);
             if($res){
                 //write success
