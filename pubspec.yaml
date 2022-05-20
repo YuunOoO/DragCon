@@ -58,6 +58,7 @@ dependencies:
   permission_handler: ^9.2.0
   location: ^2.5.4
   local_auth: ^2.0.1
+  expandable: ^5.0.1
 
   
 dev_dependencies:

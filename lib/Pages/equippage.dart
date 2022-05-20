@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:sizer/sizer.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:dragcon/mysql/tables.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +9,7 @@ import '../NavBar.dart';
 import '../main.dart';
 import 'dart:collection';
 import '../global.dart';
+import 'package:expandable/expandable.dart';
 
 class equippage extends StatefulWidget {
   @override
@@ -34,17 +35,20 @@ class _equippage extends State<equippage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavBar(),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/japback.jpg"),
-            fit: BoxFit.cover,
+        drawer: NavBar(),
+        body: SingleChildScrollView(
+          child: Container(
+            height: 100.h,
+            width: 100.w,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/japback.jpg"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: list(context),
           ),
-        ),
-        child: list(context),
-      ),
-    );
+        ));
   }
 }
 
@@ -56,14 +60,28 @@ Widget list(BuildContext context) {
       itemCount: leng,
       itemBuilder: (context, index) {
         return Container(
+            padding: EdgeInsets.all(10),
             margin: EdgeInsets.all(10),
-            width: double.infinity,
-            height: 50,
-            color: selectedIndex == index ? Colors.green : Colors.red,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(),
-              child: Text(_tools[index].type),
-              onPressed: () => {},
+            color: Color.fromARGB(255, 183, 131, 252),
+            child: ExpandablePanel(
+              theme: ExpandableThemeData(
+                  hasIcon: false,
+                  animationDuration: const Duration(milliseconds: 500)),
+              header: Text(
+                _tools[index].type,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+              expanded: Text(
+                "Marka narzędzia: " +
+                    _tools[index].mark +
+                    "\n Ilość: " +
+                    _tools[index].amount.toString(),
+                softWrap: true,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+              collapsed: Text(''),
             ));
       },
     ),
