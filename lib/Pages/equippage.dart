@@ -60,9 +60,18 @@ Widget list(BuildContext context) {
       return ExpandableNotifier(
           child: ScrollOnExpand(
               child: Container(
-                  color: Color.fromARGB(123, 123, 123, 1),
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(186, 114, 45, 192),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                    border: Border.all(
+                      color: Color.fromARGB(255, 12, 12, 12),
+                      width: 5,
+                    ),
+                  ),
                   margin: EdgeInsets.all(10),
-                  padding: EdgeInsets.all(15),
+                  padding: EdgeInsets.all(5),
                   child: ExpandablePanel(
                     theme: ExpandableThemeData(
                         hasIcon: false,
@@ -70,8 +79,11 @@ Widget list(BuildContext context) {
                     header: Text(
                       _tools[index].type,
                       textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 255, 255, 255),
+                      ),
                     ),
                     expanded: Text(
                       "Marka narzędzia: " +
@@ -80,8 +92,11 @@ Widget list(BuildContext context) {
                           _tools[index].amount.toString(),
                       softWrap: true,
                       textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 255, 255, 255),
+                      ),
                     ),
                     collapsed: Text(''),
                   ))));
