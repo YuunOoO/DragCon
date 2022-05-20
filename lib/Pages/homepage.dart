@@ -115,7 +115,7 @@ class _homepage extends State<homepage> {
             ),
           ),
           child: DragAndDropLists(
-            lastItemTargetHeight: 35,
+            lastItemTargetHeight: 15,
             //addLastItemTargetHeightToTop: true,
             lastListTargetSize: 1,
 
@@ -140,7 +140,7 @@ class _homepage extends State<homepage> {
             onItemReorder: onReorderListItem,
             onListReorder: onReorderList,
             axis: Axis.horizontal,
-            listWidth: 50.h,
+            listWidth: 59.h,
             listDraggingWidth: 50.h,
           ),
         ));
@@ -176,12 +176,23 @@ class _homepage extends State<homepage> {
                         ],
                       ),
                       ExpandablePanel(
+                        theme: ExpandableThemeData(
+                            hasIcon: false,
+                            animationDuration:
+                                const Duration(milliseconds: 500)),
                         header: Text(
                           'Krótki opis: ' + item.task.about,
                           textAlign: TextAlign.center,
                         ),
-                        expanded: Text('MIEJSCE NA ZMIENNĄ DO DŁUGIEGO OPISU'),
-                        collapsed: Text(''),
+                        expanded: Text(
+                          'Opis szczegółowy: ' +
+                              'MIEJSCE NA ZMIENNĄ DO DŁUGIEGO OPISU',
+                          textAlign: TextAlign.center,
+                        ),
+                        collapsed: Text(
+                          'Opis szczegółowy: ',
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ]),
                   ),
