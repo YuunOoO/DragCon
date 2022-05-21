@@ -104,46 +104,49 @@ class _homepage extends State<homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: NavBar(),
-        body: Container(
-          width: 100.w,
-          height: double.infinity,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/japback.jpg"),
-              fit: BoxFit.cover,
+      drawer: NavBar(),
+      body: Container(
+        width: 100.w,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/japback.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: DragAndDropLists(
+          lastItemTargetHeight: 15,
+          //addLastItemTargetHeightToTop: true,
+          lastListTargetSize: 1,
+
+          listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
+          listInnerDecoration: BoxDecoration(
+            color: Color.fromARGB(255, 104, 58, 183),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: Color.fromARGB(255, 12, 12, 12),
+              width: 5,
             ),
           ),
-          child: DragAndDropLists(
-            lastItemTargetHeight: 15,
-            //addLastItemTargetHeightToTop: true,
-            lastListTargetSize: 1,
-
-            listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
-            listInnerDecoration: BoxDecoration(
-              color: Color.fromARGB(255, 104, 58, 183),
-              border: Border.all(
-                color: Color.fromARGB(255, 12, 12, 12),
-                width: 5,
-              ),
-            ),
-
-            children: lists,
-            itemDivider: Divider(thickness: 2, height: 2),
-            itemDecorationWhileDragging: BoxDecoration(
-              color: Color.fromARGB(255, 225, 159, 236),
-              boxShadow: [
-                BoxShadow(
-                    color: Color.fromARGB(255, 189, 184, 184), blurRadius: 12)
-              ],
-            ),
-            onItemReorder: onReorderListItem,
-            onListReorder: onReorderList,
-            axis: Axis.horizontal,
-            listWidth: 59.h,
-            listDraggingWidth: 50.h,
+          children: lists,
+          itemDivider: Divider(thickness: 2, height: 2),
+          itemDecorationWhileDragging: BoxDecoration(
+            color: Color.fromARGB(255, 225, 159, 236),
+            boxShadow: [
+              BoxShadow(
+                color: Color.fromARGB(255, 189, 184, 184),
+                blurRadius: 12,
+              )
+            ],
           ),
-        ));
+          onItemReorder: onReorderListItem,
+          onListReorder: onReorderList,
+          axis: Axis.horizontal,
+          listWidth: 59.h,
+          listDraggingWidth: 50.h,
+        ),
+      ),
+    );
   }
 
   DragAndDropList buildList(DraggableList list) => DragAndDropList(
@@ -159,45 +162,52 @@ class _homepage extends State<homepage> {
           ),
         ]))),
         children: list.items
-            .map((item) => DragAndDropItem(
-                  child: ListTile(
-                    title: Column(children: <Widget>[
-                      Row(
-                        children: [
-                          Text(
-                            "Lokalizacja: \n" + item.task.location,
+            .map(
+              (item) => DragAndDropItem(
+                child: ListTile(
+                  title: Column(children: <Widget>[
+                    Row(
+                      children: [
+                        Text(
+                          "Lokalizacja: \n" + item.task.location,
+                          textAlign: TextAlign.center,
+                        ),
+                        Spacer(),
+                        Text(
+                          "Data zgłoszenia: \n" + item.task.data_reg,
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                    ElevatedButton(
+                      onPressed: null,
+                      child: Container(
+                        child: ExpandablePanel(
+                          theme: ExpandableThemeData(
+                              hasIcon: false,
+                              animationDuration:
+                                  const Duration(milliseconds: 500)),
+                          header: Text(
+                            'Krótki opis: ' + item.task.about,
                             textAlign: TextAlign.center,
                           ),
-                          Spacer(),
-                          Text(
-                            "Data zgłoszenia: \n" + item.task.data_reg,
+                          expanded: Text(
+                            'Opis szczegółowy: ' +
+                                'MIEJSCE NA ZMIENNĄ DO DŁUGIEGO OPISU',
                             textAlign: TextAlign.center,
                           ),
-                        ],
-                      ),
-                      ExpandablePanel(
-                        theme: ExpandableThemeData(
-                            hasIcon: false,
-                            animationDuration:
-                                const Duration(milliseconds: 500)),
-                        header: Text(
-                          'Krótki opis: ' + item.task.about,
-                          textAlign: TextAlign.center,
-                        ),
-                        expanded: Text(
-                          'Opis szczegółowy: ' +
-                              'MIEJSCE NA ZMIENNĄ DO DŁUGIEGO OPISU',
-                          textAlign: TextAlign.center,
-                        ),
-                        collapsed: Text(
-                          'Opis szczegółowy: ',
-                          textAlign: TextAlign.center,
+                          collapsed: Text(
+                            'Opis szczegółowy: ',
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
-                    ]),
-                  ),
-                  canDrag: DragFlag(),
-                ))
+                    ),
+                  ]),
+                ),
+                canDrag: DragFlag(),
+              ),
+            )
             .toList(),
       );
 

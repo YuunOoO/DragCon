@@ -9,7 +9,8 @@ import '../NavBarTasks.dart';
 import '../main.dart';
 import 'dart:collection';
 import 'package:sizer/sizer.dart';
-import 'package:sizer/sizer.dart';
+
+import 'package:expandable/expandable.dart';
 
 class TaskToTeam extends StatefulWidget {
   @override
@@ -144,7 +145,7 @@ class _TaskToTeam extends State<TaskToTeam> {
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: const BorderRadius.all(
-                                  const Radius.circular(30.0),
+                                  const Radius.circular(20.0),
                                 ),
                               ),
                               filled: true,
@@ -172,14 +173,18 @@ class _TaskToTeam extends State<TaskToTeam> {
                   height: 100.h,
                   width: 100.w,
                   child: DragAndDropLists(
-                    lastItemTargetHeight: 35,
+                    lastItemTargetHeight: 15,
                     //addLastItemTargetHeightToTop: true,
                     lastListTargetSize: 1,
 
                     listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
                     listInnerDecoration: BoxDecoration(
                       color: Color.fromARGB(211, 104, 58, 183),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: Color.fromARGB(255, 12, 12, 12),
+                        width: 5,
+                      ),
                     ),
 
                     children: lists,
@@ -195,7 +200,7 @@ class _TaskToTeam extends State<TaskToTeam> {
                     onItemReorder: onReorderListItem,
                     onListReorder: onReorderList,
                     axis: Axis.horizontal,
-                    listWidth: 50.h,
+                    listWidth: 59.h,
                     listDraggingWidth: 50.h,
                   ),
                 ),
@@ -207,39 +212,68 @@ class _TaskToTeam extends State<TaskToTeam> {
 
   DragAndDropList buildList(DraggableList list) => DragAndDropList(
         header: Container(
-            child: Center(
-                child: Column(children: [
-          Text(
-            list.header,
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
-                color: Color.fromARGB(255, 0, 0, 0)),
+          child: Center(
+            child: Column(
+              children: [
+                Text(
+                  list.header,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                    color: Color.fromARGB(255, 0, 0, 0),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ]))),
+        ),
         children: list.items
-            .map((item) => DragAndDropItem(
-                  child: ListTile(
-                      title: Column(children: <Widget>[
-                    Row(
-                      children: [
-                        Text(
-                          item.task.location,
-                          textAlign: TextAlign.left,
-                        ),
-                        Spacer(),
-                        Text(
-                          item.task.time_reg,
-                          textAlign: TextAlign.right,
-                        ),
-                      ],
-                    ),
-                    Text(
-                      item.task.about,
-                      textAlign: TextAlign.center,
-                    ),
-                  ])),
-                ))
+            .map(
+              (item) => DragAndDropItem(
+                child: ListTile(
+                  title: Column(
+                    children: <Widget>[
+                      Row(
+                        children: [
+                          Text(
+                            "Lokalizacja: \n" + item.task.location,
+                            textAlign: TextAlign.center,
+                          ),
+                          Spacer(),
+                          Text(
+                            "Data zgłoszenia: \n" + item.task.data_reg,
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                      ElevatedButton(
+                          onPressed: null,
+                          child: Container(
+                            child: ExpandablePanel(
+                              theme: ExpandableThemeData(
+                                  hasIcon: false,
+                                  animationDuration:
+                                      const Duration(milliseconds: 500)),
+                              header: Text(
+                                'Krótki opis: ' + item.task.about,
+                                textAlign: TextAlign.center,
+                              ),
+                              expanded: Text(
+                                'Opis szczegółowy: ' +
+                                    'MIEJSCE NA ZMIENNĄ DO DŁUGIEGO OPISU',
+                                textAlign: TextAlign.center,
+                              ),
+                              collapsed: Text(
+                                'Opis szczegółowy: ',
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          )),
+                    ],
+                  ),
+                ),
+              ),
+            )
             .toList(),
       );
 

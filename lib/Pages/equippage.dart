@@ -61,7 +61,13 @@ Widget list(BuildContext context) {
           child: ScrollOnExpand(
               child: Container(
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(186, 114, 45, 192),
+                    gradient: LinearGradient(
+                      colors: <Color>[
+                        Color.fromARGB(221, 85, 6, 81),
+                        Color.fromARGB(225, 204, 25, 210),
+                        Color.fromARGB(221, 85, 6, 81),
+                      ],
+                    ),
                     borderRadius: BorderRadius.all(
                       Radius.circular(10),
                     ),
