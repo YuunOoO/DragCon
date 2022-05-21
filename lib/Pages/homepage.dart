@@ -146,6 +146,13 @@ class _homepage extends State<homepage> {
           listDraggingWidth: 50.h,
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add your onPressed code here!
+        },
+        backgroundColor: Color.fromARGB(255, 155, 17, 132),
+        child: const Icon(Icons.search_outlined),
+      ),
     );
   }
 

@@ -116,119 +116,106 @@ class _TaskToTeam extends State<TaskToTeam> {
       getTeamNames(); // get only once -> fix return page
     LoadTeamTasks(dropdownValue);
     return Scaffold(
-        drawer: NavBar(),
-        endDrawer: WriteSQLdataTasks(),
-        body: AnnotatedRegion<SystemUiOverlayStyle>(
-          value: SystemUiOverlayStyle.light,
-          child: GestureDetector(
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 4.h),
-                  width: 100.w,
-                  height: double.infinity,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/images/loginback.jpg"),
-                      fit: BoxFit.cover,
+      drawer: NavBar(),
+      endDrawer: WriteSQLdataTasks(),
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light,
+        child: GestureDetector(
+          child: Stack(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 4.h),
+                width: 100.w,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/loginback.jpg"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      width: 270,
+                      child: DropdownButtonFormField<Ekipa>(
+                        icon: const Icon(Icons.arrow_downward),
+                        dropdownColor: Color.fromARGB(146, 146, 88, 247),
+                        value: dropdownValue,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                const Radius.circular(20.0),
+                              ),
+                            ),
+                            filled: true,
+                            fillColor: Color.fromARGB(146, 146, 88, 247)),
+                        onChanged: (Ekipa? newValue) {
+                          setState(() {
+                            dropdownValue = newValue!;
+                          });
+                        },
+                        items: ekip_names
+                            .map<DropdownMenuItem<Ekipa>>((Ekipa value) {
+                          return DropdownMenuItem<Ekipa>(
+                            value: value,
+                            child: Text(value.name),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 5.h),
+                margin: const EdgeInsets.only(top: 40.0),
+                height: 100.h,
+                width: 100.w,
+                child: DragAndDropLists(
+                  lastItemTargetHeight: 15,
+                  //addLastItemTargetHeightToTop: true,
+                  lastListTargetSize: 1,
+
+                  listPadding: EdgeInsets.fromLTRB(2.w, 4.h, 0.w, 2.h),
+                  listInnerDecoration: BoxDecoration(
+                    color: Color.fromARGB(211, 104, 58, 183),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: Color.fromARGB(255, 12, 12, 12),
+                      width: 5,
                     ),
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        width: 270,
-                        child: DropdownButtonFormField<Ekipa>(
-                          icon: const Icon(Icons.arrow_downward),
-                          dropdownColor: Color.fromARGB(146, 146, 88, 247),
-                          value: dropdownValue,
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: const BorderRadius.all(
-                                  const Radius.circular(20.0),
-                                ),
-                              ),
-                              filled: true,
-                              fillColor: Color.fromARGB(146, 146, 88, 247)),
-                          onChanged: (Ekipa? newValue) {
-                            setState(() {
-                              dropdownValue = newValue!;
-                            });
-                          },
-                          items: ekip_names
-                              .map<DropdownMenuItem<Ekipa>>((Ekipa value) {
-                            return DropdownMenuItem<Ekipa>(
-                              value: value,
-                              child: Text(value.name),
-                            );
-                          }).toList(),
-                        ),
-                      ),
+
+                  children: lists,
+                  itemDivider: Divider(thickness: 2, height: 2),
+                  itemDecorationWhileDragging: BoxDecoration(
+                    color: Color.fromARGB(255, 225, 159, 236),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Color.fromARGB(255, 189, 184, 184),
+                          blurRadius: 12)
                     ],
                   ),
+                  onItemReorder: onReorderListItem,
+                  onListReorder: onReorderList,
+                  axis: Axis.horizontal,
+                  listWidth: 59.h,
+                  listDraggingWidth: 50.h,
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 5.h),
-                  margin: const EdgeInsets.only(top: 40.0),
-                  height: 100.h,
-                  width: 100.w,
-                  child: DragAndDropLists(
-                    lastItemTargetHeight: 15,
-                    //addLastItemTargetHeightToTop: true,
-                    lastListTargetSize: 1,
-
-                    listPadding: EdgeInsets.fromLTRB(2.w, 4.h, 0.w, 2.h),
-                    listInnerDecoration: BoxDecoration(
-                      color: Color.fromARGB(211, 104, 58, 183),
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: Color.fromARGB(255, 12, 12, 12),
-                        width: 5,
-                      ),
-                    ),
-
-                    children: lists,
-                    itemDivider: Divider(thickness: 2, height: 2),
-                    itemDecorationWhileDragging: BoxDecoration(
-                      color: Color.fromARGB(255, 225, 159, 236),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Color.fromARGB(255, 189, 184, 184),
-                            blurRadius: 12)
-                      ],
-                    ),
-                    onItemReorder: onReorderListItem,
-                    onListReorder: onReorderList,
-                    axis: Axis.horizontal,
-                    listWidth: 59.h,
-                    listDraggingWidth: 50.h,
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(10),
-                  alignment: Alignment.bottomRight,
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: 70.0,
-                    height: 70.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: Color.fromARGB(183, 68, 3, 77),
-                    ),
-                    child: ElevatedButton(
-                      onPressed: null,
-                      child: Icon(
-                        Icons.search_rounded,
-                        color: Color.fromARGB(255, 255, 255, 255),
-                        size: 40.0,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add your onPressed code here!
+        },
+        backgroundColor: Color.fromARGB(255, 155, 17, 132),
+        child: const Icon(Icons.search_outlined),
+      ),
+    );
   }
 
   DragAndDropList buildList(DraggableList list) => DragAndDropList(

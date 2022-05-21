@@ -84,65 +84,82 @@ class _ToolsToTeam extends State<ToolsToTeam> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: NavBar(),
-        endDrawer: WriteSQLdata(),
-        body: Container(
-          width: 100.w,
-          height: 100.h,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/japback.jpg"),
-              fit: BoxFit.cover,
-            ),
+      drawer: NavBar(),
+      endDrawer: WriteSQLdata(),
+      body: Container(
+        width: 100.w,
+        height: 100.h,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/japback.jpg"),
+            fit: BoxFit.cover,
           ),
-          child: DragAndDropLists(
-            lastItemTargetHeight: 20,
-            lastListTargetSize: 1,
-            listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 0.h),
-            listInnerDecoration: BoxDecoration(
-              color: Color.fromARGB(211, 104, 58, 183),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            children: lists,
-            itemDivider: Divider(thickness: 2, height: 2),
-            itemDecorationWhileDragging: BoxDecoration(
-              color: Color.fromARGB(255, 225, 159, 236),
-              boxShadow: [
-                BoxShadow(
-                    color: Color.fromARGB(255, 189, 184, 184), blurRadius: 12)
-              ],
-            ),
-            onItemReorder: onReorderListItem,
-            onListReorder: onReorderList,
-            axis: Axis.horizontal,
-            listWidth: 50.h,
-            listDraggingWidth: 50.h,
+        ),
+        child: DragAndDropLists(
+          lastItemTargetHeight: 20,
+          lastListTargetSize: 1,
+          listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 0.h),
+          listInnerDecoration: BoxDecoration(
+            color: Color.fromARGB(211, 104, 58, 183),
+            borderRadius: BorderRadius.circular(20),
           ),
-        ));
+          children: lists,
+          itemDivider: Divider(thickness: 2, height: 2),
+          itemDecorationWhileDragging: BoxDecoration(
+            color: Color.fromARGB(255, 225, 159, 236),
+            boxShadow: [
+              BoxShadow(
+                  color: Color.fromARGB(255, 189, 184, 184), blurRadius: 12)
+            ],
+          ),
+          onItemReorder: onReorderListItem,
+          onListReorder: onReorderList,
+          axis: Axis.horizontal,
+          listWidth: 59.h,
+          listDraggingWidth: 50.h,
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add your onPressed code here!
+        },
+        backgroundColor: Color.fromARGB(255, 155, 17, 132),
+        child: const Icon(Icons.search_outlined),
+      ),
+    );
   }
 
   DragAndDropList buildList(DraggableList list) => DragAndDropList(
         header: Container(
-            child: Center(
-                child: Column(children: [
-          Text(
-            list.header,
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
-                color: Color.fromARGB(255, 0, 0, 0)),
+          child: Center(
+            child: Column(
+              children: [
+                Text(
+                  list.header,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                      color: Color.fromARGB(255, 0, 0, 0)),
+                ),
+              ],
+            ),
           ),
-        ]))),
+        ),
         children: list.items
-            .map((item) => DragAndDropItem(
-                  child: ListTile(
-                      title: Column(children: <Widget>[
-                    Text(
-                      item.tool.type,
-                      textAlign: TextAlign.center,
-                    ),
-                  ])),
-                ))
+            .map(
+              (item) => DragAndDropItem(
+                child: ListTile(
+                  title: Column(
+                    children: <Widget>[
+                      Text(
+                        item.tool.type,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )
             .toList(),
       );
 
