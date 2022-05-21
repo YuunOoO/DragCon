@@ -177,7 +177,7 @@ class _TaskToTeam extends State<TaskToTeam> {
                     //addLastItemTargetHeightToTop: true,
                     lastListTargetSize: 1,
 
-                    listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
+                    listPadding: EdgeInsets.fromLTRB(2.w, 4.h, 0.w, 2.h),
                     listInnerDecoration: BoxDecoration(
                       color: Color.fromARGB(211, 104, 58, 183),
                       borderRadius: BorderRadius.circular(10),
@@ -202,6 +202,27 @@ class _TaskToTeam extends State<TaskToTeam> {
                     axis: Axis.horizontal,
                     listWidth: 59.h,
                     listDraggingWidth: 50.h,
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(10),
+                  alignment: Alignment.bottomRight,
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: 70.0,
+                    height: 70.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: Color.fromARGB(183, 68, 3, 77),
+                    ),
+                    child: ElevatedButton(
+                      onPressed: null,
+                      child: Icon(
+                        Icons.search_rounded,
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        size: 40.0,
+                      ),
+                    ),
                   ),
                 ),
               ],
