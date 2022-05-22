@@ -6,7 +6,7 @@ import 'mysql/tables.dart';
 import 'splash.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:sizer/sizer.dart';
-import 'dart:ffi' as ffi;
+
 import 'package:flutter/widgets.dart';
 
 void main() async {

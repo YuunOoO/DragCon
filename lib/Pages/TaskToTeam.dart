@@ -9,7 +9,7 @@ import '../NavBarTasks.dart';
 import '../main.dart';
 import 'dart:collection';
 import 'package:sizer/sizer.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:expandable/expandable.dart';
 
 class TaskToTeam extends StatefulWidget {
@@ -200,7 +200,7 @@ class _TaskToTeam extends State<TaskToTeam> {
                   onItemReorder: onReorderListItem,
                   onListReorder: onReorderList,
                   axis: Axis.horizontal,
-                  listWidth: 59.h,
+                  listWidth: 55.h,
                   listDraggingWidth: 50.h,
                 ),
               ),
@@ -213,7 +213,10 @@ class _TaskToTeam extends State<TaskToTeam> {
           // Add your onPressed code here!
         },
         backgroundColor: Color.fromARGB(255, 155, 17, 132),
-        child: const Icon(Icons.search_outlined),
+        child: FaIcon(
+          FontAwesomeIcons.magnifyingGlassPlus,
+          color: Colors.white,
+        ),
       ),
     );
   }

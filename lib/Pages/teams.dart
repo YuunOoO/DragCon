@@ -9,6 +9,7 @@ import '../NavBarUserTeams.dart';
 import '../main.dart';
 import 'dart:collection';
 import 'package:sizer/sizer.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class teams extends StatefulWidget {
   @override
@@ -102,7 +103,7 @@ class _teams extends State<teams> {
           onItemReorder: onReorderListItem,
           onListReorder: onReorderList,
           axis: Axis.horizontal,
-          listWidth: 59.h,
+          listWidth: 55.h,
           listDraggingWidth: 50.h,
         ),
       ),
@@ -111,7 +112,10 @@ class _teams extends State<teams> {
           // Add your onPressed code here!
         },
         backgroundColor: Color.fromARGB(255, 155, 17, 132),
-        child: const Icon(Icons.search_outlined),
+        child: FaIcon(
+          FontAwesomeIcons.magnifyingGlassPlus,
+          color: Colors.white,
+        ),
       ),
     );
   }

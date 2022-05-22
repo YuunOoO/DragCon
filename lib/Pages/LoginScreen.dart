@@ -29,43 +29,45 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     autoLogin(context);
     return Scaffold(
-        body: SingleChildScrollView(
-            child: AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.light,
-      child: GestureDetector(
-        child: Stack(
-          children: <Widget>[
-            Container(
-              padding: new EdgeInsets.all(10.0),
-              height: 100.h,
-              width: 100.w,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/loginback.jpg"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+      body: Container(
+        padding: new EdgeInsets.all(10.0),
+        height: 100.h,
+        width: 100.w,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/loginback.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: AnnotatedRegion<SystemUiOverlayStyle>(
+            value: SystemUiOverlayStyle.light,
+            child: GestureDetector(
+              child: Stack(
                 children: <Widget>[
-                  SizedBox(height: 20),
-                  Image.asset(
-                    'assets/icons/logo.png',
-                    height: 180,
-                    width: 180,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(height: 20),
+                      Image.asset(
+                        'assets/icons/logo.png',
+                        height: 180,
+                        width: 180,
+                      ),
+                      SizedBox(height: 80),
+                      buildEmail(name),
+                      buildPassword(passw),
+                      SizedBox(height: 20),
+                      loginButton(context),
+                    ],
                   ),
-                  SizedBox(height: 80),
-                  buildEmail(name),
-                  buildPassword(passw),
-                  SizedBox(height: 20),
-                  loginButton(context),
                 ],
               ),
-            )
-          ],
+            ),
+          ),
         ),
       ),
-    )));
+    );
   }
 
   Future Authentication(BuildContext context) async {

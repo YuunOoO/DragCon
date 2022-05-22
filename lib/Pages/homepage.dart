@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:dragcon/mysql/tables.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +10,7 @@ import 'dart:collection';
 import '../global.dart';
 import 'package:sizer/sizer.dart';
 import 'package:expandable/expandable.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 //
 List<DraggableList> allLists = [];
@@ -142,7 +142,7 @@ class _homepage extends State<homepage> {
           onItemReorder: onReorderListItem,
           onListReorder: onReorderList,
           axis: Axis.horizontal,
-          listWidth: 59.h,
+          listWidth: 55.h,
           listDraggingWidth: 50.h,
         ),
       ),
@@ -150,8 +150,11 @@ class _homepage extends State<homepage> {
         onPressed: () {
           // Add your onPressed code here!
         },
-        backgroundColor: Color.fromARGB(255, 155, 17, 132),
-        child: const Icon(Icons.search_outlined),
+        backgroundColor: Color.fromARGB(232, 87, 7, 73),
+        child: FaIcon(
+          FontAwesomeIcons.magnifyingGlassPlus,
+          color: Colors.white,
+        ),
       ),
     );
   }

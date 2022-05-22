@@ -126,9 +126,8 @@ class _adminpage extends State<adminpage> {
                           width: 90.w,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage("assets/images/adm3.jpg"),
+                              image: AssetImage("assets/images/equipback.jpg"),
                               fit: BoxFit.cover,
-                              opacity: 0.7,
                             ),
                           ),
                           child: ElevatedButton(
@@ -149,8 +148,7 @@ class _adminpage extends State<adminpage> {
                                 }));
                               },
                               child: Text(
-                                'Set equipment to team',
-                                style: TextStyle(fontSize: 25),
+                                '',
                               )))
                     ],
                   ),

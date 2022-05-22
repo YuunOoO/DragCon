@@ -11,6 +11,7 @@ import 'dart:collection';
 import 'package:sizer/sizer.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ToolsToTeam extends StatefulWidget {
   @override
@@ -115,7 +116,7 @@ class _ToolsToTeam extends State<ToolsToTeam> {
           onItemReorder: onReorderListItem,
           onListReorder: onReorderList,
           axis: Axis.horizontal,
-          listWidth: 59.h,
+          listWidth: 55.h,
           listDraggingWidth: 50.h,
         ),
       ),
@@ -124,7 +125,10 @@ class _ToolsToTeam extends State<ToolsToTeam> {
           // Add your onPressed code here!
         },
         backgroundColor: Color.fromARGB(255, 155, 17, 132),
-        child: const Icon(Icons.search_outlined),
+        child: FaIcon(
+          FontAwesomeIcons.magnifyingGlassPlus,
+          color: Colors.white,
+        ),
       ),
     );
   }
