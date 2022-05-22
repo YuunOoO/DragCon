@@ -42,21 +42,18 @@ class _adminpage extends State<adminpage> {
                 height: 100.h,
                 width: 100.w,
                 decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/adminback.jpg"),
-                    fit: BoxFit.cover,
-                  ),
+                  color: Color.fromARGB(255, 54, 44, 52),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                      height: 15.h,
+                      height: 25.h,
                       width: 90.w,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/images/userback.jpg"),
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
                         ),
                       ),
                       child: ElevatedButton(
@@ -85,12 +82,12 @@ class _adminpage extends State<adminpage> {
                       height: 30,
                     ),
                     Container(
-                      height: 40.h,
+                      height: 25.h,
                       width: 90.w,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/images/taskback.jpg"),
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
                         ),
                       ),
                       child: ElevatedButton(
@@ -119,12 +116,12 @@ class _adminpage extends State<adminpage> {
                       height: 30,
                     ),
                     Container(
-                      height: 20.h,
+                      height: 25.h,
                       width: 90.w,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/images/equipback.jpg"),
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
                         ),
                       ),
                       child: ElevatedButton(
