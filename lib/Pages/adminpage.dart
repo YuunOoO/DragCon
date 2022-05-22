@@ -31,131 +31,126 @@ class _adminpage extends State<adminpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: NavBar(),
-        body: AnnotatedRegion<SystemUiOverlayStyle>(
-          value: SystemUiOverlayStyle.light,
-          child: GestureDetector(
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  padding: new EdgeInsets.all(10.0),
-                  height: 100.h,
-                  width: 100.w,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/images/loginback.jpg"),
-                      fit: BoxFit.cover,
+      drawer: NavBar(),
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light,
+        child: GestureDetector(
+          child: Stack(
+            children: <Widget>[
+              Container(
+                padding: new EdgeInsets.all(10.0),
+                height: 100.h,
+                width: 100.w,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/adminback.jpg"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      height: 15.h,
+                      width: 90.w,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/userback.jpg"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            Color.fromARGB(0, 0, 0, 0),
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return teams();
+                              },
+                            ),
+                          );
+                        },
+                        child: Text(
+                          '',
+                        ),
+                      ),
                     ),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                          height: 15.h,
-                          width: 90.w,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/images/adm2.jpg"),
-                              fit: BoxFit.cover,
-                              opacity: 0.7,
-                            ),
-                          ),
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                  Color.fromARGB(255, 255, 255, 255),
-                                ),
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                  Color.fromARGB(0, 0, 0, 0),
-                                ),
-                              ),
-                              onPressed: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return teams();
-                                }));
-                              },
-                              child: Text(
-                                'ADD/DEL teams and SET users to team',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 25),
-                              ))),
-                      SizedBox(
-                        width: 10,
-                        height: 30,
+                    SizedBox(
+                      width: 10,
+                      height: 30,
+                    ),
+                    Container(
+                      height: 40.h,
+                      width: 90.w,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/taskback.jpg"),
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                      Container(
-                          height: 40.h,
-                          width: 90.w,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/images/adm1.jpg"),
-                              fit: BoxFit.cover,
-                              opacity: 0.7,
-                            ),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            Color.fromARGB(0, 0, 0, 0),
                           ),
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                  Color.fromARGB(255, 255, 255, 255),
-                                ),
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                  Color.fromARGB(0, 0, 0, 0),
-                                ),
-                              ),
-                              onPressed: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return TaskToTeam();
-                                }));
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return TaskToTeam();
                               },
-                              child: Text(
-                                'Set task to teams',
-                                style: TextStyle(fontSize: 25),
-                              ))),
-                      SizedBox(
-                        width: 10,
-                        height: 30,
+                            ),
+                          );
+                        },
+                        child: Text(
+                          '',
+                        ),
                       ),
-                      Container(
-                          height: 20.h,
-                          width: 90.w,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/images/equipback.jpg"),
-                              fit: BoxFit.cover,
-                            ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                      height: 30,
+                    ),
+                    Container(
+                      height: 20.h,
+                      width: 90.w,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/equipback.jpg"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            Color.fromARGB(0, 0, 0, 0),
                           ),
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                  Color.fromARGB(255, 255, 255, 255),
-                                ),
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                  Color.fromARGB(0, 0, 0, 0),
-                                ),
-                              ),
-                              onPressed: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return ToolsToTeam();
-                                }));
-                              },
-                              child: Text(
-                                '',
-                              )))
-                    ],
-                  ),
-                )
-              ],
-            ),
+                        ),
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return ToolsToTeam();
+                          }));
+                        },
+                        child: Text(
+                          '',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
