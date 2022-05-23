@@ -30,120 +30,270 @@ class _adminpage extends State<adminpage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: NavBar(),
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
-          child: Stack(
+    return MaterialApp(
+      home: Scaffold(
+        drawer: NavBar(),
+        body: Container(
+          width: 100.w,
+          padding: new EdgeInsets.all(5.0),
+          decoration: BoxDecoration(
+            color: Color.fromARGB(255, 54, 44, 52),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Container(
-                padding: new EdgeInsets.all(10.0),
-                height: 100.h,
-                width: 100.w,
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 54, 44, 52),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      height: 25.h,
-                      width: 90.w,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/images/userback.jpg"),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            Color.fromARGB(0, 0, 0, 0),
+              GestureDetector(
+                child: Container(
+                  margin: EdgeInsets.all(10),
+                  height: 180,
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.asset(
+                            "assets/images/userback.jpg",
+                            fit: BoxFit.cover,
                           ),
                         ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return teams();
-                              },
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: Container(
+                          height: 180,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20),
                             ),
-                          );
-                        },
-                        child: Text(
-                          '',
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                      height: 30,
-                    ),
-                    Container(
-                      height: 25.h,
-                      width: 90.w,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/images/taskback.jpg"),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            Color.fromARGB(0, 0, 0, 0),
+                            gradient: LinearGradient(
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
+                                colors: [
+                                  Colors.black.withOpacity(0.9),
+                                  Colors.transparent,
+                                ]),
                           ),
                         ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return TaskToTeam();
-                              },
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        child: Row(
+                          children: [
+                            Container(
+                              color: Colors.transparent,
+                              padding: EdgeInsets.all(10),
+                              child: IconButton(
+                                iconSize: 40,
+                                icon: const Icon(Icons.assignment_ind),
+                                color: Colors.white,
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return teams();
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
-                          );
-                        },
-                        child: Text(
-                          '',
+                            Text(
+                              'Załogi',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
+                      )
+                    ],
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return teams();
+                      },
                     ),
-                    SizedBox(
-                      width: 10,
-                      height: 30,
-                    ),
-                    Container(
-                      height: 25.h,
-                      width: 90.w,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/images/equipback.jpg"),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            Color.fromARGB(0, 0, 0, 0),
+                  );
+                },
+              ),
+              GestureDetector(
+                child: Container(
+                  margin: EdgeInsets.all(10),
+                  height: 180,
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.asset(
+                            "assets/images/taskback.jpg",
+                            fit: BoxFit.fill,
                           ),
                         ),
-                        onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return ToolsToTeam();
-                          }));
-                        },
-                        child: Text(
-                          '',
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: Container(
+                          height: 180,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20),
+                            ),
+                            gradient: LinearGradient(
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
+                                colors: [
+                                  Colors.black.withOpacity(0.9),
+                                  Colors.transparent,
+                                ]),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                      Positioned(
+                        bottom: 0,
+                        child: Row(
+                          children: [
+                            Container(
+                              color: Colors.transparent,
+                              padding: EdgeInsets.all(10),
+                              child: IconButton(
+                                iconSize: 40,
+                                icon: const Icon(Icons.assignment),
+                                color: Colors.white,
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return TaskToTeam();
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            Text(
+                              'Zgłoszenia',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              )
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return TaskToTeam();
+                      },
+                    ),
+                  );
+                },
+              ),
+              GestureDetector(
+                child: Container(
+                  margin: EdgeInsets.all(10),
+                  height: 180,
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.asset(
+                            "assets/images/equipback.jpg",
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: Container(
+                          height: 180,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20),
+                            ),
+                            gradient: LinearGradient(
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
+                                colors: [
+                                  Colors.black.withOpacity(0.9),
+                                  Colors.transparent,
+                                ]),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        child: Row(
+                          children: [
+                            Container(
+                              color: Colors.transparent,
+                              padding: EdgeInsets.all(10),
+                              child: IconButton(
+                                iconSize: 40,
+                                icon: const Icon(Icons.handyman),
+                                color: Colors.white,
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return ToolsToTeam();
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            Text(
+                              'Narzędzia',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return ToolsToTeam();
+                      },
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),
