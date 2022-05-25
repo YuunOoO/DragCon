@@ -13,6 +13,11 @@ import 'package:expandable/expandable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 //
+double x = 50;
+double y = 55;
+double font_size = 15;
+double font_size2 = 25;
+bool zoom = true;
 List<DraggableList> allLists = [];
 List<Tasks> teamtasks = [];
 List<DraggableListItem> _Backlog = [];
@@ -141,13 +146,28 @@ class _homepage extends State<homepage> {
           onItemReorder: onReorderListItem,
           onListReorder: onReorderList,
           axis: Axis.horizontal,
-          listWidth: 55.h,
-          listDraggingWidth: 50.h,
+          listWidth: x.h,
+          listDraggingWidth: y.h,
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Add your onPressed code here!
+          setState(() {
+            if (zoom) {
+              x /= 2;
+              y /= 2;
+              font_size /= 3;
+              zoom = false;
+              font_size2 /= 3;
+            } else {
+              zoom = true;
+              x *= 2;
+              y *= 2;
+              font_size *= 3;
+              font_size2 *= 3;
+            }
+          });
         },
         backgroundColor: Color.fromARGB(232, 87, 7, 73),
         child: FaIcon(
@@ -167,7 +187,7 @@ class _homepage extends State<homepage> {
                   list.header,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 25,
+                    fontSize: font_size2,
                     color: Color.fromARGB(255, 0, 0, 0),
                   ),
                 ),
@@ -195,7 +215,7 @@ class _homepage extends State<homepage> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 15,
+                                fontSize: font_size,
                                 color: Color.fromARGB(255, 255, 255, 255),
                               ),
                             ),
@@ -205,7 +225,7 @@ class _homepage extends State<homepage> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 15,
+                                fontSize: font_size,
                                 color: Color.fromARGB(255, 255, 255, 255),
                               ),
                             ),
@@ -223,7 +243,7 @@ class _homepage extends State<homepage> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 15,
+                                fontSize: font_size,
                                 color: Color.fromARGB(255, 255, 255, 255),
                               ),
                             ),
@@ -233,7 +253,7 @@ class _homepage extends State<homepage> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 15,
+                                fontSize: font_size,
                                 color: Color.fromARGB(255, 255, 255, 255),
                               ),
                             ),
@@ -242,7 +262,7 @@ class _homepage extends State<homepage> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 15,
+                                fontSize: font_size,
                                 color: Color.fromARGB(255, 255, 255, 255),
                               ),
                             ),
