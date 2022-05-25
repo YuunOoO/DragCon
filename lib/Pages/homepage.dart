@@ -11,13 +11,10 @@ import '../global.dart';
 import 'package:sizer/sizer.dart';
 import 'package:expandable/expandable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 //
-double x = 50;
-double y = 55;
-double font_size = 15;
-double font_size2 = 25;
-bool zoom = true;
+
 List<DraggableList> allLists = [];
 List<Tasks> teamtasks = [];
 List<DraggableListItem> _Backlog = [];
@@ -51,6 +48,11 @@ class homepage extends StatefulWidget {
 }
 
 class _homepage extends State<homepage> {
+  double x = 50;
+  double y = 55;
+  double font_size = 15;
+  double font_size2 = 25;
+  bool zoom = true;
   static final String title = 'Drag & Drop ListView';
 
   void LoadTeamTasks() {
@@ -155,17 +157,17 @@ class _homepage extends State<homepage> {
           // Add your onPressed code here!
           setState(() {
             if (zoom) {
-              x /= 2;
-              y /= 2;
-              font_size /= 3;
+              x = 25;
+              y = 27;
+              font_size = 7;
               zoom = false;
-              font_size2 /= 3;
+              font_size2 = 12;
             } else {
               zoom = true;
-              x *= 2;
-              y *= 2;
-              font_size *= 3;
-              font_size2 *= 3;
+              x = 50;
+              y = 55;
+              font_size = 15;
+              font_size2 = 25;
             }
           });
         },
@@ -185,6 +187,7 @@ class _homepage extends State<homepage> {
               children: [
                 Text(
                   list.header,
+                  maxLines: 2,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: font_size2,

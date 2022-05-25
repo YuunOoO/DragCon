@@ -60,6 +60,7 @@ dependencies:
   local_auth: ^2.0.1
   expandable: ^5.0.1
   font_awesome_flutter: ^10.1.0
+  auto_size_text: ^3.0.0
 
   
 dev_dependencies:
