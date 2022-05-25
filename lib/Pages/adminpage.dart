@@ -30,134 +30,274 @@ class _adminpage extends State<adminpage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+      home: Scaffold(
         drawer: NavBar(),
-        body: AnnotatedRegion<SystemUiOverlayStyle>(
-          value: SystemUiOverlayStyle.light,
-          child: GestureDetector(
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  padding: new EdgeInsets.all(10.0),
-                  height: 100.h,
-                  width: 100.w,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/images/loginback.jpg"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                          height: 15.h,
-                          width: 90.w,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/images/adm2.jpg"),
-                              fit: BoxFit.cover,
-                              opacity: 0.7,
-                            ),
+        body: Container(
+          width: 100.w,
+          padding: new EdgeInsets.all(5.0),
+          decoration: BoxDecoration(
+            color: Color.fromARGB(255, 54, 44, 52),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              GestureDetector(
+                child: Container(
+                  margin: EdgeInsets.all(10),
+                  height: 180,
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.asset(
+                            "assets/images/userback.jpg",
+                            fit: BoxFit.cover,
                           ),
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                  Color.fromARGB(255, 255, 255, 255),
-                                ),
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                  Color.fromARGB(0, 0, 0, 0),
-                                ),
-                              ),
-                              onPressed: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return teams();
-                                }));
-                              },
-                              child: Text(
-                                'ADD/DEL teams and SET users to team',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 25),
-                              ))),
-                      SizedBox(
-                        width: 10,
-                        height: 30,
+                        ),
                       ),
-                      Container(
-                          height: 40.h,
-                          width: 90.w,
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: Container(
+                          height: 180,
                           decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/images/adm1.jpg"),
-                              fit: BoxFit.cover,
-                              opacity: 0.7,
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20),
                             ),
+                            gradient: LinearGradient(
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
+                                colors: [
+                                  Colors.black.withOpacity(0.9),
+                                  Colors.transparent,
+                                ]),
                           ),
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                  Color.fromARGB(255, 255, 255, 255),
-                                ),
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                  Color.fromARGB(0, 0, 0, 0),
-                                ),
-                              ),
-                              onPressed: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return TaskToTeam();
-                                }));
-                              },
-                              child: Text(
-                                'Set task to teams',
-                                style: TextStyle(fontSize: 25),
-                              ))),
-                      SizedBox(
-                        width: 10,
-                        height: 30,
+                        ),
                       ),
-                      Container(
-                          height: 20.h,
-                          width: 90.w,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/images/adm3.jpg"),
-                              fit: BoxFit.cover,
-                              opacity: 0.7,
-                            ),
-                          ),
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                  Color.fromARGB(255, 255, 255, 255),
-                                ),
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                  Color.fromARGB(0, 0, 0, 0),
-                                ),
+                      Positioned(
+                        bottom: 0,
+                        child: Row(
+                          children: [
+                            Container(
+                              color: Colors.transparent,
+                              padding: EdgeInsets.all(10),
+                              child: IconButton(
+                                iconSize: 40,
+                                icon: const Icon(Icons.assignment_ind),
+                                color: Colors.white,
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return teams();
+                                      },
+                                    ),
+                                  );
+                                },
                               ),
-                              onPressed: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return ToolsToTeam();
-                                }));
-                              },
-                              child: Text(
-                                'Set equipment to team',
-                                style: TextStyle(fontSize: 25),
-                              )))
+                            ),
+                            Text(
+                              'Załogi',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
-                )
-              ],
-            ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return teams();
+                      },
+                    ),
+                  );
+                },
+              ),
+              GestureDetector(
+                child: Container(
+                  margin: EdgeInsets.all(10),
+                  height: 180,
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.asset(
+                            "assets/images/taskback.jpg",
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: Container(
+                          height: 180,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20),
+                            ),
+                            gradient: LinearGradient(
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
+                                colors: [
+                                  Colors.black.withOpacity(0.9),
+                                  Colors.transparent,
+                                ]),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        child: Row(
+                          children: [
+                            Container(
+                              color: Colors.transparent,
+                              padding: EdgeInsets.all(10),
+                              child: IconButton(
+                                iconSize: 40,
+                                icon: const Icon(Icons.assignment),
+                                color: Colors.white,
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return TaskToTeam();
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            Text(
+                              'Zgłoszenia',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return TaskToTeam();
+                      },
+                    ),
+                  );
+                },
+              ),
+              GestureDetector(
+                child: Container(
+                  margin: EdgeInsets.all(10),
+                  height: 180,
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.asset(
+                            "assets/images/equipback.jpg",
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: Container(
+                          height: 180,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20),
+                            ),
+                            gradient: LinearGradient(
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
+                                colors: [
+                                  Colors.black.withOpacity(0.9),
+                                  Colors.transparent,
+                                ]),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        child: Row(
+                          children: [
+                            Container(
+                              color: Colors.transparent,
+                              padding: EdgeInsets.all(10),
+                              child: IconButton(
+                                iconSize: 40,
+                                icon: const Icon(Icons.handyman),
+                                color: Colors.white,
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return ToolsToTeam();
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            Text(
+                              'Narzędzia',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return ToolsToTeam();
+                      },
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

@@ -9,6 +9,7 @@ import '../NavBarUserTeams.dart';
 import '../main.dart';
 import 'dart:collection';
 import 'package:sizer/sizer.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class teams extends StatefulWidget {
   @override
@@ -70,42 +71,53 @@ class _teams extends State<teams> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: NavBar(),
-        endDrawer: WriteSQLdataUser(),
-        body: Container(
-          width: 100.w,
-          height: double.infinity,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/japback.jpg"),
-              fit: BoxFit.cover,
-            ),
+      drawer: NavBar(),
+      endDrawer: WriteSQLdataUser(),
+      body: Container(
+        width: 100.w,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/japback.jpg"),
+            fit: BoxFit.cover,
           ),
-          child: DragAndDropLists(
-            lastItemTargetHeight: 20,
-            //addLastItemTargetHeightToTop: true,
-            lastListTargetSize: 1,
-            listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 0.h),
-            listInnerDecoration: BoxDecoration(
-              color: Color.fromARGB(211, 104, 58, 183),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            children: lists,
-            itemDivider: Divider(thickness: 2, height: 2),
-            itemDecorationWhileDragging: BoxDecoration(
-              color: Color.fromARGB(255, 225, 159, 236),
-              boxShadow: [
-                BoxShadow(
-                    color: Color.fromARGB(255, 189, 184, 184), blurRadius: 12)
-              ],
-            ),
-            onItemReorder: onReorderListItem,
-            onListReorder: onReorderList,
-            axis: Axis.horizontal,
-            listWidth: 50.h,
-            listDraggingWidth: 50.h,
+        ),
+        child: DragAndDropLists(
+          lastItemTargetHeight: 20,
+          //addLastItemTargetHeightToTop: true,
+          lastListTargetSize: 1,
+          listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 0.h),
+          listInnerDecoration: BoxDecoration(
+            color: Color.fromARGB(211, 104, 58, 183),
+            borderRadius: BorderRadius.circular(20),
           ),
-        ));
+          children: lists,
+          itemDivider: Divider(thickness: 2, height: 2),
+          itemDecorationWhileDragging: BoxDecoration(
+            color: Color.fromARGB(255, 225, 159, 236),
+            boxShadow: [
+              BoxShadow(
+                  color: Color.fromARGB(255, 189, 184, 184), blurRadius: 12)
+            ],
+          ),
+          onItemReorder: onReorderListItem,
+          onListReorder: onReorderList,
+          axis: Axis.horizontal,
+          listWidth: 55.h,
+          listDraggingWidth: 50.h,
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add your onPressed code here!
+        },
+        backgroundColor: Color.fromARGB(255, 155, 17, 132),
+        child: FaIcon(
+          FontAwesomeIcons.magnifyingGlassPlus,
+          color: Colors.white,
+        ),
+      ),
+    );
   }
 
   DragAndDropList buildList(DraggableList list) => DragAndDropList(

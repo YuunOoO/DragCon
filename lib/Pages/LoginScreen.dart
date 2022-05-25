@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:sizer/sizer.dart';
 import 'package:dragcon/Pages/homepage.dart';
 import 'package:dragcon/localauth.dart';
 import 'package:flutter/material.dart';
@@ -29,48 +29,45 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     autoLogin(context);
     return Scaffold(
-        body: AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.light,
-      child: GestureDetector(
-        child: Stack(
-          children: <Widget>[
-            Container(
-              padding: new EdgeInsets.all(10.0),
-              height: double.infinity,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/loginback.jpg"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+      body: Container(
+        padding: new EdgeInsets.all(10.0),
+        height: 100.h,
+        width: 100.w,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/loginback.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: AnnotatedRegion<SystemUiOverlayStyle>(
+            value: SystemUiOverlayStyle.light,
+            child: GestureDetector(
+              child: Stack(
                 children: <Widget>[
-                  Image.asset(
-                    'assets/icons/logo.png',
-                    height: 180,
-                    width: 180,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(height: 20),
+                      Image.asset(
+                        'assets/icons/logo.png',
+                        height: 180,
+                        width: 180,
+                      ),
+                      SizedBox(height: 80),
+                      buildEmail(name),
+                      buildPassword(passw),
+                      SizedBox(height: 20),
+                      loginButton(context),
+                    ],
                   ),
-                  Text(
-                    'Sign In',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 10),
-                  buildEmail(name),
-                  buildPassword(passw),
-                  SizedBox(height: 20),
-                  loginButton(context),
                 ],
               ),
-            )
-          ],
+            ),
+          ),
         ),
       ),
-    ));
+    );
   }
 
   Future Authentication(BuildContext context) async {

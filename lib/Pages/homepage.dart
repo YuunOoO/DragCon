@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:dragcon/mysql/tables.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +9,8 @@ import '../main.dart';
 import 'dart:collection';
 import '../global.dart';
 import 'package:sizer/sizer.dart';
+import 'package:expandable/expandable.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 //
 List<DraggableList> allLists = [];
@@ -103,81 +104,157 @@ class _homepage extends State<homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: NavBar(),
-        body: Container(
-          width: 100.w,
-          height: double.infinity,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/japback.jpg"),
-              fit: BoxFit.cover,
+      drawer: NavBar(),
+      body: Container(
+        width: 100.w,
+        height: 100.h,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/adminback.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: DragAndDropLists(
+          lastItemTargetHeight: 8,
+          //addLastItemTargetHeightToTop: true,
+          lastListTargetSize: 1,
+          listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
+
+          listInnerDecoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(
+              color: Color.fromARGB(255, 12, 12, 12),
+              width: 5,
             ),
           ),
-          child: DragAndDropLists(
-            lastItemTargetHeight: 35,
-            //addLastItemTargetHeightToTop: true,
-            lastListTargetSize: 1,
-
-            listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
-            listInnerDecoration: BoxDecoration(
-              color: Color.fromARGB(211, 104, 58, 183),
-              borderRadius: BorderRadius.circular(20),
-            ),
-
-            children: lists,
-            itemDivider: Divider(thickness: 2, height: 2),
-            itemDecorationWhileDragging: BoxDecoration(
-              color: Color.fromARGB(255, 225, 159, 236),
-              boxShadow: [
-                BoxShadow(
-                    color: Color.fromARGB(255, 189, 184, 184), blurRadius: 12)
-              ],
-            ),
-            onItemReorder: onReorderListItem,
-            onListReorder: onReorderList,
-            axis: Axis.horizontal,
-            listWidth: 50.h,
-            listDraggingWidth: 50.h,
+          children: lists,
+          itemDivider: Divider(thickness: 2, height: 2),
+          itemDecorationWhileDragging: BoxDecoration(
+            color: Color.fromARGB(255, 225, 159, 236),
+            boxShadow: [
+              BoxShadow(
+                color: Color.fromARGB(255, 189, 184, 184),
+                blurRadius: 12,
+              )
+            ],
           ),
-        ));
+          onItemReorder: onReorderListItem,
+          onListReorder: onReorderList,
+          axis: Axis.horizontal,
+          listWidth: 55.h,
+          listDraggingWidth: 50.h,
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add your onPressed code here!
+        },
+        backgroundColor: Color.fromARGB(232, 87, 7, 73),
+        child: FaIcon(
+          FontAwesomeIcons.magnifyingGlassPlus,
+          color: Colors.white,
+        ),
+      ),
+    );
   }
 
   DragAndDropList buildList(DraggableList list) => DragAndDropList(
         header: Container(
-            child: Center(
-                child: Column(children: [
-          Text(
-            list.header,
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
-                color: Color.fromARGB(255, 0, 0, 0)),
+          child: Center(
+            child: Column(
+              children: [
+                Text(
+                  list.header,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                    color: Color.fromARGB(255, 0, 0, 0),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ]))),
+        ),
         children: list.items
-            .map((item) => DragAndDropItem(
+            .map(
+              (item) => DragAndDropItem(
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/taskback.jpg"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                   child: ListTile(
-                      title: Column(children: <Widget>[
-                    Row(
-                      children: [
-                        Text(
-                          "Lokalizacja: \n" + item.task.location,
-                          textAlign: TextAlign.center,
+                    title: Column(
+                      children: <Widget>[
+                        Row(
+                          children: [
+                            Text(
+                              "Lokalizacja: \n" + item.task.location,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                color: Color.fromARGB(255, 255, 255, 255),
+                              ),
+                            ),
+                            Spacer(),
+                            Text(
+                              "Data zgłoszenia: \n" + item.task.data_reg,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                color: Color.fromARGB(255, 255, 255, 255),
+                              ),
+                            ),
+                          ],
                         ),
-                        Spacer(),
-                        Text(
-                          "Data zgłoszenia: \n" + item.task.data_reg,
-                          textAlign: TextAlign.center,
+                        Container(
+                          child: ExpandablePanel(
+                            theme: ExpandableThemeData(
+                              hasIcon: false,
+                              animationDuration:
+                                  const Duration(milliseconds: 500),
+                            ),
+                            header: Text(
+                              'Krótki opis: ' + item.task.about,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                color: Color.fromARGB(255, 255, 255, 255),
+                              ),
+                            ),
+                            expanded: Text(
+                              'Opis szczegółowy: ' +
+                                  'MIEJSCE NA ZMIENNĄ DO DŁUGIEGO OPISU',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                color: Color.fromARGB(255, 255, 255, 255),
+                              ),
+                            ),
+                            collapsed: Text(
+                              'Opis szczegółowy: ',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                color: Color.fromARGB(255, 255, 255, 255),
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
-                    Text(
-                      item.task.about,
-                      textAlign: TextAlign.center,
-                    ),
-                  ])),
-                  canDrag: DragFlag(),
-                ))
+                  ),
+                ),
+                canDrag: DragFlag(),
+              ),
+            )
             .toList(),
       );
 

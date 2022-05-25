@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:dragcon/global.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
