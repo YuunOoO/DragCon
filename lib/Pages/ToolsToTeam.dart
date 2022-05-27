@@ -97,15 +97,25 @@ class _ToolsToTeam extends State<ToolsToTeam> {
           ),
         ),
         child: DragAndDropLists(
-          lastItemTargetHeight: 20,
+          lastItemTargetHeight: 0,
+          //addLastItemTargetHeightToTop: true,
           lastListTargetSize: 1,
-          listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 0.h),
+          listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
+
           listInnerDecoration: BoxDecoration(
-            color: Color.fromARGB(211, 104, 58, 183),
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(
+              color: Color.fromARGB(255, 12, 12, 12),
+              width: 5,
+            ),
           ),
           children: lists,
-          itemDivider: Divider(thickness: 2, height: 2),
+
+          itemDivider: Divider(
+            thickness: 2,
+            height: 2,
+            color: Colors.black,
+          ),
           itemDecorationWhileDragging: BoxDecoration(
             color: Color.fromARGB(255, 225, 159, 236),
             boxShadow: [
@@ -136,37 +146,46 @@ class _ToolsToTeam extends State<ToolsToTeam> {
   DragAndDropList buildList(DraggableList list) => DragAndDropList(
         header: Container(
           child: Center(
-            child: Column(
-              children: [
-                Text(
-                  list.header,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                      color: Color.fromARGB(255, 0, 0, 0)),
-                ),
-              ],
+            child: Text(
+              list.header,
+              maxLines: 2,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
             ),
           ),
         ),
         children: list.items
-            .map(
-              (item) => DragAndDropItem(
-                child: ListTile(
-                  title: Column(
-                    children: <Widget>[
-                      Text(
-                        item.tool.type,
-                        textAlign: TextAlign.center,
+            .map((item) => DragAndDropItem(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/equipback.jpg"),
+                        fit: BoxFit.cover,
+                        opacity: 0.8,
                       ),
-                    ],
+                    ),
+                    child: ListTile(
+                      title: Column(
+                        children: <Widget>[
+                          Text(
+                            item.tool.type,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            )
+                ))
             .toList(),
       );
-
 //changing list or item position
   void onReorderListItem(
     int oldItemIndex,
