@@ -83,16 +83,23 @@ class _teams extends State<teams> {
           ),
         ),
         child: DragAndDropLists(
-          lastItemTargetHeight: 20,
+          lastItemTargetHeight: 0,
           //addLastItemTargetHeightToTop: true,
           lastListTargetSize: 1,
-          listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 0.h),
+          listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
           listInnerDecoration: BoxDecoration(
-            color: Color.fromARGB(211, 104, 58, 183),
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(
+              color: Color.fromARGB(255, 12, 12, 12),
+              width: 5,
+            ),
           ),
           children: lists,
-          itemDivider: Divider(thickness: 2, height: 2),
+          itemDivider: Divider(
+            thickness: 2,
+            height: 2,
+            color: Colors.black,
+          ),
           itemDecorationWhileDragging: BoxDecoration(
             color: Color.fromARGB(255, 225, 159, 236),
             boxShadow: [
@@ -122,29 +129,47 @@ class _teams extends State<teams> {
 
   DragAndDropList buildList(DraggableList list) => DragAndDropList(
         header: Container(
-            child: Center(
-                child: Column(children: [
-          Text(
-            list.header,
-            style: TextStyle(
+          child: Center(
+            child: Text(
+              list.header,
+              maxLines: 2,
+              style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 25,
-                color: Color.fromARGB(255, 0, 0, 0)),
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
+            ),
           ),
-        ]))),
+        ),
         children: list.items
             .map((item) => DragAndDropItem(
-                  child: ListTile(
-                      title: Column(children: <Widget>[
-                    Text(
-                      item.user.id,
-                      textAlign: TextAlign.center,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/userback.jpg"),
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ])),
+                    child: ListTile(
+                      title: Column(
+                        children: <Widget>[
+                          Text(
+                            item.user.id,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ))
             .toList(),
       );
-
+//item.user.id,
   void onReorderListItem(
     int oldItemIndex,
     int oldListIndex,

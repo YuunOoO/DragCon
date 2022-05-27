@@ -48,7 +48,7 @@ class homepage extends StatefulWidget {
 }
 
 class _homepage extends State<homepage> {
-  double x = 50;
+  double x = 55;
   double y = 55;
   double font_size = 15;
   double font_size2 = 25;
@@ -122,7 +122,7 @@ class _homepage extends State<homepage> {
           ),
         ),
         child: DragAndDropLists(
-          lastItemTargetHeight: 8,
+          lastItemTargetHeight: 0,
           //addLastItemTargetHeightToTop: true,
           lastListTargetSize: 1,
           listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
@@ -135,7 +135,12 @@ class _homepage extends State<homepage> {
             ),
           ),
           children: lists,
-          itemDivider: Divider(thickness: 2, height: 2),
+
+          itemDivider: Divider(
+            thickness: 2,
+            height: 2,
+            color: Colors.black,
+          ),
           itemDecorationWhileDragging: BoxDecoration(
             color: Color.fromARGB(255, 225, 159, 236),
             boxShadow: [
@@ -164,7 +169,7 @@ class _homepage extends State<homepage> {
               font_size2 = 12;
             } else {
               zoom = true;
-              x = 50;
+              x = 55;
               y = 55;
               font_size = 15;
               font_size2 = 25;
@@ -183,18 +188,14 @@ class _homepage extends State<homepage> {
   DragAndDropList buildList(DraggableList list) => DragAndDropList(
         header: Container(
           child: Center(
-            child: Column(
-              children: [
-                Text(
-                  list.header,
-                  maxLines: 2,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: font_size2,
-                    color: Color.fromARGB(255, 0, 0, 0),
-                  ),
-                ),
-              ],
+            child: Text(
+              list.header,
+              maxLines: 2,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: font_size2,
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
             ),
           ),
         ),
@@ -206,25 +207,45 @@ class _homepage extends State<homepage> {
                     image: DecorationImage(
                       image: AssetImage("assets/images/taskback.jpg"),
                       fit: BoxFit.cover,
+                      opacity: 0.9,
                     ),
                   ),
-                  child: ListTile(
-                    title: Column(
-                      children: <Widget>[
-                        Row(
+                  child: Column(
+                    children: <Widget>[
+                      ElevatedButton(
+                        onPressed: null,
+                        child: Column(
                           children: [
-                            Text(
-                              "Lokalizacja: \n" + item.task.location,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: font_size,
-                                color: Color.fromARGB(255, 255, 255, 255),
-                              ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 5,
+                                  child: Text(
+                                    "Lokalizacja: \n" + item.task.location,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: font_size,
+                                      color: Color.fromARGB(255, 255, 255, 255),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 5,
+                                  child: Text(
+                                    "Data zgłoszenia: \n" + item.task.data_reg,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: font_size,
+                                      color: Color.fromARGB(255, 255, 255, 255),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                            Spacer(),
                             Text(
-                              "Data zgłoszenia: \n" + item.task.data_reg,
+                              "Krótki opis: " + item.task.about,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -234,45 +255,8 @@ class _homepage extends State<homepage> {
                             ),
                           ],
                         ),
-                        Container(
-                          child: ExpandablePanel(
-                            theme: ExpandableThemeData(
-                              hasIcon: false,
-                              animationDuration:
-                                  const Duration(milliseconds: 500),
-                            ),
-                            header: Text(
-                              'Krótki opis: ' + item.task.about,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: font_size,
-                                color: Color.fromARGB(255, 255, 255, 255),
-                              ),
-                            ),
-                            expanded: Text(
-                              'Opis szczegółowy: ' +
-                                  'MIEJSCE NA ZMIENNĄ DO DŁUGIEGO OPISU',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: font_size,
-                                color: Color.fromARGB(255, 255, 255, 255),
-                              ),
-                            ),
-                            collapsed: Text(
-                              'Opis szczegółowy: ',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: font_size,
-                                color: Color.fromARGB(255, 255, 255, 255),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
                 canDrag: DragFlag(),
