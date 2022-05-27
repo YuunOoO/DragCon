@@ -185,3 +185,14 @@ Future<dynamic> Update(String table, Map map) async {
   }
   print(response);
 }
+
+Future<dynamic> Update2(String table, Map map) async {
+  final response = await http.post(Uri.parse(URL_update2),
+      body: map, encoding: Encoding.getByName("utf-8"));
+  if (response.statusCode == 200) {
+    print(response.body);
+  } else {
+    print('A network error occurred');
+  }
+  print(response);
+}
