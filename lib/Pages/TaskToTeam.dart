@@ -296,7 +296,7 @@ class _TaskToTeam extends State<TaskToTeam> {
   ) {
     setState(() {
       drag = true; //reorder fix :DD
-      //podmiana(oldListIndex, oldItemIndex, newListIndex);
+      podmiana(oldListIndex, oldItemIndex, newListIndex);
       final oldListItems = lists[oldListIndex].children;
       final newListItems = lists[newListIndex].children;
       final movedItem = oldListItems.removeAt(oldItemIndex);
@@ -312,5 +312,20 @@ class _TaskToTeam extends State<TaskToTeam> {
       final movedList = lists.removeAt(oldListIndex);
       lists.insert(newListIndex, movedList);
     });
+  }
+
+  void podmiana(int idx, int idx2, int idx3) async {
+    var task_tmp = allLists[idx].items[idx2].task;
+    String table = 'tasks';
+    String? type = task_tmp.type; //do upgrade'u
+    String task_id = task_tmp.task_id.toString();
+
+    Map mapdate = {
+      // transferred data map
+      'table': table,
+      'type': allLists[idx3].header,
+      'task_id': task_id,
+    };
+    Update(table, mapdate);
   }
 }
