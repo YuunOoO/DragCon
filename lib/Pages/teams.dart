@@ -151,7 +151,24 @@ class _teams extends State<teams> {
                 Expanded(
                   flex: 2,
                   child: IconButton(
-                    onPressed: null,
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            content: Container(
+                              width: 100.w,
+                              height: 60.h,
+                              child: Stack(
+                                children: <Widget>[
+                                  WriteSQLdataUser(),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
                     icon: FaIcon(
                       FontAwesomeIcons.plus,
                       color: Colors.white,

@@ -12,6 +12,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/widgets.dart';
+import 'package:sizer/sizer.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 //import package file manually
 
@@ -22,10 +24,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
-          primarySwatch: Colors.red, //primary color for theme
+          primarySwatch: Colors.red,
         ),
-        home: WriteSQLdataUser() //set the class here
-        );
+        home: WriteSQLdataUser());
   }
 }
 
@@ -41,16 +42,12 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
   TextEditingController passwordctl = TextEditingController();
   TextEditingController adminctl = TextEditingController();
   TextEditingController emailctl = TextEditingController();
-  //text controller for TextField
+  TextEditingController ekipaidctl = TextEditingController();
 
   late bool error, sending, success;
   late String msg;
 
-  String phpurl = 'http://192.168.1.106/flutter/submit_data_users.php';
-  // do not use http://localhost/ for your local
-  // machine, Android emulation do not recognize localhost
-  // insted use your local ip address or your live URL
-  // hit "ipconfig" on Windows or  "ip a" on Linux to get IP Address
+  String phpurl = 'http://192.168.1.103/flutter/submit_data_users.php';
 
   @override
   void initState() {
@@ -62,43 +59,46 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
   }
 
   Future<void> sendData() async {
-    var res = await http.post(Uri.parse(phpurl), body: {
-      "id": idctl.text,
-      "password": passwordctl.text,
-      "admin": adminctl.text,
-      "email": emailctl.text,
-    }); //sending post request with header data
+    var res = await http.post(
+      Uri.parse(phpurl),
+      body: {
+        "id": idctl.text,
+        "password": passwordctl.text,
+        "admin": adminctl.text,
+        "email": emailctl.text,
+        "ekipa_id": ekipaidctl.text,
+      },
+    );
 
     if (res.statusCode == 200) {
-      print(res.body); //print raw response on console
-      var data = json.decode(res.body); //decoding json to array
+      print(res.body);
+      var data = json.decode(res.body);
       if (data["error"]) {
         setState(() {
-          //refresh the UI when error is recieved from server
           sending = false;
           error = true;
-          msg = data["message"]; //error message from server
+          msg = data["message"];
         });
       } else {
         idctl.text = "";
         passwordctl.text = "";
         adminctl.text = "";
         emailctl.text = "";
-        //after write success, make fields empty
+        ekipaidctl.text = "";
 
         setState(() {
           sending = false;
-          success = true; //mark success and refresh UI with setState
+          success = true;
         });
       }
     } else {
-      //there is error
-      setState(() {
-        error = true;
-        msg = "Error during sendign data.";
-        sending = false;
-        //mark error and refresh UI with setState
-      });
+      setState(
+        () {
+          error = true;
+          msg = "Error during sendign data.";
+          sending = false;
+        },
+      );
     }
   }
 
@@ -106,75 +106,68 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-          //enable scrolling, when keyboard appears,
-          // hight becomes small, so prevent overflow
-          child: Container(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    child: Text(error ? msg : "Wprowadź dane"),
-                    //if there is error then sho msg, other wise show text message
+        child: Container(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            children: <Widget>[
+              TextField(
+                controller: idctl,
+                decoration: InputDecoration(
+                  labelText: "Wprowadz Nazwe",
+                  hintText: "Nazwa Użytkownika",
+                ),
+              ),
+              TextField(
+                controller: passwordctl,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: "Wprowadz Hasło",
+                  hintText: "Hasło użytkownika",
+                ),
+              ),
+              TextField(
+                controller: adminctl,
+                decoration: InputDecoration(
+                  labelText: "Wprowadz Poziom Uprawnień",
+                  hintText: "Poziom uprawnień (numer)",
+                ),
+              ),
+              TextField(
+                controller: emailctl,
+                decoration: InputDecoration(
+                  labelText: "Wprowadz E-mail",
+                  hintText: "E-mail użytkownika",
+                ),
+              ),
+              TextField(
+                controller: ekipaidctl,
+                decoration: InputDecoration(
+                  labelText: "Wprowadz Id ekipy",
+                  hintText: "Id ekipy",
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  setState(
+                    () {
+                      sending = true;
+                    },
+                  );
+                  sendData();
+                },
+                style: ButtonStyle(),
+                child: Container(
+                  width: 55.w,
+                  child: Text(
+                    sending ? "Sending..." : "SEND DATA",
+                    textAlign: TextAlign.center,
                   ),
-
-                  Container(
-                    child: Text(success ? "Write Success" : "send data"),
-                    //is there is success then show "Write Success" else show "send data"
-                  ),
-
-                  Container(
-                      child: TextField(
-                    controller: idctl,
-                    decoration: InputDecoration(
-                      labelText: "Wprowadz Nazwe",
-                      hintText: "Nazwa Użytkownika",
-                    ),
-                  )), //text input for name
-
-                  Container(
-                      child: TextField(
-                    controller: passwordctl,
-                    decoration: InputDecoration(
-                      labelText: "Wprowadz Hasło",
-                      hintText: "Hasło użytkownika",
-                    ),
-                  )), //text input for address
-
-                  Container(
-                      child: TextField(
-                    controller: adminctl,
-                    decoration: InputDecoration(
-                      labelText: "Wprowadz Poziom Uprawnień",
-                      hintText: "Poziom uprawnień (numer)",
-                    ),
-                  )), //text input
-                  Container(
-                      child: TextField(
-                    controller: emailctl,
-                    decoration: InputDecoration(
-                      labelText: "Wprowadz E-mail",
-                      hintText: "E-mail użytkownika",
-                    ),
-                  )), //text input
-                  Container(
-                      margin: EdgeInsets.only(top: 20),
-                      child: SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              //if button is pressed, setstate sending = true, so that we can show "sending..."
-                              setState(() {
-                                sending = true;
-                              });
-                              sendData();
-                            },
-                            child: Text(
-                              sending ? "Sending..." : "SEND DATA",
-                              //if sending == true then show "Sending" else show "SEND DATA";
-                            ),
-                          )))
-                ],
-              ))),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
