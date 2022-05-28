@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:dragcon/Pages/LoginScreen.dart';
 import 'package:dragcon/Pages/adminpage.dart';
 import 'package:dragcon/Pages/equippage.dart';
@@ -7,6 +9,7 @@ import 'package:dragcon/Pages/settings.dart';
 import 'package:dragcon/Pages/stat.dart';
 import 'package:flutter/material.dart';
 import 'package:dragcon/Pages/ToolsToTeam.dart';
+import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'global.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -14,6 +17,7 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:sizer/sizer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_animated_button/flutter_animated_button.dart';
 
 //import package file manually
 
@@ -107,6 +111,7 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
+          alignment: Alignment.topCenter,
           padding: EdgeInsets.all(20),
           child: Column(
             children: <Widget>[
@@ -146,8 +151,26 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
                   hintText: "Id ekipy",
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {
+              SizedBox(
+                height: 10,
+              ),
+              AnimatedButton(
+                height: 50,
+                width: 100.w,
+                text: 'SUBMIT',
+                gradient: LinearGradient(colors: [
+                  Color.fromARGB(255, 92, 72, 71),
+                  Color.fromARGB(255, 3, 2, 1)
+                ]),
+                selectedGradientColor: LinearGradient(
+                    colors: [Colors.pinkAccent, Colors.purpleAccent]),
+                isReverse: true,
+                selectedTextColor: Colors.black,
+                transitionType: TransitionType.LEFT_CENTER_ROUNDER,
+                borderColor: Colors.white,
+                borderWidth: 1,
+                borderRadius: 10,
+                onPress: () {
                   setState(
                     () {
                       sending = true;
@@ -155,14 +178,6 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
                   );
                   sendData();
                 },
-                style: ButtonStyle(),
-                child: Container(
-                  width: 55.w,
-                  child: Text(
-                    sending ? "Sending..." : "SEND DATA",
-                    textAlign: TextAlign.center,
-                  ),
-                ),
               ),
             ],
           ),

@@ -133,14 +133,24 @@ class _teams extends State<teams> {
 
   DragAndDropList buildList(DraggableList list) => DragAndDropList(
         header: Container(
+          margin: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            color: Color.fromARGB(199, 65, 65, 65),
+            borderRadius: BorderRadius.circular(30),
+          ),
           child: Center(
             child: Row(
               children: [
                 Expanded(
-                  flex: 8,
+                  flex: 1,
+                  child: Text(""),
+                ),
+                Expanded(
+                  flex: 7,
                   child: Text(
                     list.header,
                     maxLines: 2,
+                    textAlign: TextAlign.left,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 25,
@@ -171,7 +181,7 @@ class _teams extends State<teams> {
                     },
                     icon: FaIcon(
                       FontAwesomeIcons.plus,
-                      color: Colors.white,
+                      color: Color.fromARGB(255, 0, 0, 0),
                     ),
                   ),
                 ),
