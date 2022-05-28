@@ -82,36 +82,40 @@ class _teams extends State<teams> {
             fit: BoxFit.cover,
           ),
         ),
-        child: DragAndDropLists(
-          lastItemTargetHeight: 0,
-          //addLastItemTargetHeightToTop: true,
-          lastListTargetSize: 1,
-          listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
-          listInnerDecoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            border: Border.all(
-              color: Color.fromARGB(255, 12, 12, 12),
-              width: 5,
+        child: Stack(
+          children: [
+            DragAndDropLists(
+              lastItemTargetHeight: 0,
+              //addLastItemTargetHeightToTop: true,
+              lastListTargetSize: 1,
+              listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
+              listInnerDecoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(
+                  color: Color.fromARGB(255, 12, 12, 12),
+                  width: 5,
+                ),
+              ),
+              children: lists,
+              itemDivider: Divider(
+                thickness: 2,
+                height: 2,
+                color: Colors.black,
+              ),
+              itemDecorationWhileDragging: BoxDecoration(
+                color: Color.fromARGB(255, 225, 159, 236),
+                boxShadow: [
+                  BoxShadow(
+                      color: Color.fromARGB(255, 189, 184, 184), blurRadius: 12)
+                ],
+              ),
+              onItemReorder: onReorderListItem,
+              onListReorder: onReorderList,
+              axis: Axis.horizontal,
+              listWidth: 55.h,
+              listDraggingWidth: 50.h,
             ),
-          ),
-          children: lists,
-          itemDivider: Divider(
-            thickness: 2,
-            height: 2,
-            color: Colors.black,
-          ),
-          itemDecorationWhileDragging: BoxDecoration(
-            color: Color.fromARGB(255, 225, 159, 236),
-            boxShadow: [
-              BoxShadow(
-                  color: Color.fromARGB(255, 189, 184, 184), blurRadius: 12)
-            ],
-          ),
-          onItemReorder: onReorderListItem,
-          onListReorder: onReorderList,
-          axis: Axis.horizontal,
-          listWidth: 55.h,
-          listDraggingWidth: 50.h,
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -130,43 +134,62 @@ class _teams extends State<teams> {
   DragAndDropList buildList(DraggableList list) => DragAndDropList(
         header: Container(
           child: Center(
-            child: Text(
-              list.header,
-              maxLines: 2,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
-                color: Color.fromARGB(255, 0, 0, 0),
-              ),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 8,
+                  child: Text(
+                    list.header,
+                    maxLines: 2,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: IconButton(
+                    onPressed: null,
+                    icon: FaIcon(
+                      FontAwesomeIcons.plus,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
         children: list.items
-            .map((item) => DragAndDropItem(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/images/userback.jpg"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: ListTile(
-                      title: Column(
-                        children: <Widget>[
-                          Text(
-                            item.user.id,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
+            .map(
+              (item) => DragAndDropItem(
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/userback.jpg"),
+                      fit: BoxFit.cover,
                     ),
                   ),
-                ))
+                  child: ListTile(
+                    title: Column(
+                      children: <Widget>[
+                        Text(
+                          item.user.id,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            )
             .toList(),
       );
 //item.user.id,

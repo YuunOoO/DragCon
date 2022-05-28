@@ -105,10 +105,6 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text("Wypełnij wszystkie pola"),
-          backgroundColor: Color.fromARGB(255, 197, 47, 177)), //appbar
-
       body: SingleChildScrollView(
           //enable scrolling, when keyboard appears,
           // hight becomes small, so prevent overflow

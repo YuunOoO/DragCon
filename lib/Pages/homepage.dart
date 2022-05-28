@@ -213,7 +213,21 @@ class _homepage extends State<homepage> {
                   child: Column(
                     children: <Widget>[
                       ElevatedButton(
-                        onPressed: null,
+                        style: ElevatedButton.styleFrom(
+                            primary: Color.fromARGB(0, 0, 0, 0)),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                content: Stack(
+                                  clipBehavior: Clip.none,
+                                  children: <Widget>[],
+                                ),
+                              );
+                            },
+                          );
+                        },
                         child: Column(
                           children: [
                             Row(
