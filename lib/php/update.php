@@ -7,9 +7,9 @@ $backlog = "Backlog";
 $process = "Inprocess";
 	
 	if($type == $backlog  || $type == $process){
-	$sql = "UPDATE tasks SET type = '$type',date_exec=NULL,time_exec=NULL WHERE task_id = '$task_id';" ;
+	$sql = "UPDATE tasks SET type = '$type',data_exec=NULL,time_exec=NULL WHERE task_id = '$task_id';" ;
 	}else{
-		$sql="UPDATE tasks SET type='$type',date_exec=curdate(),time_exec=curtime() WHERE task_id='$task_id' ;" ;
+		$sql="UPDATE tasks SET type='$type',data_exec=curdate(),time_exec=curtime() WHERE task_id='$task_id' ;" ;
 	}
 
     $result = $conn->query($sql);
