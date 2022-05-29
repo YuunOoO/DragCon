@@ -151,17 +151,20 @@ class _TaskToTeam extends State<TaskToTeam> {
                             filled: true,
                             fillColor: Color.fromARGB(146, 146, 88, 247)),
                         onChanged: (Ekipa? newValue) {
-                          setState(() {
-                            dropdownValue = newValue!;
-                          });
-                        },
-                        items: ekip_names
-                            .map<DropdownMenuItem<Ekipa>>((Ekipa value) {
-                          return DropdownMenuItem<Ekipa>(
-                            value: value,
-                            child: Text(value.name),
+                          setState(
+                            () {
+                              dropdownValue = newValue!;
+                            },
                           );
-                        }).toList(),
+                        },
+                        items: ekip_names.map<DropdownMenuItem<Ekipa>>(
+                          (Ekipa value) {
+                            return DropdownMenuItem<Ekipa>(
+                              value: value,
+                              child: Text(value.name),
+                            );
+                          },
+                        ).toList(),
                       ),
                     ),
                   ],
@@ -173,28 +176,32 @@ class _TaskToTeam extends State<TaskToTeam> {
                 height: 100.h,
                 width: 100.w,
                 child: DragAndDropLists(
-                  lastItemTargetHeight: 15,
+                  lastItemTargetHeight: 0,
                   //addLastItemTargetHeightToTop: true,
                   lastListTargetSize: 1,
+                  listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
 
-                  listPadding: EdgeInsets.fromLTRB(2.w, 4.h, 0.w, 2.h),
                   listInnerDecoration: BoxDecoration(
-                    color: Color.fromARGB(211, 104, 58, 183),
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(5),
                     border: Border.all(
                       color: Color.fromARGB(255, 12, 12, 12),
                       width: 5,
                     ),
                   ),
-
                   children: lists,
-                  itemDivider: Divider(thickness: 2, height: 2),
+
+                  itemDivider: Divider(
+                    thickness: 2,
+                    height: 2,
+                    color: Colors.black,
+                  ),
                   itemDecorationWhileDragging: BoxDecoration(
                     color: Color.fromARGB(255, 225, 159, 236),
                     boxShadow: [
                       BoxShadow(
-                          color: Color.fromARGB(255, 189, 184, 184),
-                          blurRadius: 12)
+                        color: Color.fromARGB(255, 189, 184, 184),
+                        blurRadius: 12,
+                      )
                     ],
                   ),
                   onItemReorder: onReorderListItem,
@@ -224,62 +231,74 @@ class _TaskToTeam extends State<TaskToTeam> {
   DragAndDropList buildList(DraggableList list) => DragAndDropList(
         header: Container(
           child: Center(
-            child: Column(
-              children: [
-                Text(
-                  list.header,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                    color: Color.fromARGB(255, 0, 0, 0),
-                  ),
-                ),
-              ],
+            child: Text(
+              list.header,
+              maxLines: 2,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
             ),
           ),
         ),
         children: list.items
             .map(
               (item) => DragAndDropItem(
-                child: ListTile(
-                  title: Column(
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/taskback.jpg"),
+                      fit: BoxFit.cover,
+                      opacity: 0.9,
+                    ),
+                  ),
+                  child: Column(
                     children: <Widget>[
-                      Row(
-                        children: [
-                          Text(
-                            "Lokalizacja: \n" + item.task.location,
-                            textAlign: TextAlign.center,
-                          ),
-                          Spacer(),
-                          Text(
-                            "Data zgłoszenia: \n" + item.task.data_reg,
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
                       ElevatedButton(
-                          onPressed: null,
-                          child: Container(
-                            child: ExpandablePanel(
-                              theme: ExpandableThemeData(
-                                  hasIcon: false,
-                                  animationDuration:
-                                      const Duration(milliseconds: 500)),
-                              header: Text(
-                                'Krótki opis: ' + item.task.about,
-                                textAlign: TextAlign.center,
-                              ),
-                              expanded: Text(
-                                'Opis szczegółowy: ' +
-                                    'MIEJSCE NA ZMIENNĄ DO DŁUGIEGO OPISU',
-                                textAlign: TextAlign.center,
-                              ),
-                              collapsed: Text(
-                                'Opis szczegółowy: ',
-                                textAlign: TextAlign.center,
+                        onPressed: null,
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 5,
+                                  child: Text(
+                                    "Lokalizacja: \n" + item.task.location,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                      color: Color.fromARGB(255, 255, 255, 255),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 5,
+                                  child: Text(
+                                    "Data zgłoszenia: \n" + item.task.data_reg,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                      color: Color.fromARGB(255, 255, 255, 255),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              "Krótki opis: " + item.task.about,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                color: Color.fromARGB(255, 255, 255, 255),
                               ),
                             ),
-                          )),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
