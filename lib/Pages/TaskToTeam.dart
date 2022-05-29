@@ -127,7 +127,7 @@ class _TaskToTeam extends State<TaskToTeam> {
                 padding: EdgeInsets.symmetric(vertical: 4.h),
                 width: 100.w,
                 height: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage("assets/images/loginback.jpg"),
                     fit: BoxFit.cover,
@@ -137,19 +137,21 @@ class _TaskToTeam extends State<TaskToTeam> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Container(
-                      width: 270,
+                      height: 10.h,
+                      width: 70.w,
                       child: DropdownButtonFormField<Ekipa>(
                         icon: const Icon(Icons.arrow_downward),
-                        dropdownColor: Color.fromARGB(146, 146, 88, 247),
+                        dropdownColor: Color.fromARGB(255, 65, 65, 65),
                         value: dropdownValue,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: const BorderRadius.all(
-                                const Radius.circular(20.0),
-                              ),
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10.0),
                             ),
-                            filled: true,
-                            fillColor: Color.fromARGB(146, 146, 88, 247)),
+                          ),
+                          filled: true,
+                          fillColor: Color.fromARGB(185, 65, 65, 65),
+                        ),
                         onChanged: (Ekipa? newValue) {
                           setState(
                             () {
@@ -161,7 +163,14 @@ class _TaskToTeam extends State<TaskToTeam> {
                           (Ekipa value) {
                             return DropdownMenuItem<Ekipa>(
                               value: value,
-                              child: Text(value.name),
+                              child: Text(
+                                value.name,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             );
                           },
                         ).toList(),
@@ -185,7 +194,7 @@ class _TaskToTeam extends State<TaskToTeam> {
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(
                       color: Color.fromARGB(255, 12, 12, 12),
-                      width: 5,
+                      width: 4,
                     ),
                   ),
                   children: lists,
