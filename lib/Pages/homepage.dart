@@ -220,6 +220,8 @@ class _homepage extends State<homepage> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
+                                backgroundColor:
+                                    Color.fromARGB(255, 104, 104, 104),
                                 content: Container(
                                   width: 100.w,
                                   height: 100.h,
@@ -227,15 +229,49 @@ class _homepage extends State<homepage> {
                                   child: SingleChildScrollView(
                                     child: Column(
                                       children: [
-                                        Text(
-                                          "Lokalizacja: \n" +
-                                              item.task.location,
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: font_size,
-                                            color: Color.fromARGB(255, 0, 0, 0),
-                                          ),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.car_rental),
+                                            Text(
+                                              "Lokalizacja: " +
+                                                  item.task.location,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: font_size,
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.add),
+                                            Text(
+                                              "Data zgłoszenia: " +
+                                                  item.task.data_reg,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: font_size,
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.add),
+                                            Text(
+                                              "Krótki opis: " + item.task.about,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: font_size,
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),

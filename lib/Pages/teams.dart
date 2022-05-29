@@ -179,9 +179,9 @@ class _teams extends State<teams> {
                         },
                       );
                     },
-                    icon: FaIcon(
-                      FontAwesomeIcons.plus,
-                      color: Color.fromARGB(255, 0, 0, 0),
+                    icon: Icon(
+                      Icons.add_circle_outlined,
+                      size: 35,
                     ),
                   ),
                 ),
