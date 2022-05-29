@@ -85,7 +85,7 @@ class _teams extends State<teams> {
         child: Stack(
           children: [
             DragAndDropLists(
-              lastItemTargetHeight: 0,
+              //lastItemTargetHeight: 0,
               //addLastItemTargetHeightToTop: true,
               lastListTargetSize: 1,
               listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
@@ -196,7 +196,7 @@ class _teams extends State<teams> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/images/userback.jpg"),
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fill,
                     ),
                   ),
                   child: ListTile(

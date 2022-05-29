@@ -221,7 +221,7 @@ class _homepage extends State<homepage> {
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 backgroundColor:
-                                    Color.fromARGB(255, 104, 104, 104),
+                                    Color.fromARGB(255, 255, 255, 255),
                                 content: Container(
                                   width: 100.w,
                                   height: 100.h,
@@ -231,13 +231,13 @@ class _homepage extends State<homepage> {
                                       children: [
                                         Row(
                                           children: [
-                                            Icon(Icons.car_rental),
+                                            Icon(Icons.local_activity),
                                             Text(
                                               "Lokalizacja: " +
                                                   item.task.location,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: font_size,
+                                                fontSize: 15,
                                                 color: Color.fromARGB(
                                                     255, 0, 0, 0),
                                               ),
@@ -252,7 +252,7 @@ class _homepage extends State<homepage> {
                                                   item.task.data_reg,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: font_size,
+                                                fontSize: 15,
                                                 color: Color.fromARGB(
                                                     255, 0, 0, 0),
                                               ),
@@ -266,7 +266,7 @@ class _homepage extends State<homepage> {
                                               "Krótki opis: " + item.task.about,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: font_size,
+                                                fontSize: 15,
                                                 color: Color.fromARGB(
                                                     255, 0, 0, 0),
                                               ),
@@ -287,25 +287,34 @@ class _homepage extends State<homepage> {
                               children: [
                                 Expanded(
                                   flex: 5,
-                                  child: Text(
-                                    "Lokalizacja: \n" + item.task.location,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: font_size,
-                                      color: Color.fromARGB(255, 255, 255, 255),
+                                  child: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      "Lokalizacja: \n" + item.task.location,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: font_size,
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255),
+                                      ),
                                     ),
                                   ),
                                 ),
                                 Expanded(
                                   flex: 5,
-                                  child: Text(
-                                    "Data zgłoszenia: \n" + item.task.data_reg,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: font_size,
-                                      color: Color.fromARGB(255, 255, 255, 255),
+                                  child: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      "Data zgłoszenia: \n" +
+                                          item.task.data_reg,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: font_size,
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255),
+                                      ),
                                     ),
                                   ),
                                 ),
