@@ -229,24 +229,25 @@ class _homepage extends State<homepage> {
                                   child: SingleChildScrollView(
                                     child: Column(
                                       children: [
-                                        Container(
-                                          width: 100.w,
-                                          child: Flexible(
-                                            child: Text(
-                                              item.task.about,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20,
-                                                color: Color.fromARGB(
-                                                  255,
-                                                  0,
-                                                  0,
-                                                  0,
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                item.task.about,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20,
+                                                  color: Color.fromARGB(
+                                                    255,
+                                                    0,
+                                                    0,
+                                                    0,
+                                                  ),
                                                 ),
+                                                textAlign: TextAlign.center,
                                               ),
-                                              textAlign: TextAlign.center,
                                             ),
-                                          ),
+                                          ],
                                         ),
                                         Row(
                                           children: [
@@ -404,6 +405,73 @@ class _homepage extends State<homepage> {
                                                       255, 0, 0, 0),
                                                 ),
                                               ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 25,
+                                        ),
+                                        Column(
+                                          children: [
+                                            Stack(
+                                              clipBehavior: Clip.none,
+                                              children: <Widget>[
+                                                Container(
+                                                  width: 65.w,
+                                                  height: 40.h,
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      width: 2,
+                                                      color: Color.fromARGB(
+                                                          255, 0, 0, 0),
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    color: Color.fromARGB(
+                                                        133, 185, 185, 185),
+                                                  ),
+                                                  child: Text("\n\n asdasd"),
+                                                ),
+                                                Positioned(
+                                                  child: FloatingActionButton(
+                                                    child: Container(
+                                                      width: 60,
+                                                      height: 60,
+                                                      child: Icon(
+                                                        Icons.comment,
+                                                        size: 40,
+                                                        color: Colors.black,
+                                                      ),
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                          width: 2,
+                                                          color: Color.fromARGB(
+                                                              255, 0, 0, 0),
+                                                        ),
+                                                        shape: BoxShape.circle,
+                                                        gradient:
+                                                            LinearGradient(
+                                                          begin:
+                                                              Alignment.topLeft,
+                                                          end:
+                                                              Alignment(0.8, 1),
+                                                          colors: <Color>[
+                                                            Color(0xff556270),
+                                                            Color(0xffFF6B6B),
+                                                          ],
+                                                          tileMode:
+                                                              TileMode.mirror,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    onPressed: null,
+                                                  ),
+                                                  right: 0,
+                                                  left: 0,
+                                                  top: -26,
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
