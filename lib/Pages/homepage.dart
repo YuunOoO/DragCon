@@ -220,9 +220,26 @@ class _homepage extends State<homepage> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                content: Stack(
+                                content: Container(
+                                  width: 100.w,
+                                  height: 100.h,
                                   clipBehavior: Clip.none,
-                                  children: <Widget>[],
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          "Lokalizacja: \n" +
+                                              item.task.location,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: font_size,
+                                            color: Color.fromARGB(255, 0, 0, 0),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               );
                             },
