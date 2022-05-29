@@ -9,6 +9,11 @@ import 'package:flutter/material.dart';
 
 import 'global.dart';
 
+bool ifadmin() {
+  if (user.admin == 0) return true;
+  return false;
+}
+
 class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -37,13 +42,16 @@ class NavBar extends StatelessWidget {
                   image: AssetImage('assets/images/navbarback.jpg')),
             ),
           ),
-          ListTile(
-            leading: Icon(Icons.description),
-            title: Text('Admin panel'),
-            onTap: () => Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) {
-              return adminpage();
-            })),
+          Visibility(
+            child: ListTile(
+              leading: Icon(Icons.description),
+              title: Text('Admin panel'),
+              onTap: () => Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) {
+                return adminpage();
+              })),
+            ),
+            visible: ifadmin(),
           ),
           Divider(),
           ListTile(
