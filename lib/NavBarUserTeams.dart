@@ -157,7 +157,7 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
               AnimatedButton(
                 height: 50,
                 width: 100.w,
-                text: 'SUBMIT',
+                text: 'Wyślij',
                 gradient: LinearGradient(colors: [
                   Color.fromARGB(255, 92, 72, 71),
                   Color.fromARGB(255, 3, 2, 1)

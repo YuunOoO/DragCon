@@ -87,11 +87,7 @@ class _teams extends State<teams> {
         child: Stack(
           children: [
             DragAndDropLists(
-<<<<<<< HEAD
-              //lastItemTargetHeight: 0,
-=======
-              lastItemTargetHeight: 5,
->>>>>>> d7436b721a54c5294fcdc155c16f3dde2f686809
+              lastItemTargetHeight: 0,
               //addLastItemTargetHeightToTop: true,
               lastListTargetSize: 1,
               listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
