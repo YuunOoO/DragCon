@@ -36,8 +36,11 @@ class _adminpage extends State<adminpage> {
         body: Container(
           width: 100.w,
           padding: new EdgeInsets.all(5.0),
-          decoration: BoxDecoration(
-            color: Color.fromARGB(255, 54, 44, 52),
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/loginback.jpg"),
+              fit: BoxFit.cover,
+            ),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -53,6 +56,7 @@ class _adminpage extends State<adminpage> {
                           borderRadius: BorderRadius.circular(20),
                           child: Image.asset(
                             "assets/images/userback.jpg",
+                            colorBlendMode: BlendMode.modulate,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -137,6 +141,7 @@ class _adminpage extends State<adminpage> {
                           borderRadius: BorderRadius.circular(20),
                           child: Image.asset(
                             "assets/images/taskback.jpg",
+                            colorBlendMode: BlendMode.modulate,
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -221,6 +226,7 @@ class _adminpage extends State<adminpage> {
                           borderRadius: BorderRadius.circular(20),
                           child: Image.asset(
                             "assets/images/equipback.jpg",
+                            colorBlendMode: BlendMode.modulate,
                             fit: BoxFit.fill,
                           ),
                         ),
