@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import '../NavBar.dart';
 import '../NavBarUserTeams.dart';
+import '../NavBarEkipaAdd.dart';
 import '../main.dart';
 import 'dart:collection';
 import 'package:sizer/sizer.dart';
@@ -74,7 +75,7 @@ class _teams extends State<teams> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: NavBar(),
-      endDrawer: WriteSQLdataUser(),
+      endDrawer: WriteSQLEkipaAdd(),
       body: Container(
         width: 100.w,
         height: double.infinity,

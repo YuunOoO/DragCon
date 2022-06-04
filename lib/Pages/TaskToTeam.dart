@@ -115,7 +115,6 @@ class _TaskToTeam extends State<TaskToTeam> {
     LoadTeamTasks(dropdownValue);
     return Scaffold(
       drawer: NavBar(),
-      endDrawer: WriteSQLdataTasks(),
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: GestureDetector(

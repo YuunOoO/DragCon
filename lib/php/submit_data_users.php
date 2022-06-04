@@ -30,7 +30,6 @@
 
             $res = mysqli_query($link, $sql);
             if($res){
-                //write success
             }else{
                 $return["error"] = true;
                 $return["message"] = "Database error";

@@ -1,25 +1,10 @@
-import 'dart:ffi';
-
-import 'package:dragcon/Pages/LoginScreen.dart';
-import 'package:dragcon/Pages/adminpage.dart';
-import 'package:dragcon/Pages/equippage.dart';
-import 'package:dragcon/Pages/geopage.dart';
-import 'package:dragcon/Pages/homepage.dart';
-import 'package:dragcon/Pages/settings.dart';
-import 'package:dragcon/Pages/stat.dart';
 import 'package:flutter/material.dart';
-import 'package:dragcon/Pages/ToolsToTeam.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
-import 'global.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:flutter/widgets.dart';
 import 'package:sizer/sizer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
-
-//import package file manually
 
 void main() => runApp(MyApp());
 
@@ -30,28 +15,25 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
-        home: WriteSQLdataUser());
+        home: WriteSQLEkipaAdd());
   }
 }
 
-class WriteSQLdataUser extends StatefulWidget {
+class WriteSQLEkipaAdd extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return WriteSQLdataUserState();
+    return WriteSQLEkipaAddState();
   }
 }
 
-class WriteSQLdataUserState extends State<WriteSQLdataUser> {
+class WriteSQLEkipaAddState extends State<WriteSQLEkipaAdd> {
   TextEditingController idctl = TextEditingController();
-  TextEditingController passwordctl = TextEditingController();
-  TextEditingController adminctl = TextEditingController();
-  TextEditingController emailctl = TextEditingController();
-  TextEditingController ekipaidctl = TextEditingController();
+  TextEditingController namectl = TextEditingController();
 
   late bool error, sending, success;
   late String msg;
 
-  String phpurl = 'http://192.168.1.103/flutter/submit_data_users.php';
+  String phpurl = 'http://192.168.1.103/flutter/submit_data_ekipa.php';
 
   @override
   void initState() {
@@ -65,10 +47,7 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
   Future<void> sendData() async {
     var res = await http.post(Uri.parse(phpurl), body: {
       "id": idctl.text,
-      "password": passwordctl.text,
-      "admin": adminctl.text,
-      "email": emailctl.text,
-      "ekipa_id": ekipaidctl.text,
+      "name": namectl.text,
     });
 
     if (res.statusCode == 200) {
@@ -82,10 +61,7 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
         });
       } else {
         idctl.text = "";
-        passwordctl.text = "";
-        adminctl.text = "";
-        emailctl.text = "";
-        ekipaidctl.text = "";
+        namectl.text = "";
 
         setState(() {
           sending = false;
@@ -114,38 +90,17 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
             children: <Widget>[
               TextField(
                 controller: idctl,
-                decoration: InputDecoration(
-                  labelText: "Wprowadz Nazwe",
-                  hintText: "Nazwa Użytkownika",
-                ),
-              ),
-              TextField(
-                controller: passwordctl,
                 obscureText: true,
                 decoration: InputDecoration(
-                  labelText: "Wprowadz Hasło",
-                  hintText: "Hasło użytkownika",
+                  labelText: "Wprowadz ID",
+                  hintText: "ID nowej ekipy",
                 ),
               ),
               TextField(
-                controller: adminctl,
+                controller: namectl,
                 decoration: InputDecoration(
-                  labelText: "Wprowadz Poziom Uprawnień",
-                  hintText: "Poziom uprawnień (numer)",
-                ),
-              ),
-              TextField(
-                controller: emailctl,
-                decoration: InputDecoration(
-                  labelText: "Wprowadz E-mail",
-                  hintText: "E-mail użytkownika",
-                ),
-              ),
-              TextField(
-                controller: ekipaidctl,
-                decoration: InputDecoration(
-                  labelText: "Wprowadz ID Ekipy",
-                  hintText: "ID ekipy przydzielonej",
+                  labelText: "Wprowadz Nazwe",
+                  hintText: "Nazwa nowej ekipy",
                 ),
               ),
               SizedBox(
