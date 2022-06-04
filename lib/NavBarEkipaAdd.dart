@@ -27,7 +27,6 @@ class WriteSQLEkipaAdd extends StatefulWidget {
 }
 
 class WriteSQLEkipaAddState extends State<WriteSQLEkipaAdd> {
-  TextEditingController idctl = TextEditingController();
   TextEditingController namectl = TextEditingController();
 
   late bool error, sending, success;
@@ -46,7 +45,6 @@ class WriteSQLEkipaAddState extends State<WriteSQLEkipaAdd> {
 
   Future<void> sendData() async {
     var res = await http.post(Uri.parse(phpurl), body: {
-      "id": idctl.text,
       "name": namectl.text,
     });
 
@@ -60,7 +58,6 @@ class WriteSQLEkipaAddState extends State<WriteSQLEkipaAdd> {
           msg = data["message"];
         });
       } else {
-        idctl.text = "";
         namectl.text = "";
 
         setState(() {
@@ -81,58 +78,56 @@ class WriteSQLEkipaAddState extends State<WriteSQLEkipaAdd> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          alignment: Alignment.topCenter,
-          padding: EdgeInsets.all(20),
-          child: Column(
-            children: <Widget>[
-              TextField(
-                controller: idctl,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: "Wprowadz ID",
-                  hintText: "ID nowej ekipy",
-                ),
+    return Drawer(
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      child: Container(
+        alignment: Alignment.topCenter,
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: <Widget>[
+            Text(
+              'Dodawanie Ekip',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
               ),
-              TextField(
-                controller: namectl,
-                decoration: InputDecoration(
-                  labelText: "Wprowadz Nazwe",
-                  hintText: "Nazwa nowej ekipy",
-                ),
+            ),
+            TextField(
+              controller: namectl,
+              decoration: InputDecoration(
+                labelText: "Wprowadz Nazwe",
+                hintText: "Nazwa nowej ekipy",
               ),
-              SizedBox(
-                height: 10,
-              ),
-              AnimatedButton(
-                height: 50,
-                width: 100.w,
-                text: 'Wyślij',
-                gradient: LinearGradient(colors: [
-                  Color.fromARGB(255, 92, 72, 71),
-                  Color.fromARGB(255, 3, 2, 1)
-                ]),
-                selectedGradientColor: LinearGradient(
-                    colors: [Colors.pinkAccent, Colors.purpleAccent]),
-                isReverse: true,
-                selectedTextColor: Colors.black,
-                transitionType: TransitionType.LEFT_CENTER_ROUNDER,
-                borderColor: Colors.white,
-                borderWidth: 1,
-                borderRadius: 10,
-                onPress: () {
-                  setState(
-                    () {
-                      sending = true;
-                    },
-                  );
-                  sendData();
-                },
-              ),
-            ],
-          ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            AnimatedButton(
+              height: 50,
+              width: 100.w,
+              text: 'Wyślij',
+              gradient: LinearGradient(colors: [
+                Color.fromARGB(255, 92, 72, 71),
+                Color.fromARGB(255, 3, 2, 1)
+              ]),
+              selectedGradientColor: LinearGradient(
+                  colors: [Colors.pinkAccent, Colors.purpleAccent]),
+              isReverse: true,
+              selectedTextColor: Colors.black,
+              transitionType: TransitionType.LEFT_CENTER_ROUNDER,
+              borderColor: Colors.white,
+              borderWidth: 1,
+              borderRadius: 10,
+              onPress: () {
+                setState(
+                  () {
+                    sending = true;
+                  },
+                );
+                sendData();
+              },
+            ),
+          ],
         ),
       ),
     );

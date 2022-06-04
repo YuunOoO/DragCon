@@ -174,11 +174,7 @@ class _teams extends State<teams> {
                             content: Container(
                               width: 100.w,
                               height: 60.h,
-                              child: Stack(
-                                children: <Widget>[
-                                  WriteSQLdataUser(),
-                                ],
-                              ),
+                              child: WriteSQLdataUser(),
                             ),
                           );
                         },

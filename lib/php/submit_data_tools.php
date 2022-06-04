@@ -3,34 +3,28 @@
   $return["message"] = "";
 
   $link = mysqli_connect('localhost','root','','flutter');
-  //connecting to database server
-
   $val = isset($_POST["type"]) && isset($_POST["amount"])
-         && isset($_POST["mark"]);
+         && isset($_POST["mark"]) && isset($_POST["ekipa_id"]);
 
   if($val){
-       //checking if there is POST data
-
-       $type = $_POST["type"]; //grabing the data from headers
+       $type = $_POST["type"]; 
        $amount = $_POST["amount"];
        $mark = $_POST["mark"];
-
+       $ekipa_id = $_POST["ekipa_id"];
        if($return["error"] == false && strlen($type) < 3){
            $return["error"] = true;
-           $return["message"] = "Enter name up to 3 characters.";
+           $return["message"] = "Narzędzie nie może mieć mniej niż 3 znaki";
        }
-       //add more validations here
-       //if there is no any error then ready for database write
+
        if($return["error"] == false){
             $type = mysqli_real_escape_string($link, $type);
             $amount = mysqli_real_escape_string($link, $amount); 
             $mark = mysqli_real_escape_string($link, $mark);
-            //escape inverted comma query conflict from string
-            $sql = "INSERT INTO tools VALUES (DEFAULT,'$type','$amount','$mark',NULL)";
+            $ekipa_id = mysqli_real_escape_string($link, $ekipa_id);
+            $sql = "INSERT INTO tools VALUES (DEFAULT,'$type','$amount','$mark','$ekipa_id')";
 
             $res = mysqli_query($link, $sql);
             if($res){
-                //write success
             }else{
                 $return["error"] = true;
                 $return["message"] = "Database error";
@@ -40,9 +34,7 @@
       $return["error"] = true;
       $return["message"] = 'Send all parameters.';
   }
-  mysqli_close($link); //close mysqli
+  mysqli_close($link);
   header('Content-Type: application/json');
-  // tell browser that its a json data
   echo json_encode($return);
-  //converting array to JSON string
 ?>
