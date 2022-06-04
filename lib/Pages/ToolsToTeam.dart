@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:dragcon/mysql/tables.dart';
+import 'package:dragcon/zoom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +44,7 @@ class DraggableListItem {
 }
 
 class _ToolsToTeam extends State<ToolsToTeam> {
+  sizer _sizer = new sizer();
 //first loading
   @override
   void initState() {
@@ -126,13 +128,15 @@ class _ToolsToTeam extends State<ToolsToTeam> {
           onItemReorder: onReorderListItem,
           onListReorder: onReorderList,
           axis: Axis.horizontal,
-          listWidth: 55.h,
-          listDraggingWidth: 50.h,
+          listWidth: _sizer.x.h,
+          listDraggingWidth: _sizer.y.h,
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add your onPressed code here!
+          setState(() {
+            _sizer = ZoomDrag(_sizer);
+          });
         },
         backgroundColor: Color.fromARGB(255, 155, 17, 132),
         child: FaIcon(

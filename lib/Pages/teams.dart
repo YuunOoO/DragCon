@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:dragcon/mysql/tables.dart';
+import 'package:dragcon/zoom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,7 @@ class DraggableListItem {
 
 class _teams extends State<teams> {
   late List<DragAndDropList> lists;
+  sizer _sizer = new sizer();
   @override
   void initState() {
     super.initState();
@@ -85,7 +87,11 @@ class _teams extends State<teams> {
         child: Stack(
           children: [
             DragAndDropLists(
+<<<<<<< HEAD
               //lastItemTargetHeight: 0,
+=======
+              lastItemTargetHeight: 5,
+>>>>>>> d7436b721a54c5294fcdc155c16f3dde2f686809
               //addLastItemTargetHeightToTop: true,
               lastListTargetSize: 1,
               listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
@@ -112,15 +118,17 @@ class _teams extends State<teams> {
               onItemReorder: onReorderListItem,
               onListReorder: onReorderList,
               axis: Axis.horizontal,
-              listWidth: 55.h,
-              listDraggingWidth: 50.h,
+              listWidth: _sizer.x.h,
+              listDraggingWidth: _sizer.y.h,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add your onPressed code here!
+          setState(() {
+            _sizer = ZoomDrag(_sizer);
+          });
         },
         backgroundColor: Color.fromARGB(255, 155, 17, 132),
         child: FaIcon(

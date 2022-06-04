@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:dragcon/mysql/tables.dart';
+import 'package:dragcon/zoom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +54,7 @@ class _homepage extends State<homepage> {
   double font_size = 15;
   double font_size2 = 25;
   bool zoom = true;
+  sizer _sizer = new sizer();
   static final String title = 'Drag & Drop ListView';
 
   void LoadTeamTasks() {
@@ -153,27 +155,15 @@ class _homepage extends State<homepage> {
           onItemReorder: onReorderListItem,
           onListReorder: onReorderList,
           axis: Axis.horizontal,
-          listWidth: x.h,
-          listDraggingWidth: y.h,
+          listWidth: _sizer.x.h,
+          listDraggingWidth: _sizer.y.h,
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Add your onPressed code here!
           setState(() {
-            if (zoom) {
-              x = 25;
-              y = 27;
-              font_size = 7;
-              zoom = false;
-              font_size2 = 12;
-            } else {
-              zoom = true;
-              x = 55;
-              y = 55;
-              font_size = 15;
-              font_size2 = 25;
-            }
+            _sizer = ZoomDrag(_sizer);
           });
         },
         backgroundColor: Color.fromARGB(232, 87, 7, 73),
