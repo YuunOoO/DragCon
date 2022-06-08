@@ -52,6 +52,75 @@ class _homepage extends State<homepage> {
   bool zoom = true;
   sizer _sizer = new sizer();
   static final String title = 'Drag & Drop ListView';
+  Future<bool> _onWillPop(BuildContext context) async {
+    bool? exitResult = await _showExitBottomSheet(context);
+    return exitResult ?? false;
+  }
+
+  Future<bool?> _showExitBottomSheet(BuildContext context) async {
+    return await showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.all(16),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(24),
+              topRight: Radius.circular(24),
+            ),
+          ),
+          child: _buildBottomSheet(context),
+        );
+      },
+    );
+  }
+
+  Widget _buildBottomSheet(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const SizedBox(
+          height: 24,
+        ),
+        Text(
+          'Czy na pewno chcesz opuścić aplikacje?',
+          style: Theme.of(context).textTheme.headline6,
+        ),
+        const SizedBox(
+          height: 24,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            TextButton(
+              style: ButtonStyle(
+                padding: MaterialStateProperty.all(
+                  const EdgeInsets.symmetric(
+                    horizontal: 8,
+                  ),
+                ),
+              ),
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('Anuluj'),
+            ),
+            TextButton(
+              style: ButtonStyle(
+                padding: MaterialStateProperty.all(
+                  const EdgeInsets.symmetric(
+                    horizontal: 8,
+                  ),
+                ),
+              ),
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Tak, zamknij'),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
 
   void LoadTeamTasks() {
     //clean everything
@@ -108,66 +177,69 @@ class _homepage extends State<homepage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: NavBar(),
-      body: Container(
-        width: 100.w,
-        height: 100.h,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/loginback.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: DragAndDropLists(
-          lastItemTargetHeight: 0,
-          //addLastItemTargetHeightToTop: true,
-          lastListTargetSize: 1,
-          listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
-
-          listInnerDecoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            border: Border.all(
-              color: Color.fromARGB(255, 12, 12, 12),
-              width: 5,
+    return WillPopScope(
+      child: Scaffold(
+        drawer: NavBar(),
+        body: Container(
+          width: 100.w,
+          height: 100.h,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/loginback.jpg"),
+              fit: BoxFit.cover,
             ),
           ),
-          children: lists,
+          child: DragAndDropLists(
+            lastItemTargetHeight: 0,
+            //addLastItemTargetHeightToTop: true,
+            lastListTargetSize: 1,
+            listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
 
-          itemDivider: Divider(
-            thickness: 2,
-            height: 2,
-            color: Colors.black,
+            listInnerDecoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              border: Border.all(
+                color: Color.fromARGB(255, 12, 12, 12),
+                width: 5,
+              ),
+            ),
+            children: lists,
+
+            itemDivider: Divider(
+              thickness: 2,
+              height: 2,
+              color: Colors.black,
+            ),
+            itemDecorationWhileDragging: BoxDecoration(
+              color: Color.fromARGB(255, 225, 159, 236),
+              boxShadow: [
+                BoxShadow(
+                  color: Color.fromARGB(255, 189, 184, 184),
+                  blurRadius: 12,
+                )
+              ],
+            ),
+            onItemReorder: onReorderListItem,
+            onListReorder: onReorderList,
+            axis: Axis.horizontal,
+            listWidth: _sizer.x.h,
+            listDraggingWidth: _sizer.y.h,
           ),
-          itemDecorationWhileDragging: BoxDecoration(
-            color: Color.fromARGB(255, 225, 159, 236),
-            boxShadow: [
-              BoxShadow(
-                color: Color.fromARGB(255, 189, 184, 184),
-                blurRadius: 12,
-              )
-            ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            // Add your onPressed code here!
+            setState(() {
+              _sizer = ZoomDrag(_sizer);
+            });
+          },
+          backgroundColor: Color.fromARGB(232, 87, 7, 73),
+          child: FaIcon(
+            FontAwesomeIcons.magnifyingGlassPlus,
+            color: Colors.white,
           ),
-          onItemReorder: onReorderListItem,
-          onListReorder: onReorderList,
-          axis: Axis.horizontal,
-          listWidth: _sizer.x.h,
-          listDraggingWidth: _sizer.y.h,
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Add your onPressed code here!
-          setState(() {
-            _sizer = ZoomDrag(_sizer);
-          });
-        },
-        backgroundColor: Color.fromARGB(232, 87, 7, 73),
-        child: FaIcon(
-          FontAwesomeIcons.magnifyingGlassPlus,
-          color: Colors.white,
-        ),
-      ),
+      onWillPop: () => _onWillPop(context),
     );
   }
 
