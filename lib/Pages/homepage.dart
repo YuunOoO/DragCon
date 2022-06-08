@@ -44,8 +44,8 @@ class homepage extends StatefulWidget {
 }
 
 class _homepage extends State<homepage> {
-  double x = 55;
-  double y = 55;
+  double x = 50;
+  double y = 50;
   double x2 = 10;
   double font_size = 10;
   double font_size2 = 15;
