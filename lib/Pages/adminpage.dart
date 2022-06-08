@@ -94,13 +94,12 @@ class _adminpage extends State<adminpage> {
                                 icon: const Icon(Icons.assignment_ind),
                                 color: Colors.white,
                                 onPressed: () {
-                                  Navigator.push(
+                                  Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) {
-                                        return teams();
-                                      },
-                                    ),
+                                        builder: (BuildContext context) =>
+                                            teams()),
+                                    (route) => true,
                                   );
                                 },
                               ),
@@ -120,13 +119,11 @@ class _adminpage extends State<adminpage> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.push(
+                  Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) {
-                        return teams();
-                      },
-                    ),
+                        builder: (BuildContext context) => teams()),
+                    (route) => true,
                   );
                 },
               ),
@@ -179,13 +176,12 @@ class _adminpage extends State<adminpage> {
                                 icon: const Icon(Icons.assignment),
                                 color: Colors.white,
                                 onPressed: () {
-                                  Navigator.push(
+                                  Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) {
-                                        return TaskToTeam();
-                                      },
-                                    ),
+                                        builder: (BuildContext context) =>
+                                            TaskToTeam()),
+                                    (route) => true,
                                   );
                                 },
                               ),
@@ -205,13 +201,11 @@ class _adminpage extends State<adminpage> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.push(
+                  Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) {
-                        return TaskToTeam();
-                      },
-                    ),
+                        builder: (BuildContext context) => TaskToTeam()),
+                    (route) => true,
                   );
                 },
               ),
@@ -264,13 +258,12 @@ class _adminpage extends State<adminpage> {
                                 icon: const Icon(Icons.handyman),
                                 color: Colors.white,
                                 onPressed: () {
-                                  Navigator.push(
+                                  Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) {
-                                        return ToolsToTeam();
-                                      },
-                                    ),
+                                        builder: (BuildContext context) =>
+                                            ToolsToTeam()),
+                                    (route) => true,
                                   );
                                 },
                               ),
@@ -290,13 +283,11 @@ class _adminpage extends State<adminpage> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.push(
+                  Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) {
-                        return ToolsToTeam();
-                      },
-                    ),
+                        builder: (BuildContext context) => ToolsToTeam()),
+                    (route) => true,
                   );
                 },
               ),

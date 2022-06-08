@@ -34,7 +34,7 @@ class WriteSQLdataState extends State<WriteSQLdata> {
   late bool error, sending, success;
   late String msg;
 
-  String phpurl = 'http://192.168.1.103/flutter/submit_data_tools.php';
+  String phpurl = 'http://192.168.100.140/flutter/submit_data_tools.php';
 
   @override
   void initState() {

@@ -252,9 +252,11 @@ Future Login(BuildContext context) async {
     name.clear();
     //homepage navigation
     //sleep(Duration(milliseconds: 500));
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return homepage();
-    }));
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (BuildContext context) => homepage()),
+      (route) => false,
+    );
   } else {
     print('wrong id/pass');
   }
