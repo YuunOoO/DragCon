@@ -45,7 +45,7 @@ class NavBar extends StatelessWidget {
           Visibility(
             child: ListTile(
               leading: Icon(Icons.description),
-              title: Text('Admin panel'),
+              title: Text('Admin Panel'),
               onTap: () => Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) {
                 return adminpage();
@@ -56,7 +56,7 @@ class NavBar extends StatelessWidget {
           Divider(),
           ListTile(
             leading: Icon(Icons.home),
-            title: Text('Home'),
+            title: Text('Home Page'),
             onTap: () => Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) {
               return homepage();
@@ -64,7 +64,7 @@ class NavBar extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-              title: Text('Lokalizacja'),
+              title: Text('Location'),
               leading: Icon(Icons.gps_fixed_outlined),
               onTap: () => Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) {
@@ -72,7 +72,7 @@ class NavBar extends StatelessWidget {
                   }))),
           Divider(),
           ListTile(
-              title: Text('Wyposażenie'),
+              title: Text('Equipment'),
               leading: Icon(Icons.airport_shuttle_rounded),
               onTap: () => Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) {
@@ -80,7 +80,7 @@ class NavBar extends StatelessWidget {
                   }))),
           Divider(),
           ListTile(
-              title: Text('Statystyki'),
+              title: Text('Statistics'),
               leading: Icon(Icons.bar_chart),
               onTap: () => Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) {
@@ -89,14 +89,14 @@ class NavBar extends StatelessWidget {
           Divider(),
           ListTile(
               leading: Icon(Icons.settings),
-              title: Text('Ustawienia'),
+              title: Text('Settings'),
               onTap: () => Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) {
                     return settings();
                   }))),
           Divider(),
           ListTile(
-              title: Text('Wyloguj'),
+              title: Text('Log Out'),
               leading: Icon(Icons.exit_to_app),
               onTap: () => {Navigator.pop(context), Navigator.pop(context)}),
         ],

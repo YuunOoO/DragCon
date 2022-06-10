@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:dragcon/Pages/TaskToTeam.dart';
 import 'package:dragcon/Pages/ToolsToTeam.dart';
+import 'package:dragcon/Pages/homepage.dart';
 import 'package:dragcon/Pages/teams.dart';
 import 'package:dragcon/mysql/tables.dart';
 import 'package:flutter/material.dart';
@@ -106,7 +107,7 @@ class _adminpage extends State<adminpage> {
                               ),
                             ),
                             Text(
-                              'Załogi',
+                              'Teams',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 25,
@@ -120,14 +121,10 @@ class _adminpage extends State<adminpage> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return teams();
-                      },
-                    ),
-                  );
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) {
+                    return teams();
+                  }));
                 },
               ),
               GestureDetector(
@@ -179,19 +176,15 @@ class _adminpage extends State<adminpage> {
                                 icon: const Icon(Icons.assignment),
                                 color: Colors.white,
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return TaskToTeam();
-                                      },
-                                    ),
-                                  );
+                                  Navigator.pushReplacement(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return TaskToTeam();
+                                  }));
                                 },
                               ),
                             ),
                             Text(
-                              'Zgłoszenia',
+                              'Tasks',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 25,
@@ -205,14 +198,10 @@ class _adminpage extends State<adminpage> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return TaskToTeam();
-                      },
-                    ),
-                  );
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) {
+                    return TaskToTeam();
+                  }));
                 },
               ),
               GestureDetector(
@@ -276,7 +265,7 @@ class _adminpage extends State<adminpage> {
                               ),
                             ),
                             Text(
-                              'Narzędzia',
+                              'Tools',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 25,
@@ -290,14 +279,10 @@ class _adminpage extends State<adminpage> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return ToolsToTeam();
-                      },
-                    ),
-                  );
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) {
+                    return ToolsToTeam();
+                  }));
                 },
               ),
             ],
