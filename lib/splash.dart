@@ -25,33 +25,115 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(
-            padding: const EdgeInsetsDirectional.only(
-                start: 70.0, end: 70.0, top: 75.0),
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/loadingback.jpg"),
-                fit: BoxFit.cover,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth > 1200) {
+          return Scaffold(
+            body: Container(
+              padding: const EdgeInsetsDirectional.only(
+                  start: 300.0, end: 300.0, top: 80.0),
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment(0.8, 1),
+                  colors: <Color>[
+                    Color(0xffC04848),
+                    Color(0xff480048),
+                  ],
+                  tileMode: TileMode.mirror,
+                ),
+              ),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/icons/logo.png',
+                      height: 400,
+                      width: 400,
+                    ),
+                    FAProgressBar(
+                      currentValue: 100,
+                      size: 15,
+                      animatedDuration: const Duration(milliseconds: 3600),
+                      backgroundColor: Color.fromARGB(59, 248, 101, 228),
+                      progressColor: Color.fromARGB(255, 252, 188, 248),
+                    )
+                  ],
+                ),
               ),
             ),
-            child: Center(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Image.asset(
-                  'assets/icons/logo.png',
-                  height: 320,
-                  width: 320,
+          );
+        } else if (constraints.maxWidth > 800 && constraints.maxWidth < 1200) {
+          return Scaffold(
+            body: Container(
+              padding: const EdgeInsetsDirectional.only(
+                  start: 70.0, end: 70.0, top: 75.0),
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment(0.8, 1),
+                  colors: <Color>[
+                    Color(0xffC04848),
+                    Color(0xff480048),
+                  ],
+                  tileMode: TileMode.mirror,
                 ),
-                FAProgressBar(
-                  currentValue: 100,
-                  size: 15,
-                  animatedDuration: const Duration(milliseconds: 3600),
-                  backgroundColor: Color.fromARGB(59, 248, 101, 228),
-                  progressColor: Color.fromARGB(255, 252, 188, 248),
-                )
-              ],
-            ))));
+              ),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/icons/logo.png',
+                      height: 400,
+                      width: 400,
+                    ),
+                    FAProgressBar(
+                      currentValue: 100,
+                      size: 15,
+                      animatedDuration: const Duration(milliseconds: 3600),
+                      backgroundColor: Color.fromARGB(59, 248, 101, 228),
+                      progressColor: Color.fromARGB(255, 252, 188, 248),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        } else
+          return Scaffold(
+            body: Container(
+              padding: const EdgeInsetsDirectional.only(
+                  start: 70.0, end: 70.0, top: 75.0),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/loadingback.jpg"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/icons/logo.png',
+                      height: 320,
+                      width: 320,
+                    ),
+                    FAProgressBar(
+                      currentValue: 100,
+                      size: 15,
+                      animatedDuration: const Duration(milliseconds: 3600),
+                      backgroundColor: Color.fromARGB(59, 248, 101, 228),
+                      progressColor: Color.fromARGB(255, 252, 188, 248),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+      },
+    );
   }
 }

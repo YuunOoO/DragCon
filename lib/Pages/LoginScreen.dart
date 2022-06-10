@@ -28,46 +28,148 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     autoLogin(context);
-    return Scaffold(
-      body: Container(
-        padding: new EdgeInsets.all(10.0),
-        height: 100.h,
-        width: 100.w,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/loginback.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: SingleChildScrollView(
-          child: AnnotatedRegion<SystemUiOverlayStyle>(
-            value: SystemUiOverlayStyle.light,
-            child: GestureDetector(
-              child: Stack(
-                children: <Widget>[
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(height: 20),
-                      Image.asset(
-                        'assets/icons/logo.png',
-                        height: 180,
-                        width: 180,
-                      ),
-                      SizedBox(height: 80),
-                      buildEmail(name),
-                      buildPassword(passw),
-                      SizedBox(height: 20),
-                      loginButton(context),
-                    ],
-                  ),
+    return LayoutBuilder(builder: (context, constraints) {
+      if (constraints.maxWidth > 1200) {
+        return Scaffold(
+          body: Container(
+            padding: new EdgeInsets.all(10.0),
+            height: 100.h,
+            width: 100.w,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment(0.8, 1),
+                colors: <Color>[
+                  Color(0xffC04848),
+                  Color(0xff480048),
                 ],
+                tileMode: TileMode.mirror,
+              ),
+            ),
+            child: Center(
+              child: SingleChildScrollView(
+                child: AnnotatedRegion<SystemUiOverlayStyle>(
+                  value: SystemUiOverlayStyle.light,
+                  child: GestureDetector(
+                    child: Stack(
+                      children: <Widget>[
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(height: 20),
+                            Image.asset(
+                              'assets/icons/logo.png',
+                              height: 400,
+                              width: 400,
+                            ),
+                            SizedBox(height: 80),
+                            buildEmail(name),
+                            buildPassword(passw),
+                            SizedBox(height: 20),
+                            loginButton(context),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-      ),
-    );
+        );
+      } else if (constraints.maxWidth > 800 && constraints.maxWidth < 1200) {
+        return Scaffold(
+          body: Container(
+            padding: new EdgeInsets.all(10.0),
+            height: 100.h,
+            width: 100.w,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment(0.8, 1),
+                colors: <Color>[
+                  Color(0xffC04848),
+                  Color(0xff480048),
+                ],
+                tileMode: TileMode.mirror,
+              ),
+            ),
+            child: Center(
+              child: SingleChildScrollView(
+                child: AnnotatedRegion<SystemUiOverlayStyle>(
+                  value: SystemUiOverlayStyle.light,
+                  child: GestureDetector(
+                    child: Stack(
+                      children: <Widget>[
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(height: 20),
+                            Image.asset(
+                              'assets/icons/logo.png',
+                              height: 400,
+                              width: 400,
+                            ),
+                            SizedBox(height: 80),
+                            buildEmail(name),
+                            buildPassword(passw),
+                            SizedBox(height: 20),
+                            loginButton(context),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      } else {
+        return Scaffold(
+          body: Container(
+            padding: new EdgeInsets.all(10.0),
+            height: 100.h,
+            width: 100.w,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/loginback.jpg"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Center(
+              child: SingleChildScrollView(
+                child: AnnotatedRegion<SystemUiOverlayStyle>(
+                  value: SystemUiOverlayStyle.light,
+                  child: GestureDetector(
+                    child: Stack(
+                      children: <Widget>[
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(height: 20),
+                            Image.asset(
+                              'assets/icons/logo.png',
+                              height: 400,
+                              width: 400,
+                            ),
+                            SizedBox(height: 80),
+                            buildEmail(name),
+                            buildPassword(passw),
+                            SizedBox(height: 20),
+                            loginButton(context),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+    });
   }
 
   Future Authentication(BuildContext context) async {
@@ -92,6 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         SizedBox(height: 6),
         Container(
+          width: 500,
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(
               color: Color.fromARGB(127, 119, 60, 106),
@@ -137,6 +240,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         SizedBox(height: 6),
         Container(
+          width: 500,
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(
               color: Color.fromARGB(127, 119, 60, 106),

@@ -223,69 +223,211 @@ class _homepage extends State<homepage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      child: Scaffold(
-        drawer: NavBar(),
-        body: Container(
-          width: 100.w,
-          height: 100.h,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/loginback.jpg"),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: DragAndDropLists(
-            lastItemTargetHeight: 5,
-            //addLastItemTargetHeightToTop: true,
-            lastListTargetSize: 1,
-            listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
-            listInnerDecoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              border: Border.all(
-                color: Color.fromARGB(255, 12, 12, 12),
-                width: 5,
+    return LayoutBuilder(builder: (context, constraints) {
+      if (constraints.maxWidth > 1200) {
+        return WillPopScope(
+          child: Scaffold(
+            drawer: NavBar(),
+            body: Container(
+              width: 100.w,
+              height: 100.h,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment(0.8, 1),
+                  colors: <Color>[
+                    Color(0xffC04848),
+                    Color(0xff480048),
+                  ],
+                  tileMode: TileMode.mirror,
+                ),
+              ),
+              child: DragAndDropLists(
+                lastItemTargetHeight: 5,
+                //addLastItemTargetHeightToTop: true,
+                lastListTargetSize: 1,
+                listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
+                listInnerDecoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(
+                    color: Color.fromARGB(255, 12, 12, 12),
+                    width: 5,
+                  ),
+                ),
+                children: lists,
+
+                itemDivider: Divider(
+                  thickness: 2,
+                  height: 2,
+                  color: Colors.black,
+                ),
+                itemDecorationWhileDragging: BoxDecoration(
+                  color: Color.fromARGB(255, 225, 159, 236),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromARGB(255, 189, 184, 184),
+                      blurRadius: 12,
+                    )
+                  ],
+                ),
+                onItemReorder: onReorderListItem,
+                onListReorder: onReorderList,
+                axis: Axis.horizontal,
+                listWidth: _sizer.x.h,
+                listDraggingWidth: _sizer.y.h,
               ),
             ),
-            children: lists,
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                // Add your onPressed code here!
+                setState(() {
+                  _sizer = ZoomDrag(_sizer);
+                });
+              },
+              backgroundColor: Color.fromARGB(232, 87, 7, 73),
+              child: FaIcon(
+                FontAwesomeIcons.magnifyingGlassPlus,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          onWillPop: () => _onWillPop(context),
+        );
+      } else if (constraints.maxWidth > 800 && constraints.maxWidth < 1200) {
+        return WillPopScope(
+          child: Scaffold(
+            drawer: NavBar(),
+            body: Container(
+              width: 100.w,
+              height: 100.h,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment(0.8, 1),
+                  colors: <Color>[
+                    Color(0xffC04848),
+                    Color(0xff480048),
+                  ],
+                  tileMode: TileMode.mirror,
+                ),
+              ),
+              child: DragAndDropLists(
+                lastItemTargetHeight: 5,
+                //addLastItemTargetHeightToTop: true,
+                lastListTargetSize: 1,
+                listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
+                listInnerDecoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(
+                    color: Color.fromARGB(255, 12, 12, 12),
+                    width: 5,
+                  ),
+                ),
+                children: lists,
 
-            itemDivider: Divider(
-              thickness: 2,
-              height: 2,
-              color: Colors.black,
+                itemDivider: Divider(
+                  thickness: 2,
+                  height: 2,
+                  color: Colors.black,
+                ),
+                itemDecorationWhileDragging: BoxDecoration(
+                  color: Color.fromARGB(255, 225, 159, 236),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromARGB(255, 189, 184, 184),
+                      blurRadius: 12,
+                    )
+                  ],
+                ),
+                onItemReorder: onReorderListItem,
+                onListReorder: onReorderList,
+                axis: Axis.horizontal,
+                listWidth: _sizer.x.h,
+                listDraggingWidth: _sizer.y.h,
+              ),
             ),
-            itemDecorationWhileDragging: BoxDecoration(
-              color: Color.fromARGB(255, 225, 159, 236),
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromARGB(255, 189, 184, 184),
-                  blurRadius: 12,
-                )
-              ],
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                // Add your onPressed code here!
+                setState(() {
+                  _sizer = ZoomDrag(_sizer);
+                });
+              },
+              backgroundColor: Color.fromARGB(232, 87, 7, 73),
+              child: FaIcon(
+                FontAwesomeIcons.magnifyingGlassPlus,
+                color: Colors.white,
+              ),
             ),
-            onItemReorder: onReorderListItem,
-            onListReorder: onReorderList,
-            axis: Axis.horizontal,
-            listWidth: _sizer.x.h,
-            listDraggingWidth: _sizer.y.h,
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            // Add your onPressed code here!
-            setState(() {
-              _sizer = ZoomDrag(_sizer);
-            });
-          },
-          backgroundColor: Color.fromARGB(232, 87, 7, 73),
-          child: FaIcon(
-            FontAwesomeIcons.magnifyingGlassPlus,
-            color: Colors.white,
+          onWillPop: () => _onWillPop(context),
+        );
+      } else {
+        return WillPopScope(
+          child: Scaffold(
+            drawer: NavBar(),
+            body: Container(
+              width: 100.w,
+              height: 100.h,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/loginback.jpg"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: DragAndDropLists(
+                lastItemTargetHeight: 5,
+                //addLastItemTargetHeightToTop: true,
+                lastListTargetSize: 1,
+                listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
+                listInnerDecoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(
+                    color: Color.fromARGB(255, 12, 12, 12),
+                    width: 5,
+                  ),
+                ),
+                children: lists,
+
+                itemDivider: Divider(
+                  thickness: 2,
+                  height: 2,
+                  color: Colors.black,
+                ),
+                itemDecorationWhileDragging: BoxDecoration(
+                  color: Color.fromARGB(255, 225, 159, 236),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromARGB(255, 189, 184, 184),
+                      blurRadius: 12,
+                    )
+                  ],
+                ),
+                onItemReorder: onReorderListItem,
+                onListReorder: onReorderList,
+                axis: Axis.horizontal,
+                listWidth: _sizer.x.h,
+                listDraggingWidth: _sizer.y.h,
+              ),
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                // Add your onPressed code here!
+                setState(() {
+                  _sizer = ZoomDrag(_sizer);
+                });
+              },
+              backgroundColor: Color.fromARGB(232, 87, 7, 73),
+              child: FaIcon(
+                FontAwesomeIcons.magnifyingGlassPlus,
+                color: Colors.white,
+              ),
+            ),
           ),
-        ),
-      ),
-      onWillPop: () => _onWillPop(context),
-    );
+          onWillPop: () => _onWillPop(context),
+        );
+      }
+    });
   }
 
   DragAndDropList buildList(DraggableList list) => DragAndDropList(
