@@ -3,14 +3,9 @@ import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:dragcon/mysql/tables.dart';
 import 'package:dragcon/zoom.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/material.dart';
 import '../NavBar.dart';
-import '../main.dart';
-import 'dart:collection';
 import '../global.dart';
 import 'package:sizer/sizer.dart';
-import 'package:expandable/expandable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
@@ -51,8 +46,9 @@ class homepage extends StatefulWidget {
 class _homepage extends State<homepage> {
   double x = 55;
   double y = 55;
-  double font_size = 15;
-  double font_size2 = 25;
+  double x2 = 10;
+  double font_size = 10;
+  double font_size2 = 15;
   bool zoom = true;
   sizer _sizer = new sizer();
   static final String title = 'Drag & Drop ListView';
@@ -119,7 +115,7 @@ class _homepage extends State<homepage> {
         height: 100.h,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/adminback.jpg"),
+            image: AssetImage("assets/images/loginback.jpg"),
             fit: BoxFit.cover,
           ),
         ),
@@ -183,7 +179,7 @@ class _homepage extends State<homepage> {
               maxLines: 2,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: font_size2,
+                fontSize: 25,
                 color: Color.fromARGB(255, 0, 0, 0),
               ),
             ),
@@ -211,59 +207,276 @@ class _homepage extends State<homepage> {
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 backgroundColor:
-                                    Color.fromARGB(255, 104, 104, 104),
+                                    Color.fromARGB(255, 221, 221, 221),
+                                insetPadding: EdgeInsets.all(30),
                                 content: Container(
+                                  margin: EdgeInsets.all(0),
                                   width: 100.w,
                                   height: 100.h,
                                   clipBehavior: Clip.none,
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Icon(Icons.car_rental),
-                                            Text(
-                                              "Lokalizacja: " +
-                                                  item.task.location,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: font_size,
-                                                color: Color.fromARGB(
-                                                    255, 0, 0, 0),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  item.task.about,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20,
+                                                    color: Color.fromARGB(
+                                                      255,
+                                                      0,
+                                                      0,
+                                                      0,
+                                                    ),
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Icon(Icons.add),
-                                            Text(
-                                              "Data zgłoszenia: " +
-                                                  item.task.data_reg,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: font_size,
-                                                color: Color.fromARGB(
-                                                    255, 0, 0, 0),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Container(
+                                                margin: EdgeInsets.all(5),
+                                                padding: EdgeInsets.all(5),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          100),
+                                                  border: Border.all(
+                                                    width: 2,
+                                                    color: Color.fromARGB(
+                                                        255, 0, 0, 0),
+                                                  ),
+                                                  gradient: LinearGradient(
+                                                    begin: Alignment.topLeft,
+                                                    end: Alignment(0.8, 1),
+                                                    colors: <Color>[
+                                                      Color(0xff556270),
+                                                      Color(0xffFF6B6B),
+                                                    ],
+                                                    tileMode: TileMode.mirror,
+                                                  ),
+                                                ),
+                                                child: Icon(
+                                                  Icons.map,
+                                                  color: Color.fromARGB(
+                                                      255, 0, 0, 0),
+                                                  size: 35,
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Icon(Icons.add),
-                                            Text(
-                                              "Krótki opis: " + item.task.about,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: font_size,
-                                                color: Color.fromARGB(
-                                                    255, 0, 0, 0),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                width: 50.w,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  color: Color.fromARGB(
+                                                      133, 185, 185, 185),
+                                                ),
+                                                child: Text(
+                                                  "Lokalizacja: \n" +
+                                                      item.task.location,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 15,
+                                                    color: Color.fromARGB(
+                                                        255, 0, 0, 0),
+                                                  ),
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Container(
+                                                margin: EdgeInsets.all(5),
+                                                padding: EdgeInsets.all(5),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          100),
+                                                  border: Border.all(
+                                                    width: 2,
+                                                    color: Color.fromARGB(
+                                                        255, 0, 0, 0),
+                                                  ),
+                                                  gradient: LinearGradient(
+                                                    begin: Alignment.topLeft,
+                                                    end: Alignment(0.8, 1),
+                                                    colors: <Color>[
+                                                      Color(0xff556270),
+                                                      Color(0xffFF6B6B),
+                                                    ],
+                                                    tileMode: TileMode.mirror,
+                                                  ),
+                                                ),
+                                                child: Icon(
+                                                  Icons.calendar_month,
+                                                  color: Color.fromARGB(
+                                                      255, 0, 0, 0),
+                                                  size: 35,
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                width: 50.w,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  color: Color.fromARGB(
+                                                      133, 185, 185, 185),
+                                                ),
+                                                child: Text(
+                                                  "Data zgłoszenia: \n" +
+                                                      item.task.data_reg,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 15,
+                                                    color: Color.fromARGB(
+                                                        255, 0, 0, 0),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              ClipOval(
+                                                child: Container(
+                                                  margin: EdgeInsets.all(5),
+                                                  padding: EdgeInsets.all(5),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            100),
+                                                    border: Border.all(
+                                                      width: 2,
+                                                      color: Color.fromARGB(
+                                                          255, 0, 0, 0),
+                                                    ),
+                                                    gradient: LinearGradient(
+                                                      begin: Alignment.topLeft,
+                                                      end: Alignment(0.8, 1),
+                                                      colors: <Color>[
+                                                        Color(0xff556270),
+                                                        Color(0xffFF6B6B),
+                                                      ],
+                                                      tileMode: TileMode.mirror,
+                                                    ),
+                                                  ),
+                                                  child: Icon(
+                                                    Icons.announcement,
+                                                    color: Color.fromARGB(
+                                                        255, 0, 0, 0),
+                                                    size: 35,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                width: 50.w,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  color: Color.fromARGB(
+                                                      133, 185, 185, 185),
+                                                ),
+                                                child: Text(
+                                                  "Typ zgłoszenia: \n" +
+                                                      item.task.type,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 15,
+                                                    color: Color.fromARGB(
+                                                        255, 0, 0, 0),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 25,
+                                          ),
+                                          Column(
+                                            children: [
+                                              Stack(
+                                                clipBehavior: Clip.none,
+                                                children: <Widget>[
+                                                  Container(
+                                                    width: 65.w,
+                                                    height: 40.h,
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                        width: 2,
+                                                        color: Color.fromARGB(
+                                                            255, 0, 0, 0),
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      color: Color.fromARGB(
+                                                          133, 185, 185, 185),
+                                                    ),
+                                                    child: Text("\n\n asdasd"),
+                                                  ),
+                                                  Positioned(
+                                                    child: FloatingActionButton(
+                                                      child: Container(
+                                                        width: 60,
+                                                        height: 60,
+                                                        child: Icon(
+                                                          Icons.comment,
+                                                          size: 40,
+                                                          color: Colors.black,
+                                                        ),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          border: Border.all(
+                                                            width: 2,
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    0,
+                                                                    0,
+                                                                    0),
+                                                          ),
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          gradient:
+                                                              LinearGradient(
+                                                            begin: Alignment
+                                                                .topLeft,
+                                                            end: Alignment(
+                                                                0.8, 1),
+                                                            colors: <Color>[
+                                                              Color(0xff556270),
+                                                              Color(0xffFF6B6B),
+                                                            ],
+                                                            tileMode:
+                                                                TileMode.mirror,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      onPressed: null,
+                                                    ),
+                                                    right: 0,
+                                                    left: 0,
+                                                    top: -26,
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -282,7 +495,7 @@ class _homepage extends State<homepage> {
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: font_size,
+                                      fontSize: 15,
                                       color: Color.fromARGB(255, 255, 255, 255),
                                     ),
                                   ),
@@ -294,7 +507,7 @@ class _homepage extends State<homepage> {
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: font_size,
+                                      fontSize: 15,
                                       color: Color.fromARGB(255, 255, 255, 255),
                                     ),
                                   ),
@@ -306,7 +519,7 @@ class _homepage extends State<homepage> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: font_size,
+                                fontSize: 15,
                                 color: Color.fromARGB(255, 255, 255, 255),
                               ),
                             ),

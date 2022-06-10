@@ -88,7 +88,6 @@ class _ToolsToTeam extends State<ToolsToTeam> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: NavBar(),
-      endDrawer: WriteSQLdata(),
       body: Container(
         width: 100.w,
         height: 100.h,
@@ -149,15 +148,55 @@ class _ToolsToTeam extends State<ToolsToTeam> {
 
   DragAndDropList buildList(DraggableList list) => DragAndDropList(
         header: Container(
+          margin: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            color: Color.fromARGB(199, 65, 65, 65),
+            borderRadius: BorderRadius.circular(30),
+          ),
           child: Center(
-            child: Text(
-              list.header,
-              maxLines: 2,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
-                color: Color.fromARGB(255, 0, 0, 0),
-              ),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Text(""),
+                ),
+                Expanded(
+                  flex: 7,
+                  child: Text(
+                    list.header,
+                    maxLines: 2,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: IconButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            content: Container(
+                              width: 100.w,
+                              height: 60.h,
+                              child: WriteSQLdata(),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    icon: Icon(
+                      Icons.add_circle_outlined,
+                      size: 35,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),

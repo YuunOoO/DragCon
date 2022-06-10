@@ -63,16 +63,13 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
   }
 
   Future<void> sendData() async {
-    var res = await http.post(
-      Uri.parse(phpurl),
-      body: {
-        "id": idctl.text,
-        "password": passwordctl.text,
-        "admin": adminctl.text,
-        "email": emailctl.text,
-        "ekipa_id": ekipaidctl.text,
-      },
-    );
+    var res = await http.post(Uri.parse(phpurl), body: {
+      "id": idctl.text,
+      "password": passwordctl.text,
+      "admin": adminctl.text,
+      "email": emailctl.text,
+      "ekipa_id": ekipaidctl.text,
+    });
 
     if (res.statusCode == 200) {
       print(res.body);
@@ -147,8 +144,8 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
               TextField(
                 controller: ekipaidctl,
                 decoration: InputDecoration(
-                  labelText: "Wprowadz Id ekipy",
-                  hintText: "Id ekipy",
+                  labelText: "Wprowadz ID Ekipy",
+                  hintText: "ID ekipy przydzielonej",
                 ),
               ),
               SizedBox(
@@ -157,7 +154,7 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
               AnimatedButton(
                 height: 50,
                 width: 100.w,
-                text: 'SUBMIT',
+                text: 'Wyślij',
                 gradient: LinearGradient(colors: [
                   Color.fromARGB(255, 92, 72, 71),
                   Color.fromARGB(255, 3, 2, 1)

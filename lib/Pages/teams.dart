@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import '../NavBar.dart';
 import '../NavBarUserTeams.dart';
+import '../NavBarEkipaAdd.dart';
 import '../main.dart';
 import 'dart:collection';
 import 'package:sizer/sizer.dart';
@@ -74,7 +75,7 @@ class _teams extends State<teams> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: NavBar(),
-      endDrawer: WriteSQLdataUser(),
+      endDrawer: WriteSQLEkipaAdd(),
       body: Container(
         width: 100.w,
         height: double.infinity,
@@ -87,7 +88,7 @@ class _teams extends State<teams> {
         child: Stack(
           children: [
             DragAndDropLists(
-              lastItemTargetHeight: 5,
+              lastItemTargetHeight: 0,
               //addLastItemTargetHeightToTop: true,
               lastListTargetSize: 1,
               listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
@@ -173,11 +174,7 @@ class _teams extends State<teams> {
                             content: Container(
                               width: 100.w,
                               height: 60.h,
-                              child: Stack(
-                                children: <Widget>[
-                                  WriteSQLdataUser(),
-                                ],
-                              ),
+                              child: WriteSQLdataUser(),
                             ),
                           );
                         },
@@ -200,7 +197,7 @@ class _teams extends State<teams> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/images/userback.jpg"),
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fill,
                     ),
                   ),
                   child: ListTile(
