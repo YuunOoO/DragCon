@@ -1,19 +1,7 @@
-import 'dart:ffi';
-
-import 'package:dragcon/Pages/LoginScreen.dart';
-import 'package:dragcon/Pages/adminpage.dart';
-import 'package:dragcon/Pages/equippage.dart';
-import 'package:dragcon/Pages/geopage.dart';
-import 'package:dragcon/Pages/homepage.dart';
-import 'package:dragcon/Pages/settings.dart';
-import 'package:dragcon/Pages/stat.dart';
 import 'package:flutter/material.dart';
-import 'package:dragcon/Pages/ToolsToTeam.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
-import 'global.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:sizer/sizer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

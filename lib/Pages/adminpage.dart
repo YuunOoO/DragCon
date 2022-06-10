@@ -95,13 +95,12 @@ class _adminpage extends State<adminpage> {
                                 icon: const Icon(Icons.assignment_ind),
                                 color: Colors.white,
                                 onPressed: () {
-                                  Navigator.push(
+                                  Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) {
-                                        return teams();
-                                      },
-                                    ),
+                                        builder: (BuildContext context) =>
+                                            teams()),
+                                    (route) => true,
                                   );
                                 },
                               ),
@@ -121,10 +120,19 @@ class _adminpage extends State<adminpage> {
                   ),
                 ),
                 onTap: () {
+<<<<<<< HEAD
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) {
                     return teams();
                   }));
+=======
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => teams()),
+                    (route) => true,
+                  );
+>>>>>>> f0d47fe518a580c831fbe075f087ba399010fabb
                 },
               ),
               GestureDetector(
@@ -176,10 +184,20 @@ class _adminpage extends State<adminpage> {
                                 icon: const Icon(Icons.assignment),
                                 color: Colors.white,
                                 onPressed: () {
+<<<<<<< HEAD
                                   Navigator.pushReplacement(context,
                                       MaterialPageRoute(builder: (context) {
                                     return TaskToTeam();
                                   }));
+=======
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            TaskToTeam()),
+                                    (route) => true,
+                                  );
+>>>>>>> f0d47fe518a580c831fbe075f087ba399010fabb
                                 },
                               ),
                             ),
@@ -198,10 +216,13 @@ class _adminpage extends State<adminpage> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) {
-                    return TaskToTeam();
-                  }));
+
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => TaskToTeam()),
+                    (route) => true,
+                  );
                 },
               ),
               GestureDetector(
@@ -253,13 +274,12 @@ class _adminpage extends State<adminpage> {
                                 icon: const Icon(Icons.handyman),
                                 color: Colors.white,
                                 onPressed: () {
-                                  Navigator.push(
+                                  Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) {
-                                        return ToolsToTeam();
-                                      },
-                                    ),
+                                        builder: (BuildContext context) =>
+                                            ToolsToTeam()),
+                                    (route) => true,
                                   );
                                 },
                               ),
@@ -279,10 +299,19 @@ class _adminpage extends State<adminpage> {
                   ),
                 ),
                 onTap: () {
+<<<<<<< HEAD
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) {
                     return ToolsToTeam();
                   }));
+=======
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => ToolsToTeam()),
+                    (route) => true,
+                  );
+>>>>>>> f0d47fe518a580c831fbe075f087ba399010fabb
                 },
               ),
             ],

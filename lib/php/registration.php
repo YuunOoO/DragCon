@@ -1,5 +1,4 @@
 <?php
-	header("Access-Control-Allow-Origin: *");
 	$db = mysqli_connect('localhost','root','','flutter');
 	if (!$db) {
 		echo "Database connection faild";
@@ -8,7 +7,6 @@
 	$username = $_POST['name'];
 	$password = $_POST['password'];
 	$admin = $_POST['admin'];
-
 	$sql = "SELECT id FROM users WHERE id = '".$username."'";
 
 	$result = mysqli_query($db,$sql);
