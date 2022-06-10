@@ -230,7 +230,6 @@ class _homepage extends State<homepage> {
           width: 100.w,
           height: 100.h,
           decoration: const BoxDecoration(
-              image: DecorationImage
             image: DecorationImage(
               image: AssetImage("assets/images/loginback.jpg"),
               fit: BoxFit.cover,
@@ -496,7 +495,6 @@ class _homepage extends State<homepage> {
   ) {
     setState(() {
       podmiana(oldListIndex, oldItemIndex, newListIndex, newItemIndex);
-      sleep(Duration(milliseconds: 40));
       final oldListItems = lists[oldListIndex].children;
       final newListItems = lists[newListIndex].children;
       final movedItem = oldListItems.removeAt(oldItemIndex);
