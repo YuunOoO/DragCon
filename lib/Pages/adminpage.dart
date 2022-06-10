@@ -120,19 +120,12 @@ class _adminpage extends State<adminpage> {
                   ),
                 ),
                 onTap: () {
-<<<<<<< HEAD
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) {
-                    return teams();
-                  }));
-=======
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
                         builder: (BuildContext context) => teams()),
                     (route) => true,
                   );
->>>>>>> f0d47fe518a580c831fbe075f087ba399010fabb
                 },
               ),
               GestureDetector(
@@ -184,12 +177,6 @@ class _adminpage extends State<adminpage> {
                                 icon: const Icon(Icons.assignment),
                                 color: Colors.white,
                                 onPressed: () {
-<<<<<<< HEAD
-                                  Navigator.pushReplacement(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return TaskToTeam();
-                                  }));
-=======
                                   Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
@@ -197,7 +184,6 @@ class _adminpage extends State<adminpage> {
                                             TaskToTeam()),
                                     (route) => true,
                                   );
->>>>>>> f0d47fe518a580c831fbe075f087ba399010fabb
                                 },
                               ),
                             ),
@@ -216,7 +202,6 @@ class _adminpage extends State<adminpage> {
                   ),
                 ),
                 onTap: () {
-
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
@@ -299,19 +284,12 @@ class _adminpage extends State<adminpage> {
                   ),
                 ),
                 onTap: () {
-<<<<<<< HEAD
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) {
-                    return ToolsToTeam();
-                  }));
-=======
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
                         builder: (BuildContext context) => ToolsToTeam()),
                     (route) => true,
                   );
->>>>>>> f0d47fe518a580c831fbe075f087ba399010fabb
                 },
               ),
             ],

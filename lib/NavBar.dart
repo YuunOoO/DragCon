@@ -1,4 +1,3 @@
-import 'package:dragcon/Pages/LoginScreen.dart';
 import 'package:dragcon/Pages/adminpage.dart';
 import 'package:dragcon/Pages/equippage.dart';
 import 'package:dragcon/Pages/geopage.dart';
@@ -45,60 +44,75 @@ class NavBar extends StatelessWidget {
           Visibility(
             child: ListTile(
               leading: Icon(Icons.description),
-              title: Text('Admin Panel'),
-              onTap: () => Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) {
-                return adminpage();
-              })),
+              title: Text('Admin panel'),
+              onTap: () => Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => adminpage()),
+                (route) => true,
+              ),
             ),
             visible: ifadmin(),
           ),
           Divider(),
           ListTile(
             leading: Icon(Icons.home),
-            title: Text('Home Page'),
-            onTap: () => Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) {
-              return homepage();
-            })),
+            title: Text('Home'),
+            onTap: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => homepage()),
+              (route) => true,
+            ),
           ),
           Divider(),
           ListTile(
-              title: Text('Location'),
-              leading: Icon(Icons.gps_fixed_outlined),
-              onTap: () => Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) {
-                    return geopage();
-                  }))),
+            title: Text('Localization'),
+            leading: Icon(Icons.gps_fixed_outlined),
+            onTap: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => geopage()),
+              (route) => true,
+            ),
+          ),
           Divider(),
           ListTile(
-              title: Text('Equipment'),
-              leading: Icon(Icons.airport_shuttle_rounded),
-              onTap: () => Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) {
-                    return equippage();
-                  }))),
+            title: Text('Equipment'),
+            leading: Icon(Icons.airport_shuttle_rounded),
+            onTap: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => equippage()),
+              (route) => true,
+            ),
+          ),
           Divider(),
           ListTile(
-              title: Text('Statistics'),
-              leading: Icon(Icons.bar_chart),
-              onTap: () => Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) {
-                    return stat();
-                  }))),
+            title: Text('Statistics'),
+            leading: Icon(Icons.bar_chart),
+            onTap: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => stat()),
+              (route) => true,
+            ),
+          ),
           Divider(),
           ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
-              onTap: () => Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) {
-                    return settings();
-                  }))),
+            leading: Icon(Icons.settings),
+            title: Text('Settings'),
+            onTap: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => settings()),
+              (route) => true,
+            ),
+          ),
           Divider(),
           ListTile(
-              title: Text('Log Out'),
-              leading: Icon(Icons.exit_to_app),
-              onTap: () => {Navigator.pop(context), Navigator.pop(context)}),
+            title: Text('Wyloguj'),
+            leading: Icon(Icons.exit_to_app),
+            onTap: () => {
+              Navigator.pop(context),
+              Navigator.pop(context),
+            },
+          ),
         ],
       ),
     );

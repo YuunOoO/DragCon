@@ -190,15 +190,15 @@ class _homepage extends State<homepage> {
           width: 100.w,
           height: 100.h,
           decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/loginback.jpg"),
-              fit: BoxFit.cover,
-            
-        child: DragAndDropLists(
-          lastItemTargetHeight: 5,
-          //addLastItemTargetHeightToTop: true,
-          lastListTargetSize: 1,
-          listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
+              image: DecorationImage(
+            image: AssetImage("assets/images/loginback.jpg"),
+            fit: BoxFit.cover,
+          )),
+          child: DragAndDropLists(
+            lastItemTargetHeight: 5,
+            //addLastItemTargetHeightToTop: true,
+            lastListTargetSize: 1,
+            listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
             listInnerDecoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               border: Border.all(
