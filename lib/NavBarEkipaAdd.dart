@@ -32,7 +32,7 @@ class WriteSQLEkipaAddState extends State<WriteSQLEkipaAdd> {
   late bool error, sending, success;
   late String msg;
 
-  String phpurl = 'http://192.168.100.140/flutter/submit_data_ekipa.php';
+  String phpurl = 'http://192.168.1.103/flutter/submit_data_ekipa.php';
 
   @override
   void initState() {
