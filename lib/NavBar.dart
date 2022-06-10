@@ -46,10 +46,12 @@ class NavBar extends StatelessWidget {
             child: ListTile(
               leading: Icon(Icons.description),
               title: Text('Admin panel'),
-              onTap: () => Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) {
-                return adminpage();
-              })),
+              onTap: () => Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => adminpage()),
+                (route) => true,
+              ),
             ),
             visible: ifadmin(),
           ),
@@ -57,48 +59,61 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.home),
             title: Text('Home'),
-            onTap: () => Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) {
-              return homepage();
-            })),
+            onTap: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => homepage()),
+              (route) => true,
+            ),
           ),
           Divider(),
           ListTile(
-              title: Text('Lokalizacja'),
-              leading: Icon(Icons.gps_fixed_outlined),
-              onTap: () => Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) {
-                    return geopage();
-                  }))),
+            title: Text('Lokalizacja'),
+            leading: Icon(Icons.gps_fixed_outlined),
+            onTap: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => geopage()),
+              (route) => true,
+            ),
+          ),
           Divider(),
           ListTile(
-              title: Text('Wyposażenie'),
-              leading: Icon(Icons.airport_shuttle_rounded),
-              onTap: () => Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) {
-                    return equippage();
-                  }))),
+            title: Text('Wyposażenie'),
+            leading: Icon(Icons.airport_shuttle_rounded),
+            onTap: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => equippage()),
+              (route) => true,
+            ),
+          ),
           Divider(),
           ListTile(
-              title: Text('Statystyki'),
-              leading: Icon(Icons.bar_chart),
-              onTap: () => Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) {
-                    return stat();
-                  }))),
+            title: Text('Statystyki'),
+            leading: Icon(Icons.bar_chart),
+            onTap: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => stat()),
+              (route) => true,
+            ),
+          ),
           Divider(),
           ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Ustawienia'),
-              onTap: () => Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) {
-                    return settings();
-                  }))),
+            leading: Icon(Icons.settings),
+            title: Text('Ustawienia'),
+            onTap: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => settings()),
+              (route) => true,
+            ),
+          ),
           Divider(),
           ListTile(
-              title: Text('Wyloguj'),
-              leading: Icon(Icons.exit_to_app),
-              onTap: () => {Navigator.pop(context), Navigator.pop(context)}),
+            title: Text('Wyloguj'),
+            leading: Icon(Icons.exit_to_app),
+            onTap: () => {
+              Navigator.pop(context),
+              Navigator.pop(context),
+            },
+          ),
         ],
       ),
     );

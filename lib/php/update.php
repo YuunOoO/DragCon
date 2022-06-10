@@ -1,4 +1,5 @@
 <?php
+    header("Access-Control-Allow-Origin: *");
     $conn = mysqli_connect('localhost','root','','flutter');
     $table = $_POST['table'];
     $task_id = $_POST['task_id'];

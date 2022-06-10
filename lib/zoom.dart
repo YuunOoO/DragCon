@@ -1,14 +1,14 @@
 class sizer {
-  double x = 55;
-  double y = 55;
+  double x = 45;
+  double y = 45;
   double x2 = 6;
   get z => null;
 }
 
 sizer ZoomDrag(sizer z) {
   if (z.x == 32) {
-    z.x = 55;
-    z.y = 55;
+    z.x = 45;
+    z.y = 45;
     z.x2 = 15;
   } else {
     z.x = 32;

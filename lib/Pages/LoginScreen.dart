@@ -245,16 +245,17 @@ Future Login(BuildContext context) async {
     await _user.setString('email', user.email);
     await _user.setInt('admin', user.admin);
     await _user.setInt('ekipa', user.ekipa_id);
-    sleep(Duration(milliseconds: 50));
 
     //loginpage input clear
     passw.clear();
     name.clear();
     //homepage navigation
     //sleep(Duration(milliseconds: 500));
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return homepage();
-    }));
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (BuildContext context) => homepage()),
+      (route) => false,
+    );
   } else {
     print('wrong id/pass');
   }
