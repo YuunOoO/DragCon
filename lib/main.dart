@@ -1,11 +1,16 @@
+<<<<<<< HEAD
 import 'package:dragcon/Pages/homepage.dart';
+=======
+// @dart=2.9
+>>>>>>> f0d47fe518a580c831fbe075f087ba399010fabb
 import 'package:flutter/material.dart';
-import 'Pages/LoginScreen.dart';
 import 'mysql/tables.dart';
 import 'splash.dart';
-import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:sizer/sizer.dart';
+<<<<<<< HEAD
 import 'package:flutter/widgets.dart';
+=======
+>>>>>>> f0d47fe518a580c831fbe075f087ba399010fabb
 
 void main() async {
   String table = "tasks";

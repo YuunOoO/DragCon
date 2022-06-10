@@ -45,17 +45,28 @@ class NavBar extends StatelessWidget {
           Visibility(
             child: ListTile(
               leading: Icon(Icons.description),
+<<<<<<< HEAD
               title: Text('Admin Panel'),
               onTap: () => Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) {
                 return adminpage();
               })),
+=======
+              title: Text('Admin panel'),
+              onTap: () => Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => adminpage()),
+                (route) => true,
+              ),
+>>>>>>> f0d47fe518a580c831fbe075f087ba399010fabb
             ),
             visible: ifadmin(),
           ),
           Divider(),
           ListTile(
             leading: Icon(Icons.home),
+<<<<<<< HEAD
             title: Text('Home Page'),
             onTap: () => Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) {
@@ -99,6 +110,64 @@ class NavBar extends StatelessWidget {
               title: Text('Log Out'),
               leading: Icon(Icons.exit_to_app),
               onTap: () => {Navigator.pop(context), Navigator.pop(context)}),
+=======
+            title: Text('Home'),
+            onTap: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => homepage()),
+              (route) => true,
+            ),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('Lokalizacja'),
+            leading: Icon(Icons.gps_fixed_outlined),
+            onTap: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => geopage()),
+              (route) => true,
+            ),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('Wyposażenie'),
+            leading: Icon(Icons.airport_shuttle_rounded),
+            onTap: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => equippage()),
+              (route) => true,
+            ),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('Statystyki'),
+            leading: Icon(Icons.bar_chart),
+            onTap: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => stat()),
+              (route) => true,
+            ),
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('Ustawienia'),
+            onTap: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => settings()),
+              (route) => true,
+            ),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('Wyloguj'),
+            leading: Icon(Icons.exit_to_app),
+            onTap: () => {
+              Navigator.pop(context),
+              Navigator.pop(context),
+            },
+          ),
+>>>>>>> f0d47fe518a580c831fbe075f087ba399010fabb
         ],
       ),
     );

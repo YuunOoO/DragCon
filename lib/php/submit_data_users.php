@@ -1,4 +1,5 @@
-<?php 
+<?php
+  header("Access-Control-Allow-Origin: *");
   $return["error"] = false;
   $return["message"] = "";
 
