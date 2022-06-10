@@ -248,6 +248,7 @@ Future Login(BuildContext context) async {
     //loginpage input clear
     passw.clear();
     name.clear();
+
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (BuildContext context) => homepage()),
