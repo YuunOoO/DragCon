@@ -16,6 +16,7 @@ List<Tasks> teamtasks = [];
 List<DraggableListItem> _Backlog = [];
 List<DraggableListItem> _InProcess = [];
 List<DraggableListItem> _Completed = [];
+List<DraggableListItem> _Emergency = [];
 
 ///////////////////////////
 class DraggableList {
@@ -129,7 +130,7 @@ class _homepage extends State<homepage> {
     _Backlog.clear();
     _InProcess.clear();
     _Completed.clear();
-
+    _Emergency.clear();
     //choose only your team tasks
     for (var item in tasks) {
       if (user.ekipa_id == item.ekipa_id) {
@@ -144,7 +145,9 @@ class _homepage extends State<homepage> {
         _Backlog.add(tmp);
       else if (item.type == "Inprocess")
         _InProcess.add(tmp);
-      else if (item.type == "Completed") _Completed.add(tmp);
+      else if (item.type == "Completed")
+        _Completed.add(tmp);
+      else if (item.type == "Emergency") _Emergency.add(tmp);
     }
 
     DraggableList Backlog =
@@ -153,7 +156,10 @@ class _homepage extends State<homepage> {
         new DraggableList(header: "Inprocess", items: _InProcess);
     DraggableList Completed =
         new DraggableList(header: "Completed", items: _Completed);
+    DraggableList Emergency =
+        new DraggableList(header: "Emergency", items: _Emergency);
 
+    allLists.add(Emergency);
     allLists.add(Backlog);
     allLists.add(InProcess);
     allLists.add(Completed);
@@ -187,14 +193,12 @@ class _homepage extends State<homepage> {
             image: DecorationImage(
               image: AssetImage("assets/images/loginback.jpg"),
               fit: BoxFit.cover,
-            ),
-          ),
-          child: DragAndDropLists(
-            lastItemTargetHeight: 0,
-            //addLastItemTargetHeightToTop: true,
-            lastListTargetSize: 1,
-            listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
-
+            
+        child: DragAndDropLists(
+          lastItemTargetHeight: 5,
+          //addLastItemTargetHeightToTop: true,
+          lastListTargetSize: 1,
+          listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
             listInnerDecoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               border: Border.all(
@@ -614,7 +618,7 @@ class _homepage extends State<homepage> {
     int newListIndex,
   ) {
     setState(() {
-      podmiana(oldListIndex, oldItemIndex, newListIndex);
+      podmiana(oldListIndex, oldItemIndex, newListIndex, newItemIndex);
       sleep(Duration(milliseconds: 40));
       final oldListItems = lists[oldListIndex].children;
       final newListItems = lists[newListIndex].children;
@@ -633,7 +637,7 @@ class _homepage extends State<homepage> {
     });
   }
 
-  void podmiana(int idx, int idx2, int idx3) async {
+  void podmiana(int idx, int idx2, int idx3, int idx4) async {
     var task_tmp = allLists[idx].items[idx2].task;
     String table = 'tasks';
     String? type = task_tmp.type; //do upgrade'u
@@ -646,5 +650,9 @@ class _homepage extends State<homepage> {
       'task_id': task_id,
     };
     Update(table, mapdate);
+
+    //update for main list [fixes]
+    final movedItem2 = allLists[idx].items.removeAt(idx2);
+    allLists[idx3].items.insert(idx4, movedItem2);
   }
 }
