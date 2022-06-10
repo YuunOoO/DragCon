@@ -237,7 +237,7 @@ class _ToolsToTeam extends State<ToolsToTeam> {
     int newListIndex,
   ) {
     setState(() {
-      podmiana(oldListIndex, oldItemIndex, newListIndex);
+      podmiana(oldListIndex, oldItemIndex, newListIndex, newItemIndex);
       sleep(Duration(milliseconds: 40));
       final oldListItems = lists[oldListIndex].children;
       final newListItems = lists[newListIndex].children;
@@ -256,7 +256,7 @@ class _ToolsToTeam extends State<ToolsToTeam> {
     });
   }
 
-  void podmiana(int idx, int idx2, int idx3) async {
+  void podmiana(int idx, int idx2, int idx3, int idx4) async {
     var tool_tmp = allLists[idx].items[idx2].tool;
     String table = 'tools';
     // String ekipa_id = user_tmp.ekipa_id; //do upgrade'u
@@ -274,5 +274,9 @@ class _ToolsToTeam extends State<ToolsToTeam> {
     };
     print(mapdate);
     Update2(table, mapdate);
+
+    //update for main list [fixes]
+    final movedItem2 = allLists[idx].items.removeAt(idx2);
+    allLists[idx3].items.insert(idx4, movedItem2);
   }
 }

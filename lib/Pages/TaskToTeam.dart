@@ -27,8 +27,8 @@ class DraggableList {
 
 class DraggableListItem {
   final String title;
-  late Tasks task;
-  DraggableListItem({
+  final Tasks task;
+  const DraggableListItem({
     required this.task,
     required this.title,
   });
