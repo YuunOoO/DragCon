@@ -1,4 +1,3 @@
-import 'package:dragcon/Pages/LoginScreen.dart';
 import 'package:dragcon/Pages/adminpage.dart';
 import 'package:dragcon/Pages/equippage.dart';
 import 'package:dragcon/Pages/geopage.dart';
@@ -67,7 +66,7 @@ class NavBar extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            title: Text('Lokalizacja'),
+            title: Text('Localization'),
             leading: Icon(Icons.gps_fixed_outlined),
             onTap: () => Navigator.pushAndRemoveUntil(
               context,
@@ -77,7 +76,7 @@ class NavBar extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            title: Text('Wyposażenie'),
+            title: Text('Equipment'),
             leading: Icon(Icons.airport_shuttle_rounded),
             onTap: () => Navigator.pushAndRemoveUntil(
               context,
@@ -87,7 +86,7 @@ class NavBar extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            title: Text('Statystyki'),
+            title: Text('Statistics'),
             leading: Icon(Icons.bar_chart),
             onTap: () => Navigator.pushAndRemoveUntil(
               context,
@@ -98,7 +97,7 @@ class NavBar extends StatelessWidget {
           Divider(),
           ListTile(
             leading: Icon(Icons.settings),
-            title: Text('Ustawienia'),
+            title: Text('Settings'),
             onTap: () => Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (BuildContext context) => settings()),
@@ -107,7 +106,7 @@ class NavBar extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            title: Text('Wyloguj'),
+            title: Text('Logout'),
             leading: Icon(Icons.exit_to_app),
             onTap: () => {
               Navigator.pop(context),

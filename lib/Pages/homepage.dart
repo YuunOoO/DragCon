@@ -230,6 +230,7 @@ class _homepage extends State<homepage> {
           width: 100.w,
           height: 100.h,
           decoration: const BoxDecoration(
+              image: DecorationImage
             image: DecorationImage(
               image: AssetImage("assets/images/loginback.jpg"),
               fit: BoxFit.cover,

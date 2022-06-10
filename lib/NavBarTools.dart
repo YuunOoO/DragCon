@@ -93,29 +93,29 @@ class WriteSQLdataState extends State<WriteSQLdata> {
               TextField(
                 controller: typectl,
                 decoration: InputDecoration(
-                  labelText: "Wprowadz typ",
-                  hintText: "Typ narzędzi",
+                  labelText: "Input Type",
+                  hintText: "Tool type",
                 ),
               ),
               TextField(
                 controller: amountctl,
                 decoration: InputDecoration(
-                  labelText: "Wprowadz ilość",
-                  hintText: "Ilość narzędzi",
+                  labelText: "Input Amount",
+                  hintText: "Number of tools",
                 ),
               ),
               TextField(
                 controller: markctl,
                 decoration: InputDecoration(
-                  labelText: "Wprowadz marke",
-                  hintText: "Marka narzędzi",
+                  labelText: "Enter the brand",
+                  hintText: "Tool brand",
                 ),
               ),
               TextField(
                 controller: ekipaidctl,
                 decoration: InputDecoration(
-                  labelText: "Wprowadz ID Ekipy",
-                  hintText: "ID ekipy przydzielonej",
+                  labelText: "Input Team ID",
+                  hintText: "ID of the assigned team",
                 ),
               ),
               SizedBox(

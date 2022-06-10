@@ -97,36 +97,36 @@ class WriteSQLdataTasksState extends State<WriteSQLdataTasks> {
               TextField(
                 controller: aboutctl,
                 decoration: InputDecoration(
-                  labelText: "Wprowadz treść",
-                  hintText: "Treść zgłoszenia",
+                  labelText: "Task Content",
+                  hintText: "Input task data",
                 ),
               ),
               TextField(
                 controller: locationctl,
                 decoration: InputDecoration(
-                  labelText: "Wprowadz lokacje",
-                  hintText: "Miejsce zgłoszenia (miejscowość)",
+                  labelText: "Input Location",
+                  hintText: "Location of the report",
                 ),
               ),
               TextField(
                 controller: priorityctl,
                 decoration: InputDecoration(
-                  labelText: "Wprowadz priorytet",
-                  hintText: "Poziom priorytetu (numer)",
+                  labelText: "Set Priority",
+                  hintText: "priority level (number)",
                 ),
               ),
               TextField(
                 controller: typectl,
                 decoration: InputDecoration(
-                  labelText: "Wprowadz Typ",
-                  hintText: "Typ zgłoszenia",
+                  labelText: "Set Type",
+                  hintText: "Emergency/Backlog/Inprocess/Completed",
                 ),
               ),
               TextField(
                 controller: ekipaidctl,
                 decoration: InputDecoration(
-                  labelText: "Wprowadz ID Ekipy",
-                  hintText: "ID ekipy przydzielonej",
+                  labelText: "Input Team ID",
+                  hintText: "ID of the assigned team",
                 ),
               ),
               SizedBox(
@@ -135,7 +135,7 @@ class WriteSQLdataTasksState extends State<WriteSQLdataTasks> {
               AnimatedButton(
                 height: 50,
                 width: 100.w,
-                text: 'Wyślij',
+                text: 'Send',
                 gradient: LinearGradient(colors: [
                   Color.fromARGB(255, 92, 72, 71),
                   Color.fromARGB(255, 3, 2, 1)
