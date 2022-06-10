@@ -548,7 +548,7 @@ class _homepage extends State<homepage> {
     int newListIndex,
   ) {
     setState(() {
-      podmiana(oldListIndex, oldItemIndex, newListIndex);
+      podmiana(oldListIndex, oldItemIndex, newListIndex, newItemIndex);
       sleep(Duration(milliseconds: 40));
       final oldListItems = lists[oldListIndex].children;
       final newListItems = lists[newListIndex].children;
@@ -567,7 +567,7 @@ class _homepage extends State<homepage> {
     });
   }
 
-  void podmiana(int idx, int idx2, int idx3) async {
+  void podmiana(int idx, int idx2, int idx3, int idx4) async {
     var task_tmp = allLists[idx].items[idx2].task;
     String table = 'tasks';
     String? type = task_tmp.type; //do upgrade'u
@@ -580,5 +580,9 @@ class _homepage extends State<homepage> {
       'task_id': task_id,
     };
     Update(table, mapdate);
+
+    //update for main list [fixes]
+    final movedItem2 = allLists[idx].items.removeAt(idx2);
+    allLists[idx3].items.insert(idx4, movedItem2);
   }
 }

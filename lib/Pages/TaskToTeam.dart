@@ -27,8 +27,8 @@ class DraggableList {
 
 class DraggableListItem {
   final String title;
-  final Tasks task;
-  const DraggableListItem({
+  late Tasks task;
+  DraggableListItem({
     required this.task,
     required this.title,
   });
@@ -657,7 +657,7 @@ class _TaskToTeam extends State<TaskToTeam> {
   ) {
     setState(() {
       drag = true; //reorder fix :DD
-      podmiana(oldListIndex, oldItemIndex, newListIndex);
+      podmiana(oldListIndex, oldItemIndex, newListIndex, newItemIndex);
       final oldListItems = lists[oldListIndex].children;
       final newListItems = lists[newListIndex].children;
       final movedItem = oldListItems.removeAt(oldItemIndex);
@@ -675,7 +675,7 @@ class _TaskToTeam extends State<TaskToTeam> {
     });
   }
 
-  void podmiana(int idx, int idx2, int idx3) async {
+  void podmiana(int idx, int idx2, int idx3, int idx4) async {
     var task_tmp = allLists[idx].items[idx2].task;
     String table = 'tasks';
     String? type = task_tmp.type; //do upgrade'u
@@ -688,5 +688,9 @@ class _TaskToTeam extends State<TaskToTeam> {
       'task_id': task_id,
     };
     Update(table, mapdate);
+
+    //update for main list [fixes]
+    final movedItem2 = allLists[idx].items.removeAt(idx2);
+    allLists[idx3].items.insert(idx4, movedItem2);
   }
 }
