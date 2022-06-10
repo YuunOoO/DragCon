@@ -1,4 +1,5 @@
 <?php 
+	header("Access-Control-Allow-Origin: *");
 	$db = mysqli_connect('localhost','root','','flutter');
 
 	$username = $_POST['name'];
@@ -16,6 +17,7 @@
         	while($row = $result->fetch_assoc()){
            		 $db_data[] = $row;
         }
+}
 	
 
 	if ($count == 1) {
