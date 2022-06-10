@@ -88,7 +88,7 @@ class _teams extends State<teams> {
         child: Stack(
           children: [
             DragAndDropLists(
-              lastItemTargetHeight: 0,
+              lastItemTargetHeight: 5,
               //addLastItemTargetHeightToTop: true,
               lastListTargetSize: 1,
               listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
@@ -228,7 +228,7 @@ class _teams extends State<teams> {
     int newListIndex,
   ) {
     setState(() {
-      podmiana(oldListIndex, oldItemIndex, newListIndex);
+      podmiana(oldListIndex, oldItemIndex, newListIndex, newItemIndex);
       sleep(Duration(milliseconds: 40));
       final oldListItems = lists[oldListIndex].children;
       final newListItems = lists[newListIndex].children;
@@ -247,7 +247,7 @@ class _teams extends State<teams> {
     });
   }
 
-  void podmiana(int idx, int idx2, int idx3) async {
+  void podmiana(int idx, int idx2, int idx3, int idx4) async {
     var user_tmp = allLists[idx].items[idx2].user;
     String table = 'users';
     // String ekipa_id = user_tmp.ekipa_id; //do upgrade'u
@@ -265,5 +265,8 @@ class _teams extends State<teams> {
     };
     print(mapdate);
     Update2(table, mapdate);
+    //update for main list [fixes]
+    final movedItem2 = allLists[idx].items.removeAt(idx2);
+    allLists[idx3].items.insert(idx4, movedItem2);
   }
 }
