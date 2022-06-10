@@ -245,7 +245,6 @@ Future Login(BuildContext context) async {
     await _user.setString('email', user.email);
     await _user.setInt('admin', user.admin);
     await _user.setInt('ekipa', user.ekipa_id);
-    sleep(Duration(milliseconds: 50));
 
     //loginpage input clear
     passw.clear();
