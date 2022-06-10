@@ -16,6 +16,7 @@ List<Tasks> teamtasks = [];
 List<DraggableListItem> _Backlog = [];
 List<DraggableListItem> _InProcess = [];
 List<DraggableListItem> _Completed = [];
+List<DraggableListItem> _Emergency = [];
 
 ///////////////////////////
 class DraggableList {
@@ -60,7 +61,7 @@ class _homepage extends State<homepage> {
     _Backlog.clear();
     _InProcess.clear();
     _Completed.clear();
-
+    _Emergency.clear();
     //choose only your team tasks
     for (var item in tasks) {
       if (user.ekipa_id == item.ekipa_id) {
@@ -75,7 +76,9 @@ class _homepage extends State<homepage> {
         _Backlog.add(tmp);
       else if (item.type == "Inprocess")
         _InProcess.add(tmp);
-      else if (item.type == "Completed") _Completed.add(tmp);
+      else if (item.type == "Completed")
+        _Completed.add(tmp);
+      else if (item.type == "Emergency") _Emergency.add(tmp);
     }
 
     DraggableList Backlog =
@@ -84,7 +87,10 @@ class _homepage extends State<homepage> {
         new DraggableList(header: "Inprocess", items: _InProcess);
     DraggableList Completed =
         new DraggableList(header: "Completed", items: _Completed);
+    DraggableList Emergency =
+        new DraggableList(header: "Emergency", items: _Emergency);
 
+    allLists.add(Emergency);
     allLists.add(Backlog);
     allLists.add(InProcess);
     allLists.add(Completed);
@@ -120,7 +126,7 @@ class _homepage extends State<homepage> {
           ),
         ),
         child: DragAndDropLists(
-          lastItemTargetHeight: 0,
+          lastItemTargetHeight: 5,
           //addLastItemTargetHeightToTop: true,
           lastListTargetSize: 1,
           listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),

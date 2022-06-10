@@ -40,6 +40,7 @@ List<Tasks> teamtasks = [];
 List<DraggableListItem> _Backlog = [];
 List<DraggableListItem> _InProcess = [];
 List<DraggableListItem> _Completed = [];
+List<DraggableListItem> _Emergency = [];
 List<DraggableListItem> _tmp = []; // new tasks list
 List<Ekipa> ekip_names = [];
 late List<DragAndDropList> lists;
@@ -75,6 +76,7 @@ class _TaskToTeam extends State<TaskToTeam> {
     _Backlog.clear();
     _InProcess.clear();
     _Completed.clear();
+    _Emergency.clear();
 
     //choose only your team tasks
     for (var item in tasks) {
@@ -90,7 +92,9 @@ class _TaskToTeam extends State<TaskToTeam> {
         _Backlog.add(tmp);
       else if (item.type == "Inprocess")
         _InProcess.add(tmp);
-      else if (item.type == "Completed") _Completed.add(tmp);
+      else if (item.type == "Completed")
+        _Completed.add(tmp);
+      else if (item.type == "Emergency") _Emergency.add(tmp);
     }
 
     DraggableList Backlog =
@@ -100,7 +104,9 @@ class _TaskToTeam extends State<TaskToTeam> {
     DraggableList Completed =
         new DraggableList(header: "Completed", items: _Completed);
     DraggableList tmp = new DraggableList(header: "new tasks", items: _tmp);
-
+    DraggableList Emergency =
+        new DraggableList(header: "Emergency", items: _Emergency);
+    allLists.add(Emergency);
     allLists.add(Backlog);
     allLists.add(InProcess);
     allLists.add(Completed);
@@ -182,7 +188,7 @@ class _TaskToTeam extends State<TaskToTeam> {
                 height: 100.h,
                 width: 100.w,
                 child: DragAndDropLists(
-                  lastItemTargetHeight: 0,
+                  lastItemTargetHeight: 5,
                   //addLastItemTargetHeightToTop: true,
                   lastListTargetSize: 1,
                   listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
