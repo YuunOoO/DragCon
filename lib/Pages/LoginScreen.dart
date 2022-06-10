@@ -305,7 +305,6 @@ void autoLogin(BuildContext context) async {
       'name': prefs.getString('name'),
       'password': prefs.getString('password'),
     };
-    sleep(Duration(milliseconds: 200));
     final response = await http.post(Uri.parse(URL_log),
         body: mapdate, encoding: Encoding.getByName("utf-8"));
 

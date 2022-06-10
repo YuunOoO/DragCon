@@ -229,7 +229,6 @@ class _teams extends State<teams> {
   ) {
     setState(() {
       podmiana(oldListIndex, oldItemIndex, newListIndex, newItemIndex);
-      sleep(Duration(milliseconds: 40));
       final oldListItems = lists[oldListIndex].children;
       final newListItems = lists[newListIndex].children;
       final movedItem = oldListItems.removeAt(oldItemIndex);
