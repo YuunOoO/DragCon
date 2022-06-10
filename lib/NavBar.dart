@@ -106,7 +106,7 @@ class NavBar extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            title: Text('Wyloguj'),
+            title: Text('Logout'),
             leading: Icon(Icons.exit_to_app),
             onTap: () => {
               Navigator.pop(context),

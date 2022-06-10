@@ -103,37 +103,37 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
               TextField(
                 controller: idctl,
                 decoration: InputDecoration(
-                  labelText: "Wprowadz Nazwe",
-                  hintText: "Nazwa Użytkownika",
+                  labelText: "Input Name",
+                  hintText: "User name",
                 ),
               ),
               TextField(
                 controller: passwordctl,
                 obscureText: true,
                 decoration: InputDecoration(
-                  labelText: "Wprowadz Hasło",
-                  hintText: "Hasło użytkownika",
+                  labelText: "Input Password",
+                  hintText: "User password",
                 ),
               ),
               TextField(
                 controller: adminctl,
                 decoration: InputDecoration(
-                  labelText: "Wprowadz Poziom Uprawnień",
-                  hintText: "Poziom uprawnień (numer)",
+                  labelText: "Enter the Permission Level",
+                  hintText: "Permission Level (number)",
                 ),
               ),
               TextField(
                 controller: emailctl,
                 decoration: InputDecoration(
-                  labelText: "Wprowadz E-mail",
-                  hintText: "E-mail użytkownika",
+                  labelText: "Input E-mail",
+                  hintText: "User E-mail",
                 ),
               ),
               TextField(
                 controller: ekipaidctl,
                 decoration: InputDecoration(
-                  labelText: "Wprowadz ID Ekipy",
-                  hintText: "ID ekipy przydzielonej",
+                  labelText: "Input Team ID",
+                  hintText: "ID of the assigned team",
                 ),
               ),
               SizedBox(
@@ -142,7 +142,7 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
               AnimatedButton(
                 height: 50,
                 width: 100.w,
-                text: 'Wyślij',
+                text: 'Send',
                 gradient: LinearGradient(colors: [
                   Color.fromARGB(255, 92, 72, 71),
                   Color.fromARGB(255, 3, 2, 1)

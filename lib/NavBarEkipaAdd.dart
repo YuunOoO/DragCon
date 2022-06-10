@@ -86,7 +86,7 @@ class WriteSQLEkipaAddState extends State<WriteSQLEkipaAdd> {
         child: Column(
           children: <Widget>[
             Text(
-              'Dodawanie Ekip',
+              'Add team',
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
@@ -95,8 +95,8 @@ class WriteSQLEkipaAddState extends State<WriteSQLEkipaAdd> {
             TextField(
               controller: namectl,
               decoration: InputDecoration(
-                labelText: "Wprowadz Nazwe",
-                hintText: "Nazwa nowej ekipy",
+                labelText: "Input name",
+                hintText: "Input new team name",
               ),
             ),
             SizedBox(
@@ -105,7 +105,7 @@ class WriteSQLEkipaAddState extends State<WriteSQLEkipaAdd> {
             AnimatedButton(
               height: 50,
               width: 100.w,
-              text: 'Wyślij',
+              text: 'Send',
               gradient: LinearGradient(colors: [
                 Color.fromARGB(255, 92, 72, 71),
                 Color.fromARGB(255, 3, 2, 1)
