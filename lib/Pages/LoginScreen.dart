@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (constraints.maxWidth > 1200) {
         return Scaffold(
           body: Container(
-            padding: new EdgeInsets.all(10.0),
+            padding: new EdgeInsets.all(20.0),
             height: 100.h,
             width: 100.w,
             decoration: BoxDecoration(
@@ -53,21 +53,27 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: GestureDetector(
                     child: Stack(
                       children: <Widget>[
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            SizedBox(height: 20),
-                            Image.asset(
-                              'assets/icons/logo.png',
-                              height: 400,
-                              width: 400,
-                            ),
-                            SizedBox(height: 80),
-                            buildEmail(name),
-                            buildPassword(passw),
-                            SizedBox(height: 20),
-                            loginButton(context),
-                          ],
+                        Container(
+                          padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Color.fromARGB(111, 72, 0, 72),
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(height: 20),
+                              Image.asset(
+                                'assets/icons/logo.png',
+                                height: 300,
+                                width: 300,
+                              ),
+                              SizedBox(height: 80),
+                              buildEmail(name),
+                              buildPassword(passw),
+                              SizedBox(height: 20),
+                              loginButton(context),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -80,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
       } else if (constraints.maxWidth > 800 && constraints.maxWidth < 1200) {
         return Scaffold(
           body: Container(
-            padding: new EdgeInsets.all(10.0),
+            padding: new EdgeInsets.all(20.0),
             height: 100.h,
             width: 100.w,
             decoration: BoxDecoration(
@@ -101,21 +107,27 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: GestureDetector(
                     child: Stack(
                       children: <Widget>[
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            SizedBox(height: 20),
-                            Image.asset(
-                              'assets/icons/logo.png',
-                              height: 400,
-                              width: 400,
-                            ),
-                            SizedBox(height: 80),
-                            buildEmail(name),
-                            buildPassword(passw),
-                            SizedBox(height: 20),
-                            loginButton(context),
-                          ],
+                        Container(
+                          padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Color.fromARGB(111, 72, 0, 72),
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(height: 20),
+                              Image.asset(
+                                'assets/icons/logo.png',
+                                height: 300,
+                                width: 300,
+                              ),
+                              SizedBox(height: 80),
+                              buildEmail(name),
+                              buildPassword(passw),
+                              SizedBox(height: 20),
+                              loginButton(context),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -150,8 +162,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             SizedBox(height: 20),
                             Image.asset(
                               'assets/icons/logo.png',
-                              height: 400,
-                              width: 400,
+                              height: 300,
+                              width: 300,
                             ),
                             SizedBox(height: 80),
                             buildEmail(name),
@@ -273,7 +285,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget loginButton(BuildContext context) {
     return ConstrainedBox(
-        constraints: BoxConstraints.tightFor(width: 320, height: 55),
+        constraints: BoxConstraints.tightFor(width: 500, height: 55),
         child: ElevatedButton(
             style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(
@@ -282,7 +294,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Color.fromARGB(202, 119, 60, 106)),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
+                        borderRadius: BorderRadius.circular(20.0),
                         side: BorderSide(
                             color: Color.fromARGB(125, 97, 0, 105))))),
             onPressed: () {

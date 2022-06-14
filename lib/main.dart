@@ -1,3 +1,6 @@
+import 'package:dragcon/Pages/LoginScreen.dart';
+import 'package:dragcon/Pages/adminpage.dart';
+import 'package:dragcon/Pages/equippage.dart';
 import 'package:dragcon/Pages/homepage.dart';
 
 // @dart=2.9

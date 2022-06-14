@@ -32,11 +32,13 @@ class _adminpage extends State<adminpage> {
     var background,
     var name,
     var iconName,
+    double height,
+    double width,
   ) {
     return Container(
       margin: EdgeInsets.all(10),
-      height: 180,
-      width: 400,
+      height: height,
+      width: width,
       child: Stack(
         children: [
           Positioned.fill(
@@ -126,9 +128,12 @@ class _adminpage extends State<adminpage> {
                   children: <Widget>[
                     GestureDetector(
                       child: GestureDetectorKategorie(
-                          "assets/images/userback.jpg",
-                          'Teams',
-                          Icons.assignment_ind),
+                        "assets/images/userback.jpg",
+                        'Teams',
+                        Icons.assignment_ind,
+                        250,
+                        480,
+                      ),
                       onTap: () {
                         Navigator.pushAndRemoveUntil(
                           context,
@@ -140,9 +145,12 @@ class _adminpage extends State<adminpage> {
                     ),
                     GestureDetector(
                       child: GestureDetectorKategorie(
-                          "assets/images/taskback.jpg",
-                          'Tasks',
-                          Icons.assignment),
+                        "assets/images/taskback.jpg",
+                        'Tasks',
+                        Icons.assignment,
+                        250,
+                        480,
+                      ),
                       onTap: () {
                         Navigator.pushAndRemoveUntil(
                           context,
@@ -154,9 +162,12 @@ class _adminpage extends State<adminpage> {
                     ),
                     GestureDetector(
                       child: GestureDetectorKategorie(
-                          "assets/images/equipback.jpg",
-                          'Tools',
-                          Icons.handyman),
+                        "assets/images/equipback.jpg",
+                        'Tools',
+                        Icons.handyman,
+                        250,
+                        480,
+                      ),
                       onTap: () {
                         Navigator.pushAndRemoveUntil(
                           context,
@@ -194,9 +205,12 @@ class _adminpage extends State<adminpage> {
                   children: <Widget>[
                     GestureDetector(
                       child: GestureDetectorKategorie(
-                          "assets/images/userback.jpg",
-                          'Teams',
-                          Icons.assignment_ind),
+                        "assets/images/userback.jpg",
+                        'Teams',
+                        Icons.assignment_ind,
+                        250,
+                        480,
+                      ),
                       onTap: () {
                         Navigator.pushAndRemoveUntil(
                           context,
@@ -208,9 +222,12 @@ class _adminpage extends State<adminpage> {
                     ),
                     GestureDetector(
                       child: GestureDetectorKategorie(
-                          "assets/images/taskback.jpg",
-                          'Tasks',
-                          Icons.assignment),
+                        "assets/images/taskback.jpg",
+                        'Tasks',
+                        Icons.assignment,
+                        250,
+                        480,
+                      ),
                       onTap: () {
                         Navigator.pushAndRemoveUntil(
                           context,
@@ -222,9 +239,12 @@ class _adminpage extends State<adminpage> {
                     ),
                     GestureDetector(
                       child: GestureDetectorKategorie(
-                          "assets/images/equipback.jpg",
-                          'Tools',
-                          Icons.handyman),
+                        "assets/images/equipback.jpg",
+                        'Tools',
+                        Icons.handyman,
+                        250,
+                        480,
+                      ),
                       onTap: () {
                         Navigator.pushAndRemoveUntil(
                           context,
@@ -257,9 +277,12 @@ class _adminpage extends State<adminpage> {
                   children: <Widget>[
                     GestureDetector(
                       child: GestureDetectorKategorie(
-                          "assets/images/userback.jpg",
-                          'Teams',
-                          Icons.assignment_ind),
+                        "assets/images/userback.jpg",
+                        'Teams',
+                        Icons.assignment_ind,
+                        180,
+                        400,
+                      ),
                       onTap: () {
                         Navigator.pushAndRemoveUntil(
                           context,
@@ -271,9 +294,12 @@ class _adminpage extends State<adminpage> {
                     ),
                     GestureDetector(
                       child: GestureDetectorKategorie(
-                          "assets/images/taskback.jpg",
-                          'Tasks',
-                          Icons.assignment),
+                        "assets/images/taskback.jpg",
+                        'Tasks',
+                        Icons.assignment,
+                        180,
+                        400,
+                      ),
                       onTap: () {
                         Navigator.pushAndRemoveUntil(
                           context,
@@ -285,9 +311,12 @@ class _adminpage extends State<adminpage> {
                     ),
                     GestureDetector(
                       child: GestureDetectorKategorie(
-                          "assets/images/equipback.jpg",
-                          'Tools',
-                          Icons.handyman),
+                        "assets/images/equipback.jpg",
+                        'Tools',
+                        Icons.handyman,
+                        180,
+                        400,
+                      ),
                       onTap: () {
                         Navigator.pushAndRemoveUntil(
                           context,

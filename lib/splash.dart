@@ -23,6 +23,29 @@ class _SplashState extends State<Splash> {
         context, MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 
+  Widget ColumnaStyl() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        Image.asset(
+          'assets/icons/logo.png',
+          height: 350,
+          width: 350,
+        ),
+        SizedBox(
+          height: 50,
+        ),
+        FAProgressBar(
+          currentValue: 100,
+          size: 15,
+          animatedDuration: const Duration(milliseconds: 3600),
+          backgroundColor: Color.fromARGB(59, 248, 101, 228),
+          progressColor: Color.fromARGB(255, 252, 188, 248),
+        )
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -30,8 +53,7 @@ class _SplashState extends State<Splash> {
         if (constraints.maxWidth > 1200) {
           return Scaffold(
             body: Container(
-              padding: const EdgeInsetsDirectional.only(
-                  start: 300.0, end: 300.0, top: 80.0),
+              padding: EdgeInsets.fromLTRB(500, 50, 500, 0),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
@@ -44,31 +66,14 @@ class _SplashState extends State<Splash> {
                 ),
               ),
               child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/icons/logo.png',
-                      height: 400,
-                      width: 400,
-                    ),
-                    FAProgressBar(
-                      currentValue: 100,
-                      size: 15,
-                      animatedDuration: const Duration(milliseconds: 3600),
-                      backgroundColor: Color.fromARGB(59, 248, 101, 228),
-                      progressColor: Color.fromARGB(255, 252, 188, 248),
-                    )
-                  ],
-                ),
+                child: ColumnaStyl(),
               ),
             ),
           );
         } else if (constraints.maxWidth > 800 && constraints.maxWidth < 1200) {
           return Scaffold(
             body: Container(
-              padding: const EdgeInsetsDirectional.only(
-                  start: 70.0, end: 70.0, top: 75.0),
+              padding: EdgeInsets.fromLTRB(500, 50, 500, 0),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
@@ -81,23 +86,7 @@ class _SplashState extends State<Splash> {
                 ),
               ),
               child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/icons/logo.png',
-                      height: 400,
-                      width: 400,
-                    ),
-                    FAProgressBar(
-                      currentValue: 100,
-                      size: 15,
-                      animatedDuration: const Duration(milliseconds: 3600),
-                      backgroundColor: Color.fromARGB(59, 248, 101, 228),
-                      progressColor: Color.fromARGB(255, 252, 188, 248),
-                    )
-                  ],
-                ),
+                child: ColumnaStyl(),
               ),
             ),
           );

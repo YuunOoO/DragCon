@@ -86,26 +86,6 @@ class NavBar extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            title: Text('Statistics'),
-            leading: Icon(Icons.bar_chart),
-            onTap: () => Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (BuildContext context) => stat()),
-              (route) => true,
-            ),
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
-            onTap: () => Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (BuildContext context) => settings()),
-              (route) => true,
-            ),
-          ),
-          Divider(),
-          ListTile(
             title: Text('Logout'),
             leading: Icon(Icons.exit_to_app),
             onTap: () => {

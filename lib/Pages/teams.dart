@@ -71,68 +71,193 @@ class _teams extends State<teams> {
     lists = allLists.map(buildList).toList();
   }
 
+  Widget FloatingActionButtonStyle() {
+    return FloatingActionButton(
+      onPressed: () {
+        setState(() {
+          _sizer = ZoomDrag(_sizer);
+        });
+      },
+      backgroundColor: Color.fromARGB(255, 155, 17, 132),
+      child: FaIcon(
+        FontAwesomeIcons.magnifyingGlassPlus,
+        color: Colors.white,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: NavBar(),
-      endDrawer: WriteSQLEkipaAdd(),
-      body: Container(
-        width: 100.w,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/japback.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Stack(
-          children: [
-            DragAndDropLists(
-              lastItemTargetHeight: 5,
-              //addLastItemTargetHeightToTop: true,
-              lastListTargetSize: 1,
-              listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
-              listInnerDecoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(
-                  color: Color.fromARGB(255, 12, 12, 12),
-                  width: 5,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth > 1200) {
+          return Scaffold(
+            drawer: NavBar(),
+            endDrawer: WriteSQLEkipaAdd(),
+            body: Container(
+              width: 100.w,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment(0.8, 1),
+                  colors: <Color>[
+                    Color(0xffC04848),
+                    Color(0xff480048),
+                  ],
+                  tileMode: TileMode.mirror,
                 ),
               ),
-              children: lists,
-              itemDivider: Divider(
-                thickness: 2,
-                height: 2,
-                color: Colors.black,
-              ),
-              itemDecorationWhileDragging: BoxDecoration(
-                color: Color.fromARGB(255, 225, 159, 236),
-                boxShadow: [
-                  BoxShadow(
-                      color: Color.fromARGB(255, 189, 184, 184), blurRadius: 12)
+              child: Stack(
+                children: [
+                  DragAndDropLists(
+                    lastItemTargetHeight: 5,
+                    //addLastItemTargetHeightToTop: true,
+                    lastListTargetSize: 1,
+                    listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
+                    listInnerDecoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        color: Color.fromARGB(255, 12, 12, 12),
+                        width: 5,
+                      ),
+                    ),
+                    children: lists,
+                    itemDivider: Divider(
+                      thickness: 2,
+                      height: 2,
+                      color: Colors.black,
+                    ),
+                    itemDecorationWhileDragging: BoxDecoration(
+                      color: Color.fromARGB(255, 225, 159, 236),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Color.fromARGB(255, 189, 184, 184),
+                            blurRadius: 12)
+                      ],
+                    ),
+                    onItemReorder: onReorderListItem,
+                    onListReorder: onReorderList,
+                    axis: Axis.horizontal,
+                    listWidth: _sizer.x.h,
+                    listDraggingWidth: _sizer.y.h,
+                  ),
                 ],
               ),
-              onItemReorder: onReorderListItem,
-              onListReorder: onReorderList,
-              axis: Axis.horizontal,
-              listWidth: _sizer.x.h,
-              listDraggingWidth: _sizer.y.h,
             ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            _sizer = ZoomDrag(_sizer);
-          });
-        },
-        backgroundColor: Color.fromARGB(255, 155, 17, 132),
-        child: FaIcon(
-          FontAwesomeIcons.magnifyingGlassPlus,
-          color: Colors.white,
-        ),
-      ),
+            floatingActionButton: FloatingActionButtonStyle(),
+          );
+        } else if (constraints.maxWidth > 800 && constraints.maxWidth < 1200) {
+          return Scaffold(
+            drawer: NavBar(),
+            endDrawer: WriteSQLEkipaAdd(),
+            body: Container(
+              width: 100.w,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment(0.8, 1),
+                  colors: <Color>[
+                    Color(0xffC04848),
+                    Color(0xff480048),
+                  ],
+                  tileMode: TileMode.mirror,
+                ),
+              ),
+              child: Stack(
+                children: [
+                  DragAndDropLists(
+                    lastItemTargetHeight: 5,
+                    //addLastItemTargetHeightToTop: true,
+                    lastListTargetSize: 1,
+                    listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
+                    listInnerDecoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        color: Color.fromARGB(255, 12, 12, 12),
+                        width: 5,
+                      ),
+                    ),
+                    children: lists,
+                    itemDivider: Divider(
+                      thickness: 2,
+                      height: 2,
+                      color: Colors.black,
+                    ),
+                    itemDecorationWhileDragging: BoxDecoration(
+                      color: Color.fromARGB(255, 225, 159, 236),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Color.fromARGB(255, 189, 184, 184),
+                            blurRadius: 12)
+                      ],
+                    ),
+                    onItemReorder: onReorderListItem,
+                    onListReorder: onReorderList,
+                    axis: Axis.horizontal,
+                    listWidth: _sizer.x.h,
+                    listDraggingWidth: _sizer.y.h,
+                  ),
+                ],
+              ),
+            ),
+            floatingActionButton: FloatingActionButtonStyle(),
+          );
+        } else {
+          return Scaffold(
+            drawer: NavBar(),
+            endDrawer: WriteSQLEkipaAdd(),
+            body: Container(
+              width: 100.w,
+              height: double.infinity,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/japback.jpg"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Stack(
+                children: [
+                  DragAndDropLists(
+                    lastItemTargetHeight: 5,
+                    //addLastItemTargetHeightToTop: true,
+                    lastListTargetSize: 1,
+                    listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
+                    listInnerDecoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        color: Color.fromARGB(255, 12, 12, 12),
+                        width: 5,
+                      ),
+                    ),
+                    children: lists,
+                    itemDivider: Divider(
+                      thickness: 2,
+                      height: 2,
+                      color: Colors.black,
+                    ),
+                    itemDecorationWhileDragging: BoxDecoration(
+                      color: Color.fromARGB(255, 225, 159, 236),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Color.fromARGB(255, 189, 184, 184),
+                            blurRadius: 12)
+                      ],
+                    ),
+                    onItemReorder: onReorderListItem,
+                    onListReorder: onReorderList,
+                    axis: Axis.horizontal,
+                    listWidth: _sizer.x.h,
+                    listDraggingWidth: _sizer.y.h,
+                  ),
+                ],
+              ),
+            ),
+            floatingActionButton: FloatingActionButtonStyle(),
+          );
+        }
+      },
     );
   }
 

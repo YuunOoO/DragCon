@@ -114,131 +114,372 @@ class _TaskToTeam extends State<TaskToTeam> {
     lists = allLists.map(buildList).toList();
   }
 
+  Widget FloatingActiobButtonStyle() {
+    return FloatingActionButton(
+      onPressed: () {
+        setState(() {
+          _sizer = ZoomDrag(_sizer);
+        });
+      },
+      backgroundColor: Color.fromARGB(255, 155, 17, 132),
+      child: FaIcon(
+        FontAwesomeIcons.magnifyingGlassPlus,
+        color: Colors.white,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (ekip_names.isEmpty || ekip_names == null)
       getTeamNames(); // get only once -> fix return page
     LoadTeamTasks(dropdownValue);
-    return Scaffold(
-      drawer: NavBar(),
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
-          child: Stack(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 4.h),
-                width: 100.w,
-                height: double.infinity,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/loginback.jpg"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      height: 10.h,
-                      width: 70.w,
-                      child: DropdownButtonFormField<Ekipa>(
-                        icon: const Icon(Icons.arrow_downward),
-                        dropdownColor: Color.fromARGB(255, 65, 65, 65),
-                        value: dropdownValue,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10.0),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth > 1200) {
+          return Scaffold(
+              drawer: NavBar(),
+              body: AnnotatedRegion<SystemUiOverlayStyle>(
+                value: SystemUiOverlayStyle.light,
+                child: GestureDetector(
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 4.h),
+                        width: 100.w,
+                        height: double.infinity,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment(0.8, 1),
+                            colors: <Color>[
+                              Color(0xffC04848),
+                              Color(0xff480048),
+                            ],
+                            tileMode: TileMode.mirror,
+                          ),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              height: 10.h,
+                              width: 70.w,
+                              child: DropdownButtonFormField<Ekipa>(
+                                icon: const Icon(Icons.arrow_downward),
+                                dropdownColor: Color.fromARGB(255, 65, 65, 65),
+                                value: dropdownValue,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10.0),
+                                    ),
+                                  ),
+                                  filled: true,
+                                  fillColor: Color.fromARGB(185, 65, 65, 65),
+                                ),
+                                onChanged: (Ekipa? newValue) {
+                                  setState(
+                                    () {
+                                      dropdownValue = newValue!;
+                                    },
+                                  );
+                                },
+                                items: ekip_names.map<DropdownMenuItem<Ekipa>>(
+                                  (Ekipa value) {
+                                    return DropdownMenuItem<Ekipa>(
+                                      value: value,
+                                      child: Text(
+                                        value.name,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ).toList(),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 5.h),
+                        margin: const EdgeInsets.only(top: 40.0),
+                        height: 100.h,
+                        width: 100.w,
+                        child: DragAndDropLists(
+                          lastItemTargetHeight: 5,
+                          //addLastItemTargetHeightToTop: true,
+                          lastListTargetSize: 1,
+                          listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
+
+                          listInnerDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(
+                              color: Color.fromARGB(255, 12, 12, 12),
+                              width: 4,
                             ),
                           ),
-                          filled: true,
-                          fillColor: Color.fromARGB(185, 65, 65, 65),
+                          children: lists,
+
+                          itemDivider: Divider(
+                            thickness: 2,
+                            height: 2,
+                            color: Colors.black,
+                          ),
+                          itemDecorationWhileDragging: BoxDecoration(
+                            color: Color.fromARGB(255, 225, 159, 236),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color.fromARGB(255, 189, 184, 184),
+                                blurRadius: 12,
+                              )
+                            ],
+                          ),
+                          onItemReorder: onReorderListItem,
+                          onListReorder: onReorderList,
+                          axis: Axis.horizontal,
+                          listWidth: _sizer.x.h,
+                          listDraggingWidth: _sizer.y.h,
                         ),
-                        onChanged: (Ekipa? newValue) {
-                          setState(
-                            () {
-                              dropdownValue = newValue!;
-                            },
-                          );
-                        },
-                        items: ekip_names.map<DropdownMenuItem<Ekipa>>(
-                          (Ekipa value) {
-                            return DropdownMenuItem<Ekipa>(
-                              value: value,
-                              child: Text(
-                                value.name,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              floatingActionButton: FloatingActiobButtonStyle());
+        } else if (constraints.maxWidth > 800 && constraints.maxWidth < 1200) {
+          return Scaffold(
+            drawer: NavBar(),
+            body: AnnotatedRegion<SystemUiOverlayStyle>(
+              value: SystemUiOverlayStyle.light,
+              child: GestureDetector(
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 4.h),
+                      width: 100.w,
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment(0.8, 1),
+                          colors: <Color>[
+                            Color(0xffC04848),
+                            Color(0xff480048),
+                          ],
+                          tileMode: TileMode.mirror,
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            height: 10.h,
+                            width: 70.w,
+                            child: DropdownButtonFormField<Ekipa>(
+                              icon: const Icon(Icons.arrow_downward),
+                              dropdownColor: Color.fromARGB(255, 65, 65, 65),
+                              value: dropdownValue,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10.0),
+                                  ),
                                 ),
+                                filled: true,
+                                fillColor: Color.fromARGB(185, 65, 65, 65),
                               ),
-                            );
-                          },
-                        ).toList(),
+                              onChanged: (Ekipa? newValue) {
+                                setState(
+                                  () {
+                                    dropdownValue = newValue!;
+                                  },
+                                );
+                              },
+                              items: ekip_names.map<DropdownMenuItem<Ekipa>>(
+                                (Ekipa value) {
+                                  return DropdownMenuItem<Ekipa>(
+                                    value: value,
+                                    child: Text(
+                                      value.name,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ).toList(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 5.h),
+                      margin: const EdgeInsets.only(top: 40.0),
+                      height: 100.h,
+                      width: 100.w,
+                      child: DragAndDropLists(
+                        lastItemTargetHeight: 5,
+                        //addLastItemTargetHeightToTop: true,
+                        lastListTargetSize: 1,
+                        listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
+
+                        listInnerDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                            color: Color.fromARGB(255, 12, 12, 12),
+                            width: 4,
+                          ),
+                        ),
+                        children: lists,
+
+                        itemDivider: Divider(
+                          thickness: 2,
+                          height: 2,
+                          color: Colors.black,
+                        ),
+                        itemDecorationWhileDragging: BoxDecoration(
+                          color: Color.fromARGB(255, 225, 159, 236),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromARGB(255, 189, 184, 184),
+                              blurRadius: 12,
+                            )
+                          ],
+                        ),
+                        onItemReorder: onReorderListItem,
+                        onListReorder: onReorderList,
+                        axis: Axis.horizontal,
+                        listWidth: _sizer.x.h,
+                        listDraggingWidth: _sizer.y.h,
                       ),
                     ),
                   ],
                 ),
               ),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 5.h),
-                margin: const EdgeInsets.only(top: 40.0),
-                height: 100.h,
-                width: 100.w,
-                child: DragAndDropLists(
-                  lastItemTargetHeight: 5,
-                  //addLastItemTargetHeightToTop: true,
-                  lastListTargetSize: 1,
-                  listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
-
-                  listInnerDecoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      color: Color.fromARGB(255, 12, 12, 12),
-                      width: 4,
+            ),
+            floatingActionButton: FloatingActiobButtonStyle(),
+          );
+        } else {
+          return Scaffold(
+            drawer: NavBar(),
+            body: AnnotatedRegion<SystemUiOverlayStyle>(
+              value: SystemUiOverlayStyle.light,
+              child: GestureDetector(
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 4.h),
+                      width: 100.w,
+                      height: double.infinity,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/loginback.jpg"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            height: 10.h,
+                            width: 70.w,
+                            child: DropdownButtonFormField<Ekipa>(
+                              icon: const Icon(Icons.arrow_downward),
+                              dropdownColor: Color.fromARGB(255, 65, 65, 65),
+                              value: dropdownValue,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10.0),
+                                  ),
+                                ),
+                                filled: true,
+                                fillColor: Color.fromARGB(185, 65, 65, 65),
+                              ),
+                              onChanged: (Ekipa? newValue) {
+                                setState(
+                                  () {
+                                    dropdownValue = newValue!;
+                                  },
+                                );
+                              },
+                              items: ekip_names.map<DropdownMenuItem<Ekipa>>(
+                                (Ekipa value) {
+                                  return DropdownMenuItem<Ekipa>(
+                                    value: value,
+                                    child: Text(
+                                      value.name,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ).toList(),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  children: lists,
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 5.h),
+                      margin: const EdgeInsets.only(top: 40.0),
+                      height: 100.h,
+                      width: 100.w,
+                      child: DragAndDropLists(
+                        lastItemTargetHeight: 5,
+                        //addLastItemTargetHeightToTop: true,
+                        lastListTargetSize: 1,
+                        listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
 
-                  itemDivider: Divider(
-                    thickness: 2,
-                    height: 2,
-                    color: Colors.black,
-                  ),
-                  itemDecorationWhileDragging: BoxDecoration(
-                    color: Color.fromARGB(255, 225, 159, 236),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color.fromARGB(255, 189, 184, 184),
-                        blurRadius: 12,
-                      )
-                    ],
-                  ),
-                  onItemReorder: onReorderListItem,
-                  onListReorder: onReorderList,
-                  axis: Axis.horizontal,
-                  listWidth: _sizer.x.h,
-                  listDraggingWidth: _sizer.y.h,
+                        listInnerDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                            color: Color.fromARGB(255, 12, 12, 12),
+                            width: 4,
+                          ),
+                        ),
+                        children: lists,
+
+                        itemDivider: Divider(
+                          thickness: 2,
+                          height: 2,
+                          color: Colors.black,
+                        ),
+                        itemDecorationWhileDragging: BoxDecoration(
+                          color: Color.fromARGB(255, 225, 159, 236),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromARGB(255, 189, 184, 184),
+                              blurRadius: 12,
+                            )
+                          ],
+                        ),
+                        onItemReorder: onReorderListItem,
+                        onListReorder: onReorderList,
+                        axis: Axis.horizontal,
+                        listWidth: _sizer.x.h,
+                        listDraggingWidth: _sizer.y.h,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            _sizer = ZoomDrag(_sizer);
-          });
-        },
-        backgroundColor: Color.fromARGB(255, 155, 17, 132),
-        child: FaIcon(
-          FontAwesomeIcons.magnifyingGlassPlus,
-          color: Colors.white,
-        ),
-      ),
+            ),
+            floatingActionButton: FloatingActiobButtonStyle(),
+          );
+        }
+      },
     );
   }
 
