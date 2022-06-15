@@ -1,3 +1,5 @@
+import 'package:dragcon/Pages/teams.dart';
+import 'package:dragcon/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'dart:convert';
@@ -32,8 +34,6 @@ class WriteSQLEkipaAddState extends State<WriteSQLEkipaAdd> {
   late bool error, sending, success;
   late String msg;
 
-  String phpurl = 'http://192.168.1.103/flutter/submit_data_ekipa.php';
-
   @override
   void initState() {
     error = false;
@@ -44,7 +44,7 @@ class WriteSQLEkipaAddState extends State<WriteSQLEkipaAdd> {
   }
 
   Future<void> sendData() async {
-    var res = await http.post(Uri.parse(phpurl), body: {
+    var res = await http.post(Uri.parse(phpurl4), body: {
       "name": namectl.text,
     });
 

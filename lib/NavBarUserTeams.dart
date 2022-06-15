@@ -1,3 +1,6 @@
+import 'package:dragcon/Pages/teams.dart';
+import 'package:dragcon/global.dart';
+import 'package:dragcon/mysql/tables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'dart:convert';
@@ -38,8 +41,6 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
 
   late bool error, sending, success;
   late String msg;
-
-  String phpurl = 'http://192.168.1.103/flutter/submit_data_users.php';
 
   @override
   void initState() {
@@ -159,9 +160,9 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
                   setState(
                     () {
                       sending = true;
+                      sendData();
                     },
                   );
-                  sendData();
                 },
               ),
             ],

@@ -1,3 +1,4 @@
+import 'package:dragcon/global.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -34,8 +35,6 @@ class WriteSQLdataTasksState extends State<WriteSQLdataTasks> {
   late bool error, sending, success;
   late String msg;
 
-  String phpurl = 'http://192.168.1.103/flutter/submit_data_tasks.php';
-
   @override
   void initState() {
     error = false;
@@ -46,7 +45,7 @@ class WriteSQLdataTasksState extends State<WriteSQLdataTasks> {
   }
 
   Future<void> sendData() async {
-    var res = await http.post(Uri.parse(phpurl), body: {
+    var res = await http.post(Uri.parse(phpurl3), body: {
       "about": aboutctl.text,
       "location": locationctl.text,
       "priority": priorityctl.text,

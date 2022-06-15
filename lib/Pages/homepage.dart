@@ -567,7 +567,7 @@ class _homepage extends State<homepage> {
                                                             133, 185, 185, 185),
                                                       ),
                                                       child:
-                                                          Text("\n\n asdasd"),
+                                                          Text(item.task.about),
                                                     ),
                                                     Positioned(
                                                       child:
