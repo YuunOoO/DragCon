@@ -13,12 +13,12 @@ import 'dart:collection';
 import 'package:sizer/sizer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+List<DraggableList> allLists = [];
+
 class teams extends StatefulWidget {
   @override
   _teams createState() => _teams();
 }
-
-List<DraggableList> allLists = [];
 
 class DraggableList {
   final String header;
