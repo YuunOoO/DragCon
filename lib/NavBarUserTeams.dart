@@ -11,7 +11,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
 
 //import package file manually
-
+int numer = 1;
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -21,11 +21,14 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
-        home: WriteSQLdataUser());
+        home: WriteSQLdataUser(numer));
   }
 }
 
 class WriteSQLdataUser extends StatefulWidget {
+  WriteSQLdataUser(int nr) {
+    numer = nr;
+  }
   @override
   State<StatefulWidget> createState() {
     return WriteSQLdataUserState();
@@ -57,7 +60,7 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
       "password": passwordctl.text,
       "admin": adminctl.text,
       "email": emailctl.text,
-      "ekipa_id": ekipaidctl.text,
+      "ekipa_id": numer.toString(),
     });
 
     if (res.statusCode == 200) {
@@ -130,13 +133,7 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
                   hintText: "User E-mail",
                 ),
               ),
-              TextField(
-                controller: ekipaidctl,
-                decoration: InputDecoration(
-                  labelText: "Input Team ID",
-                  hintText: "ID of the assigned team",
-                ),
-              ),
+//
               SizedBox(
                 height: 10,
               ),

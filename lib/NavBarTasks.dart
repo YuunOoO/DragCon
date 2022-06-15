@@ -6,6 +6,8 @@ import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:sizer/sizer.dart';
 
 void main() => runApp(MyApp());
+int numer = 1;
+late String type;
 
 class MyApp extends StatelessWidget {
   @override
@@ -14,11 +16,15 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
-        home: WriteSQLdataTasks());
+        home: WriteSQLdataTasks(numer, type));
   }
 }
 
 class WriteSQLdataTasks extends StatefulWidget {
+  WriteSQLdataTasks(int nr, String _type) {
+    numer = nr;
+    type = _type;
+  }
   @override
   State<StatefulWidget> createState() {
     return WriteSQLdataTasksState();
@@ -49,8 +55,8 @@ class WriteSQLdataTasksState extends State<WriteSQLdataTasks> {
       "about": aboutctl.text,
       "location": locationctl.text,
       "priority": priorityctl.text,
-      "type": typectl.text,
-      "ekipa_id": ekipaidctl.text,
+      "type": type,
+      "ekipa_id": numer.toString(),
     });
 
     if (res.statusCode == 200) {
@@ -114,20 +120,7 @@ class WriteSQLdataTasksState extends State<WriteSQLdataTasks> {
                   hintText: "priority level (number)",
                 ),
               ),
-              TextField(
-                controller: typectl,
-                decoration: InputDecoration(
-                  labelText: "Set Type",
-                  hintText: "Emergency/Backlog/Inprocess/Completed",
-                ),
-              ),
-              TextField(
-                controller: ekipaidctl,
-                decoration: InputDecoration(
-                  labelText: "Input Team ID",
-                  hintText: "ID of the assigned team",
-                ),
-              ),
+//
               SizedBox(
                 height: 10,
               ),
