@@ -103,14 +103,14 @@ class _TaskToTeam extends State<TaskToTeam> {
         new DraggableList(header: "Inprocess", items: _InProcess);
     DraggableList Completed =
         new DraggableList(header: "Completed", items: _Completed);
-    DraggableList tmp = new DraggableList(header: "new tasks", items: _tmp);
+    //  DraggableList tmp = new DraggableList(header: "new tasks", items: _tmp);
     DraggableList Emergency =
         new DraggableList(header: "Emergency", items: _Emergency);
     allLists.add(Emergency);
     allLists.add(Backlog);
     allLists.add(InProcess);
     allLists.add(Completed);
-    allLists.add(tmp);
+    //   allLists.add(tmp);
     lists = allLists.map(buildList).toList();
   }
 
@@ -517,13 +517,16 @@ class _TaskToTeam extends State<TaskToTeam> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
+                          int? nr = 1;
+                          String _type = list.header;
+                          nr = dropdownValue.ekipa_id;
                           return AlertDialog(
                             content: Container(
                               width: 100.w,
                               height: 60.h,
                               child: Stack(
                                 children: <Widget>[
-                                  WriteSQLdataTasks(),
+                                  WriteSQLdataTasks(nr!, _type),
                                 ],
                               ),
                             ),

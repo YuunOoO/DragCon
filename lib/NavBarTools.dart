@@ -9,6 +9,8 @@ import 'package:sizer/sizer.dart';
 
 void main() => runApp(MyApp());
 
+int numer = 1;
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -16,11 +18,14 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
-        home: WriteSQLdata());
+        home: WriteSQLdata(numer));
   }
 }
 
 class WriteSQLdata extends StatefulWidget {
+  WriteSQLdata(int nr) {
+    numer = nr;
+  }
   @override
   State<StatefulWidget> createState() {
     return WriteSQLdataState();
@@ -49,7 +54,7 @@ class WriteSQLdataState extends State<WriteSQLdata> {
       "type": typectl.text,
       "amount": amountctl.text,
       "mark": markctl.text,
-      "ekipa_id": ekipaidctl.text,
+      "ekipa_id": numer.toString(),
     });
 
     if (res.statusCode == 200) {
@@ -108,13 +113,6 @@ class WriteSQLdataState extends State<WriteSQLdata> {
                 decoration: InputDecoration(
                   labelText: "Enter the brand",
                   hintText: "Tool brand",
-                ),
-              ),
-              TextField(
-                controller: ekipaidctl,
-                decoration: InputDecoration(
-                  labelText: "Input Team ID",
-                  hintText: "ID of the assigned team",
                 ),
               ),
               SizedBox(

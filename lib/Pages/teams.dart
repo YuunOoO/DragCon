@@ -292,6 +292,10 @@ class _teams extends State<teams> {
                   flex: 2,
                   child: IconButton(
                     onPressed: () {
+                      int? nr = 1;
+                      for (var team in allTeams) {
+                        if (team.name == list.header) nr = team.ekipa_id;
+                      }
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -299,7 +303,7 @@ class _teams extends State<teams> {
                             content: Container(
                               width: 100.w,
                               height: 60.h,
-                              child: WriteSQLdataUser(),
+                              child: WriteSQLdataUser(nr!),
                             ),
                           );
                         },
