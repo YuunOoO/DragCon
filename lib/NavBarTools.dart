@@ -5,25 +5,9 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:sizer/sizer.dart';
 
-//import package file manually
-
-void main() => runApp(MyApp());
-
 int numer = 1;
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: ThemeData(
-          primarySwatch: Colors.red,
-        ),
-        home: WriteSQLdata(numer));
-  }
-}
-
 class WriteSQLdata extends StatefulWidget {
-  WriteSQLdata(int nr) {
+  WriteSQLdata(int nr, {Key? key}) : super(key: key) {
     numer = nr;
   }
   @override
@@ -91,42 +75,42 @@ class WriteSQLdataState extends State<WriteSQLdata> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: <Widget>[
               TextField(
                 controller: typectl,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: "Input Type",
                   hintText: "Tool type",
                 ),
               ),
               TextField(
                 controller: amountctl,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: "Input Amount",
                   hintText: "Number of tools",
                 ),
               ),
               TextField(
                 controller: markctl,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: "Enter the brand",
                   hintText: "Tool brand",
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               AnimatedButton(
                 height: 50,
                 width: 100.w,
                 text: 'Wyślij',
-                gradient: LinearGradient(colors: [
+                gradient: const LinearGradient(colors: [
                   Color.fromARGB(255, 92, 72, 71),
                   Color.fromARGB(255, 3, 2, 1)
                 ]),
-                selectedGradientColor: LinearGradient(
+                selectedGradientColor: const LinearGradient(
                     colors: [Colors.pinkAccent, Colors.purpleAccent]),
                 isReverse: true,
                 selectedTextColor: Colors.black,

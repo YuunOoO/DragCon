@@ -1,24 +1,19 @@
-import 'dart:io';
-import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
+import 'package:dragcon/NavBar.dart';
 import 'package:dragcon/Pages/TaskToTeam.dart';
 import 'package:dragcon/Pages/ToolsToTeam.dart';
-import 'package:dragcon/Pages/homepage.dart';
 import 'package:dragcon/Pages/teams.dart';
 import 'package:dragcon/mysql/tables.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/material.dart';
-import '../NavBar.dart';
-import '../main.dart';
-import 'dart:collection';
 import 'package:sizer/sizer.dart';
 
-class adminpage extends StatefulWidget {
+class AdminPage extends StatefulWidget {
+  const AdminPage({Key? key}) : super(key: key);
+
   @override
-  _adminpage createState() => _adminpage();
+  AdminPageState createState() => AdminPageState();
 }
 
-class _adminpage extends State<adminpage> {
+class AdminPageState extends State<AdminPage> {
   @override
   void initState() {
     super.initState();
@@ -28,7 +23,7 @@ class _adminpage extends State<adminpage> {
     getData(table);
   }
 
-  Widget GestureDetectorKategorie(
+   gestureDetectorKategorie(
     var background,
     var name,
     var iconName,
@@ -36,7 +31,7 @@ class _adminpage extends State<adminpage> {
     double width,
   ) {
     return Container(
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       height: height,
       width: width,
       child: Stack(
@@ -58,7 +53,7 @@ class _adminpage extends State<adminpage> {
             child: Container(
               height: 180,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(20),
                   bottomRight: Radius.circular(20),
                 ),
@@ -78,16 +73,16 @@ class _adminpage extends State<adminpage> {
               children: [
                 Container(
                   color: Colors.transparent,
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: Icon(
                     iconName,
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: const Color.fromARGB(255, 255, 255, 255),
                     size: 40,
                   ),
                 ),
                 Text(
                   '$name',
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -111,8 +106,8 @@ class _adminpage extends State<adminpage> {
               drawer: NavBar(),
               body: Container(
                 width: 100.w,
-                padding: new EdgeInsets.all(5.0),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(5.0),
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment(0.8, 1),
@@ -127,7 +122,7 @@ class _adminpage extends State<adminpage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     GestureDetector(
-                      child: GestureDetectorKategorie(
+                      child: gestureDetectorKategorie(
                         "assets/images/userback.jpg",
                         'Teams',
                         Icons.assignment_ind,
@@ -138,13 +133,13 @@ class _adminpage extends State<adminpage> {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => teams()),
+                              builder: (BuildContext context) => const Teams()),
                           (route) => true,
                         );
                       },
                     ),
                     GestureDetector(
-                      child: GestureDetectorKategorie(
+                      child: gestureDetectorKategorie(
                         "assets/images/taskback.jpg",
                         'Tasks',
                         Icons.assignment,
@@ -161,7 +156,7 @@ class _adminpage extends State<adminpage> {
                       },
                     ),
                     GestureDetector(
-                      child: GestureDetectorKategorie(
+                      child: gestureDetectorKategorie(
                         "assets/images/equipback.jpg",
                         'Tools',
                         Icons.handyman,
@@ -172,7 +167,7 @@ class _adminpage extends State<adminpage> {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => ToolsToTeam()),
+                              builder: (BuildContext context) => const ToolsToTeam()),
                           (route) => true,
                         );
                       },
@@ -188,8 +183,8 @@ class _adminpage extends State<adminpage> {
               drawer: NavBar(),
               body: Container(
                 width: 100.w,
-                padding: new EdgeInsets.all(5.0),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(5.0),
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment(0.8, 1),
@@ -204,7 +199,7 @@ class _adminpage extends State<adminpage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     GestureDetector(
-                      child: GestureDetectorKategorie(
+                      child: gestureDetectorKategorie(
                         "assets/images/userback.jpg",
                         'Teams',
                         Icons.assignment_ind,
@@ -215,13 +210,13 @@ class _adminpage extends State<adminpage> {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => teams()),
+                              builder: (BuildContext context) => const Teams()),
                           (route) => true,
                         );
                       },
                     ),
                     GestureDetector(
-                      child: GestureDetectorKategorie(
+                      child: gestureDetectorKategorie(
                         "assets/images/taskback.jpg",
                         'Tasks',
                         Icons.assignment,
@@ -238,7 +233,7 @@ class _adminpage extends State<adminpage> {
                       },
                     ),
                     GestureDetector(
-                      child: GestureDetectorKategorie(
+                      child: gestureDetectorKategorie(
                         "assets/images/equipback.jpg",
                         'Tools',
                         Icons.handyman,
@@ -249,7 +244,7 @@ class _adminpage extends State<adminpage> {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => ToolsToTeam()),
+                              builder: (BuildContext context) => const ToolsToTeam()),
                           (route) => true,
                         );
                       },
@@ -265,7 +260,7 @@ class _adminpage extends State<adminpage> {
               drawer: NavBar(),
               body: Container(
                 width: 100.w,
-                padding: new EdgeInsets.all(5.0),
+                padding: const EdgeInsets.all(5.0),
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage("assets/images/loginback.jpg"),
@@ -276,7 +271,7 @@ class _adminpage extends State<adminpage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     GestureDetector(
-                      child: GestureDetectorKategorie(
+                      child: gestureDetectorKategorie(
                         "assets/images/userback.jpg",
                         'Teams',
                         Icons.assignment_ind,
@@ -287,13 +282,13 @@ class _adminpage extends State<adminpage> {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => teams()),
+                              builder: (BuildContext context) => const Teams()),
                           (route) => true,
                         );
                       },
                     ),
                     GestureDetector(
-                      child: GestureDetectorKategorie(
+                      child: gestureDetectorKategorie(
                         "assets/images/taskback.jpg",
                         'Tasks',
                         Icons.assignment,
@@ -310,7 +305,7 @@ class _adminpage extends State<adminpage> {
                       },
                     ),
                     GestureDetector(
-                      child: GestureDetectorKategorie(
+                      child: gestureDetectorKategorie(
                         "assets/images/equipback.jpg",
                         'Tools',
                         Icons.handyman,
@@ -321,7 +316,7 @@ class _adminpage extends State<adminpage> {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => ToolsToTeam()),
+                              builder: (BuildContext context) => const ToolsToTeam()),
                           (route) => true,
                         );
                       },

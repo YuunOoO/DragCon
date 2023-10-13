@@ -1,23 +1,20 @@
-import 'dart:io';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
+import 'package:dragcon/NavBar.dart';
+import 'package:dragcon/NavBarEkipaAdd.dart';
+import 'package:dragcon/NavBarUserTeams.dart';
 import 'package:dragcon/mysql/tables.dart';
 import 'package:dragcon/zoom.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/material.dart';
-import '../NavBar.dart';
-import '../NavBarUserTeams.dart';
-import '../NavBarEkipaAdd.dart';
-import '../main.dart';
-import 'dart:collection';
 import 'package:sizer/sizer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 List<DraggableList> allLists = [];
 
-class teams extends StatefulWidget {
+class Teams extends StatefulWidget {
+  const Teams({Key? key}) : super(key: key);
+
   @override
-  _teams createState() => _teams();
+  TeamsState createState() => TeamsState();
 }
 
 class DraggableList {
@@ -39,47 +36,46 @@ class DraggableListItem {
   });
 }
 
-class _teams extends State<teams> {
+class TeamsState extends State<Teams> {
   late List<DragAndDropList> lists;
-  sizer _sizer = new sizer();
+  TileSizer _sizer = TileSizer();
   @override
   void initState() {
     super.initState();
-    LoadTeams();
+    loadTeams();
   }
 
-  void LoadTeams() {
+  loadTeams() {
     //clean everything
     allLists.clear();
 
     List<DraggableListItem> getItems(Ekipa team) {
       List<DraggableListItem> tmp = [];
       for (var user in allUsers) {
-        if (team.ekipa_id == user.ekipa_id) {
-          tmp.add(new DraggableListItem(user: user, title: user.id));
+        if (team.ekipaId == user.ekipaId) {
+          tmp.add(DraggableListItem(user: user, title: user.id));
         }
       }
       return tmp;
     }
 
     //for all teams
-    List<DraggableListItem> tmp2 = []; //empty list for new users
     for (var team in allTeams) {
-      allLists.add(new DraggableList(header: team.name, items: getItems(team)));
+      allLists.add(DraggableList(header: team.name, items: getItems(team)));
     }
 
     lists = allLists.map(buildList).toList();
   }
 
-  Widget FloatingActionButtonStyle() {
+  floatingActionButtonStyle() {
     return FloatingActionButton(
       onPressed: () {
         setState(() {
-          _sizer = ZoomDrag(_sizer);
+          _sizer = zoomDrag(_sizer);
         });
       },
-      backgroundColor: Color.fromARGB(255, 155, 17, 132),
-      child: FaIcon(
+      backgroundColor: const Color.fromARGB(255, 155, 17, 132),
+      child: const FaIcon(
         FontAwesomeIcons.magnifyingGlassPlus,
         color: Colors.white,
       ),
@@ -97,7 +93,7 @@ class _teams extends State<teams> {
             body: Container(
               width: 100.w,
               height: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment(0.8, 1),
@@ -118,17 +114,17 @@ class _teams extends State<teams> {
                     listInnerDecoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(
-                        color: Color.fromARGB(255, 12, 12, 12),
+                        color: const Color.fromARGB(255, 12, 12, 12),
                         width: 5,
                       ),
                     ),
                     children: lists,
-                    itemDivider: Divider(
+                    itemDivider: const Divider(
                       thickness: 2,
                       height: 2,
                       color: Colors.black,
                     ),
-                    itemDecorationWhileDragging: BoxDecoration(
+                    itemDecorationWhileDragging: const BoxDecoration(
                       color: Color.fromARGB(255, 225, 159, 236),
                       boxShadow: [
                         BoxShadow(
@@ -145,7 +141,7 @@ class _teams extends State<teams> {
                 ],
               ),
             ),
-            floatingActionButton: FloatingActionButtonStyle(),
+            floatingActionButton: floatingActionButtonStyle(),
           );
         } else if (constraints.maxWidth > 800 && constraints.maxWidth < 1200) {
           return Scaffold(
@@ -154,7 +150,7 @@ class _teams extends State<teams> {
             body: Container(
               width: 100.w,
               height: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment(0.8, 1),
@@ -175,17 +171,17 @@ class _teams extends State<teams> {
                     listInnerDecoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(
-                        color: Color.fromARGB(255, 12, 12, 12),
+                        color: const Color.fromARGB(255, 12, 12, 12),
                         width: 5,
                       ),
                     ),
                     children: lists,
-                    itemDivider: Divider(
+                    itemDivider: const Divider(
                       thickness: 2,
                       height: 2,
                       color: Colors.black,
                     ),
-                    itemDecorationWhileDragging: BoxDecoration(
+                    itemDecorationWhileDragging: const BoxDecoration(
                       color: Color.fromARGB(255, 225, 159, 236),
                       boxShadow: [
                         BoxShadow(
@@ -202,7 +198,7 @@ class _teams extends State<teams> {
                 ],
               ),
             ),
-            floatingActionButton: FloatingActionButtonStyle(),
+            floatingActionButton: floatingActionButtonStyle(),
           );
         } else {
           return Scaffold(
@@ -227,17 +223,17 @@ class _teams extends State<teams> {
                     listInnerDecoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(
-                        color: Color.fromARGB(255, 12, 12, 12),
+                        color: const Color.fromARGB(255, 12, 12, 12),
                         width: 5,
                       ),
                     ),
                     children: lists,
-                    itemDivider: Divider(
+                    itemDivider: const Divider(
                       thickness: 2,
                       height: 2,
                       color: Colors.black,
                     ),
-                    itemDecorationWhileDragging: BoxDecoration(
+                    itemDecorationWhileDragging: const BoxDecoration(
                       color: Color.fromARGB(255, 225, 159, 236),
                       boxShadow: [
                         BoxShadow(
@@ -254,7 +250,7 @@ class _teams extends State<teams> {
                 ],
               ),
             ),
-            floatingActionButton: FloatingActionButtonStyle(),
+            floatingActionButton: floatingActionButtonStyle(),
           );
         }
       },
@@ -263,15 +259,15 @@ class _teams extends State<teams> {
 
   DragAndDropList buildList(DraggableList list) => DragAndDropList(
         header: Container(
-          margin: EdgeInsets.all(5),
+          margin: const EdgeInsets.all(5),
           decoration: BoxDecoration(
-            color: Color.fromARGB(199, 65, 65, 65),
+            color: const Color.fromARGB(199, 65, 65, 65),
             borderRadius: BorderRadius.circular(30),
           ),
           child: Center(
             child: Row(
               children: [
-                Expanded(
+                const Expanded(
                   flex: 1,
                   child: Text(""),
                 ),
@@ -281,7 +277,7 @@ class _teams extends State<teams> {
                     list.header,
                     maxLines: 2,
                     textAlign: TextAlign.left,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 25,
                       color: Color.fromARGB(255, 0, 0, 0),
@@ -294,13 +290,13 @@ class _teams extends State<teams> {
                     onPressed: () {
                       int? nr = 1;
                       for (var team in allTeams) {
-                        if (team.name == list.header) nr = team.ekipa_id;
+                        if (team.name == list.header) nr = team.ekipaId;
                       }
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            content: Container(
+                            content: SizedBox(
                               width: 100.w,
                               height: 60.h,
                               child: WriteSQLdataUser(nr!),
@@ -309,7 +305,7 @@ class _teams extends State<teams> {
                         },
                       );
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.add_circle_outlined,
                       size: 35,
                     ),
@@ -323,7 +319,7 @@ class _teams extends State<teams> {
             .map(
               (item) => DragAndDropItem(
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/images/userback.jpg"),
                       fit: BoxFit.fill,
@@ -335,7 +331,7 @@ class _teams extends State<teams> {
                         Text(
                           item.user.id,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 20,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -376,20 +372,20 @@ class _teams extends State<teams> {
   }
 
   void podmiana(int idx, int idx2, int idx3, int idx4) async {
-    var user_tmp = allLists[idx].items[idx2].user;
+    var userTmp = allLists[idx].items[idx2].user;
     String table = 'users';
     // String ekipa_id = user_tmp.ekipa_id; //do upgrade'u
     // String key_id = user_tmp.key_id.toString();
     String find = allLists[idx3].header;
     int? nr = 0;
     for (var team in allTeams) {
-      if (team.name == find) nr = team.ekipa_id;
+      if (team.name == find) nr = team.ekipaId;
     }
     Map mapdate = {
       // transferred data map
       'table': table,
       'ekipa_id': nr.toString(),
-      'key_id': user_tmp.key_id.toString(),
+      'key_id': userTmp.keyId.toString(),
     };
     print(mapdate);
     Update2(table, mapdate);

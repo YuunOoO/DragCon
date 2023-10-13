@@ -1,25 +1,27 @@
-import 'dart:io';
-import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
-import 'package:dragcon/mysql/tables.dart';
+import 'package:dragcon/NavBar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/material.dart';
-import '../NavBar.dart';
-import '../main.dart';
-import 'dart:collection';
 
-class settings extends StatefulWidget {
+
+class Settings extends StatefulWidget {
+  const Settings({Key? key}) : super(key: key);
+
   @override
-  _settings createState() => _settings();
+  SettingsState createState() => SettingsState();
 }
 
-class _settings extends State<settings> {
+class SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     double rating = 400;
     return Scaffold(
         drawer: NavBar(),
         body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/japback.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
           child: Slider(
             value: rating,
             onChanged: (newRating) {
@@ -29,12 +31,6 @@ class _settings extends State<settings> {
             },
             min: 200,
             max: 600,
-          ),
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/japback.jpg"),
-              fit: BoxFit.cover,
-            ),
           ),
         ));
   }

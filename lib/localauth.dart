@@ -1,16 +1,13 @@
 import 'package:dragcon/NavigationService.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
-import 'NavigationService.dart';
-import 'Pages/adminpage.dart';
 
-class localauth {
+class Localauth {
   static final _auth = LocalAuthentication();
   static Future<bool> hasBiometrics() async {
     try {
       return await _auth.canCheckBiometrics;
-    } on PlatformException catch (e) {
+    } on PlatformException {
       return false;
     }
   }
@@ -18,8 +15,7 @@ class localauth {
   static Future<List<BiometricType>> getBiometrics() async {
     try {
       return await _auth.getAvailableBiometrics();
-    } on PlatformException catch (e) {
-      print(e);
+    } on PlatformException {
       return <BiometricType>[];
     }
   }
@@ -35,9 +31,9 @@ class localauth {
           biometricOnly: false,
         ),
       );
-    } on PlatformException catch (e) {
-      NavigationService nav = new NavigationService();
-      nav.LogOut();
+    } on PlatformException {
+      NavigationService nav = NavigationService();
+      nav.logOut();
       return false;
     }
   }

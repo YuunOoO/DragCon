@@ -1,25 +1,19 @@
-import 'package:dragcon/Pages/LoginScreen.dart';
-import 'package:dragcon/Pages/adminpage.dart';
-import 'package:dragcon/Pages/equippage.dart';
-import 'package:dragcon/Pages/homepage.dart';
-
-// @dart=2.9
-
 import 'package:flutter/material.dart';
 import 'mysql/tables.dart';
 import 'splash.dart';
 import 'package:sizer/sizer.dart';
-import 'package:flutter/widgets.dart';
 
 void main() async {
   String table = "tasks";
   getData(table);
   table = "tools";
   getData(table);
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Sizer(
@@ -31,7 +25,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             fontFamily: 'jyunjun',
           ),
-          home: Splash(),
+          home: const Splash(),
         );
       },
     );

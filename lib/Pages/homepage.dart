@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:dragcon/mysql/tables.dart';
 import 'package:dragcon/zoom.dart';
@@ -7,16 +6,15 @@ import '../NavBar.dart';
 import '../global.dart';
 import 'package:sizer/sizer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 
 //
 
 List<DraggableList> allLists = [];
 List<Tasks> teamtasks = [];
-List<DraggableListItem> _Backlog = [];
-List<DraggableListItem> _InProcess = [];
-List<DraggableListItem> _Completed = [];
-List<DraggableListItem> _Emergency = [];
+List<DraggableListItem> _backlog = [];
+List<DraggableListItem> _inProcess = [];
+List<DraggableListItem> _completed = [];
+List<DraggableListItem> _emergency = [];
 
 ///////////////////////////
 class DraggableList {
@@ -39,20 +37,21 @@ class DraggableListItem {
 }
 
 ///////////////////////
-class homepage extends StatefulWidget {
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
-  _homepage createState() => _homepage();
+  HomePageState createState() => HomePageState();
 }
 
-class _homepage extends State<homepage> {
+class HomePageState extends State<HomePage> {
   double x = 50;
   double y = 50;
   double x2 = 10;
-  double font_size = 10;
-  double font_size2 = 15;
+  double fontSize = 10;
+  double fontSize2 = 15;
   bool zoom = true;
-  sizer _sizer = new sizer();
-  static final String title = 'Drag & Drop ListView';
+  TileSizer _sizer = TileSizer();
   Future<bool> _onWillPop(BuildContext context) async {
     bool? exitResult = await _showExitBottomSheet(context);
     return exitResult ?? false;
@@ -81,7 +80,7 @@ class _homepage extends State<homepage> {
   Widget textWidgetStyles(String text) {
     return Text(
       text,
-      style: TextStyle(
+      style: const TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 15,
         color: Color.fromARGB(255, 0, 0, 0),
@@ -90,17 +89,17 @@ class _homepage extends State<homepage> {
     );
   }
 
-  Widget IconsStyle(var IconName) {
+  Widget iconsStyle(var iconName) {
     return Container(
-      margin: EdgeInsets.all(5),
-      padding: EdgeInsets.all(5),
+      margin: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
         border: Border.all(
           width: 2,
-          color: Color.fromARGB(255, 0, 0, 0),
+          color: const Color.fromARGB(255, 0, 0, 0),
         ),
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment(0.8, 1),
           colors: <Color>[
@@ -111,8 +110,8 @@ class _homepage extends State<homepage> {
         ),
       ),
       child: Icon(
-        IconName,
-        color: Color.fromARGB(255, 0, 0, 0),
+        iconName,
+        color: const Color.fromARGB(255, 0, 0, 0),
         size: 35,
       ),
     );
@@ -163,62 +162,61 @@ class _homepage extends State<homepage> {
     );
   }
 
-  void LoadTeamTasks() {
+  loadTeamTasks() {
     //clean everything
     allLists.clear();
     teamtasks.clear();
-    _Backlog.clear();
-    _InProcess.clear();
-    _Completed.clear();
-    _Emergency.clear();
+    _backlog.clear();
+    _inProcess.clear();
+    _completed.clear();
+    _emergency.clear();
     //choose only your team tasks
     for (var item in tasks) {
-      if (user.ekipa_id == item.ekipa_id) {
+      if (user.ekipaId == item.ekipaId) {
         teamtasks.add(item);
       }
     }
     //ordering tasks
     for (var item in teamtasks) {
-      DraggableListItem tmp = new DraggableListItem(task: item, title: "task");
+      DraggableListItem tmp = DraggableListItem(task: item, title: "task");
 
-      if (item.type == "Backlog")
-        _Backlog.add(tmp);
-      else if (item.type == "Inprocess")
-        _InProcess.add(tmp);
-      else if (item.type == "Completed")
-        _Completed.add(tmp);
-      else if (item.type == "Emergency") _Emergency.add(tmp);
+      if (item.type == "Backlog") {
+        _backlog.add(tmp);
+      } else if (item.type == "Inprocess") {
+        _inProcess.add(tmp);
+      } else if (item.type == "Completed") {
+        _completed.add(tmp);
+      } else if (item.type == "Emergency") {
+        _emergency.add(tmp);
+      }
     }
 
-    DraggableList Backlog =
-        new DraggableList(header: "Backlog", items: _Backlog);
-    DraggableList InProcess =
-        new DraggableList(header: "Inprocess", items: _InProcess);
-    DraggableList Completed =
-        new DraggableList(header: "Completed", items: _Completed);
-    DraggableList Emergency =
-        new DraggableList(header: "Emergency", items: _Emergency);
+    DraggableList backlog = DraggableList(header: "Backlog", items: _backlog);
+    DraggableList inProcess = DraggableList(header: "Inprocess", items: _inProcess);
+    DraggableList completed = DraggableList(header: "Completed", items: _completed);
+    DraggableList emergency = DraggableList(header: "Emergency", items: _emergency);
 
-    allLists.add(Emergency);
-    allLists.add(Backlog);
-    allLists.add(InProcess);
-    allLists.add(Completed);
+    allLists.add(emergency);
+    allLists.add(backlog);
+    allLists.add(inProcess);
+    allLists.add(completed);
   }
 
   @override
   void initState() {
     super.initState();
-    LoadTeamTasks();
+    loadTeamTasks();
     lists = allLists.map(buildList).toList();
   }
 
   late List<DragAndDropList> lists;
 
-  bool DragFlag() {
-    if (user.admin <= 1)
+  dragFlag() {
+    if (user.admin <= 1) {
       return true; //team master or root
-    else
+    } else {
       return false;
+    }
   }
 
   @override
@@ -227,7 +225,7 @@ class _homepage extends State<homepage> {
       if (constraints.maxWidth > 1200) {
         return WillPopScope(
           child: Scaffold(
-            drawer: NavBar(),
+            drawer: const NavBar(),
             body: Container(
               width: 100.w,
               height: 100.h,
@@ -250,18 +248,18 @@ class _homepage extends State<homepage> {
                 listInnerDecoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(
-                    color: Color.fromARGB(255, 12, 12, 12),
+                    color: const Color.fromARGB(255, 12, 12, 12),
                     width: 5,
                   ),
                 ),
                 children: lists,
 
-                itemDivider: Divider(
+                itemDivider: const Divider(
                   thickness: 2,
                   height: 2,
                   color: Colors.black,
                 ),
-                itemDecorationWhileDragging: BoxDecoration(
+                itemDecorationWhileDragging: const BoxDecoration(
                   color: Color.fromARGB(255, 225, 159, 236),
                   boxShadow: [
                     BoxShadow(
@@ -281,11 +279,11 @@ class _homepage extends State<homepage> {
               onPressed: () {
                 // Add your onPressed code here!
                 setState(() {
-                  _sizer = ZoomDrag(_sizer);
+                  _sizer = zoomDrag(_sizer);
                 });
               },
-              backgroundColor: Color.fromARGB(232, 87, 7, 73),
-              child: FaIcon(
+              backgroundColor: const Color.fromARGB(232, 87, 7, 73),
+              child: const FaIcon(
                 FontAwesomeIcons.magnifyingGlassPlus,
                 color: Colors.white,
               ),
@@ -296,7 +294,7 @@ class _homepage extends State<homepage> {
       } else if (constraints.maxWidth > 800 && constraints.maxWidth < 1200) {
         return WillPopScope(
           child: Scaffold(
-            drawer: NavBar(),
+            drawer: const NavBar(),
             body: Container(
               width: 100.w,
               height: 100.h,
@@ -319,18 +317,18 @@ class _homepage extends State<homepage> {
                 listInnerDecoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(
-                    color: Color.fromARGB(255, 12, 12, 12),
+                    color: const Color.fromARGB(255, 12, 12, 12),
                     width: 5,
                   ),
                 ),
                 children: lists,
 
-                itemDivider: Divider(
+                itemDivider: const Divider(
                   thickness: 2,
                   height: 2,
                   color: Colors.black,
                 ),
-                itemDecorationWhileDragging: BoxDecoration(
+                itemDecorationWhileDragging: const BoxDecoration(
                   color: Color.fromARGB(255, 225, 159, 236),
                   boxShadow: [
                     BoxShadow(
@@ -350,11 +348,11 @@ class _homepage extends State<homepage> {
               onPressed: () {
                 // Add your onPressed code here!
                 setState(() {
-                  _sizer = ZoomDrag(_sizer);
+                  _sizer = zoomDrag(_sizer);
                 });
               },
-              backgroundColor: Color.fromARGB(232, 87, 7, 73),
-              child: FaIcon(
+              backgroundColor: const Color.fromARGB(232, 87, 7, 73),
+              child: const FaIcon(
                 FontAwesomeIcons.magnifyingGlassPlus,
                 color: Colors.white,
               ),
@@ -365,7 +363,7 @@ class _homepage extends State<homepage> {
       } else {
         return WillPopScope(
           child: Scaffold(
-            drawer: NavBar(),
+            drawer: const NavBar(),
             body: Container(
               width: 100.w,
               height: 100.h,
@@ -383,18 +381,18 @@ class _homepage extends State<homepage> {
                 listInnerDecoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(
-                    color: Color.fromARGB(255, 12, 12, 12),
+                    color: const Color.fromARGB(255, 12, 12, 12),
                     width: 5,
                   ),
                 ),
                 children: lists,
 
-                itemDivider: Divider(
+                itemDivider: const Divider(
                   thickness: 2,
                   height: 2,
                   color: Colors.black,
                 ),
-                itemDecorationWhileDragging: BoxDecoration(
+                itemDecorationWhileDragging: const BoxDecoration(
                   color: Color.fromARGB(255, 225, 159, 236),
                   boxShadow: [
                     BoxShadow(
@@ -414,11 +412,11 @@ class _homepage extends State<homepage> {
               onPressed: () {
                 // Add your onPressed code here!
                 setState(() {
-                  _sizer = ZoomDrag(_sizer);
+                  _sizer = zoomDrag(_sizer);
                 });
               },
-              backgroundColor: Color.fromARGB(232, 87, 7, 73),
-              child: FaIcon(
+              backgroundColor: const Color.fromARGB(232, 87, 7, 73),
+              child: const FaIcon(
                 FontAwesomeIcons.magnifyingGlassPlus,
                 color: Colors.white,
               ),
@@ -431,199 +429,171 @@ class _homepage extends State<homepage> {
   }
 
   DragAndDropList buildList(DraggableList list) => DragAndDropList(
-        header: Container(
-          child: Center(
-            child: Text(
-              list.header,
-              maxLines: 2,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
-                color: Color.fromARGB(255, 0, 0, 0),
-              ),
+        header: Center(
+          child: Text(
+            list.header,
+            maxLines: 2,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 25,
+              color: Color.fromARGB(255, 0, 0, 0),
             ),
           ),
         ),
         children: list.items
             .map(
               (item) => DragAndDropItem(
-                child: Container(
-                  child: Column(
-                    children: <Widget>[
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Color.fromARGB(0, 0, 0, 0)),
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                backgroundColor:
-                                    Color.fromARGB(255, 221, 221, 221),
-                                insetPadding: EdgeInsets.all(30),
-                                content: Container(
-                                  margin: EdgeInsets.all(0),
-                                  width: 100.w,
-                                  height: 100.h,
-                                  clipBehavior: Clip.none,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: SingleChildScrollView(
-                                      child: Center(
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Expanded(
-                                                  child: textWidgetStyles(
-                                                    item.task.about,
-                                                  ),
+                child: Column(
+                  children: <Widget>[
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: const Color.fromARGB(0, 0, 0, 0)),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              backgroundColor: const Color.fromARGB(255, 221, 221, 221),
+                              insetPadding: const EdgeInsets.all(30),
+                              content: Container(
+                                margin: const EdgeInsets.all(0),
+                                width: 100.w,
+                                height: 100.h,
+                                clipBehavior: Clip.none,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: SingleChildScrollView(
+                                    child: Center(
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: textWidgetStyles(
+                                                  item.task.about,
                                                 ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                IconsStyle(Icons.map),
-                                                Container(
-                                                  padding: EdgeInsets.all(5),
-                                                  width: 50.w,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    color: Color.fromARGB(
-                                                        133, 185, 185, 185),
-                                                  ),
-                                                  child: textWidgetStyles(
-                                                      "Lokalizacja: \n" +
-                                                          item.task.location),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              iconsStyle(Icons.map),
+                                              Container(
+                                                padding: const EdgeInsets.all(5),
+                                                width: 50.w,
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  color: const Color.fromARGB(133, 185, 185, 185),
                                                 ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                IconsStyle(
-                                                    Icons.calendar_month),
-                                                Container(
-                                                  padding: EdgeInsets.all(5),
-                                                  width: 50.w,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    color: Color.fromARGB(
-                                                        133, 185, 185, 185),
-                                                  ),
-                                                  child: textWidgetStyles(
-                                                    "Data zgłoszenia: \n" +
-                                                        item.task.data_reg,
-                                                  ),
+                                                child: textWidgetStyles("Lokalizacja: \n${item.task.location}"),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              iconsStyle(Icons.calendar_month),
+                                              Container(
+                                                padding: const EdgeInsets.all(5),
+                                                width: 50.w,
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  color: const Color.fromARGB(133, 185, 185, 185),
                                                 ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                IconsStyle(Icons.note),
-                                                Container(
-                                                  padding: EdgeInsets.all(5),
-                                                  width: 50.w,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    color: Color.fromARGB(
-                                                        133, 185, 185, 185),
-                                                  ),
-                                                  child: textWidgetStyles(
-                                                    "Typ zgłoszenia: \n" +
-                                                        item.task.type,
-                                                  ),
+                                                child: textWidgetStyles(
+                                                  "Data zgłoszenia: \n${item.task.dataReg}",
                                                 ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 25,
-                                            ),
-                                            Column(
-                                              children: [
-                                                Stack(
-                                                  clipBehavior: Clip.none,
-                                                  children: <Widget>[
-                                                    Container(
-                                                      width: 65.w,
-                                                      height: 40.h,
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                          width: 2,
-                                                          color: Color.fromARGB(
-                                                              255, 0, 0, 0),
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                        color: Color.fromARGB(
-                                                            133, 185, 185, 185),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              iconsStyle(Icons.note),
+                                              Container(
+                                                padding: const EdgeInsets.all(5),
+                                                width: 50.w,
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  color: const Color.fromARGB(133, 185, 185, 185),
+                                                ),
+                                                child: textWidgetStyles(
+                                                  "Typ zgłoszenia: \n${item.task.type}",
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 25,
+                                          ),
+                                          Column(
+                                            children: [
+                                              Stack(
+                                                clipBehavior: Clip.none,
+                                                children: <Widget>[
+                                                  Container(
+                                                    width: 65.w,
+                                                    height: 40.h,
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                        width: 2,
+                                                        color: const Color.fromARGB(255, 0, 0, 0),
                                                       ),
-                                                      child:
-                                                          Text(item.task.about),
+                                                      borderRadius: BorderRadius.circular(10),
+                                                      color: const Color.fromARGB(133, 185, 185, 185),
                                                     ),
-                                                    Positioned(
-                                                      child:
-                                                          FloatingActionButton(
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        child: IconsStyle(
-                                                            Icons.comment),
-                                                        onPressed: null,
-                                                      ),
-                                                      right: 0,
-                                                      left: 0,
-                                                      top: -26,
+                                                    child: Text(item.task.about),
+                                                  ),
+                                                  Positioned(
+                                                    right: 0,
+                                                    left: 0,
+                                                    top: -26,
+                                                    child: FloatingActionButton(
+                                                      backgroundColor: Colors.transparent,
+                                                      onPressed: null,
+                                                      child: iconsStyle(Icons.comment),
                                                     ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
                                 ),
-                              );
-                            },
-                          );
-                        },
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 5,
-                                  child: textWidgetStyles(
-                                    "Lokalizacja: \n" + item.task.location,
-                                  ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 5,
+                                child: textWidgetStyles(
+                                  "Lokalizacja: \n${item.task.location}",
                                 ),
-                                Expanded(
-                                  flex: 5,
-                                  child: textWidgetStyles(
-                                    "Data zgłoszenia: \n" + item.task.data_reg,
-                                  ),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: textWidgetStyles(
+                                  "Data zgłoszenia: \n${item.task.dataReg}",
                                 ),
-                              ],
-                            ),
-                            textWidgetStyles(
-                              "Krótki opis: " + item.task.about,
-                            ),
-                          ],
-                        ),
+                              ),
+                            ],
+                          ),
+                          textWidgetStyles(
+                            "Krótki opis: ${item.task.about}",
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                canDrag: DragFlag(),
+                canDrag: dragFlag(),
               ),
             )
             .toList(),
@@ -655,18 +625,17 @@ class _homepage extends State<homepage> {
   }
 
   void podmiana(int idx, int idx2, int idx3, int idx4) async {
-    var task_tmp = allLists[idx].items[idx2].task;
+    var taskTmp = allLists[idx].items[idx2].task;
     String table = 'tasks';
-    String? type = task_tmp.type; //do upgrade'u
-    String task_id = task_tmp.task_id.toString();
+    String taskId = taskTmp.taskId.toString();
 
     Map mapdate = {
       // transferred data map
       'table': table,
       'type': allLists[idx3].header,
-      'task_id': task_id,
+      'task_id': taskId,
     };
-    Update(table, mapdate);
+    update(table, mapdate);
 
     //update for main list [fixes]
     final movedItem2 = allLists[idx].items.removeAt(idx2);

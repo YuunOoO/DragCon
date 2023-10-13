@@ -1,20 +1,17 @@
-import 'package:dragcon/Pages/teams.dart';
 import 'package:dragcon/global.dart';
-import 'package:dragcon/mysql/tables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:flutter/widgets.dart';
 import 'package:sizer/sizer.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_animated_button/flutter_animated_button.dart';
 
 //import package file manually
 int numer = 1;
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,7 +23,7 @@ class MyApp extends StatelessWidget {
 }
 
 class WriteSQLdataUser extends StatefulWidget {
-  WriteSQLdataUser(int nr) {
+  WriteSQLdataUser(int nr, {Key? key}) : super(key: key) {
     numer = nr;
   }
   @override
@@ -101,12 +98,12 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
       body: SingleChildScrollView(
         child: Container(
           alignment: Alignment.topCenter,
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: <Widget>[
               TextField(
                 controller: idctl,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: "Input Name",
                   hintText: "User name",
                 ),
@@ -114,38 +111,38 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
               TextField(
                 controller: passwordctl,
                 obscureText: true,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: "Input Password",
                   hintText: "User password",
                 ),
               ),
               TextField(
                 controller: adminctl,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: "Enter the Permission Level",
                   hintText: "Permission Level (number)",
                 ),
               ),
               TextField(
                 controller: emailctl,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: "Input E-mail",
                   hintText: "User E-mail",
                 ),
               ),
 //
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               AnimatedButton(
                 height: 50,
                 width: 100.w,
                 text: 'Send',
-                gradient: LinearGradient(colors: [
+                gradient: const LinearGradient(colors: [
                   Color.fromARGB(255, 92, 72, 71),
                   Color.fromARGB(255, 3, 2, 1)
                 ]),
-                selectedGradientColor: LinearGradient(
+                selectedGradientColor: const LinearGradient(
                     colors: [Colors.pinkAccent, Colors.purpleAccent]),
                 isReverse: true,
                 selectedTextColor: Colors.black,

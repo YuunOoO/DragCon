@@ -1,22 +1,18 @@
-import 'dart:io';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
+import 'package:dragcon/NavBar.dart';
+import 'package:dragcon/NavBarTools.dart';
 import 'package:dragcon/mysql/tables.dart';
 import 'package:dragcon/zoom.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/material.dart';
-import '../NavBar.dart';
-import '../NavBarTools.dart';
-import '../main.dart';
-import 'dart:collection';
 import 'package:sizer/sizer.dart';
-import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ToolsToTeam extends StatefulWidget {
+  const ToolsToTeam({Key? key}) : super(key: key);
+
   @override
-  _ToolsToTeam createState() => _ToolsToTeam();
+  ToolsToTeamState createState() => ToolsToTeamState();
 }
 
 //variables / lists
@@ -43,25 +39,25 @@ class DraggableListItem {
   });
 }
 
-class _ToolsToTeam extends State<ToolsToTeam> {
-  sizer _sizer = new sizer();
+class ToolsToTeamState extends State<ToolsToTeam> {
+  TileSizer _sizer = TileSizer();
 //first loading
   @override
   void initState() {
     super.initState();
-    LoadTools();
+    loadTools();
   }
 
 //Reloading Tools for teams
-  void LoadTools() {
+loadTools() {
     //clean everything
     allLists.clear();
 
     List<DraggableListItem> getItems(Ekipa team) {
       List<DraggableListItem> tmp = [];
-      for (var _tool in tools) {
-        if (team.ekipa_id == _tool.ekipa_id) {
-          tmp.add(new DraggableListItem(tool: _tool, title: _tool.type));
+      for (var tool in tools) {
+        if (team.ekipaId == tool.ekipaId) {
+          tmp.add(DraggableListItem(tool: tool, title: tool.type));
         }
       }
       return tmp;
@@ -70,29 +66,30 @@ class _ToolsToTeam extends State<ToolsToTeam> {
     //for all teams
     List<DraggableListItem> tmp2 = []; //empty list for new users
     for (var team in allTeams) {
-      allLists.add(new DraggableList(header: team.name, items: getItems(team)));
+      allLists.add(DraggableList(header: team.name, items: getItems(team)));
     }
 
     //tools which are not allocated
     for (var tmp1 in tools) {
-      if (tmp1.ekipa_id == 0)
-        tmp2.add(new DraggableListItem(tool: tmp1, title: "tool"));
+      if (tmp1.ekipaId == 0) {
+        tmp2.add(DraggableListItem(tool: tmp1, title: "tool"));
+      }
     }
-    allLists.add(new DraggableList(header: "unassigned tools", items: tmp2));
+    allLists.add(DraggableList(header: "unassigned tools", items: tmp2));
 
     // build full list
     lists = allLists.map(buildList).toList();
   }
 
-  Widget FloatingActionButtonStyle() {
+   floatingActionButtonStyle() {
     return FloatingActionButton(
       onPressed: () {
         setState(() {
-          _sizer = ZoomDrag(_sizer);
+          _sizer = zoomDrag(_sizer);
         });
       },
-      backgroundColor: Color.fromARGB(255, 155, 17, 132),
-      child: FaIcon(
+      backgroundColor: const Color.fromARGB(255, 155, 17, 132),
+      child: const FaIcon(
         FontAwesomeIcons.magnifyingGlassPlus,
         color: Colors.white,
       ),
@@ -105,11 +102,11 @@ class _ToolsToTeam extends State<ToolsToTeam> {
       builder: (context, constraints) {
         if (constraints.maxWidth > 1200) {
           return Scaffold(
-            drawer: NavBar(),
+            drawer: const NavBar(),
             body: Container(
               width: 100.w,
               height: 100.h,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment(0.8, 1),
@@ -129,18 +126,18 @@ class _ToolsToTeam extends State<ToolsToTeam> {
                 listInnerDecoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(
-                    color: Color.fromARGB(255, 12, 12, 12),
+                    color: const Color.fromARGB(255, 12, 12, 12),
                     width: 5,
                   ),
                 ),
                 children: lists,
 
-                itemDivider: Divider(
+                itemDivider: const Divider(
                   thickness: 2,
                   height: 2,
                   color: Colors.black,
                 ),
-                itemDecorationWhileDragging: BoxDecoration(
+                itemDecorationWhileDragging: const BoxDecoration(
                   color: Color.fromARGB(255, 225, 159, 236),
                   boxShadow: [
                     BoxShadow(
@@ -155,15 +152,15 @@ class _ToolsToTeam extends State<ToolsToTeam> {
                 listDraggingWidth: _sizer.y.h,
               ),
             ),
-            floatingActionButton: FloatingActionButtonStyle(),
+            floatingActionButton: floatingActionButtonStyle(),
           );
         } else if (constraints.maxWidth > 800 && constraints.maxWidth < 1200) {
           return Scaffold(
-            drawer: NavBar(),
+            drawer: const NavBar(),
             body: Container(
               width: 100.w,
               height: 100.h,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment(0.8, 1),
@@ -183,18 +180,18 @@ class _ToolsToTeam extends State<ToolsToTeam> {
                 listInnerDecoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(
-                    color: Color.fromARGB(255, 12, 12, 12),
+                    color: const Color.fromARGB(255, 12, 12, 12),
                     width: 5,
                   ),
                 ),
                 children: lists,
 
-                itemDivider: Divider(
+                itemDivider: const Divider(
                   thickness: 2,
                   height: 2,
                   color: Colors.black,
                 ),
-                itemDecorationWhileDragging: BoxDecoration(
+                itemDecorationWhileDragging: const BoxDecoration(
                   color: Color.fromARGB(255, 225, 159, 236),
                   boxShadow: [
                     BoxShadow(
@@ -209,11 +206,11 @@ class _ToolsToTeam extends State<ToolsToTeam> {
                 listDraggingWidth: _sizer.y.h,
               ),
             ),
-            floatingActionButton: FloatingActionButtonStyle(),
+            floatingActionButton: floatingActionButtonStyle(),
           );
         } else {
           return Scaffold(
-            drawer: NavBar(),
+            drawer: const NavBar(),
             body: Container(
               width: 100.w,
               height: 100.h,
@@ -232,18 +229,18 @@ class _ToolsToTeam extends State<ToolsToTeam> {
                 listInnerDecoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(
-                    color: Color.fromARGB(255, 12, 12, 12),
+                    color: const Color.fromARGB(255, 12, 12, 12),
                     width: 5,
                   ),
                 ),
                 children: lists,
 
-                itemDivider: Divider(
+                itemDivider: const Divider(
                   thickness: 2,
                   height: 2,
                   color: Colors.black,
                 ),
-                itemDecorationWhileDragging: BoxDecoration(
+                itemDecorationWhileDragging: const BoxDecoration(
                   color: Color.fromARGB(255, 225, 159, 236),
                   boxShadow: [
                     BoxShadow(
@@ -258,7 +255,7 @@ class _ToolsToTeam extends State<ToolsToTeam> {
                 listDraggingWidth: _sizer.y.h,
               ),
             ),
-            floatingActionButton: FloatingActionButtonStyle(),
+            floatingActionButton: floatingActionButtonStyle(),
           );
         }
       },
@@ -267,15 +264,15 @@ class _ToolsToTeam extends State<ToolsToTeam> {
 
   DragAndDropList buildList(DraggableList list) => DragAndDropList(
         header: Container(
-          margin: EdgeInsets.all(5),
+          margin: const EdgeInsets.all(5),
           decoration: BoxDecoration(
-            color: Color.fromARGB(199, 65, 65, 65),
+            color: const Color.fromARGB(199, 65, 65, 65),
             borderRadius: BorderRadius.circular(30),
           ),
           child: Center(
             child: Row(
               children: [
-                Expanded(
+                const Expanded(
                   flex: 1,
                   child: Text(""),
                 ),
@@ -285,7 +282,7 @@ class _ToolsToTeam extends State<ToolsToTeam> {
                     list.header,
                     maxLines: 2,
                     textAlign: TextAlign.left,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 25,
                       color: Color.fromARGB(255, 0, 0, 0),
@@ -298,13 +295,13 @@ class _ToolsToTeam extends State<ToolsToTeam> {
                     onPressed: () {
                       int? nr = 1;
                       for (var team in allTeams) {
-                        if (team.name == list.header) nr = team.ekipa_id;
+                        if (team.name == list.header) nr = team.ekipaId;
                       }
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            content: Container(
+                            content: SizedBox(
                               width: 100.w,
                               height: 60.h,
                               child: WriteSQLdata(nr!),
@@ -313,7 +310,7 @@ class _ToolsToTeam extends State<ToolsToTeam> {
                         },
                       );
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.add_circle_outlined,
                       size: 35,
                     ),
@@ -326,7 +323,7 @@ class _ToolsToTeam extends State<ToolsToTeam> {
         children: list.items
             .map((item) => DragAndDropItem(
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("assets/images/equipback.jpg"),
                         fit: BoxFit.cover,
@@ -339,7 +336,7 @@ class _ToolsToTeam extends State<ToolsToTeam> {
                           Text(
                             item.tool.type,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -379,20 +376,20 @@ class _ToolsToTeam extends State<ToolsToTeam> {
   }
 
   void podmiana(int idx, int idx2, int idx3, int idx4) async {
-    var tool_tmp = allLists[idx].items[idx2].tool;
+    var toolTmp = allLists[idx].items[idx2].tool;
     String table = 'tools';
     // String ekipa_id = user_tmp.ekipa_id; //do upgrade'u
     // String key_id = user_tmp.key_id.toString();
     String find = allLists[idx3].header;
     int? nr = 0;
     for (var team in allTeams) {
-      if (team.name == find) nr = team.ekipa_id;
+      if (team.name == find) nr = team.ekipaId;
     }
     Map mapdate = {
       // transferred data map
       'table': table,
       'ekipa_id': nr.toString(),
-      'key_id': tool_tmp.tool_id.toString(),
+      'key_id': toolTmp.toolId.toString(),
     };
     print(mapdate);
     Update2(table, mapdate);

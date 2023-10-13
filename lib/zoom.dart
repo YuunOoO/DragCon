@@ -1,11 +1,11 @@
-class sizer {
+class TileSizer {
   double x = 45;
   double y = 45;
   double x2 = 6;
   get z => null;
 }
 
-sizer ZoomDrag(sizer z) {
+TileSizer zoomDrag(TileSizer z) {
   if (z.x == 32) {
     z.x = 45;
     z.y = 45;
