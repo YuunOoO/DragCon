@@ -15,7 +15,7 @@ class Locations {
   loc.Location location = new loc.Location();
   Future<LatLng> getLocation() async {
     var _locationData = await location.getLocation();
-    LatLng tmp = new LatLng(_locationData.latitude, _locationData.longitude);
+    LatLng tmp = new LatLng(_locationData.latitude!, _locationData.longitude!);
     return tmp;
   }
 }
