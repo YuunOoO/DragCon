@@ -1,17 +1,18 @@
-import 'dart:io';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
+import 'package:dragcon/NavBar.dart';
+import 'package:dragcon/NavBarTasks.dart';
 import 'package:dragcon/mysql/tables.dart';
 import 'package:dragcon/zoom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../NavBar.dart';
-import '../NavBarTasks.dart';
 import 'package:sizer/sizer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TaskToTeam extends StatefulWidget {
+  const TaskToTeam({Key? key}) : super(key: key);
+
   @override
-  _TaskToTeam createState() => _TaskToTeam();
+  TaskToTeamState createState() => TaskToTeamState();
 }
 
 ///////////////////////////
@@ -37,12 +38,11 @@ class DraggableListItem {
 //list and var
 List<DraggableList> allLists = [];
 List<Tasks> teamtasks = [];
-List<DraggableListItem> _Backlog = [];
-List<DraggableListItem> _InProcess = [];
-List<DraggableListItem> _Completed = [];
-List<DraggableListItem> _Emergency = [];
-List<DraggableListItem> _tmp = []; // new tasks list
-List<Ekipa> ekip_names = [];
+List<DraggableListItem> _backlog = [];
+List<DraggableListItem> _inProcess = [];
+List<DraggableListItem> _completed = [];
+List<DraggableListItem> _emergency = [];
+List<Ekipa> ekipNames = [];
 late List<DragAndDropList> lists;
 Ekipa dropdownValue = allTeams[0];
 //
@@ -51,21 +51,20 @@ bool drag = false;
 //get all team names to choose
 void getTeamNames() {
   for (var team in allTeams) {
-    ekip_names.add(team);
+    ekipNames.add(team);
   }
 }
 
-class _TaskToTeam extends State<TaskToTeam> {
-  sizer _sizer = new sizer();
+class TaskToTeamState extends State<TaskToTeam> {
+  TileSizer _sizer = TileSizer();
   //first init draganddrop list
   @override
   void initState() {
     super.initState();
-    LoadTeamTasks(dropdownValue);
+    loadTeamTasks(dropdownValue);
   }
 
-  void LoadTeamTasks(Ekipa values) {
-    print(drag.toString());
+   loadTeamTasks(Ekipa values) {
     if (drag == true) {
       drag = false;
       return;
@@ -73,56 +72,54 @@ class _TaskToTeam extends State<TaskToTeam> {
     //clean everything
     allLists.clear();
     teamtasks.clear();
-    _Backlog.clear();
-    _InProcess.clear();
-    _Completed.clear();
-    _Emergency.clear();
+    _backlog.clear();
+    _inProcess.clear();
+    _completed.clear();
+    _emergency.clear();
 
     //choose only your team tasks
     for (var item in tasks) {
-      if (values.ekipa_id == item.ekipa_id) {
+      if (values.ekipaId == item.ekipaId) {
         teamtasks.add(item);
       }
     }
     //ordering tasks
     for (var item in teamtasks) {
-      DraggableListItem tmp = new DraggableListItem(task: item, title: "task");
+      DraggableListItem tmp = DraggableListItem(task: item, title: "task");
 
-      if (item.type == "Backlog")
-        _Backlog.add(tmp);
-      else if (item.type == "Inprocess")
-        _InProcess.add(tmp);
-      else if (item.type == "Completed")
-        _Completed.add(tmp);
-      else if (item.type == "Emergency") _Emergency.add(tmp);
+      if (item.type == "Backlog") {
+        _backlog.add(tmp);
+      } else if (item.type == "Inprocess") {
+        _inProcess.add(tmp);
+      } else if (item.type == "Completed") {
+        _completed.add(tmp);
+      } else if (item.type == "Emergency") {
+        _emergency.add(tmp);
+      }
     }
 
-    DraggableList Backlog =
-        new DraggableList(header: "Backlog", items: _Backlog);
-    DraggableList InProcess =
-        new DraggableList(header: "Inprocess", items: _InProcess);
-    DraggableList Completed =
-        new DraggableList(header: "Completed", items: _Completed);
+    DraggableList backlog = DraggableList(header: "Backlog", items: _backlog);
+    DraggableList inProcess = DraggableList(header: "Inprocess", items: _inProcess);
+    DraggableList completed = DraggableList(header: "Completed", items: _completed);
     //  DraggableList tmp = new DraggableList(header: "new tasks", items: _tmp);
-    DraggableList Emergency =
-        new DraggableList(header: "Emergency", items: _Emergency);
-    allLists.add(Emergency);
-    allLists.add(Backlog);
-    allLists.add(InProcess);
-    allLists.add(Completed);
+    DraggableList emergency = DraggableList(header: "Emergency", items: _emergency);
+    allLists.add(emergency);
+    allLists.add(backlog);
+    allLists.add(inProcess);
+    allLists.add(completed);
     //   allLists.add(tmp);
     lists = allLists.map(buildList).toList();
   }
 
-  Widget FloatingActiobButtonStyle() {
+  Widget floatingActiobButtonStyle() {
     return FloatingActionButton(
       onPressed: () {
         setState(() {
-          _sizer = ZoomDrag(_sizer);
+          _sizer = zoomDrag(_sizer);
         });
       },
-      backgroundColor: Color.fromARGB(255, 155, 17, 132),
-      child: FaIcon(
+      backgroundColor: const Color.fromARGB(255, 155, 17, 132),
+      child: const FaIcon(
         FontAwesomeIcons.magnifyingGlassPlus,
         color: Colors.white,
       ),
@@ -131,14 +128,15 @@ class _TaskToTeam extends State<TaskToTeam> {
 
   @override
   Widget build(BuildContext context) {
-    if (ekip_names.isEmpty || ekip_names == null)
+    if (ekipNames.isEmpty || ekipNames == null) {
       getTeamNames(); // get only once -> fix return page
-    LoadTeamTasks(dropdownValue);
+    }
+    loadTeamTasks(dropdownValue);
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth > 1200) {
           return Scaffold(
-              drawer: NavBar(),
+              drawer: const NavBar(),
               body: AnnotatedRegion<SystemUiOverlayStyle>(
                 value: SystemUiOverlayStyle.light,
                 child: GestureDetector(
@@ -148,7 +146,7 @@ class _TaskToTeam extends State<TaskToTeam> {
                         padding: EdgeInsets.symmetric(vertical: 4.h),
                         width: 100.w,
                         height: double.infinity,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           gradient: LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment(0.8, 1),
@@ -162,12 +160,12 @@ class _TaskToTeam extends State<TaskToTeam> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
-                            Container(
+                            SizedBox(
                               height: 10.h,
                               width: 70.w,
                               child: DropdownButtonFormField<Ekipa>(
                                 icon: const Icon(Icons.arrow_downward),
-                                dropdownColor: Color.fromARGB(255, 65, 65, 65),
+                                dropdownColor: const Color.fromARGB(255, 65, 65, 65),
                                 value: dropdownValue,
                                 decoration: const InputDecoration(
                                   border: OutlineInputBorder(
@@ -185,13 +183,13 @@ class _TaskToTeam extends State<TaskToTeam> {
                                     },
                                   );
                                 },
-                                items: ekip_names.map<DropdownMenuItem<Ekipa>>(
+                                items: ekipNames.map<DropdownMenuItem<Ekipa>>(
                                   (Ekipa value) {
                                     return DropdownMenuItem<Ekipa>(
                                       value: value,
                                       child: Text(
                                         value.name,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
@@ -219,18 +217,18 @@ class _TaskToTeam extends State<TaskToTeam> {
                           listInnerDecoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             border: Border.all(
-                              color: Color.fromARGB(255, 12, 12, 12),
+                              color: const Color.fromARGB(255, 12, 12, 12),
                               width: 4,
                             ),
                           ),
                           children: lists,
 
-                          itemDivider: Divider(
+                          itemDivider: const Divider(
                             thickness: 2,
                             height: 2,
                             color: Colors.black,
                           ),
-                          itemDecorationWhileDragging: BoxDecoration(
+                          itemDecorationWhileDragging: const BoxDecoration(
                             color: Color.fromARGB(255, 225, 159, 236),
                             boxShadow: [
                               BoxShadow(
@@ -250,10 +248,10 @@ class _TaskToTeam extends State<TaskToTeam> {
                   ),
                 ),
               ),
-              floatingActionButton: FloatingActiobButtonStyle());
+              floatingActionButton: floatingActiobButtonStyle());
         } else if (constraints.maxWidth > 800 && constraints.maxWidth < 1200) {
           return Scaffold(
-            drawer: NavBar(),
+            drawer: const NavBar(),
             body: AnnotatedRegion<SystemUiOverlayStyle>(
               value: SystemUiOverlayStyle.light,
               child: GestureDetector(
@@ -263,7 +261,7 @@ class _TaskToTeam extends State<TaskToTeam> {
                       padding: EdgeInsets.symmetric(vertical: 4.h),
                       width: 100.w,
                       height: double.infinity,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         gradient: LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment(0.8, 1),
@@ -277,12 +275,12 @@ class _TaskToTeam extends State<TaskToTeam> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          Container(
+                          SizedBox(
                             height: 10.h,
                             width: 70.w,
                             child: DropdownButtonFormField<Ekipa>(
                               icon: const Icon(Icons.arrow_downward),
-                              dropdownColor: Color.fromARGB(255, 65, 65, 65),
+                              dropdownColor: const Color.fromARGB(255, 65, 65, 65),
                               value: dropdownValue,
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(
@@ -300,13 +298,13 @@ class _TaskToTeam extends State<TaskToTeam> {
                                   },
                                 );
                               },
-                              items: ekip_names.map<DropdownMenuItem<Ekipa>>(
+                              items: ekipNames.map<DropdownMenuItem<Ekipa>>(
                                 (Ekipa value) {
                                   return DropdownMenuItem<Ekipa>(
                                     value: value,
                                     child: Text(
                                       value.name,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
@@ -334,18 +332,18 @@ class _TaskToTeam extends State<TaskToTeam> {
                         listInnerDecoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(
-                            color: Color.fromARGB(255, 12, 12, 12),
+                            color: const Color.fromARGB(255, 12, 12, 12),
                             width: 4,
                           ),
                         ),
                         children: lists,
 
-                        itemDivider: Divider(
+                        itemDivider: const Divider(
                           thickness: 2,
                           height: 2,
                           color: Colors.black,
                         ),
-                        itemDecorationWhileDragging: BoxDecoration(
+                        itemDecorationWhileDragging: const BoxDecoration(
                           color: Color.fromARGB(255, 225, 159, 236),
                           boxShadow: [
                             BoxShadow(
@@ -365,11 +363,11 @@ class _TaskToTeam extends State<TaskToTeam> {
                 ),
               ),
             ),
-            floatingActionButton: FloatingActiobButtonStyle(),
+            floatingActionButton: floatingActiobButtonStyle(),
           );
         } else {
           return Scaffold(
-            drawer: NavBar(),
+            drawer: const NavBar(),
             body: AnnotatedRegion<SystemUiOverlayStyle>(
               value: SystemUiOverlayStyle.light,
               child: GestureDetector(
@@ -388,12 +386,12 @@ class _TaskToTeam extends State<TaskToTeam> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          Container(
+                          SizedBox(
                             height: 10.h,
                             width: 70.w,
                             child: DropdownButtonFormField<Ekipa>(
                               icon: const Icon(Icons.arrow_downward),
-                              dropdownColor: Color.fromARGB(255, 65, 65, 65),
+                              dropdownColor: const Color.fromARGB(255, 65, 65, 65),
                               value: dropdownValue,
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(
@@ -411,13 +409,13 @@ class _TaskToTeam extends State<TaskToTeam> {
                                   },
                                 );
                               },
-                              items: ekip_names.map<DropdownMenuItem<Ekipa>>(
+                              items: ekipNames.map<DropdownMenuItem<Ekipa>>(
                                 (Ekipa value) {
                                   return DropdownMenuItem<Ekipa>(
                                     value: value,
                                     child: Text(
                                       value.name,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
@@ -445,18 +443,18 @@ class _TaskToTeam extends State<TaskToTeam> {
                         listInnerDecoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(
-                            color: Color.fromARGB(255, 12, 12, 12),
+                            color: const Color.fromARGB(255, 12, 12, 12),
                             width: 4,
                           ),
                         ),
                         children: lists,
 
-                        itemDivider: Divider(
+                        itemDivider: const Divider(
                           thickness: 2,
                           height: 2,
                           color: Colors.black,
                         ),
-                        itemDecorationWhileDragging: BoxDecoration(
+                        itemDecorationWhileDragging: const BoxDecoration(
                           color: Color.fromARGB(255, 225, 159, 236),
                           boxShadow: [
                             BoxShadow(
@@ -476,7 +474,7 @@ class _TaskToTeam extends State<TaskToTeam> {
                 ),
               ),
             ),
-            floatingActionButton: FloatingActiobButtonStyle(),
+            floatingActionButton: floatingActiobButtonStyle(),
           );
         }
       },
@@ -485,15 +483,15 @@ class _TaskToTeam extends State<TaskToTeam> {
 
   DragAndDropList buildList(DraggableList list) => DragAndDropList(
         header: Container(
-          margin: EdgeInsets.all(5),
+          margin: const EdgeInsets.all(5),
           decoration: BoxDecoration(
-            color: Color.fromARGB(199, 65, 65, 65),
+            color: const Color.fromARGB(199, 65, 65, 65),
             borderRadius: BorderRadius.circular(30),
           ),
           child: Center(
             child: Row(
               children: [
-                Expanded(
+                const Expanded(
                   flex: 1,
                   child: Text(""),
                 ),
@@ -503,7 +501,7 @@ class _TaskToTeam extends State<TaskToTeam> {
                     list.header,
                     maxLines: 2,
                     textAlign: TextAlign.left,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 25,
                       color: Color.fromARGB(255, 0, 0, 0),
@@ -518,15 +516,15 @@ class _TaskToTeam extends State<TaskToTeam> {
                         context: context,
                         builder: (BuildContext context) {
                           int? nr = 1;
-                          String _type = list.header;
-                          nr = dropdownValue.ekipa_id;
+                          String type = list.header;
+                          nr = dropdownValue.ekipaId;
                           return AlertDialog(
-                            content: Container(
+                            content: SizedBox(
                               width: 100.w,
                               height: 60.h,
                               child: Stack(
                                 children: <Widget>[
-                                  WriteSQLdataTasks(nr!, _type),
+                                  WriteSQLdataTasks(nr!, type),
                                 ],
                               ),
                             ),
@@ -534,7 +532,7 @@ class _TaskToTeam extends State<TaskToTeam> {
                         },
                       );
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.add_circle_outlined,
                       size: 35,
                     ),
@@ -548,7 +546,7 @@ class _TaskToTeam extends State<TaskToTeam> {
             .map(
               (item) => DragAndDropItem(
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/images/taskback.jpg"),
                       fit: BoxFit.cover,
@@ -558,18 +556,16 @@ class _TaskToTeam extends State<TaskToTeam> {
                   child: Column(
                     children: <Widget>[
                       ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Color.fromARGB(0, 0, 0, 0)),
+                        style: ElevatedButton.styleFrom(primary: const Color.fromARGB(0, 0, 0, 0)),
                         onPressed: () {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                backgroundColor:
-                                    Color.fromARGB(255, 221, 221, 221),
-                                insetPadding: EdgeInsets.all(30),
+                                backgroundColor: const Color.fromARGB(255, 221, 221, 221),
+                                insetPadding: const EdgeInsets.all(30),
                                 content: Container(
-                                  margin: EdgeInsets.all(0),
+                                  margin: const EdgeInsets.all(0),
                                   width: 100.w,
                                   height: 100.h,
                                   clipBehavior: Clip.none,
@@ -585,7 +581,7 @@ class _TaskToTeam extends State<TaskToTeam> {
                                               Expanded(
                                                 child: Text(
                                                   item.task.about,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 20,
                                                     color: Color.fromARGB(
@@ -603,18 +599,15 @@ class _TaskToTeam extends State<TaskToTeam> {
                                           Row(
                                             children: [
                                               Container(
-                                                margin: EdgeInsets.all(5),
-                                                padding: EdgeInsets.all(5),
+                                                margin: const EdgeInsets.all(5),
+                                                padding: const EdgeInsets.all(5),
                                                 decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          100),
+                                                  borderRadius: BorderRadius.circular(100),
                                                   border: Border.all(
                                                     width: 2,
-                                                    color: Color.fromARGB(
-                                                        255, 0, 0, 0),
+                                                    color: const Color.fromARGB(255, 0, 0, 0),
                                                   ),
-                                                  gradient: LinearGradient(
+                                                  gradient: const LinearGradient(
                                                     begin: Alignment.topLeft,
                                                     end: Alignment(0.8, 1),
                                                     colors: <Color>[
@@ -624,30 +617,25 @@ class _TaskToTeam extends State<TaskToTeam> {
                                                     tileMode: TileMode.mirror,
                                                   ),
                                                 ),
-                                                child: Icon(
+                                                child: const Icon(
                                                   Icons.map,
-                                                  color: Color.fromARGB(
-                                                      255, 0, 0, 0),
+                                                  color: Color.fromARGB(255, 0, 0, 0),
                                                   size: 35,
                                                 ),
                                               ),
                                               Container(
-                                                padding: EdgeInsets.all(5),
+                                                padding: const EdgeInsets.all(5),
                                                 width: 50.w,
                                                 decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  color: Color.fromARGB(
-                                                      133, 185, 185, 185),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  color: const Color.fromARGB(133, 185, 185, 185),
                                                 ),
                                                 child: Text(
-                                                  "Lokalizacja: \n" +
-                                                      item.task.location,
-                                                  style: TextStyle(
+                                                  "Lokalizacja: \n${item.task.location}",
+                                                  style: const TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 15,
-                                                    color: Color.fromARGB(
-                                                        255, 0, 0, 0),
+                                                    color: Color.fromARGB(255, 0, 0, 0),
                                                   ),
                                                 ),
                                               ),
@@ -656,18 +644,15 @@ class _TaskToTeam extends State<TaskToTeam> {
                                           Row(
                                             children: [
                                               Container(
-                                                margin: EdgeInsets.all(5),
-                                                padding: EdgeInsets.all(5),
+                                                margin: const EdgeInsets.all(5),
+                                                padding: const EdgeInsets.all(5),
                                                 decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          100),
+                                                  borderRadius: BorderRadius.circular(100),
                                                   border: Border.all(
                                                     width: 2,
-                                                    color: Color.fromARGB(
-                                                        255, 0, 0, 0),
+                                                    color: const Color.fromARGB(255, 0, 0, 0),
                                                   ),
-                                                  gradient: LinearGradient(
+                                                  gradient: const LinearGradient(
                                                     begin: Alignment.topLeft,
                                                     end: Alignment(0.8, 1),
                                                     colors: <Color>[
@@ -677,30 +662,25 @@ class _TaskToTeam extends State<TaskToTeam> {
                                                     tileMode: TileMode.mirror,
                                                   ),
                                                 ),
-                                                child: Icon(
+                                                child: const Icon(
                                                   Icons.calendar_month,
-                                                  color: Color.fromARGB(
-                                                      255, 0, 0, 0),
+                                                  color: Color.fromARGB(255, 0, 0, 0),
                                                   size: 35,
                                                 ),
                                               ),
                                               Container(
-                                                padding: EdgeInsets.all(5),
+                                                padding: const EdgeInsets.all(5),
                                                 width: 50.w,
                                                 decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  color: Color.fromARGB(
-                                                      133, 185, 185, 185),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  color: const Color.fromARGB(133, 185, 185, 185),
                                                 ),
                                                 child: Text(
-                                                  "Data zgłoszenia: \n" +
-                                                      item.task.data_reg,
-                                                  style: TextStyle(
+                                                  "Data zgłoszenia: \n${item.task.dataReg}",
+                                                  style: const TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 15,
-                                                    color: Color.fromARGB(
-                                                        255, 0, 0, 0),
+                                                    color: Color.fromARGB(255, 0, 0, 0),
                                                   ),
                                                 ),
                                               ),
@@ -710,18 +690,15 @@ class _TaskToTeam extends State<TaskToTeam> {
                                             children: [
                                               ClipOval(
                                                 child: Container(
-                                                  margin: EdgeInsets.all(5),
-                                                  padding: EdgeInsets.all(5),
+                                                  margin: const EdgeInsets.all(5),
+                                                  padding: const EdgeInsets.all(5),
                                                   decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            100),
+                                                    borderRadius: BorderRadius.circular(100),
                                                     border: Border.all(
                                                       width: 2,
-                                                      color: Color.fromARGB(
-                                                          255, 0, 0, 0),
+                                                      color: const Color.fromARGB(255, 0, 0, 0),
                                                     ),
-                                                    gradient: LinearGradient(
+                                                    gradient: const LinearGradient(
                                                       begin: Alignment.topLeft,
                                                       end: Alignment(0.8, 1),
                                                       colors: <Color>[
@@ -731,37 +708,32 @@ class _TaskToTeam extends State<TaskToTeam> {
                                                       tileMode: TileMode.mirror,
                                                     ),
                                                   ),
-                                                  child: Icon(
+                                                  child: const Icon(
                                                     Icons.announcement,
-                                                    color: Color.fromARGB(
-                                                        255, 0, 0, 0),
+                                                    color: Color.fromARGB(255, 0, 0, 0),
                                                     size: 35,
                                                   ),
                                                 ),
                                               ),
                                               Container(
-                                                padding: EdgeInsets.all(5),
+                                                padding: const EdgeInsets.all(5),
                                                 width: 50.w,
                                                 decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  color: Color.fromARGB(
-                                                      133, 185, 185, 185),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  color: const Color.fromARGB(133, 185, 185, 185),
                                                 ),
                                                 child: Text(
-                                                  "Typ zgłoszenia: \n" +
-                                                      item.task.type,
-                                                  style: TextStyle(
+                                                  "Typ zgłoszenia: \n${item.task.type}",
+                                                  style: const TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 15,
-                                                    color: Color.fromARGB(
-                                                        255, 0, 0, 0),
+                                                    color: Color.fromARGB(255, 0, 0, 0),
                                                   ),
                                                 ),
                                               ),
                                             ],
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 25,
                                           ),
                                           Column(
@@ -775,60 +747,45 @@ class _TaskToTeam extends State<TaskToTeam> {
                                                     decoration: BoxDecoration(
                                                       border: Border.all(
                                                         width: 2,
-                                                        color: Color.fromARGB(
-                                                            255, 0, 0, 0),
+                                                        color: const Color.fromARGB(255, 0, 0, 0),
                                                       ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      color: Color.fromARGB(
-                                                          133, 185, 185, 185),
+                                                      borderRadius: BorderRadius.circular(10),
+                                                      color: const Color.fromARGB(133, 185, 185, 185),
                                                     ),
-                                                    child: Text("\n\n asdasd"),
+                                                    child: const Text("\n\n asdasd"),
                                                   ),
                                                   Positioned(
+                                                    right: 0,
+                                                    left: 0,
+                                                    top: -26,
                                                     child: FloatingActionButton(
+                                                      onPressed: null,
                                                       child: Container(
                                                         width: 60,
                                                         height: 60,
-                                                        child: Icon(
-                                                          Icons.comment,
-                                                          size: 40,
-                                                          color: Colors.black,
-                                                        ),
-                                                        decoration:
-                                                            BoxDecoration(
+                                                        decoration: BoxDecoration(
                                                           border: Border.all(
                                                             width: 2,
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    0,
-                                                                    0,
-                                                                    0),
+                                                            color: const Color.fromARGB(255, 0, 0, 0),
                                                           ),
-                                                          shape:
-                                                              BoxShape.circle,
-                                                          gradient:
-                                                              LinearGradient(
-                                                            begin: Alignment
-                                                                .topLeft,
-                                                            end: Alignment(
-                                                                0.8, 1),
+                                                          shape: BoxShape.circle,
+                                                          gradient: const LinearGradient(
+                                                            begin: Alignment.topLeft,
+                                                            end: Alignment(0.8, 1),
                                                             colors: <Color>[
                                                               Color(0xff556270),
                                                               Color(0xffFF6B6B),
                                                             ],
-                                                            tileMode:
-                                                                TileMode.mirror,
+                                                            tileMode: TileMode.mirror,
                                                           ),
                                                         ),
+                                                        child: const Icon(
+                                                          Icons.comment,
+                                                          size: 40,
+                                                          color: Colors.black,
+                                                        ),
                                                       ),
-                                                      onPressed: null,
                                                     ),
-                                                    right: 0,
-                                                    left: 0,
-                                                    top: -26,
                                                   ),
                                                 ],
                                               ),
@@ -850,9 +807,9 @@ class _TaskToTeam extends State<TaskToTeam> {
                                 Expanded(
                                   flex: 5,
                                   child: Text(
-                                    "Lokalizacja: \n" + item.task.location,
+                                    "Lokalizacja: \n${item.task.location}",
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15,
                                       color: Color.fromARGB(255, 255, 255, 255),
@@ -862,9 +819,9 @@ class _TaskToTeam extends State<TaskToTeam> {
                                 Expanded(
                                   flex: 5,
                                   child: Text(
-                                    "Data zgłoszenia: \n" + item.task.data_reg,
+                                    "Data zgłoszenia: \n${item.task.dataReg}",
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15,
                                       color: Color.fromARGB(255, 255, 255, 255),
@@ -874,9 +831,9 @@ class _TaskToTeam extends State<TaskToTeam> {
                               ],
                             ),
                             Text(
-                              "Krótki opis: " + item.task.about,
+                              "Krótki opis: ${item.task.about}",
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15,
                                 color: Color.fromARGB(255, 255, 255, 255),
@@ -920,18 +877,17 @@ class _TaskToTeam extends State<TaskToTeam> {
   }
 
   void podmiana(int idx, int idx2, int idx3, int idx4) async {
-    var task_tmp = allLists[idx].items[idx2].task;
+    var taskTmp = allLists[idx].items[idx2].task;
     String table = 'tasks';
-    String? type = task_tmp.type; //do upgrade'u
-    String task_id = task_tmp.task_id.toString();
+    String taskId = taskTmp.taskId.toString();
 
     Map mapdate = {
       // transferred data map
       'table': table,
       'type': allLists[idx3].header,
-      'task_id': task_id,
+      'task_id': taskId,
     };
-    Update(table, mapdate);
+    update(table, mapdate);
 
     //update for main list [fixes]
     final movedItem2 = allLists[idx].items.removeAt(idx2);

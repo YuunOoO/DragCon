@@ -2,8 +2,6 @@ import 'package:dragcon/Pages/adminpage.dart';
 import 'package:dragcon/Pages/equippage.dart';
 import 'package:dragcon/Pages/geopage.dart';
 import 'package:dragcon/Pages/homepage.dart';
-import 'package:dragcon/Pages/settings.dart';
-import 'package:dragcon/Pages/stat.dart';
 import 'package:flutter/material.dart';
 
 import 'global.dart';
@@ -14,10 +12,12 @@ bool ifadmin() {
 }
 
 class NavBar extends StatelessWidget {
+  const NavBar({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Color.fromARGB(169, 253, 1, 219),
+      backgroundColor: const Color.fromARGB(169, 253, 1, 219),
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
@@ -34,7 +34,7 @@ class NavBar extends StatelessWidget {
                 ),
               ),
             ),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.blue,
               image: DecorationImage(
                   fit: BoxFit.fill,
@@ -42,52 +42,52 @@ class NavBar extends StatelessWidget {
             ),
           ),
           Visibility(
+            visible: ifadmin(),
             child: ListTile(
-              leading: Icon(Icons.description),
-              title: Text('Admin panel'),
+              leading: const Icon(Icons.description),
+              title: const Text('Admin panel'),
               onTap: () => Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                    builder: (BuildContext context) => adminpage()),
+                    builder: (BuildContext context) => const AdminPage()),
                 (route) => true,
               ),
             ),
-            visible: ifadmin(),
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Home'),
+            leading: const Icon(Icons.home),
+            title: const Text('Home'),
             onTap: () => Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (BuildContext context) => homepage()),
+              MaterialPageRoute(builder: (BuildContext context) => HomePage()),
               (route) => true,
             ),
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text('Localization'),
-            leading: Icon(Icons.gps_fixed_outlined),
+            title: const Text('Localization'),
+            leading: const Icon(Icons.gps_fixed_outlined),
             onTap: () => Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (BuildContext context) => geopage()),
+              MaterialPageRoute(builder: (BuildContext context) => const GeoPage()),
               (route) => true,
             ),
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text('Equipment'),
-            leading: Icon(Icons.airport_shuttle_rounded),
+            title: const Text('Equipment'),
+            leading: const Icon(Icons.airport_shuttle_rounded),
             onTap: () => Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (BuildContext context) => equippage()),
+              MaterialPageRoute(builder: (BuildContext context) => EquipPage()),
               (route) => true,
             ),
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text('Logout'),
-            leading: Icon(Icons.exit_to_app),
+            title: const Text('Logout'),
+            leading: const Icon(Icons.exit_to_app),
             onTap: () => {
               Navigator.pop(context),
               Navigator.pop(context),

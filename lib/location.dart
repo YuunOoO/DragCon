@@ -6,16 +6,14 @@ class Locations {
   void checkpermissions() async {
     var status = await Permission.location.status;
     if (status.isGranted) {
-    } else if (status.isDenied) {
-      Map<Permission, PermissionStatus> status =
           await [Permission.location].request();
     }
   }
 
-  loc.Location location = new loc.Location();
+  loc.Location location = loc.Location();
   Future<LatLng> getLocation() async {
-    var _locationData = await location.getLocation();
-    LatLng tmp = new LatLng(_locationData.latitude!, _locationData.longitude!);
+    var locationData = await location.getLocation();
+    LatLng tmp = LatLng(locationData.latitude!, locationData.longitude!);
     return tmp;
   }
 }

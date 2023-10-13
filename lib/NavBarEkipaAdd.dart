@@ -1,27 +1,16 @@
-import 'package:dragcon/Pages/teams.dart';
 import 'package:dragcon/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:sizer/sizer.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_animated_button/flutter_animated_button.dart';
 
-void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: ThemeData(
-          primarySwatch: Colors.red,
-        ),
-        home: WriteSQLEkipaAdd());
-  }
-}
+
 
 class WriteSQLEkipaAdd extends StatefulWidget {
+  const WriteSQLEkipaAdd({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return WriteSQLEkipaAddState();
@@ -79,13 +68,13 @@ class WriteSQLEkipaAddState extends State<WriteSQLEkipaAdd> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       child: Container(
         alignment: Alignment.topCenter,
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: <Widget>[
-            Text(
+            const Text(
               'Add team',
               style: TextStyle(
                 fontSize: 22,
@@ -94,23 +83,23 @@ class WriteSQLEkipaAddState extends State<WriteSQLEkipaAdd> {
             ),
             TextField(
               controller: namectl,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Input name",
                 hintText: "Input new team name",
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             AnimatedButton(
               height: 50,
               width: 100.w,
               text: 'Send',
-              gradient: LinearGradient(colors: [
+              gradient: const LinearGradient(colors: [
                 Color.fromARGB(255, 92, 72, 71),
                 Color.fromARGB(255, 3, 2, 1)
               ]),
-              selectedGradientColor: LinearGradient(
+              selectedGradientColor: const LinearGradient(
                   colors: [Colors.pinkAccent, Colors.purpleAccent]),
               isReverse: true,
               selectedTextColor: Colors.black,

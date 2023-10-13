@@ -5,11 +5,13 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:sizer/sizer.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 int numer = 1;
 late String type;
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,9 +23,9 @@ class MyApp extends StatelessWidget {
 }
 
 class WriteSQLdataTasks extends StatefulWidget {
-  WriteSQLdataTasks(int nr, String _type) {
+  WriteSQLdataTasks(int nr, String type, {Key? key}) : super(key: key) {
     numer = nr;
-    type = _type;
+    type = type;
   }
   @override
   State<StatefulWidget> createState() {
@@ -96,43 +98,43 @@ class WriteSQLdataTasksState extends State<WriteSQLdataTasks> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: <Widget>[
               TextField(
                 controller: aboutctl,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: "Task Content",
                   hintText: "Input task data",
                 ),
               ),
               TextField(
                 controller: locationctl,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: "Input Location",
                   hintText: "Location of the report",
                 ),
               ),
               TextField(
                 controller: priorityctl,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: "Set Priority",
                   hintText: "priority level (number)",
                 ),
               ),
 //
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               AnimatedButton(
                 height: 50,
                 width: 100.w,
                 text: 'Send',
-                gradient: LinearGradient(colors: [
+                gradient: const LinearGradient(colors: [
                   Color.fromARGB(255, 92, 72, 71),
                   Color.fromARGB(255, 3, 2, 1)
                 ]),
-                selectedGradientColor: LinearGradient(
+                selectedGradientColor: const LinearGradient(
                     colors: [Colors.pinkAccent, Colors.purpleAccent]),
                 isReverse: true,
                 selectedTextColor: Colors.black,

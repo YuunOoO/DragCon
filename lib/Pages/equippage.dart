@@ -1,19 +1,13 @@
-import 'dart:io';
+import 'package:dragcon/NavBar.dart';
+import 'package:dragcon/global.dart';
 import 'package:sizer/sizer.dart';
-import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:dragcon/mysql/tables.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/material.dart';
-import '../NavBar.dart';
-import '../main.dart';
-import 'dart:collection';
-import '../global.dart';
 import 'package:expandable/expandable.dart';
 
-class equippage extends StatefulWidget {
+class EquipPage extends StatefulWidget {
   @override
-  _equippage createState() => _equippage();
+  EquipPageState createState() => EquipPageState();
 }
 
 ///////////////////////// wstepne
@@ -23,12 +17,12 @@ List<Tools> _tools = [];
 int selectedIndex = 0; //will highlight first item
 int leng = _tools.length;
 
-class _equippage extends State<equippage> {
+class EquipPageState extends State<EquipPage> {
   @override
   void initState() {
     super.initState();
     for (var tool in tools) {
-      if (user.ekipa_id == tool.ekipa_id) _tools.add(tool);
+      if (user.ekipaId == tool.ekipaId) _tools.add(tool);
     }
   }
 
@@ -42,7 +36,7 @@ class _equippage extends State<equippage> {
             body: Container(
               height: 100.h,
               width: 100.w,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment(0.8, 1),
@@ -62,7 +56,7 @@ class _equippage extends State<equippage> {
             body: Container(
               height: 100.h,
               width: 100.w,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment(0.8, 1),
@@ -82,7 +76,7 @@ class _equippage extends State<equippage> {
             body: Container(
               height: 100.h,
               width: 100.w,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/japback.jpg"),
                   fit: BoxFit.cover,
@@ -107,42 +101,39 @@ Widget list(BuildContext context) {
         child: ScrollOnExpand(
           child: Container(
             decoration: BoxDecoration(
-              color: Color.fromARGB(179, 189, 184, 184),
-              borderRadius: BorderRadius.all(
+              color: const Color.fromARGB(179, 189, 184, 184),
+              borderRadius: const BorderRadius.all(
                 Radius.circular(10),
               ),
               border: Border.all(
-                color: Color.fromARGB(255, 12, 12, 12),
+                color: const Color.fromARGB(255, 12, 12, 12),
                 width: 5,
               ),
             ),
-            margin: EdgeInsets.all(10),
-            padding: EdgeInsets.all(5),
+            margin: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(5),
             child: ExpandablePanel(
-              theme: ExpandableThemeData(
+              theme: const ExpandableThemeData(
                   hasIcon: false,
-                  animationDuration: const Duration(milliseconds: 500)),
+                  animationDuration: Duration(milliseconds: 500)),
               header: Text(
                 _tools[index].type,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Color.fromARGB(255, 0, 0, 0),
                 ),
               ),
               expanded: Text(
-                "Marka narzędzia: " +
-                    _tools[index].mark +
-                    " \nIlość: " +
-                    _tools[index].amount.toString(),
-                style: TextStyle(
+                "Marka narzędzia: ${_tools[index].mark} \nIlość: ${_tools[index].amount}",
+                style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
                   color: Color.fromARGB(255, 0, 0, 0),
                 ),
               ),
-              collapsed: Text(''),
+              collapsed: const Text(''),
             ),
           ),
         ),
