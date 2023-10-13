@@ -42,9 +42,9 @@ class _geopage extends State<geopage> {
     mapController = controller;
 
     //real time location update
-    locations.location.onLocationChanged().listen((event) {
+    locations.location.onLocationChanged.listen((event) {
       mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-          target: LatLng(event.latitude, event.longitude), zoom: 15)));
+          target: LatLng(event.latitude!, event.longitude!), zoom: 15)));
     });
   }
 
