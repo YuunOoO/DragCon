@@ -1,3 +1,3 @@
 String get apiHost {
-  return 'localhost:8000';
+  return 'http://192.168.2.5:8000';
 }

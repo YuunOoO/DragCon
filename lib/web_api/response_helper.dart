@@ -9,9 +9,9 @@ class ResponseHelper {
     return DateTime.parse(dateString);
   }
 
-  static List<Map<String, dynamic>> items(
-    Map<String, dynamic> responseJsonBody,
+  static  items(
+    dynamic responseJsonBody,
   ) {
-    return List<Map<String, dynamic>>.from(responseJsonBody['hydra:member']!);
+    return List<Map<String, dynamic>>.from(responseJsonBody);
   }
 }

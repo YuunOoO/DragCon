@@ -1,7 +1,7 @@
-import 'package:dragcon/Pages/adminpage.dart';
-import 'package:dragcon/Pages/equippage.dart';
-import 'package:dragcon/Pages/geopage.dart';
-import 'package:dragcon/Pages/homepage.dart';
+import 'package:dragcon/Pages/admin_page.dart';
+import 'package:dragcon/Pages/equip_page.dart';
+import 'package:dragcon/Pages/geo_page.dart';
+import 'package:dragcon/Pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 import 'global.dart';

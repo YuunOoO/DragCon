@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:dragcon/global.dart';
 import 'package:dragcon/mysql/tables.dart';
 import 'package:sizer/sizer.dart';
-import 'package:dragcon/Pages/homepage.dart';
+import 'package:dragcon/Pages/home_page.dart';
 import 'package:dragcon/localauth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,8 +11,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 
-final name = TextEditingController(); // id
-final passw = TextEditingController(); // zmienna na haslo
+final name = TextEditingController();
+final passw = TextEditingController(); 
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -301,74 +301,74 @@ class LoginScreenState extends State<LoginScreen> {
   }
 }
 
-//Juz gotowa funkcja do tworzenia wpisów w bazie z apk
-Future registration() async {
-  //var URL = 'http://192.168.2.4/flutter/reg.php'; - global.dart
-  // laczymy z naszym localhost tyle ze po naszym ip    cmd -> ipconfig
-  // zeby odroznic localhosta fluttera od xampa
-  Map mapdate = {
-    //mapa date which we are sending to APi
-    'name': name.text,
-    'password': passw.text,
-    'admin': '0' //false
-  };
-  print(mapdate.toString()); //info w logach flutera
-  //http.Response response = await http.post(URL, body: mapdate);
-  final response = await http.post(Uri.parse(ulrReg),
-      body: mapdate, encoding: Encoding.getByName("utf-8"));
-  if (response.statusCode == 200) {
-    print(response.body);
-  } else {
-    print('A network error occurred');
-  }
-}
+// //Juz gotowa funkcja do tworzenia wpisów w bazie z apk
+// Future registration() async {
+//   //var URL = 'http://192.168.2.4/flutter/reg.php'; - global.dart
+//   // laczymy z naszym localhost tyle ze po naszym ip    cmd -> ipconfig
+//   // zeby odroznic localhosta fluttera od xampa
+//   Map mapdate = {
+//     //mapa date which we are sending to APi
+//     'name': name.text,
+//     'password': passw.text,
+//     'admin': '0' //false
+//   };
+//   print(mapdate.toString()); //info w logach flutera
+//   //http.Response response = await http.post(URL, body: mapdate);
+//   final response = await http.post(Uri.parse(ulrReg),
+//       body: mapdate, encoding: Encoding.getByName("utf-8"));
+//   if (response.statusCode == 200) {
+//     print(response.body);
+//   } else {
+//     print('A network error occurred');
+//   }
+// }
 
 Future login(BuildContext context) async {
-  Map mapdate = {
-    //mapa date which we are sending to APi
-    'name': name.text,
-    'password': passw.text,
-  };
-  final response = await http.post(Uri.parse(urlLog),
-      body: mapdate, encoding: Encoding.getByName("utf-8"));
-  if (response.statusCode == 200) {
-    print(response.body);
-  } else {
-    print('A network error occurred');
-  }
-  List<Users> tmp = [];
-  var gate = json.decode(response.body); //we are getting info from php
+  // Map mapdate = {
+  //   //mapa date which we are sending to APi
+  //   'name': name.text,
+  //   'password': passw.text,
+  // };
+  // final response = await http.post(Uri.parse(urlLog),
+  //     body: mapdate, encoding: Encoding.getByName("utf-8"));
+  // if (response.statusCode == 200) {
+  //   print(response.body);
+  // } else {
+  //   print('A network error occurred');
+  // }
+  // List<Users> tmp = [];
+  // var gate = json.decode(response.body); //we are getting info from php
 
-  //we found correct user
-  if (gate != "Close") {
-    tmp = await gate.map<Users>((json) => Users.fromJson(json)).toList();
+  // //we found correct user
+  // if (gate != "Close") {
+  //   tmp = await gate.map<Users>((json) => Users.fromJson(json)).toList();
 
-    //tworzymy shared preferences
-    final _user = await SharedPreferences.getInstance();
-    //getting user data from mysql
-    user.id = tmp[0].id;
-    user.email = tmp[0].email;
-    user.password = tmp[0].password;
-    user.admin = tmp[0].admin;
-    user.ekipaId = tmp[0].ekipaId;
-    //saving data
-    await _user.setString('name', name.text);
-    await _user.setString('password', passw.text);
-    await _user.setString('email', user.email);
-    await _user.setInt('admin', user.admin);
-    await _user.setInt('ekipa', user.ekipaId);
-    //loginpage input clear
-    passw.clear();
-    name.clear();
+  //   //tworzymy shared preferences
+  //   final _user = await SharedPreferences.getInstance();
+  //   //getting user data from mysql
+  //   user.id = tmp[0].id;
+  //   user.email = tmp[0].email;
+  //   user.password = tmp[0].password;
+  //   user.admin = tmp[0].admin;
+  //   user.ekipaId = tmp[0].ekipaId;
+  //   //saving data
+  //   await _user.setString('name', name.text);
+  //   await _user.setString('password', passw.text);
+  //   await _user.setString('email', user.email);
+  //   await _user.setInt('admin', user.admin);
+  //   await _user.setInt('ekipa', user.ekipaId);
+  //   //loginpage input clear
+  //   passw.clear();
+  //   name.clear();
 
     Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+      MaterialPageRoute(builder: (BuildContext context) => const HomePage()),
       (route) => false,
     );
-  } else {
-    print('wrong id/pass');
-  }
+  // } else {
+  //   print('wrong id/pass');
+  // }
 }
 
 Widget buildText(String text, bool checked) => Container(
@@ -428,7 +428,7 @@ void autoLogin(BuildContext context) async {
       user.password = prefs.getString("password")!;
       user.ekipaId = prefs.getInt("ekipa")!;
       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return HomePage();
+        return const HomePage();
       }));
     } else {
       print('wrong id/pass');

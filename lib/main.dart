@@ -4,10 +4,10 @@ import 'splash.dart';
 import 'package:sizer/sizer.dart';
 
 void main() async {
-  String table = "tasks";
-  getData(table);
-  table = "tools";
-  getData(table);
+  // String table = "tasks";
+  // getData(table);
+  // table = "tools";
+  // getData(table);
   runApp(const MyApp());
 }
 

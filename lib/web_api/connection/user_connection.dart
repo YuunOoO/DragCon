@@ -12,7 +12,7 @@ class UserConnection {
   final apiService = ApiService();
 
   Future<UserDto> getUserById(int id) async {
-    final Response response = await apiService.makeApiGetRequest('$apiHost/api/users/$id');
+    final Response response = await apiService.makeApiGetRequest('$apiHost/users/$id');
 
     if (response.statusCode == 404) {
       throw CantFetchDataException();
@@ -22,17 +22,17 @@ class UserConnection {
   }
 
   patchUserById(int id, UserDto userDto) async {
-    final Response response = await apiService.patch('$apiHost/api/users/$id', userDto);
+    final Response response = await apiService.patch('$apiHost/users/$id', userDto);
     return response.statusCode;
   }
 
   addNewUser(UserDto userDto) async {
-    final Response response = await apiService.post('$apiHost/api/users', userDto);
+    final Response response = await apiService.post('$apiHost/users', userDto);
     return response.statusCode;
   }
 
   deleteUser(int id) async {
-    final Response response = await apiService.delete('$apiHost/api/users/$id');
+    final Response response = await apiService.delete('$apiHost/users/$id');
     return response.statusCode;
   }
 
@@ -59,7 +59,7 @@ class UserConnection {
     int id,
   ) async {
     var response = await apiService.makeApiGetRequest(
-      '$apiHost/api/users-by-ekipa/$id?page=$pageNumber',
+      '$apiHost/users-by-ekipa/$id?page=$pageNumber',
     );
 
     if (response.statusCode == 201) {

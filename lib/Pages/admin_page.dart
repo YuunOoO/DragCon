@@ -1,6 +1,6 @@
 import 'package:dragcon/NavBar.dart';
-import 'package:dragcon/Pages/TaskToTeam.dart';
-import 'package:dragcon/Pages/ToolsToTeam.dart';
+import 'package:dragcon/Pages/tasks_to_team.dart';
+import 'package:dragcon/Pages/tools_to_team.dart';
 import 'package:dragcon/Pages/teams.dart';
 import 'package:dragcon/mysql/tables.dart';
 import 'package:flutter/material.dart';

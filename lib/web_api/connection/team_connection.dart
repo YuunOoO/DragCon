@@ -10,7 +10,7 @@ class TeamConnection {
   final apiService = ApiService();
 
   Future<TeamDto> getTeamById(int id) async {
-    final Response response = await apiService.makeApiGetRequest('$apiHost/api/teams/$id');
+    final Response response = await apiService.makeApiGetRequest('$apiHost/teams/$id');
 
     if (response.statusCode == 404) {
       throw CantFetchDataException();
@@ -20,17 +20,17 @@ class TeamConnection {
   }
 
   patchTeamById(int id, TeamDto teamDto) async {
-    final Response response = await apiService.patch('$apiHost/api/teams/$id', teamDto);
+    final Response response = await apiService.patch('$apiHost/teams/$id', teamDto);
     return response.statusCode;
   }
 
   addNewTeam(TeamDto teamDto) async {
-    final Response response = await apiService.post('$apiHost/api/teams', teamDto);
+    final Response response = await apiService.post('$apiHost/teams', teamDto);
     return response.statusCode;
   }
 
   deleteTeam(int id) async {
-    final Response response = await apiService.delete('$apiHost/api/teams/$id', );
+    final Response response = await apiService.delete('$apiHost/teams/$id', );
     return response.statusCode;
   }
 

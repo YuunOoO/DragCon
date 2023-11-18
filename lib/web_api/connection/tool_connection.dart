@@ -11,7 +11,7 @@ class ToolConnection {
   final apiService = ApiService();
 
   Future<ToolDto> getToolById(int id) async {
-    final Response response = await apiService.makeApiGetRequest('$apiHost/api/tools/$id');
+    final Response response = await apiService.makeApiGetRequest('$apiHost/tools/$id');
 
     if (response.statusCode == 404) {
       throw CantFetchDataException();
@@ -21,17 +21,17 @@ class ToolConnection {
   }
 
   patchToolById(int id, ToolDto toolDto) async {
-    final Response response = await apiService.patch('$apiHost/api/tools/$id', toolDto);
+    final Response response = await apiService.patch('$apiHost/tools/$id', toolDto);
     return response.statusCode;
   }
 
   addNewTask(ToolDto toolDto) async {
-    final Response response = await apiService.post('$apiHost/api/tools', toolDto);
+    final Response response = await apiService.post('$apiHost/tools', toolDto);
     return response.statusCode;
   }
 
   deleteTask(int id) async {
-    final Response response = await apiService.delete('$apiHost/api/tool/$id');
+    final Response response = await apiService.delete('$apiHost/tool/$id');
     return response.statusCode;
   }
 
@@ -58,13 +58,12 @@ class ToolConnection {
     int id,
   ) async {
     var response = await apiService.makeApiGetRequest(
-      '$apiHost/api/tools-by-ekipa/$id?page=$pageNumber',
+      '$apiHost/tools-by-ekipa/$id?page=$pageNumber',
     );
 
     if (response.statusCode == 201) {
       var decodedBody = json.decode(response.body);
-      var items = ResponseHelper.items(decodedBody);
-      return items.map((e) => ToolDto.fromJson(e)).toList();
+      return decodedBody.map((e) => ToolDto.fromJson(e)).toList();
     } else {
       throw CantFetchDataException();
     }
