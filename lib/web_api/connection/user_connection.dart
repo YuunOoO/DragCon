@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dragcon/config.dart';
+import 'package:dragcon/global.dart';
 
 import 'package:dragcon/web_api/dto/user_dto.dart';
 import 'package:dragcon/web_api/exceptions/cant_fetch_data.dart';
@@ -12,7 +13,7 @@ class UserConnection {
   final apiService = ApiService();
 
   Future<UserDto> getUserById(int id) async {
-    final Response response = await apiService.makeApiGetRequest('$apiHost/users/$id');
+    final Response response = await apiService.makeApiGetRequest('$apiHost/api/users/$id');
 
     if (response.statusCode == 404) {
       throw CantFetchDataException();
@@ -22,17 +23,21 @@ class UserConnection {
   }
 
   patchUserById(int id, UserDto userDto) async {
-    final Response response = await apiService.patch('$apiHost/users/$id', userDto);
+    print("kkekex");
+    print(userDto.toJson());
+    final Response response = await apiService.patch('$apiHost/api/users/$id', userDto);
+    print(response.body);
     return response.statusCode;
   }
 
   addNewUser(UserDto userDto) async {
-    final Response response = await apiService.post('$apiHost/users', userDto);
+    final Response response = await apiService.post('$apiHost/api/users', userDto);
+    print(response.body);
     return response.statusCode;
   }
 
   deleteUser(int id) async {
-    final Response response = await apiService.delete('$apiHost/users/$id');
+    final Response response = await apiService.delete('$apiHost/api/users/$id');
     return response.statusCode;
   }
 
@@ -65,6 +70,23 @@ class UserConnection {
     if (response.statusCode == 201) {
       var decodedBody = json.decode(response.body);
       var items = ResponseHelper.items(decodedBody);
+      return items.map((e) => UserDto.fromJson(e)).toList();
+    } else {
+      throw CantFetchDataException();
+    }
+  }
+
+  Future<List<UserDto>> getAllUsers() async {
+    print("witamy");
+    var response = await apiService.makeApiGetRequest(
+      '$apiHost/api/users?page=1',
+    );
+    print(response.statusCode);
+
+    if (response.statusCode != 400) {
+      var decodedBody = json.decode(response.body);
+      var items = ResponseHelper.itemsHydra(decodedBody);
+      print(items);
       return items.map((e) => UserDto.fromJson(e)).toList();
     } else {
       throw CantFetchDataException();

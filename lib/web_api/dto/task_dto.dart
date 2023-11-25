@@ -5,7 +5,7 @@ class TaskDto implements DtoToJsonInterface {
   final String about;
   final String location;
   final String dataReg;
-  final String timeExec;
+  String? timeExec;
   String type;
   int priority;
   final int ekipaId;
@@ -14,7 +14,7 @@ class TaskDto implements DtoToJsonInterface {
     required this.about,
     required this.location,
     required this.dataReg,
-    required this.timeExec,
+    this.timeExec,
     required this.type,
     required this.priority,
     required this.ekipaId,
@@ -39,9 +39,8 @@ class TaskDto implements DtoToJsonInterface {
     data['task_id'] = taskId;
     data['about'] = about;
     data['location'] = location;
-    data['data_reg'] = dataReg;
-
-    data['time_exec'] = timeExec;
+    data['dataReg'] = dataReg;
+    data['timeExec'] = timeExec;
     data['type'] = type;
     data['priority'] = priority;
     data['ekipa_id'] = ekipaId;

@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 import 'global.dart';
 
 bool ifadmin() {
-  if (user.admin == 0) return true;
-  return false;
+//  if (user.admin == 0) return true;
+  return true;
+
 }
 
 class NavBar extends StatelessWidget {
@@ -36,9 +37,7 @@ class NavBar extends StatelessWidget {
             ),
             decoration: const BoxDecoration(
               color: Colors.blue,
-              image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: AssetImage('assets/images/navbarback.jpg')),
+              image: DecorationImage(fit: BoxFit.fill, image: AssetImage('assets/images/navbarback.jpg')),
             ),
           ),
           Visibility(
@@ -48,8 +47,7 @@ class NavBar extends StatelessWidget {
               title: const Text('Admin panel'),
               onTap: () => Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => const AdminPage()),
+                MaterialPageRoute(builder: (BuildContext context) => const AdminPage()),
                 (route) => true,
               ),
             ),
@@ -60,7 +58,7 @@ class NavBar extends StatelessWidget {
             title: const Text('Home'),
             onTap: () => Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+              MaterialPageRoute(builder: (BuildContext context) => const HomePage()),
               (route) => true,
             ),
           ),
@@ -80,7 +78,7 @@ class NavBar extends StatelessWidget {
             leading: const Icon(Icons.airport_shuttle_rounded),
             onTap: () => Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (BuildContext context) => EquipPage()),
+              MaterialPageRoute(builder: (BuildContext context) => const EquipPage()),
               (route) => true,
             ),
           ),

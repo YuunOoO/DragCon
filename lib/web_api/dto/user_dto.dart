@@ -1,15 +1,15 @@
 import 'package:dragcon/web_api/dto/dto_to_json_interface.dart';
 
 class UserDto implements DtoToJsonInterface {
-  final int keyId;
+  final int? keyId;
   final String id;
   final String password;
   final int admin;
   final String email;
-  final int ekipaId;
+  int ekipaId;
 
-  const UserDto({
-    required this.keyId,
+  UserDto({
+    this.keyId,
     required this.id,
     required this.password,
     required this.admin,
@@ -24,19 +24,19 @@ class UserDto implements DtoToJsonInterface {
       password: json['password'],
       admin: json['admin'],
       email: json['email'],
-      ekipaId: json['ekipa_id'],
+      ekipaId: json['ekipaId'],
     );
   }
 
   @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['key_id'] = keyId;
+
     data['id'] = id;
     data['password'] = password;
     data['admin'] = admin;
     data['email'] = email;
-    data['ekipa_id'] = ekipaId;
+    data['team'] = "/api/teams/$ekipaId";
 
     return data;
   }

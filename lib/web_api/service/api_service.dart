@@ -7,12 +7,9 @@ class ApiService {
   // final SharedPreference sharedPreference = GetIt.I<SharedPreference>();
 
   Future<http.Response> makeApiGetRequest(String uri) async {
-    print(uri);
     return http.get(
       Uri.parse(uri),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
+      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', 'Accept': 'application/ld+json'},
     );
   }
 
@@ -22,19 +19,12 @@ class ApiService {
   ) async {
     // var token = await sharedPreference.getApiToken();
     print(uri);
-    print(http.patch(
-      Uri.parse(uri),
-      headers: <String, String>{
-        'Content-Type': 'application/merge-patch+json; charset=UTF-8',
-        'Accept': 'application/ld+json', // Dodaj nagłówek Accept
-        // 'Authorization': 'Bearer $token'
-      },
-      body: jsonEncode(toJsonDto.toJson()),
-    ));
+    print(toJsonDto.toJson());
     return http.patch(
       Uri.parse(uri),
       headers: <String, String>{
-        'Content-Type': 'application/merge-patch+json; charset=UTF-8',
+         'Content-Type': 'application/merge-patch+json; charset=UTF-8',
+        //'Content-Type': 'application/ld+json',
         'Accept': 'application/ld+json', // Dodaj nagłówek Accept
         // 'Authorization': 'Bearer $token'
       },
@@ -47,11 +37,13 @@ class ApiService {
     DtoToJsonInterface toJsonDto,
   ) async {
     // var token = await sharedPreference.getApiToken();
-
+    print(uri);
+    print(toJsonDto.toJson());
     return http.post(
       Uri.parse(uri),
       headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
+        'Content-Type': 'application/ld+json',
+        'Accept': 'application/ld+json'
         // 'Authorization': 'Bearer $token'
       },
       body: jsonEncode(toJsonDto.toJson()),
@@ -64,9 +56,7 @@ class ApiService {
   ) async {
     return http.post(
       Uri.parse(uri),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
+      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', 'Accept': 'application/ld+json'},
       body: jsonEncode(toJsonDto.toJson()),
     );
   }
@@ -78,6 +68,7 @@ class ApiService {
       Uri.parse(uri),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/ld+json'
         // 'Authorization': 'Bearer $token'
       },
     );

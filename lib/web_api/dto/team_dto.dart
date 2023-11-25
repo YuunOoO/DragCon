@@ -1,13 +1,13 @@
 import 'package:dragcon/web_api/dto/dto_to_json_interface.dart';
 
 class TeamDto implements DtoToJsonInterface {
-  final int ekipaId;
+  final int? ekipaId;
   final int usersCount;
 
   final String name;
 
   const TeamDto({
-    required this.ekipaId,
+    this.ekipaId,
     required this.usersCount,
     required this.name,
   });
@@ -19,14 +19,14 @@ class TeamDto implements DtoToJsonInterface {
       name: json['name'],
     );
   }
-  @override
-  bool operator ==(o) => o is TeamDto && o.name == name && o.ekipaId == ekipaId && o.usersCount == usersCount;
 
   @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['ekipa_id'] = ekipaId;
-    data['users_count'] = usersCount;
+    if (ekipaId != null) {
+      data['ekipa_id'] = ekipaId;
+    }
+    data['usersCount'] = usersCount;
     data['name'] = name;
 
     return data;

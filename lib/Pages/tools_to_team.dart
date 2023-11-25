@@ -1,11 +1,11 @@
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
-import 'package:dragcon/NavBar.dart';
-import 'package:dragcon/NavBarTools.dart';
-import 'package:dragcon/mysql/tables.dart';
+import 'package:dragcon/nav_bar.dart';
+import 'package:dragcon/nav_bar_tool.dart';
+import 'package:dragcon/web_api/connection/tool_connection.dart';
+import 'package:dragcon/web_api/dto/tool_dto.dart';
 import 'package:dragcon/zoom.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:http/http.dart' as http;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ToolsToTeam extends StatefulWidget {
@@ -15,13 +15,9 @@ class ToolsToTeam extends StatefulWidget {
   ToolsToTeamState createState() => ToolsToTeamState();
 }
 
-//variables / lists
-late List<DragAndDropList> lists;
-List<DraggableList> allLists = [];
-
 //list containers
 class DraggableList {
-  final String header;
+  final int header;
   final List<DraggableListItem> items;
 
   const DraggableList({
@@ -32,7 +28,7 @@ class DraggableList {
 
 class DraggableListItem {
   final String title;
-  final Tools tool;
+  final ToolDto tool;
   const DraggableListItem({
     required this.tool,
     required this.title,
@@ -41,47 +37,38 @@ class DraggableListItem {
 
 class ToolsToTeamState extends State<ToolsToTeam> {
   TileSizer _sizer = TileSizer();
+  late Future<List<ToolDto>> futureList;
+  ToolConnection toolConnection = ToolConnection();
+  late List<DragAndDropList> lists;
+  List<DraggableList> allLists = [];
+
 //first loading
   @override
   void initState() {
     super.initState();
-    loadTools();
+    getFutureTools();
   }
 
-//Reloading Tools for teams
-loadTools() {
+  getFutureTools() {
+    futureList = toolConnection.getAllTools();
+  }
+
+  orderList(List<ToolDto> toolList) {
     //clean everything
     allLists.clear();
-
-    List<DraggableListItem> getItems(Ekipa team) {
-      List<DraggableListItem> tmp = [];
-      for (var tool in tools) {
-        if (team.ekipaId == tool.ekipaId) {
-          tmp.add(DraggableListItem(tool: tool, title: tool.type));
-        }
-      }
-      return tmp;
-    }
-
-    //for all teams
-    List<DraggableListItem> tmp2 = []; //empty list for new users
-    for (var team in allTeams) {
-      allLists.add(DraggableList(header: team.name, items: getItems(team)));
-    }
-
-    //tools which are not allocated
-    for (var tmp1 in tools) {
-      if (tmp1.ekipaId == 0) {
-        tmp2.add(DraggableListItem(tool: tmp1, title: "tool"));
+    for (var tool in toolList) {
+      var index = allLists.indexWhere((item) => item.header == tool.ekipaId);
+      if (index != -1) {
+        allLists[index].items.add(DraggableListItem(title: tool.type, tool: tool));
+      } else {
+        allLists.add(DraggableList(header: tool.ekipaId, items: [DraggableListItem(title: tool.type, tool: tool)]));
       }
     }
-    allLists.add(DraggableList(header: "unassigned tools", items: tmp2));
 
-    // build full list
     lists = allLists.map(buildList).toList();
   }
 
-   floatingActionButtonStyle() {
+  floatingActionButtonStyle() {
     return FloatingActionButton(
       onPressed: () {
         setState(() {
@@ -98,168 +85,166 @@ loadTools() {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        if (constraints.maxWidth > 1200) {
-          return Scaffold(
-            drawer: const NavBar(),
-            body: Container(
-              width: 100.w,
-              height: 100.h,
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment(0.8, 1),
-                  colors: <Color>[
-                    Color(0xffC04848),
-                    Color(0xff480048),
-                  ],
-                  tileMode: TileMode.mirror,
-                ),
-              ),
-              child: DragAndDropLists(
-                lastItemTargetHeight: 0,
-                //addLastItemTargetHeightToTop: true,
-                lastListTargetSize: 1,
-                listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
+    return FutureBuilder<List<ToolDto>>(
+        future: futureList,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return LayoutBuilder(
+              builder: (context, constraints) {
+                if (constraints.maxWidth > 1200) {
+                  return Scaffold(
+                    drawer: const NavBar(),
+                    body: Container(
+                      width: 100.w,
+                      height: 100.h,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment(0.8, 1),
+                          colors: <Color>[
+                            Color(0xffC04848),
+                            Color(0xff480048),
+                          ],
+                          tileMode: TileMode.mirror,
+                        ),
+                      ),
+                      child: DragAndDropLists(
+                        lastItemTargetHeight: 0,
+                        //addLastItemTargetHeightToTop: true,
+                        lastListTargetSize: 1,
+                        listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
 
-                listInnerDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(
-                    color: const Color.fromARGB(255, 12, 12, 12),
-                    width: 5,
-                  ),
-                ),
-                children: lists,
+                        listInnerDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                            color: const Color.fromARGB(255, 12, 12, 12),
+                            width: 5,
+                          ),
+                        ),
+                        children: lists,
 
-                itemDivider: const Divider(
-                  thickness: 2,
-                  height: 2,
-                  color: Colors.black,
-                ),
-                itemDecorationWhileDragging: const BoxDecoration(
-                  color: Color.fromARGB(255, 225, 159, 236),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Color.fromARGB(255, 189, 184, 184),
-                        blurRadius: 12)
-                  ],
-                ),
-                onItemReorder: onReorderListItem,
-                onListReorder: onReorderList,
-                axis: Axis.horizontal,
-                listWidth: _sizer.x.h,
-                listDraggingWidth: _sizer.y.h,
-              ),
-            ),
-            floatingActionButton: floatingActionButtonStyle(),
-          );
-        } else if (constraints.maxWidth > 800 && constraints.maxWidth < 1200) {
-          return Scaffold(
-            drawer: const NavBar(),
-            body: Container(
-              width: 100.w,
-              height: 100.h,
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment(0.8, 1),
-                  colors: <Color>[
-                    Color(0xffC04848),
-                    Color(0xff480048),
-                  ],
-                  tileMode: TileMode.mirror,
-                ),
-              ),
-              child: DragAndDropLists(
-                lastItemTargetHeight: 0,
-                //addLastItemTargetHeightToTop: true,
-                lastListTargetSize: 1,
-                listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
+                        itemDivider: const Divider(
+                          thickness: 2,
+                          height: 2,
+                          color: Colors.black,
+                        ),
+                        itemDecorationWhileDragging: const BoxDecoration(
+                          color: Color.fromARGB(255, 225, 159, 236),
+                          boxShadow: [BoxShadow(color: Color.fromARGB(255, 189, 184, 184), blurRadius: 12)],
+                        ),
+                        onItemReorder: onReorderListItem,
+                        onListReorder: onReorderList,
+                        axis: Axis.horizontal,
+                        listWidth: _sizer.x.h,
+                        listDraggingWidth: _sizer.y.h,
+                      ),
+                    ),
+                    floatingActionButton: floatingActionButtonStyle(),
+                  );
+                } else if (constraints.maxWidth > 800 && constraints.maxWidth < 1200) {
+                  return Scaffold(
+                    drawer: const NavBar(),
+                    body: Container(
+                      width: 100.w,
+                      height: 100.h,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment(0.8, 1),
+                          colors: <Color>[
+                            Color(0xffC04848),
+                            Color(0xff480048),
+                          ],
+                          tileMode: TileMode.mirror,
+                        ),
+                      ),
+                      child: DragAndDropLists(
+                        lastItemTargetHeight: 0,
+                        //addLastItemTargetHeightToTop: true,
+                        lastListTargetSize: 1,
+                        listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
 
-                listInnerDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(
-                    color: const Color.fromARGB(255, 12, 12, 12),
-                    width: 5,
-                  ),
-                ),
-                children: lists,
+                        listInnerDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                            color: const Color.fromARGB(255, 12, 12, 12),
+                            width: 5,
+                          ),
+                        ),
+                        children: lists,
 
-                itemDivider: const Divider(
-                  thickness: 2,
-                  height: 2,
-                  color: Colors.black,
-                ),
-                itemDecorationWhileDragging: const BoxDecoration(
-                  color: Color.fromARGB(255, 225, 159, 236),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Color.fromARGB(255, 189, 184, 184),
-                        blurRadius: 12)
-                  ],
-                ),
-                onItemReorder: onReorderListItem,
-                onListReorder: onReorderList,
-                axis: Axis.horizontal,
-                listWidth: _sizer.x.h,
-                listDraggingWidth: _sizer.y.h,
-              ),
-            ),
-            floatingActionButton: floatingActionButtonStyle(),
-          );
-        } else {
-          return Scaffold(
-            drawer: const NavBar(),
-            body: Container(
-              width: 100.w,
-              height: 100.h,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/japback.jpg"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: DragAndDropLists(
-                lastItemTargetHeight: 0,
-                //addLastItemTargetHeightToTop: true,
-                lastListTargetSize: 1,
-                listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
+                        itemDivider: const Divider(
+                          thickness: 2,
+                          height: 2,
+                          color: Colors.black,
+                        ),
+                        itemDecorationWhileDragging: const BoxDecoration(
+                          color: Color.fromARGB(255, 225, 159, 236),
+                          boxShadow: [BoxShadow(color: Color.fromARGB(255, 189, 184, 184), blurRadius: 12)],
+                        ),
+                        onItemReorder: onReorderListItem,
+                        onListReorder: onReorderList,
+                        axis: Axis.horizontal,
+                        listWidth: _sizer.x.h,
+                        listDraggingWidth: _sizer.y.h,
+                      ),
+                    ),
+                    floatingActionButton: floatingActionButtonStyle(),
+                  );
+                } else {
+                  return Scaffold(
+                    drawer: const NavBar(),
+                    body: Container(
+                      width: 100.w,
+                      height: 100.h,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/japback.jpg"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: DragAndDropLists(
+                        lastItemTargetHeight: 0,
+                        //addLastItemTargetHeightToTop: true,
+                        lastListTargetSize: 1,
+                        listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
 
-                listInnerDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(
-                    color: const Color.fromARGB(255, 12, 12, 12),
-                    width: 5,
-                  ),
-                ),
-                children: lists,
+                        listInnerDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                            color: const Color.fromARGB(255, 12, 12, 12),
+                            width: 5,
+                          ),
+                        ),
+                        children: lists,
 
-                itemDivider: const Divider(
-                  thickness: 2,
-                  height: 2,
-                  color: Colors.black,
-                ),
-                itemDecorationWhileDragging: const BoxDecoration(
-                  color: Color.fromARGB(255, 225, 159, 236),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Color.fromARGB(255, 189, 184, 184),
-                        blurRadius: 12)
-                  ],
-                ),
-                onItemReorder: onReorderListItem,
-                onListReorder: onReorderList,
-                axis: Axis.horizontal,
-                listWidth: _sizer.x.h,
-                listDraggingWidth: _sizer.y.h,
-              ),
-            ),
-            floatingActionButton: floatingActionButtonStyle(),
-          );
-        }
-      },
-    );
+                        itemDivider: const Divider(
+                          thickness: 2,
+                          height: 2,
+                          color: Colors.black,
+                        ),
+                        itemDecorationWhileDragging: const BoxDecoration(
+                          color: Color.fromARGB(255, 225, 159, 236),
+                          boxShadow: [BoxShadow(color: Color.fromARGB(255, 189, 184, 184), blurRadius: 12)],
+                        ),
+                        onItemReorder: onReorderListItem,
+                        onListReorder: onReorderList,
+                        axis: Axis.horizontal,
+                        listWidth: _sizer.x.h,
+                        listDraggingWidth: _sizer.y.h,
+                      ),
+                    ),
+                    floatingActionButton: floatingActionButtonStyle(),
+                  );
+                }
+              },
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        });
   }
 
   DragAndDropList buildList(DraggableList list) => DragAndDropList(
@@ -279,7 +264,7 @@ loadTools() {
                 Expanded(
                   flex: 7,
                   child: Text(
-                    list.header,
+                    list.header.toString(),
                     maxLines: 2,
                     textAlign: TextAlign.left,
                     style: const TextStyle(
@@ -293,10 +278,6 @@ loadTools() {
                   flex: 2,
                   child: IconButton(
                     onPressed: () {
-                      int? nr = 1;
-                      for (var team in allTeams) {
-                        if (team.name == list.header) nr = team.ekipaId;
-                      }
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -304,7 +285,7 @@ loadTools() {
                             content: SizedBox(
                               width: 100.w,
                               height: 60.h,
-                              child: WriteSQLdata(nr!),
+                              child: NavBarTools(list.header),
                             ),
                           );
                         },
@@ -376,26 +357,25 @@ loadTools() {
   }
 
   void podmiana(int idx, int idx2, int idx3, int idx4) async {
-    var toolTmp = allLists[idx].items[idx2].tool;
-    String table = 'tools';
-    // String ekipa_id = user_tmp.ekipa_id; //do upgrade'u
-    // String key_id = user_tmp.key_id.toString();
-    String find = allLists[idx3].header;
-    int? nr = 0;
-    for (var team in allTeams) {
-      if (team.name == find) nr = team.ekipaId;
-    }
-    Map mapdate = {
-      // transferred data map
-      'table': table,
-      'ekipa_id': nr.toString(),
-      'key_id': toolTmp.toolId.toString(),
-    };
-    print(mapdate);
-    Update2(table, mapdate);
+    // var toolTmp = allLists[idx].items[idx2].tool;
+    // String table = 'tools';
+    // // String ekipa_id = user_tmp.ekipa_id; //do upgrade'u
+    // // String key_id = user_tmp.key_id.toString();
+    // int find = allLists[idx3].header;
+    // int? nr = 0;
+    // for (var team in allTeams) {
+    //   if (team.name == find) nr = team.ekipaId;
+    // }
+    // Map mapdate = {
+    //   // transferred data map
+    //   'table': table,
+    //   'ekipa_id': nr.toString(),
+    //   'key_id': toolTmp.toolId.toString(),
+    // };
+    // Update2(table, mapdate);
 
-    //update for main list [fixes]
-    final movedItem2 = allLists[idx].items.removeAt(idx2);
-    allLists[idx3].items.insert(idx4, movedItem2);
+    // //update for main list [fixes]
+    // final movedItem2 = allLists[idx].items.removeAt(idx2);
+    // allLists[idx3].items.insert(idx4, movedItem2);
   }
 }

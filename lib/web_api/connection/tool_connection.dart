@@ -21,17 +21,17 @@ class ToolConnection {
   }
 
   patchToolById(int id, ToolDto toolDto) async {
-    final Response response = await apiService.patch('$apiHost/tools/$id', toolDto);
+    final Response response = await apiService.patch('$apiHost/api/tools/$id', toolDto);
     return response.statusCode;
   }
 
   addNewTask(ToolDto toolDto) async {
-    final Response response = await apiService.post('$apiHost/tools', toolDto);
+    final Response response = await apiService.post('$apiHost/api/tools', toolDto);
     return response.statusCode;
   }
 
   deleteTask(int id) async {
-    final Response response = await apiService.delete('$apiHost/tool/$id');
+    final Response response = await apiService.delete('$apiHost/api/tools/$id');
     return response.statusCode;
   }
 
@@ -64,6 +64,21 @@ class ToolConnection {
     if (response.statusCode == 201) {
       var decodedBody = json.decode(response.body);
       return decodedBody.map((e) => ToolDto.fromJson(e)).toList();
+    } else {
+      throw CantFetchDataException();
+    }
+  }
+
+  Future<List<ToolDto>> getAllTools() async {
+    var response = await apiService.makeApiGetRequest(
+      '$apiHost/api/tools?page=1',
+    );
+
+    if (response.statusCode == 201) {
+      var decodedBody = json.decode(response.body);
+      var items = ResponseHelper.itemsHydra(decodedBody);
+
+      return items.map((e) => ToolDto.fromJson(e)).toList();
     } else {
       throw CantFetchDataException();
     }

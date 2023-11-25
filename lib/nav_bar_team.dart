@@ -1,68 +1,33 @@
-import 'package:dragcon/global.dart';
+import 'package:dragcon/web_api/connection/team_connection.dart';
+import 'package:dragcon/web_api/dto/team_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:sizer/sizer.dart';
 
-
-
-
-class WriteSQLEkipaAdd extends StatefulWidget {
-  const WriteSQLEkipaAdd({Key? key}) : super(key: key);
+class NavBarTeam extends StatefulWidget {
+  const NavBarTeam({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return WriteSQLEkipaAddState();
+    return NavBarTeamState();
   }
 }
 
-class WriteSQLEkipaAddState extends State<WriteSQLEkipaAdd> {
+class NavBarTeamState extends State<NavBarTeam> {
   TextEditingController namectl = TextEditingController();
+  TeamConnection teamConnection = TeamConnection();
 
-  late bool error, sending, success;
   late String msg;
 
   @override
   void initState() {
-    error = false;
-    sending = false;
-    success = false;
     msg = "";
     super.initState();
   }
 
   Future<void> sendData() async {
-    var res = await http.post(Uri.parse(phpurl4), body: {
-      "name": namectl.text,
-    });
-
-    if (res.statusCode == 200) {
-      print(res.body);
-      var data = json.decode(res.body);
-      if (data["error"]) {
-        setState(() {
-          sending = false;
-          error = true;
-          msg = data["message"];
-        });
-      } else {
-        namectl.text = "";
-
-        setState(() {
-          sending = false;
-          success = true;
-        });
-      }
-    } else {
-      setState(
-        () {
-          error = true;
-          msg = "Error during sendign data.";
-          sending = false;
-        },
-      );
-    }
+    await teamConnection.addNewTeam(TeamDto(usersCount: 0, name: namectl.text));
+    Navigator.of(context).pop();
   }
 
   @override
@@ -95,12 +60,8 @@ class WriteSQLEkipaAddState extends State<WriteSQLEkipaAdd> {
               height: 50,
               width: 100.w,
               text: 'Send',
-              gradient: const LinearGradient(colors: [
-                Color.fromARGB(255, 92, 72, 71),
-                Color.fromARGB(255, 3, 2, 1)
-              ]),
-              selectedGradientColor: const LinearGradient(
-                  colors: [Colors.pinkAccent, Colors.purpleAccent]),
+              gradient: const LinearGradient(colors: [Color.fromARGB(255, 92, 72, 71), Color.fromARGB(255, 3, 2, 1)]),
+              selectedGradientColor: const LinearGradient(colors: [Colors.pinkAccent, Colors.purpleAccent]),
               isReverse: true,
               selectedTextColor: Colors.black,
               transitionType: TransitionType.LEFT_CENTER_ROUNDER,
@@ -108,11 +69,6 @@ class WriteSQLEkipaAddState extends State<WriteSQLEkipaAdd> {
               borderWidth: 1,
               borderRadius: 10,
               onPress: () {
-                setState(
-                  () {
-                    sending = true;
-                  },
-                );
                 sendData();
               },
             ),

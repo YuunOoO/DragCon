@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:dragcon/global.dart';
-import 'package:dragcon/mysql/tables.dart';
 import 'package:sizer/sizer.dart';
 import 'package:dragcon/Pages/home_page.dart';
 import 'package:dragcon/localauth.dart';

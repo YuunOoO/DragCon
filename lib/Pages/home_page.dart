@@ -1,6 +1,5 @@
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
-import 'package:dragcon/NavBar.dart';
-import 'package:dragcon/global.dart';
+import 'package:dragcon/nav_bar.dart';
 import 'package:dragcon/web_api/connection/task_connection.dart';
 import 'package:dragcon/web_api/dto/task_dto.dart';
 import 'package:dragcon/widgets/home_page_widgets.dart';
@@ -9,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-///////////////////////////
 class DraggableList {
   final String header;
   final List<DraggableListItem> items;
@@ -27,7 +25,6 @@ class DraggableListItem {
   });
 }
 
-///////////////////////
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -92,11 +89,11 @@ class HomePageState extends State<HomePage> {
 
   dragFlag() {
     return true;
-    if (user.admin <= 1) {
-      return true; //team master or root
-    } else {
-      return false;
-    }
+    // if (user.admin <= 1) {
+    //   return true; //team master or root
+    // } else {
+    //   return false;
+    // }
   }
 
   getFutureTasks() {
@@ -112,7 +109,6 @@ class HomePageState extends State<HomePage> {
             if (rebuild) {
               orderList(snapshot.data!);
               rebuild = false;
-              print("witamyw");
             }
 
             return LayoutBuilder(builder: (context, constraints) {
@@ -344,7 +340,7 @@ class HomePageState extends State<HomePage> {
                 child: Column(
                   children: <Widget>[
                     ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: const Color.fromARGB(0, 0, 0, 0)),
+                      style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(0, 0, 0, 0)),
                       onPressed: () {
                         showDialog(
                           context: context,
@@ -507,9 +503,9 @@ class HomePageState extends State<HomePage> {
     podmiana(oldListIndex, oldItemIndex, newListIndex, newItemIndex);
     setState(() {
       final oldListItems = lists[oldListIndex].children;
-    final newListItems = lists[newListIndex].children;
-    final movedItem = oldListItems.removeAt(oldItemIndex);
-    newListItems.insert(newItemIndex, movedItem);
+      final newListItems = lists[newListIndex].children;
+      final movedItem = oldListItems.removeAt(oldItemIndex);
+      newListItems.insert(newItemIndex, movedItem);
     });
   }
 
@@ -530,8 +526,9 @@ class HomePageState extends State<HomePage> {
       taskTmp.priority = 0;
     }
     taskTmp.type = allLists[idx3].header;
-    print(taskTmp.type);
-    print(taskTmp.priority);
+    if (taskTmp.type == "Done") {
+      taskTmp.timeExec = DateTime.now().toString();
+    }
     await taskConnection.patchTaskById(taskTmp.taskId!, taskTmp);
     //getFutureTasks();
     // //update for main list [fixes]

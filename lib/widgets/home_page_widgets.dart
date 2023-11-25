@@ -70,7 +70,7 @@ class HomePageWidgets {
         ),
         Text(
           'Czy na pewno chcesz opuścić aplikacje?',
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         const SizedBox(
           height: 24,

@@ -14,4 +14,14 @@ class ResponseHelper {
   ) {
     return List<Map<String, dynamic>>.from(responseJsonBody);
   }
+
+  static List<Map<String, dynamic>> itemsHydra(
+    Map<String, dynamic> responseJsonBody,
+  ) {
+    if (responseJsonBody['hydra:member'] == null) {
+      return [];
+    }
+    return List<Map<String, dynamic>>.from(responseJsonBody['hydra:member']!);
+  }
+
 }

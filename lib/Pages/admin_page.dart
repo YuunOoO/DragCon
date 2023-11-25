@@ -1,8 +1,7 @@
-import 'package:dragcon/NavBar.dart';
+import 'package:dragcon/nav_bar.dart';
 import 'package:dragcon/Pages/tasks_to_team.dart';
 import 'package:dragcon/Pages/tools_to_team.dart';
-import 'package:dragcon/Pages/teams.dart';
-import 'package:dragcon/mysql/tables.dart';
+import 'package:dragcon/Pages/teams_page.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -17,10 +16,7 @@ class AdminPageState extends State<AdminPage> {
   @override
   void initState() {
     super.initState();
-    String table = "users";
-    getData(table);
-    table = "ekipa";
-    getData(table);
+
   }
 
    gestureDetectorKategorie(
@@ -103,7 +99,7 @@ class AdminPageState extends State<AdminPage> {
         if (constraints.maxWidth > 1200) {
           return MaterialApp(
             home: Scaffold(
-              drawer: NavBar(),
+              drawer: const NavBar(),
               body: Container(
                 width: 100.w,
                 padding: const EdgeInsets.all(5.0),
@@ -133,7 +129,7 @@ class AdminPageState extends State<AdminPage> {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => const Teams()),
+                              builder: (BuildContext context) => const TeamsPage()),
                           (route) => true,
                         );
                       },
@@ -150,7 +146,7 @@ class AdminPageState extends State<AdminPage> {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => TaskToTeam()),
+                              builder: (BuildContext context) => const TaskToTeam()),
                           (route) => true,
                         );
                       },
@@ -180,7 +176,7 @@ class AdminPageState extends State<AdminPage> {
         } else if (constraints.maxWidth > 800 && constraints.maxWidth < 1200) {
           return MaterialApp(
             home: Scaffold(
-              drawer: NavBar(),
+              drawer: const NavBar(),
               body: Container(
                 width: 100.w,
                 padding: const EdgeInsets.all(5.0),
@@ -210,7 +206,7 @@ class AdminPageState extends State<AdminPage> {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => const Teams()),
+                              builder: (BuildContext context) => const TeamsPage()),
                           (route) => true,
                         );
                       },
@@ -227,7 +223,7 @@ class AdminPageState extends State<AdminPage> {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => TaskToTeam()),
+                              builder: (BuildContext context) => const TaskToTeam()),
                           (route) => true,
                         );
                       },
@@ -257,7 +253,7 @@ class AdminPageState extends State<AdminPage> {
         } else {
           return MaterialApp(
             home: Scaffold(
-              drawer: NavBar(),
+              drawer: const NavBar(),
               body: Container(
                 width: 100.w,
                 padding: const EdgeInsets.all(5.0),
@@ -282,7 +278,7 @@ class AdminPageState extends State<AdminPage> {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => const Teams()),
+                              builder: (BuildContext context) => const TeamsPage()),
                           (route) => true,
                         );
                       },
@@ -299,7 +295,7 @@ class AdminPageState extends State<AdminPage> {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => TaskToTeam()),
+                              builder: (BuildContext context) => const TaskToTeam()),
                           (route) => true,
                         );
                       },

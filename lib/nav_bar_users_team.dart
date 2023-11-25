@@ -1,95 +1,54 @@
-import 'package:dragcon/global.dart';
+import 'package:dragcon/web_api/connection/user_connection.dart';
+import 'package:dragcon/web_api/dto/user_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:sizer/sizer.dart';
 
 //import package file manually
 int numer = 1;
-void main() => runApp(const MyApp());
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: ThemeData(
-          primarySwatch: Colors.red,
-        ),
-        home: WriteSQLdataUser(numer));
-  }
-}
-
-class WriteSQLdataUser extends StatefulWidget {
-  WriteSQLdataUser(int nr, {Key? key}) : super(key: key) {
+class NavBarUsersTeam extends StatefulWidget {
+  NavBarUsersTeam(int nr, {Key? key}) : super(key: key) {
     numer = nr;
   }
   @override
   State<StatefulWidget> createState() {
-    return WriteSQLdataUserState();
+    return NavBarUsersTeamState();
   }
 }
 
-class WriteSQLdataUserState extends State<WriteSQLdataUser> {
+class NavBarUsersTeamState extends State<NavBarUsersTeam> {
   TextEditingController idctl = TextEditingController();
   TextEditingController passwordctl = TextEditingController();
   TextEditingController adminctl = TextEditingController();
   TextEditingController emailctl = TextEditingController();
   TextEditingController ekipaidctl = TextEditingController();
+  UserConnection userConnection = UserConnection();
 
-  late bool error, sending, success;
   late String msg;
 
   @override
   void initState() {
-    error = false;
-    sending = false;
-    success = false;
     msg = "";
     super.initState();
   }
 
   Future<void> sendData() async {
-    var res = await http.post(Uri.parse(phpurl), body: {
-      "id": idctl.text,
-      "password": passwordctl.text,
-      "admin": adminctl.text,
-      "email": emailctl.text,
-      "ekipa_id": numer.toString(),
-    });
+    var userDto = UserDto(
+        id: idctl.text,
+        password: passwordctl.text,
+        admin: int.parse(adminctl.text),
+        email: emailctl.text,
+        ekipaId: numer);
+    userConnection.addNewUser(userDto);
 
-    if (res.statusCode == 200) {
-      print(res.body);
-      var data = json.decode(res.body);
-      if (data["error"]) {
-        setState(() {
-          sending = false;
-          error = true;
-          msg = data["message"];
-        });
-      } else {
-        idctl.text = "";
-        passwordctl.text = "";
-        adminctl.text = "";
-        emailctl.text = "";
-        ekipaidctl.text = "";
+    idctl.text = "";
+    passwordctl.text = "";
+    adminctl.text = "";
+    emailctl.text = "";
+    ekipaidctl.text = "";
 
-        setState(() {
-          sending = false;
-          success = true;
-        });
-      }
-    } else {
-      setState(
-        () {
-          error = true;
-          msg = "Error during sendign data.";
-          sending = false;
-        },
-      );
-    }
+    setState(() {});
   }
 
   @override
@@ -138,12 +97,8 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
                 height: 50,
                 width: 100.w,
                 text: 'Send',
-                gradient: const LinearGradient(colors: [
-                  Color.fromARGB(255, 92, 72, 71),
-                  Color.fromARGB(255, 3, 2, 1)
-                ]),
-                selectedGradientColor: const LinearGradient(
-                    colors: [Colors.pinkAccent, Colors.purpleAccent]),
+                gradient: const LinearGradient(colors: [Color.fromARGB(255, 92, 72, 71), Color.fromARGB(255, 3, 2, 1)]),
+                selectedGradientColor: const LinearGradient(colors: [Colors.pinkAccent, Colors.purpleAccent]),
                 isReverse: true,
                 selectedTextColor: Colors.black,
                 transitionType: TransitionType.LEFT_CENTER_ROUNDER,
@@ -151,12 +106,7 @@ class WriteSQLdataUserState extends State<WriteSQLdataUser> {
                 borderWidth: 1,
                 borderRadius: 10,
                 onPress: () {
-                  setState(
-                    () {
-                      sending = true;
-                      sendData();
-                    },
-                  );
+                  sendData();
                 },
               ),
             ],

@@ -5,41 +5,22 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:sizer/sizer.dart';
 
-void main() => runApp(const MyApp());
 int numer = 1;
-late String type;
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: ThemeData(
-          primarySwatch: Colors.red,
-        ),
-        home: WriteSQLdataTasks(numer, type));
-  }
-}
-
-class WriteSQLdataTasks extends StatefulWidget {
-  WriteSQLdataTasks(int nr, String type, {Key? key}) : super(key: key) {
+class NavBarTools extends StatefulWidget {
+  NavBarTools(int nr, {Key? key}) : super(key: key) {
     numer = nr;
-    type = type;
   }
   @override
   State<StatefulWidget> createState() {
-    return WriteSQLdataTasksState();
+    return NavBarToolsState();
   }
 }
 
-class WriteSQLdataTasksState extends State<WriteSQLdataTasks> {
-  TextEditingController aboutctl = TextEditingController();
-  TextEditingController locationctl = TextEditingController();
-  TextEditingController priorityctl = TextEditingController();
+class NavBarToolsState extends State<NavBarTools> {
   TextEditingController typectl = TextEditingController();
+  TextEditingController amountctl = TextEditingController();
+  TextEditingController markctl = TextEditingController();
   TextEditingController ekipaidctl = TextEditingController();
-
   late bool error, sending, success;
   late String msg;
 
@@ -53,16 +34,14 @@ class WriteSQLdataTasksState extends State<WriteSQLdataTasks> {
   }
 
   Future<void> sendData() async {
-    var res = await http.post(Uri.parse(phpurl3), body: {
-      "about": aboutctl.text,
-      "location": locationctl.text,
-      "priority": priorityctl.text,
-      "type": type,
+    var res = await http.post(Uri.parse(phpurl2), body: {
+      "type": typectl.text,
+      "amount": amountctl.text,
+      "mark": markctl.text,
       "ekipa_id": numer.toString(),
     });
 
     if (res.statusCode == 200) {
-      print(res.body);
       var data = json.decode(res.body);
       if (data["error"]) {
         setState(() {
@@ -71,24 +50,21 @@ class WriteSQLdataTasksState extends State<WriteSQLdataTasks> {
           msg = data["message"];
         });
       } else {
-        aboutctl.text = "";
-        locationctl.text = "";
-        priorityctl.text = "";
         typectl.text = "";
+        amountctl.text = "";
+        markctl.text = "";
         ekipaidctl.text = "";
 
         setState(() {
           sending = false;
-          success = true; //mark success and refresh UI with setState
+          success = true;
         });
       }
     } else {
-      //there is error
       setState(() {
         error = true;
         msg = "Error during sendign data.";
         sending = false;
-        //mark error and refresh UI with setState
       });
     }
   }
@@ -102,34 +78,33 @@ class WriteSQLdataTasksState extends State<WriteSQLdataTasks> {
           child: Column(
             children: <Widget>[
               TextField(
-                controller: aboutctl,
+                controller: typectl,
                 decoration: const InputDecoration(
-                  labelText: "Task Content",
-                  hintText: "Input task data",
+                  labelText: "Input Type",
+                  hintText: "Tool type",
                 ),
               ),
               TextField(
-                controller: locationctl,
+                controller: amountctl,
                 decoration: const InputDecoration(
-                  labelText: "Input Location",
-                  hintText: "Location of the report",
+                  labelText: "Input Amount",
+                  hintText: "Number of tools",
                 ),
               ),
               TextField(
-                controller: priorityctl,
+                controller: markctl,
                 decoration: const InputDecoration(
-                  labelText: "Set Priority",
-                  hintText: "priority level (number)",
+                  labelText: "Enter the brand",
+                  hintText: "Tool brand",
                 ),
               ),
-//
               const SizedBox(
                 height: 10,
               ),
               AnimatedButton(
                 height: 50,
                 width: 100.w,
-                text: 'Send',
+                text: 'Wyślij',
                 gradient: const LinearGradient(colors: [
                   Color.fromARGB(255, 92, 72, 71),
                   Color.fromARGB(255, 3, 2, 1)
