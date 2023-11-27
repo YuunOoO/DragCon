@@ -7,6 +7,7 @@ class ApiService {
   // final SharedPreference sharedPreference = GetIt.I<SharedPreference>();
 
   Future<http.Response> makeApiGetRequest(String uri) async {
+    print(uri);
     return http.get(
       Uri.parse(uri),
       headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', 'Accept': 'application/ld+json'},
@@ -23,7 +24,7 @@ class ApiService {
     return http.patch(
       Uri.parse(uri),
       headers: <String, String>{
-         'Content-Type': 'application/merge-patch+json; charset=UTF-8',
+        'Content-Type': 'application/merge-patch+json; charset=UTF-8',
         //'Content-Type': 'application/ld+json',
         'Accept': 'application/ld+json', // Dodaj nagłówek Accept
         // 'Authorization': 'Bearer $token'

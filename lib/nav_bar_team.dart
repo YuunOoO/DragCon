@@ -5,7 +5,9 @@ import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:sizer/sizer.dart';
 
 class NavBarTeam extends StatefulWidget {
-  const NavBarTeam({Key? key}) : super(key: key);
+  const NavBarTeam({Key? key, required this.callback}) : super(key: key);
+
+  final Function() callback;
 
   @override
   State<StatefulWidget> createState() {
@@ -27,6 +29,8 @@ class NavBarTeamState extends State<NavBarTeam> {
 
   Future<void> sendData() async {
     await teamConnection.addNewTeam(TeamDto(usersCount: 0, name: namectl.text));
+   await Future.delayed(const Duration(seconds: 1), () {    widget.callback.call();});
+
     Navigator.of(context).pop();
   }
 

@@ -5,6 +5,7 @@ import 'package:dragcon/web_api/connection/task_connection.dart';
 import 'package:dragcon/web_api/connection/team_connection.dart';
 import 'package:dragcon/web_api/dto/task_dto.dart';
 import 'package:dragcon/web_api/dto/team_dto.dart';
+import 'package:dragcon/widgets/home_page_widgets.dart';
 import 'package:dragcon/zoom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -576,85 +577,43 @@ class TaskToTeamState extends State<TaskToTeam> {
         ),
         children: list.items
             .map(
-              (item) => DragAndDropItem(
-                child: Container(
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/images/taskback.jpg"),
-                      fit: BoxFit.cover,
-                      opacity: 0.9,
-                    ),
-                  ),
-                  child: Column(
-                    children: <Widget>[
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(0, 0, 0, 0)),
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                backgroundColor: const Color.fromARGB(255, 221, 221, 221),
-                                insetPadding: const EdgeInsets.all(30),
-                                content: Container(
-                                  margin: const EdgeInsets.all(0),
-                                  width: 100.w,
-                                  height: 100.h,
-                                  clipBehavior: Clip.none,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: SingleChildScrollView(
+              (item) =>  DragAndDropItem(
+                child: Column(
+                  children: <Widget>[
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(0, 0, 0, 0)),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              backgroundColor: const Color.fromARGB(255, 221, 221, 221),
+                              insetPadding: const EdgeInsets.all(30),
+                              content: Container(
+                                margin: const EdgeInsets.all(0),
+                                width: 100.w,
+                                height: 100.h,
+                                clipBehavior: Clip.none,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: SingleChildScrollView(
+                                    child: Center(
                                       child: Column(
                                         children: [
                                           Row(
                                             children: [
                                               Expanded(
-                                                child: Text(
+                                                child: HomePageWidgets.textWidgetStyles(
                                                   item.task.about,
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 20,
-                                                    color: Color.fromARGB(
-                                                      255,
-                                                      0,
-                                                      0,
-                                                      0,
-                                                    ),
-                                                  ),
-                                                  textAlign: TextAlign.center,
                                                 ),
                                               ),
                                             ],
                                           ),
                                           Row(
                                             children: [
-                                              Container(
-                                                margin: const EdgeInsets.all(5),
-                                                padding: const EdgeInsets.all(5),
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(100),
-                                                  border: Border.all(
-                                                    width: 2,
-                                                    color: const Color.fromARGB(255, 0, 0, 0),
-                                                  ),
-                                                  gradient: const LinearGradient(
-                                                    begin: Alignment.topLeft,
-                                                    end: Alignment(0.8, 1),
-                                                    colors: <Color>[
-                                                      Color(0xff556270),
-                                                      Color(0xffFF6B6B),
-                                                    ],
-                                                    tileMode: TileMode.mirror,
-                                                  ),
-                                                ),
-                                                child: const Icon(
-                                                  Icons.map,
-                                                  color: Color.fromARGB(255, 0, 0, 0),
-                                                  size: 35,
-                                                ),
-                                              ),
+                                              HomePageWidgets.iconsStyle(Icons.map),
                                               Container(
                                                 padding: const EdgeInsets.all(5),
                                                 width: 50.w,
@@ -662,44 +621,14 @@ class TaskToTeamState extends State<TaskToTeam> {
                                                   borderRadius: BorderRadius.circular(10),
                                                   color: const Color.fromARGB(133, 185, 185, 185),
                                                 ),
-                                                child: Text(
-                                                  "Lokalizacja: \n${item.task.location}",
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15,
-                                                    color: Color.fromARGB(255, 0, 0, 0),
-                                                  ),
-                                                ),
+                                                child: HomePageWidgets.textWidgetStyles(
+                                                    "Lokalizacja: \n${item.task.location}"),
                                               ),
                                             ],
                                           ),
                                           Row(
                                             children: [
-                                              Container(
-                                                margin: const EdgeInsets.all(5),
-                                                padding: const EdgeInsets.all(5),
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(100),
-                                                  border: Border.all(
-                                                    width: 2,
-                                                    color: const Color.fromARGB(255, 0, 0, 0),
-                                                  ),
-                                                  gradient: const LinearGradient(
-                                                    begin: Alignment.topLeft,
-                                                    end: Alignment(0.8, 1),
-                                                    colors: <Color>[
-                                                      Color(0xff556270),
-                                                      Color(0xffFF6B6B),
-                                                    ],
-                                                    tileMode: TileMode.mirror,
-                                                  ),
-                                                ),
-                                                child: const Icon(
-                                                  Icons.calendar_month,
-                                                  color: Color.fromARGB(255, 0, 0, 0),
-                                                  size: 35,
-                                                ),
-                                              ),
+                                              HomePageWidgets.iconsStyle(Icons.calendar_month),
                                               Container(
                                                 padding: const EdgeInsets.all(5),
                                                 width: 50.w,
@@ -707,46 +636,15 @@ class TaskToTeamState extends State<TaskToTeam> {
                                                   borderRadius: BorderRadius.circular(10),
                                                   color: const Color.fromARGB(133, 185, 185, 185),
                                                 ),
-                                                child: Text(
+                                                child: HomePageWidgets.textWidgetStyles(
                                                   "Data zgłoszenia: \n${item.task.dataReg}",
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15,
-                                                    color: Color.fromARGB(255, 0, 0, 0),
-                                                  ),
                                                 ),
                                               ),
                                             ],
                                           ),
                                           Row(
                                             children: [
-                                              ClipOval(
-                                                child: Container(
-                                                  margin: const EdgeInsets.all(5),
-                                                  padding: const EdgeInsets.all(5),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(100),
-                                                    border: Border.all(
-                                                      width: 2,
-                                                      color: const Color.fromARGB(255, 0, 0, 0),
-                                                    ),
-                                                    gradient: const LinearGradient(
-                                                      begin: Alignment.topLeft,
-                                                      end: Alignment(0.8, 1),
-                                                      colors: <Color>[
-                                                        Color(0xff556270),
-                                                        Color(0xffFF6B6B),
-                                                      ],
-                                                      tileMode: TileMode.mirror,
-                                                    ),
-                                                  ),
-                                                  child: const Icon(
-                                                    Icons.announcement,
-                                                    color: Color.fromARGB(255, 0, 0, 0),
-                                                    size: 35,
-                                                  ),
-                                                ),
-                                              ),
+                                              HomePageWidgets.iconsStyle(Icons.note),
                                               Container(
                                                 padding: const EdgeInsets.all(5),
                                                 width: 50.w,
@@ -754,13 +652,8 @@ class TaskToTeamState extends State<TaskToTeam> {
                                                   borderRadius: BorderRadius.circular(10),
                                                   color: const Color.fromARGB(133, 185, 185, 185),
                                                 ),
-                                                child: Text(
+                                                child: HomePageWidgets.textWidgetStyles(
                                                   "Typ zgłoszenia: \n${item.task.type}",
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15,
-                                                    color: Color.fromARGB(255, 0, 0, 0),
-                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -784,39 +677,16 @@ class TaskToTeamState extends State<TaskToTeam> {
                                                       borderRadius: BorderRadius.circular(10),
                                                       color: const Color.fromARGB(133, 185, 185, 185),
                                                     ),
-                                                    child: const Text("\n\n asdasd"),
+                                                    child: Text(item.task.about),
                                                   ),
                                                   Positioned(
                                                     right: 0,
                                                     left: 0,
                                                     top: -26,
                                                     child: FloatingActionButton(
+                                                      backgroundColor: Colors.transparent,
                                                       onPressed: null,
-                                                      child: Container(
-                                                        width: 60,
-                                                        height: 60,
-                                                        decoration: BoxDecoration(
-                                                          border: Border.all(
-                                                            width: 2,
-                                                            color: const Color.fromARGB(255, 0, 0, 0),
-                                                          ),
-                                                          shape: BoxShape.circle,
-                                                          gradient: const LinearGradient(
-                                                            begin: Alignment.topLeft,
-                                                            end: Alignment(0.8, 1),
-                                                            colors: <Color>[
-                                                              Color(0xff556270),
-                                                              Color(0xffFF6B6B),
-                                                            ],
-                                                            tileMode: TileMode.mirror,
-                                                          ),
-                                                        ),
-                                                        child: const Icon(
-                                                          Icons.comment,
-                                                          size: 40,
-                                                          color: Colors.black,
-                                                        ),
-                                                      ),
+                                                      child: HomePageWidgets.iconsStyle(Icons.comment),
                                                     ),
                                                   ),
                                                 ],
@@ -828,54 +698,36 @@ class TaskToTeamState extends State<TaskToTeam> {
                                     ),
                                   ),
                                 ),
-                              );
-                            },
-                          );
-                        },
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 5,
-                                  child: Text(
-                                    "Lokalizacja: \n${item.task.location}",
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15,
-                                      color: Color.fromARGB(255, 255, 255, 255),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 5,
-                                  child: Text(
-                                    "Data zgłoszenia: \n${item.task.dataReg}",
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15,
-                                      color: Color.fromARGB(255, 255, 255, 255),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Text(
-                              "Krótki opis: ${item.task.about}",
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
-                                color: Color.fromARGB(255, 255, 255, 255),
                               ),
-                            ),
-                          ],
-                        ),
+                            );
+                          },
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 5,
+                                child: HomePageWidgets.textWidgetStyles(
+                                  "Lokalizacja: \n${item.task.location}",
+                                ),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: HomePageWidgets.textWidgetStyles(
+                                  "Data zgłoszenia: \n${item.task.dataReg}",
+                                ),
+                              ),
+                            ],
+                          ),
+                          HomePageWidgets.textWidgetStyles(
+                            "Krótki opis: ${item.task.about}",
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             )

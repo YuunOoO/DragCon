@@ -73,11 +73,11 @@ class ToolConnection {
     var response = await apiService.makeApiGetRequest(
       '$apiHost/api/tools?page=1',
     );
-
-    if (response.statusCode == 201) {
+    print(response.statusCode);
+    if (response.statusCode == 201 || response.statusCode == 200) {
       var decodedBody = json.decode(response.body);
       var items = ResponseHelper.itemsHydra(decodedBody);
-
+      print(items);
       return items.map((e) => ToolDto.fromJson(e)).toList();
     } else {
       throw CantFetchDataException();

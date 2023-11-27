@@ -18,11 +18,13 @@ class ToolsToTeam extends StatefulWidget {
 //list containers
 class DraggableList {
   final int header;
+  final String teamName;
   final List<DraggableListItem> items;
 
   const DraggableList({
     required this.header,
     required this.items,
+    required this.teamName,
   });
 }
 
@@ -51,6 +53,7 @@ class ToolsToTeamState extends State<ToolsToTeam> {
 
   getFutureTools() {
     futureList = toolConnection.getAllTools();
+    print("witam");
   }
 
   orderList(List<ToolDto> toolList) {
@@ -61,7 +64,7 @@ class ToolsToTeamState extends State<ToolsToTeam> {
       if (index != -1) {
         allLists[index].items.add(DraggableListItem(title: tool.type, tool: tool));
       } else {
-        allLists.add(DraggableList(header: tool.ekipaId, items: [DraggableListItem(title: tool.type, tool: tool)]));
+        allLists.add(DraggableList(teamName: tool.teamName,header: tool.ekipaId, items: [DraggableListItem(title: tool.type, tool: tool)]));
       }
     }
 
@@ -89,6 +92,7 @@ class ToolsToTeamState extends State<ToolsToTeam> {
         future: futureList,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            orderList(snapshot.data!);
             return LayoutBuilder(
               builder: (context, constraints) {
                 if (constraints.maxWidth > 1200) {
@@ -199,7 +203,7 @@ class ToolsToTeamState extends State<ToolsToTeam> {
                       height: 100.h,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage("assets/images/japback.jpg"),
+                          image: AssetImage("assets/images/loginback.jpg"),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -264,7 +268,7 @@ class ToolsToTeamState extends State<ToolsToTeam> {
                 Expanded(
                   flex: 7,
                   child: Text(
-                    list.header.toString(),
+                    list.teamName,
                     maxLines: 2,
                     textAlign: TextAlign.left,
                     style: const TextStyle(
@@ -302,32 +306,38 @@ class ToolsToTeamState extends State<ToolsToTeam> {
           ),
         ),
         children: list.items
-            .map((item) => DragAndDropItem(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/images/equipback.jpg"),
-                        fit: BoxFit.cover,
-                        opacity: 0.8,
-                      ),
-                    ),
-                    child: ListTile(
-                      title: Column(
-                        children: <Widget>[
+            .map((item) => 
+            DragAndDropItem(
+              child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(0, 0, 0, 0)),
+                        onPressed: () {},
+                        child:  Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Expanded(
+                                flex: 5,
+                                child: Text(
+                                  "Nazwa narzędzia: ${item.tool.type}",
+                                ),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: Text(
+                                  "Marka: ${item.tool.mark}",
+                                ),
+                              ),
+                            ],
+                          ),
                           Text(
-                            item.tool.type,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            "Ilość: ${item.tool.amount}",
                           ),
                         ],
                       ),
-                    ),
-                  ),
-                ))
+                        ),
+            )
+            )
             .toList(),
       );
 //changing list or item position

@@ -7,6 +7,7 @@ class UserDto implements DtoToJsonInterface {
   final int admin;
   final String email;
   int ekipaId;
+  final String? teamName;
 
   UserDto({
     this.keyId,
@@ -15,6 +16,7 @@ class UserDto implements DtoToJsonInterface {
     required this.admin,
     required this.email,
     required this.ekipaId,
+    this.teamName,
   });
 
   factory UserDto.fromJson(Map<String, dynamic> json) {
@@ -25,6 +27,7 @@ class UserDto implements DtoToJsonInterface {
       admin: json['admin'],
       email: json['email'],
       ekipaId: json['ekipaId'],
+      teamName: json['teamName'],
     );
   }
 
