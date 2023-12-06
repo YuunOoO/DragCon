@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class HomePageWidgets {
@@ -25,9 +26,10 @@ class HomePageWidgets {
     return Text(
       text,
       style: const TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 15,
-        color: Color.fromARGB(255, 0, 0, 0),
+        //fontWeight: FontWeight.bold,
+        fontSize: 13,
+        color: Color.fromARGB(237, 255, 255, 255), fontFamily: 'Lato',
+        //overflow: TextOverflow.ellipsis, // Ucinaj tekst i dodaj "..."
       ),
       textAlign: TextAlign.center,
     );
@@ -110,6 +112,4 @@ class HomePageWidgets {
     bool? exitResult = await HomePageWidgets.showExitBottomSheet(context);
     return exitResult ?? false;
   }
-
-  
 }

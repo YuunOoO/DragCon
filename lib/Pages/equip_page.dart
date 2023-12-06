@@ -1,4 +1,4 @@
-import 'package:dragcon/nav_bar.dart';
+import 'package:dragcon/widgets/nav_bars/nav_bar.dart';
 import 'package:dragcon/web_api/connection/tool_connection.dart';
 import 'package:dragcon/web_api/dto/tool_dto.dart';
 import 'package:sizer/sizer.dart';
@@ -18,12 +18,13 @@ class EquipPageState extends State<EquipPage> {
   late Future<List<ToolDto>> futureToolList;
   @override
   void initState() {
-    futureToolList = getFutureTools();
+    getFutureTools();
+
     super.initState();
   }
 
   getFutureTools() {
-    toolConnection.getAllToolsByEkipaId(1);
+    futureToolList = toolConnection.getAllToolsByEkipaId(1);
   }
 
   @override
@@ -51,30 +52,10 @@ class EquipPageState extends State<EquipPage> {
                           tileMode: TileMode.mirror,
                         ),
                       ),
-                      child: list(context,snapshot.data!),
+                      child: list(context, snapshot.data!),
                     ),
                   );
-                } else if (constraints.maxWidth > 800 && constraints.maxWidth < 1200) {
-                  return Scaffold(
-                    drawer: const NavBar(),
-                    body: Container(
-                      height: 100.h,
-                      width: 100.w,
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment(0.8, 1),
-                          colors: <Color>[
-                            Color(0xffC04848),
-                            Color(0xff480048),
-                          ],
-                          tileMode: TileMode.mirror,
-                        ),
-                      ),
-                      child: list(context,snapshot.data!),
-                    ),
-                  );
-                } else {
+                }else {
                   return Scaffold(
                     drawer: const NavBar(),
                     body: Container(
@@ -82,11 +63,11 @@ class EquipPageState extends State<EquipPage> {
                       width: 100.w,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage("assets/images/japback.jpg"),
+                          image: AssetImage("assets/images/japan1.png"),
                           fit: BoxFit.cover,
                         ),
                       ),
-                      child: list(context,snapshot.data!),
+                      child: list(context, snapshot.data!),
                     ),
                   );
                 }

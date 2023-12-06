@@ -1,8 +1,9 @@
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
-import 'package:dragcon/nav_bar.dart';
-import 'package:dragcon/nav_bar_tool.dart';
+import 'package:dragcon/widgets/nav_bars/nav_bar.dart';
+import 'package:dragcon/widgets/nav_bars/nav_bar_tool.dart';
 import 'package:dragcon/web_api/connection/tool_connection.dart';
 import 'package:dragcon/web_api/dto/tool_dto.dart';
+import 'package:dragcon/widgets/home_page_widgets.dart';
 import 'package:dragcon/zoom.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -43,6 +44,7 @@ class ToolsToTeamState extends State<ToolsToTeam> {
   ToolConnection toolConnection = ToolConnection();
   late List<DragAndDropList> lists;
   List<DraggableList> allLists = [];
+  bool background = true;
 
 //first loading
   @override
@@ -53,7 +55,6 @@ class ToolsToTeamState extends State<ToolsToTeam> {
 
   getFutureTools() {
     futureList = toolConnection.getAllTools();
-    print("witam");
   }
 
   orderList(List<ToolDto> toolList) {
@@ -64,7 +65,8 @@ class ToolsToTeamState extends State<ToolsToTeam> {
       if (index != -1) {
         allLists[index].items.add(DraggableListItem(title: tool.type, tool: tool));
       } else {
-        allLists.add(DraggableList(teamName: tool.teamName,header: tool.ekipaId, items: [DraggableListItem(title: tool.type, tool: tool)]));
+        allLists.add(DraggableList(
+            teamName: tool.teamName, header: tool.ekipaId, items: [DraggableListItem(title: tool.type, tool: tool)]));
       }
     }
 
@@ -72,18 +74,60 @@ class ToolsToTeamState extends State<ToolsToTeam> {
   }
 
   floatingActionButtonStyle() {
-    return FloatingActionButton(
-      onPressed: () {
-        setState(() {
-          _sizer = zoomDrag(_sizer);
-        });
-      },
-      backgroundColor: const Color.fromARGB(255, 155, 17, 132),
-      child: const FaIcon(
-        FontAwesomeIcons.magnifyingGlassPlus,
-        color: Colors.white,
-      ),
-    );
+    return LayoutBuilder(builder: (context, constraints) {
+      if (constraints.maxWidth > 1200) {
+        return FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              _sizer = zoomDrag(_sizer);
+            });
+          },
+          backgroundColor: const Color.fromARGB(255, 155, 17, 132),
+          child: const FaIcon(
+            FontAwesomeIcons.magnifyingGlassPlus,
+            color: Colors.white,
+          ),
+        );
+      } else {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              mini: true,
+              onPressed: () {
+                setState(() {
+                  background = !background;
+                });
+              },
+              backgroundColor: const Color.fromARGB(232, 87, 7, 73),
+              child: FaIcon(
+                FontAwesomeIcons.lightbulb,
+                color: background ? Colors.yellow : Colors.white,
+                size: 20,
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            FloatingActionButton(
+              mini: true,
+              onPressed: () {
+                // Add your onPressed code here!
+                setState(() {
+                  _sizer = zoomDrag(_sizer);
+                });
+              },
+              backgroundColor: const Color.fromARGB(232, 87, 7, 73),
+              child: const FaIcon(
+                FontAwesomeIcons.magnifyingGlassPlus,
+                color: Colors.white,
+                size: 20,
+              ),
+            ),
+          ],
+        );
+      }
+    });
   }
 
   @override
@@ -145,71 +189,24 @@ class ToolsToTeamState extends State<ToolsToTeam> {
                     ),
                     floatingActionButton: floatingActionButtonStyle(),
                   );
-                } else if (constraints.maxWidth > 800 && constraints.maxWidth < 1200) {
-                  return Scaffold(
-                    drawer: const NavBar(),
-                    body: Container(
-                      width: 100.w,
-                      height: 100.h,
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment(0.8, 1),
-                          colors: <Color>[
-                            Color(0xffC04848),
-                            Color(0xff480048),
-                          ],
-                          tileMode: TileMode.mirror,
-                        ),
-                      ),
-                      child: DragAndDropLists(
-                        lastItemTargetHeight: 0,
-                        //addLastItemTargetHeightToTop: true,
-                        lastListTargetSize: 1,
-                        listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
-
-                        listInnerDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            color: const Color.fromARGB(255, 12, 12, 12),
-                            width: 5,
-                          ),
-                        ),
-                        children: lists,
-
-                        itemDivider: const Divider(
-                          thickness: 2,
-                          height: 2,
-                          color: Colors.black,
-                        ),
-                        itemDecorationWhileDragging: const BoxDecoration(
-                          color: Color.fromARGB(255, 225, 159, 236),
-                          boxShadow: [BoxShadow(color: Color.fromARGB(255, 189, 184, 184), blurRadius: 12)],
-                        ),
-                        onItemReorder: onReorderListItem,
-                        onListReorder: onReorderList,
-                        axis: Axis.horizontal,
-                        listWidth: _sizer.x.h,
-                        listDraggingWidth: _sizer.y.h,
-                      ),
-                    ),
-                    floatingActionButton: floatingActionButtonStyle(),
-                  );
                 } else {
                   return Scaffold(
                     drawer: const NavBar(),
                     body: Container(
                       width: 100.w,
                       height: 100.h,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/images/loginback.jpg"),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                      decoration: background
+                          ? const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage("assets/images/japan4.png"),
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : const BoxDecoration(color: Colors.grey),
                       child: DragAndDropLists(
                         lastItemTargetHeight: 0,
                         //addLastItemTargetHeightToTop: true,
+
                         lastListTargetSize: 1,
                         listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
 
@@ -269,11 +266,11 @@ class ToolsToTeamState extends State<ToolsToTeam> {
                   flex: 7,
                   child: Text(
                     list.teamName,
-                    maxLines: 2,
+                    maxLines: 1,
                     textAlign: TextAlign.left,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 25,
+                      fontSize: 23,
                       color: Color.fromARGB(255, 0, 0, 0),
                     ),
                   ),
@@ -306,38 +303,57 @@ class ToolsToTeamState extends State<ToolsToTeam> {
           ),
         ),
         children: list.items
-            .map((item) => 
-            DragAndDropItem(
-              child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(0, 0, 0, 0)),
-                        onPressed: () {},
-                        child:  Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            .map((item) => DragAndDropItem(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(0, 0, 0, 0)),
+                    onPressed: () {},
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(right: 30),
+                          child: Row(
                             children: [
                               Expanded(
                                 flex: 5,
-                                child: Text(
-                                  "Nazwa narzędzia: ${item.tool.type}",
+                                child: Center(
+                                  child: HomePageWidgets.textWidgetStyles(
+                                    "Tool: \n${item.tool.type}",
+                                  ),
                                 ),
                               ),
                               Expanded(
                                 flex: 5,
-                                child: Text(
-                                  "Marka: ${item.tool.mark}",
+                                child: Center(
+                                  child: HomePageWidgets.textWidgetStyles(
+                                    "Mark: \n${item.tool.mark}",
+                                  ),
                                 ),
                               ),
+                              Expanded(
+                                flex: 2,
+                                child: IconButton(
+                                  //   padding: const EdgeInsets.only(left: 20),
+                                  onPressed: () {
+                                    toolConnection.deleteTool(item.tool.toolId);
+                                  },
+                                  icon: const Icon(
+                                    Icons.highlight_remove_rounded,
+                                    size: 20,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              )
                             ],
                           ),
-                          Text(
-                            "Ilość: ${item.tool.amount}",
-                          ),
-                        ],
-                      ),
                         ),
-            )
-            )
+                        HomePageWidgets.textWidgetStyles(
+                          "Quantity: ${item.tool.amount}",
+                        ),
+                      ],
+                    ),
+                  ),
+                ))
             .toList(),
       );
 //changing list or item position

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dragcon/config.dart';
 import 'package:dragcon/web_api/dto/team_dto.dart';
+import 'package:dragcon/web_api/dto/user_dto_permission_level_patch.dart';
 import 'package:dragcon/web_api/exceptions/cant_fetch_data.dart';
 import 'package:dragcon/web_api/response_helper.dart';
 import 'package:dragcon/web_api/service/api_service.dart';
@@ -20,8 +21,8 @@ class TeamConnection {
     }
   }
 
-  patchTeamById(int id, TeamDto teamDto) async {
-    final Response response = await apiService.patch('$apiHost/api/teams/$id', teamDto);
+  patchTeamById(int id, UserDtoPermissionLevelPatch userDtoPermissionLevelPatch ) async {
+    final Response response = await apiService.patch('$apiHost/api/teams/$id', userDtoPermissionLevelPatch);
     return response.statusCode;
   }
 

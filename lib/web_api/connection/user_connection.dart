@@ -23,7 +23,6 @@ class UserConnection {
   }
 
   patchUserById(int id, UserDto userDto) async {
-    print("kkekex");
     print(userDto.toJson());
     final Response response = await apiService.patch('$apiHost/api/users/$id', userDto);
     print(response.body);

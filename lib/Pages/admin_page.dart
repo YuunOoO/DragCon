@@ -1,4 +1,4 @@
-import 'package:dragcon/nav_bar.dart';
+import 'package:dragcon/widgets/nav_bars/nav_bar.dart';
 import 'package:dragcon/Pages/tasks_to_team.dart';
 import 'package:dragcon/Pages/tools_to_team.dart';
 import 'package:dragcon/Pages/teams_page.dart';
@@ -16,10 +16,9 @@ class AdminPageState extends State<AdminPage> {
   @override
   void initState() {
     super.initState();
-
   }
 
-   gestureDetectorKategorie(
+  gestureDetectorKategorie(
     var background,
     var name,
     var iconName,
@@ -53,13 +52,10 @@ class AdminPageState extends State<AdminPage> {
                   bottomLeft: Radius.circular(20),
                   bottomRight: Radius.circular(20),
                 ),
-                gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [
-                      Colors.black.withOpacity(0.9),
-                      Colors.transparent,
-                    ]),
+                gradient: LinearGradient(begin: Alignment.bottomCenter, end: Alignment.topCenter, colors: [
+                  Colors.black.withOpacity(0.9),
+                  Colors.transparent,
+                ]),
               ),
             ),
           ),
@@ -119,7 +115,7 @@ class AdminPageState extends State<AdminPage> {
                   children: <Widget>[
                     GestureDetector(
                       child: gestureDetectorKategorie(
-                        "assets/images/userback.jpg",
+                        "assets/images/japan5.png",
                         'Teams',
                         Icons.assignment_ind,
                         250,
@@ -128,15 +124,14 @@ class AdminPageState extends State<AdminPage> {
                       onTap: () {
                         Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => const TeamsPage()),
+                          MaterialPageRoute(builder: (BuildContext context) => const TeamsPage()),
                           (route) => true,
                         );
                       },
                     ),
                     GestureDetector(
                       child: gestureDetectorKategorie(
-                        "assets/images/taskback.jpg",
+                        "assets/images/japan7.png",
                         'Tasks',
                         Icons.assignment,
                         250,
@@ -145,15 +140,14 @@ class AdminPageState extends State<AdminPage> {
                       onTap: () {
                         Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => const TaskToTeam()),
+                          MaterialPageRoute(builder: (BuildContext context) => const TaskToTeam()),
                           (route) => true,
                         );
                       },
                     ),
                     GestureDetector(
                       child: gestureDetectorKategorie(
-                        "assets/images/equipback.jpg",
+                        "assets/images/japan6.png",
                         'Tools',
                         Icons.handyman,
                         250,
@@ -162,85 +156,7 @@ class AdminPageState extends State<AdminPage> {
                       onTap: () {
                         Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => const ToolsToTeam()),
-                          (route) => true,
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        } else if (constraints.maxWidth > 800 && constraints.maxWidth < 1200) {
-          return MaterialApp(
-            home: Scaffold(
-              drawer: const NavBar(),
-              body: Container(
-                width: 100.w,
-                padding: const EdgeInsets.all(5.0),
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment(0.8, 1),
-                    colors: <Color>[
-                      Color(0xffC04848),
-                      Color(0xff480048),
-                    ],
-                    tileMode: TileMode.mirror,
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    GestureDetector(
-                      child: gestureDetectorKategorie(
-                        "assets/images/userback.jpg",
-                        'Teams',
-                        Icons.assignment_ind,
-                        250,
-                        480,
-                      ),
-                      onTap: () {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => const TeamsPage()),
-                          (route) => true,
-                        );
-                      },
-                    ),
-                    GestureDetector(
-                      child: gestureDetectorKategorie(
-                        "assets/images/taskback.jpg",
-                        'Tasks',
-                        Icons.assignment,
-                        250,
-                        480,
-                      ),
-                      onTap: () {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => const TaskToTeam()),
-                          (route) => true,
-                        );
-                      },
-                    ),
-                    GestureDetector(
-                      child: gestureDetectorKategorie(
-                        "assets/images/equipback.jpg",
-                        'Tools',
-                        Icons.handyman,
-                        250,
-                        480,
-                      ),
-                      onTap: () {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => const ToolsToTeam()),
+                          MaterialPageRoute(builder: (BuildContext context) => const ToolsToTeam()),
                           (route) => true,
                         );
                       },
@@ -257,18 +173,13 @@ class AdminPageState extends State<AdminPage> {
               body: Container(
                 width: 100.w,
                 padding: const EdgeInsets.all(5.0),
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/loginback.jpg"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                decoration: const BoxDecoration(color: Color.fromARGB(173, 0, 0, 0)),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     GestureDetector(
                       child: gestureDetectorKategorie(
-                        "assets/images/userback.jpg",
+                        "assets/images/japan5.png",
                         'Teams',
                         Icons.assignment_ind,
                         180,
@@ -277,15 +188,14 @@ class AdminPageState extends State<AdminPage> {
                       onTap: () {
                         Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => const TeamsPage()),
+                          MaterialPageRoute(builder: (BuildContext context) => const TeamsPage()),
                           (route) => true,
                         );
                       },
                     ),
                     GestureDetector(
                       child: gestureDetectorKategorie(
-                        "assets/images/taskback.jpg",
+                        "assets/images/japan7.png",
                         'Tasks',
                         Icons.assignment,
                         180,
@@ -294,15 +204,14 @@ class AdminPageState extends State<AdminPage> {
                       onTap: () {
                         Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => const TaskToTeam()),
+                          MaterialPageRoute(builder: (BuildContext context) => const TaskToTeam()),
                           (route) => true,
                         );
                       },
                     ),
                     GestureDetector(
                       child: gestureDetectorKategorie(
-                        "assets/images/equipback.jpg",
+                        "assets/images/japan6.png",
                         'Tools',
                         Icons.handyman,
                         180,
@@ -311,8 +220,7 @@ class AdminPageState extends State<AdminPage> {
                       onTap: () {
                         Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => const ToolsToTeam()),
+                          MaterialPageRoute(builder: (BuildContext context) => const ToolsToTeam()),
                           (route) => true,
                         );
                       },

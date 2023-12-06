@@ -136,16 +136,17 @@ class LoginScreenState extends State<LoginScreen> {
       } else {
         return Scaffold(
           body: Container(
+            alignment: Alignment.bottomCenter,
             padding: const EdgeInsets.all(10.0),
             height: 100.h,
             width: 100.w,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/loginback.jpg"),
+                image: AssetImage("assets/images/japan2.png"),
                 fit: BoxFit.cover,
               ),
             ),
-            child: Center(
+            child: SizedBox(
               child: SingleChildScrollView(
                 child: AnnotatedRegion<SystemUiOverlayStyle>(
                   value: SystemUiOverlayStyle.light,
@@ -155,13 +156,13 @@ class LoginScreenState extends State<LoginScreen> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
-                            const SizedBox(height: 20),
+                            const SizedBox(height: 40),
                             Image.asset(
                               'assets/icons/logo.png',
-                              height: 300,
-                              width: 300,
+                              height: 170,
+                              width: 170,
                             ),
-                            const SizedBox(height: 80),
+                            const SizedBox(height: 100),
                             buildEmail(name),
                             buildPassword(passw),
                             const SizedBox(height: 20),

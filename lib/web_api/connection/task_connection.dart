@@ -26,9 +26,7 @@ class TaskConnection {
   }
 
   addNewTask(TaskDtoPost taskDtoPost) async {
-    print(taskDtoPost.toJson());
     final Response response = await apiService.post('$apiHost/api/tasks', taskDtoPost);
-    print(response.body);
     return response.statusCode;
   }
 
@@ -42,7 +40,6 @@ class TaskConnection {
     int pageNumber = 1;
 
     while (true) {
-      print("witam");
       var items = await _getDtosByPageNumberAndId(pageNumber, id);
       if (items.isEmpty) {
         break;
@@ -60,12 +57,9 @@ class TaskConnection {
     int pageNumber,
     int id,
   ) async {
-    print("xd");
     var response = await apiService.makeApiGetRequest(
       '$apiHost/tasks-by-ekipa/$id?page=$pageNumber',
     );
-
-    print(response.body);
 
     if (response.statusCode != 400) {
       var decodedBody = json.decode(response.body);

@@ -4,12 +4,11 @@ import 'package:dragcon/Pages/geo_page.dart';
 import 'package:dragcon/Pages/home_page.dart';
 import 'package:flutter/material.dart';
 
-import 'global.dart';
+import '../../global.dart';
 
 bool ifadmin() {
 //  if (user.admin == 0) return true;
   return true;
-
 }
 
 class NavBar extends StatelessWidget {
@@ -18,26 +17,24 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: const Color.fromARGB(169, 253, 1, 219),
+      backgroundColor: const Color.fromARGB(188, 218, 207, 207),
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text(user.id),
-            accountEmail: Text(user.email),
-            currentAccountPicture: CircleAvatar(
-              child: ClipOval(
-                child: Image.asset(
-                  'assets/images/komi.jpg',
-                  fit: BoxFit.cover,
-                  width: 90,
-                  height: 90,
-                ),
+            accountName: Text(user.id,style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),),
+            accountEmail: Text(user.email,style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 20)),
+            currentAccountPicture: const CircleAvatar(
+              backgroundColor: Color.fromARGB(174, 226, 221, 221),
+              child: Icon(
+                Icons.person,
+                size: 60.0,
+                color: Colors.black,
               ),
             ),
             decoration: const BoxDecoration(
               color: Colors.blue,
-              image: DecorationImage(fit: BoxFit.fill, image: AssetImage('assets/images/navbarback.jpg')),
+              image: DecorationImage(fit: BoxFit.fill, image: AssetImage('assets/images/drawer.png')),
             ),
           ),
           Visibility(

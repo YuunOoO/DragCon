@@ -1,5 +1,6 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
-import 'package:dragcon/nav_bar.dart';
+import 'package:dragcon/widgets/nav_bars/nav_bar.dart';
 import 'package:dragcon/web_api/connection/task_connection.dart';
 import 'package:dragcon/web_api/dto/task_dto.dart';
 import 'package:dragcon/widgets/home_page_widgets.dart';
@@ -41,10 +42,12 @@ class HomePageState extends State<HomePage> {
   bool zoom = true;
   TileSizer _sizer = TileSizer();
   TaskConnection taskConnection = TaskConnection();
-  List<DraggableList> allLists = [];
+  bool background = true;
+
   late Future<List<TaskDto>> futureList;
   bool rebuild = true;
 
+  List<DraggableList> allLists = [];
   orderList(List<TaskDto> taskList) {
     allLists.clear();
     List<DraggableListItem> backlogBuilder = [];
@@ -100,6 +103,63 @@ class HomePageState extends State<HomePage> {
     futureList = taskConnection.getAllTasksByEkipaId(1);
   }
 
+  floatingActionButtonStyle() {
+    return LayoutBuilder(builder: (context, constraints) {
+      if (constraints.maxWidth > 1200) {
+        return FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              _sizer = zoomDrag(_sizer);
+            });
+          },
+          backgroundColor: const Color.fromARGB(255, 155, 17, 132),
+          child: const FaIcon(
+            FontAwesomeIcons.magnifyingGlassPlus,
+            color: Colors.white,
+          ),
+        );
+      } else {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              mini: true,
+              onPressed: () {
+                setState(() {
+                  background = !background;
+                });
+              },
+              backgroundColor: const Color.fromARGB(232, 87, 7, 73),
+              child: FaIcon(
+                FontAwesomeIcons.lightbulb,
+                color: background ? Colors.yellow : Colors.white,
+                size: 20,
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            FloatingActionButton(
+              mini: true,
+              onPressed: () {
+                // Add your onPressed code here!
+                setState(() {
+                  _sizer = zoomDrag(_sizer);
+                });
+              },
+              backgroundColor: const Color.fromARGB(232, 87, 7, 73),
+              child: const FaIcon(
+                FontAwesomeIcons.magnifyingGlassPlus,
+                color: Colors.white,
+                size: 20,
+              ),
+            ),
+          ],
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<TaskDto>>(
@@ -116,6 +176,9 @@ class HomePageState extends State<HomePage> {
                 return WillPopScope(
                   child: Scaffold(
                     drawer: const NavBar(),
+                    appBar: AppBar(
+                      backgroundColor: const Color(0xff480048),
+                    ),
                     body: Container(
                       width: 100.w,
                       height: 100.h,
@@ -165,86 +228,7 @@ class HomePageState extends State<HomePage> {
                         listDraggingWidth: _sizer.y.h,
                       ),
                     ),
-                    floatingActionButton: FloatingActionButton(
-                      onPressed: () {
-                        setState(() {
-                          _sizer = zoomDrag(_sizer);
-                        });
-                      },
-                      backgroundColor: const Color.fromARGB(232, 87, 7, 73),
-                      child: const FaIcon(
-                        FontAwesomeIcons.magnifyingGlassPlus,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  onWillPop: () => HomePageWidgets.onWillPop(context),
-                );
-              } else if (constraints.maxWidth > 800 && constraints.maxWidth < 1200) {
-                return WillPopScope(
-                  child: Scaffold(
-                    drawer: const NavBar(),
-                    body: Container(
-                      width: 100.w,
-                      height: 100.h,
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment(0.8, 1),
-                          colors: <Color>[
-                            Color(0xffC04848),
-                            Color(0xff480048),
-                          ],
-                          tileMode: TileMode.mirror,
-                        ),
-                      ),
-                      child: DragAndDropLists(
-                        lastItemTargetHeight: 5,
-                        //addLastItemTargetHeightToTop: true,
-                        lastListTargetSize: 1,
-                        listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
-                        listInnerDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            color: const Color.fromARGB(255, 12, 12, 12),
-                            width: 5,
-                          ),
-                        ),
-                        children: lists,
-
-                        itemDivider: const Divider(
-                          thickness: 2,
-                          height: 2,
-                          color: Colors.black,
-                        ),
-                        itemDecorationWhileDragging: const BoxDecoration(
-                          color: Color.fromARGB(255, 225, 159, 236),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromARGB(255, 189, 184, 184),
-                              blurRadius: 12,
-                            )
-                          ],
-                        ),
-                        onItemReorder: onReorderListItem,
-                        onListReorder: onReorderList,
-                        axis: Axis.horizontal,
-                        listWidth: _sizer.x.h,
-                        listDraggingWidth: _sizer.y.h,
-                      ),
-                    ),
-                    floatingActionButton: FloatingActionButton(
-                      onPressed: () {
-                        setState(() {
-                          _sizer = zoomDrag(_sizer);
-                        });
-                      },
-                      backgroundColor: const Color.fromARGB(232, 87, 7, 73),
-                      child: const FaIcon(
-                        FontAwesomeIcons.magnifyingGlassPlus,
-                        color: Colors.white,
-                      ),
-                    ),
+                    floatingActionButton: floatingActionButtonStyle(),
                   ),
                   onWillPop: () => HomePageWidgets.onWillPop(context),
                 );
@@ -255,16 +239,19 @@ class HomePageState extends State<HomePage> {
                     body: Container(
                       width: 100.w,
                       height: 100.h,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/images/loginback.jpg"),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                      decoration: background
+                          ? const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage("assets/images/japan4.png"),
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : const BoxDecoration(color: Colors.grey),
                       child: DragAndDropLists(
                         lastItemTargetHeight: 5,
                         //addLastItemTargetHeightToTop: true,
                         lastListTargetSize: 1,
+
                         listPadding: EdgeInsets.fromLTRB(2.w, 5.h, 0.w, 5.h),
                         listInnerDecoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
@@ -296,19 +283,7 @@ class HomePageState extends State<HomePage> {
                         listDraggingWidth: _sizer.y.h,
                       ),
                     ),
-                    floatingActionButton: FloatingActionButton(
-                      onPressed: () {
-                        // Add your onPressed code here!
-                        setState(() {
-                          _sizer = zoomDrag(_sizer);
-                        });
-                      },
-                      backgroundColor: const Color.fromARGB(232, 87, 7, 73),
-                      child: const FaIcon(
-                        FontAwesomeIcons.magnifyingGlassPlus,
-                        color: Colors.white,
-                      ),
-                    ),
+                    floatingActionButton: floatingActionButtonStyle(),
                   ),
                   onWillPop: () => HomePageWidgets.onWillPop(context),
                 );
@@ -330,7 +305,7 @@ class HomePageState extends State<HomePage> {
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 25,
-              color: Color.fromARGB(255, 0, 0, 0),
+              color: Colors.white,
             ),
           ),
         ),
@@ -340,7 +315,7 @@ class HomePageState extends State<HomePage> {
                 child: Column(
                   children: <Widget>[
                     ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(0, 0, 0, 0)),
+                      style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(50, 0, 0, 0)),
                       onPressed: () {
                         showDialog(
                           context: context,
@@ -381,7 +356,7 @@ class HomePageState extends State<HomePage> {
                                                   color: const Color.fromARGB(133, 185, 185, 185),
                                                 ),
                                                 child: HomePageWidgets.textWidgetStyles(
-                                                    "Lokalizacja: \n${item.task.location}"),
+                                                    "Location: \n${item.task.location}"),
                                               ),
                                             ],
                                           ),
@@ -396,7 +371,7 @@ class HomePageState extends State<HomePage> {
                                                   color: const Color.fromARGB(133, 185, 185, 185),
                                                 ),
                                                 child: HomePageWidgets.textWidgetStyles(
-                                                  "Data zgłoszenia: \n${item.task.dataReg}",
+                                                  "Report date: \n${item.task.dataReg}",
                                                 ),
                                               ),
                                             ],
@@ -412,7 +387,7 @@ class HomePageState extends State<HomePage> {
                                                   color: const Color.fromARGB(133, 185, 185, 185),
                                                 ),
                                                 child: HomePageWidgets.textWidgetStyles(
-                                                  "Typ zgłoszenia: \n${item.task.type}",
+                                                  "Report type: \n${item.task.type}",
                                                 ),
                                               ),
                                             ],
@@ -463,26 +438,37 @@ class HomePageState extends State<HomePage> {
                         );
                       },
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
                               Expanded(
                                 flex: 5,
                                 child: HomePageWidgets.textWidgetStyles(
-                                  "Lokalizacja: \n${item.task.location}",
+                                  "Location: \n${item.task.location}",
                                 ),
                               ),
                               Expanded(
                                 flex: 5,
                                 child: HomePageWidgets.textWidgetStyles(
-                                  "Data zgłoszenia: \n${item.task.dataReg}",
+                                  "Report date: \n${item.task.dataReg}",
                                 ),
                               ),
                             ],
                           ),
-                          HomePageWidgets.textWidgetStyles(
-                            "Krótki opis: ${item.task.about}",
-                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 6.0),
+                            child: SizedBox(
+                              height: 40,
+                              child: AutoSizeText(
+                                "Description: ${item.task.about}",
+                                minFontSize: 10.0, // Minimalny rozmiar czcionki
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                                style: const TextStyle(color: Colors.cyanAccent, fontSize: 13),
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ),

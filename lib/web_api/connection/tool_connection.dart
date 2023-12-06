@@ -25,12 +25,12 @@ class ToolConnection {
     return response.statusCode;
   }
 
-  addNewTask(ToolDto toolDto) async {
+  addNewTool(ToolDto toolDto) async {
     final Response response = await apiService.post('$apiHost/api/tools', toolDto);
     return response.statusCode;
   }
 
-  deleteTask(int id) async {
+  deleteTool(int id) async {
     final Response response = await apiService.delete('$apiHost/api/tools/$id');
     return response.statusCode;
   }
@@ -41,14 +41,14 @@ class ToolConnection {
 
     while (true) {
       var items = await _getDtosByPageNumberAndId(pageNumber, id);
-
       if (items.isEmpty) {
         break;
       } else {
         pageNumber++;
       }
-
+      print(dtos.length);
       dtos.addAll(items);
+      return dtos;
     }
     return dtos;
   }
@@ -61,9 +61,15 @@ class ToolConnection {
       '$apiHost/tools-by-ekipa/$id?page=$pageNumber',
     );
 
-    if (response.statusCode == 201) {
+    if (response.statusCode != 400) {
       var decodedBody = json.decode(response.body);
-      return decodedBody.map((e) => ToolDto.fromJson(e)).toList();
+      var toolList = List<Map<String, dynamic>>.from(decodedBody);
+      print("WTF");
+      print(toolList);
+      print("??");
+      var xd = toolList.map((e) => ToolDto.fromJson(e)).toList();
+      print(xd);
+      return xd;
     } else {
       throw CantFetchDataException();
     }
@@ -78,7 +84,7 @@ class ToolConnection {
       var decodedBody = json.decode(response.body);
       var items = ResponseHelper.itemsHydra(decodedBody);
       print(items);
-      return items.map((e) => ToolDto.fromJson(e)).toList();
+      return items.map((e) => ToolDto.fromJson2(e)).toList();
     } else {
       throw CantFetchDataException();
     }
