@@ -2,17 +2,44 @@ import 'package:dragcon/Pages/admin_page.dart';
 import 'package:dragcon/Pages/equip_page.dart';
 import 'package:dragcon/Pages/geo_page.dart';
 import 'package:dragcon/Pages/home_page.dart';
+import 'package:dragcon/Pages/login_screen.dart';
+import 'package:dragcon/web_api/dto/user_dto.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../global.dart';
+class NavBar extends StatefulWidget {
+  const NavBar({Key? key}) : super(key: key);
 
-bool ifadmin() {
-//  if (user.admin == 0) return true;
-  return true;
+  @override
+  NavBarState createState() => NavBarState();
 }
 
-class NavBar extends StatelessWidget {
-  const NavBar({Key? key}) : super(key: key);
+class NavBarState extends State<NavBar> {
+  late UserDto userDto;
+  String name = "";
+  String email = "";
+  int admin = 2;
+  int ekipaId = -1;
+  bool isAdmin = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getUser();
+  }
+
+  getUser() async {
+    final user = await SharedPreferences.getInstance();
+    email = user.getString('email')!;
+    name = user.getString('name')!;
+    admin = user.getInt('admin')!;
+    ekipaId = user.getInt('ekipa')!;
+
+    if (admin == 0) {
+      isAdmin = true;
+    }
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +49,34 @@ class NavBar extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text(user.id,style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),),
-            accountEmail: Text(user.email,style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 20)),
+            accountName: Text(
+              name,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                shadows: [
+                  Shadow(
+                    color: Colors.red,
+                    offset: Offset(2, 2),
+                    blurRadius: 3,
+                  ),
+                ],
+              ),
+            ),
+            accountEmail: Text(email,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  shadows: [
+                    Shadow(
+                      color: Colors.red,
+                      offset: Offset(2, 2),
+                      blurRadius: 3,
+                    ),
+                  ],
+                )),
             currentAccountPicture: const CircleAvatar(
               backgroundColor: Color.fromARGB(174, 226, 221, 221),
               child: Icon(
@@ -38,7 +91,7 @@ class NavBar extends StatelessWidget {
             ),
           ),
           Visibility(
-            visible: ifadmin(),
+            visible: isAdmin,
             child: ListTile(
               leading: const Icon(Icons.description),
               title: const Text('Admin panel'),
@@ -55,7 +108,11 @@ class NavBar extends StatelessWidget {
             title: const Text('Home'),
             onTap: () => Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (BuildContext context) => const HomePage()),
+              MaterialPageRoute(
+                  builder: (BuildContext context) => HomePage(
+                        ekipaId: ekipaId,
+                        admin: admin,
+                      )),
               (route) => true,
             ),
           ),
@@ -83,10 +140,11 @@ class NavBar extends StatelessWidget {
           ListTile(
             title: const Text('Logout'),
             leading: const Icon(Icons.exit_to_app),
-            onTap: () => {
-              Navigator.pop(context),
-              Navigator.pop(context),
-            },
+            onTap: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => const LoginScreen()),
+              (route) => true,
+            ),
           ),
         ],
       ),

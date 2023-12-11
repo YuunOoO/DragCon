@@ -17,9 +17,7 @@ class ToolDto implements DtoToJsonInterface {
     required this.teamName,
   });
 
-  factory ToolDto.fromJson(Map<String, dynamic> json) {
-    print(json['ekipaId']);
- 
+  factory ToolDto.fromJson(Map<String, dynamic> json) { 
     return ToolDto(
       toolId: json['tool_id'],
       type: json['type'],

@@ -27,7 +27,6 @@ class TeamConnection {
   }
 
   addNewTeam(TeamDto teamDto) async {
-    print(teamDto.toJson());
     final Response response = await apiService.post('$apiHost/api/teams', teamDto);
     return response.statusCode;
   }
@@ -47,7 +46,6 @@ class TeamConnection {
     if (response.statusCode == 200 || response.statusCode == 201) {
       var decodedBody = json.decode(response.body);
       var items = ResponseHelper.itemsHydra(decodedBody);
-      print(items);
       return items.map((e) => TeamDto.fromJson(e)).toList();
     } else {
       throw CantFetchDataException();

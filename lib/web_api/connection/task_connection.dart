@@ -31,8 +31,8 @@ class TaskConnection {
   }
 
   deleteTask(int id) async {
-    final Response response = await apiService.delete('$apiHost/api/tasks/$id');
-    return response.statusCode;
+    return await apiService.delete('$apiHost/api/tasks/$id');
+
   }
 
   Future<List<TaskDto>> getAllTasksByEkipaId(int id) async {

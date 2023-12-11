@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:dragcon/config.dart';
-import 'package:dragcon/global.dart';
+import 'package:dragcon/web_api/dto/login_dto.dart';
 
 import 'package:dragcon/web_api/dto/user_dto.dart';
 import 'package:dragcon/web_api/exceptions/cant_fetch_data.dart';
@@ -23,15 +23,12 @@ class UserConnection {
   }
 
   patchUserById(int id, UserDto userDto) async {
-    print(userDto.toJson());
     final Response response = await apiService.patch('$apiHost/api/users/$id', userDto);
-    print(response.body);
     return response.statusCode;
   }
 
   addNewUser(UserDto userDto) async {
     final Response response = await apiService.post('$apiHost/api/users', userDto);
-    print(response.body);
     return response.statusCode;
   }
 
@@ -76,19 +73,27 @@ class UserConnection {
   }
 
   Future<List<UserDto>> getAllUsers() async {
-    print("witamy");
     var response = await apiService.makeApiGetRequest(
       '$apiHost/api/users?page=1',
     );
-    print(response.statusCode);
 
     if (response.statusCode != 400) {
       var decodedBody = json.decode(response.body);
       var items = ResponseHelper.itemsHydra(decodedBody);
-      print(items);
       return items.map((e) => UserDto.fromJson(e)).toList();
     } else {
       throw CantFetchDataException();
+    }
+  }
+
+  Future<UserDto> login(LoginDto loginDto) async {
+    var response = await apiService.post('$apiHost/login', loginDto);
+    print(response.body);
+    if (response.statusCode != 401 && response.statusCode != 404) {
+      var decodedBody = json.decode(response.body);
+      return UserDto.fromJson(decodedBody);
+    } else {
+      return UserDto(id: "id", password: "password", admin: 0, email: "email", ekipaId: 0, keyId: -1);
     }
   }
 }

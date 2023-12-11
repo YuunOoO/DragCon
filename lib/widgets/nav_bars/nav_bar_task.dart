@@ -1,5 +1,4 @@
 import 'package:dragcon/web_api/connection/task_connection.dart';
-import 'package:dragcon/web_api/dto/task_dto.dart';
 import 'package:dragcon/web_api/dto/task_dto_post.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';

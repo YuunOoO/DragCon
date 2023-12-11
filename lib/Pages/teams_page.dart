@@ -131,7 +131,6 @@ class TeamsPageState extends State<TeamsPage> {
             FloatingActionButton(
               mini: true,
               onPressed: () {
-                // Add your onPressed code here!
                 setState(() {
                   _sizer = zoomDrag(_sizer);
                 });

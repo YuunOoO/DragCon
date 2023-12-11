@@ -6,6 +6,7 @@ import 'package:dragcon/web_api/dto/task_dto.dart';
 import 'package:dragcon/widgets/home_page_widgets.dart';
 import 'package:dragcon/zoom.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -27,7 +28,9 @@ class DraggableListItem {
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key, required this.ekipaId, required this.admin}) : super(key: key);
+  final int ekipaId;
+  final int admin;
 
   @override
   HomePageState createState() => HomePageState();
@@ -43,6 +46,8 @@ class HomePageState extends State<HomePage> {
   TileSizer _sizer = TileSizer();
   TaskConnection taskConnection = TaskConnection();
   bool background = true;
+  bool canDrag = false;
+  late SharedPreferences user;
 
   late Future<List<TaskDto>> futureList;
   bool rebuild = true;
@@ -85,22 +90,24 @@ class HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    dragFlag();
     getFutureTasks();
   }
 
   late List<DragAndDropList> lists;
 
-  dragFlag() {
-    return true;
-    // if (user.admin <= 1) {
-    //   return true; //team master or root
-    // } else {
-    //   return false;
-    // }
+  dragFlag() async {
+  
+    if (widget.admin <= 1) {
+      canDrag = true; //team master or root
+    } else {
+      canDrag = false;
+    }
   }
 
-  getFutureTasks() {
-    futureList = taskConnection.getAllTasksByEkipaId(1);
+  getFutureTasks() async {
+
+    futureList = taskConnection.getAllTasksByEkipaId(widget.ekipaId);
   }
 
   floatingActionButtonStyle() {
@@ -474,7 +481,7 @@ class HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
-                canDrag: dragFlag(),
+                canDrag: canDrag,
               ),
             )
             .toList(),

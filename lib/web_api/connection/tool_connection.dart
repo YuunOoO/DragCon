@@ -64,12 +64,8 @@ class ToolConnection {
     if (response.statusCode != 400) {
       var decodedBody = json.decode(response.body);
       var toolList = List<Map<String, dynamic>>.from(decodedBody);
-      print("WTF");
-      print(toolList);
-      print("??");
-      var xd = toolList.map((e) => ToolDto.fromJson(e)).toList();
-      print(xd);
-      return xd;
+      var result = toolList.map((e) => ToolDto.fromJson(e)).toList();
+      return result;
     } else {
       throw CantFetchDataException();
     }
@@ -79,11 +75,9 @@ class ToolConnection {
     var response = await apiService.makeApiGetRequest(
       '$apiHost/api/tools?page=1',
     );
-    print(response.statusCode);
     if (response.statusCode == 201 || response.statusCode == 200) {
       var decodedBody = json.decode(response.body);
       var items = ResponseHelper.itemsHydra(decodedBody);
-      print(items);
       return items.map((e) => ToolDto.fromJson2(e)).toList();
     } else {
       throw CantFetchDataException();

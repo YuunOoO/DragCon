@@ -49,7 +49,6 @@ class TaskToTeamState extends State<TaskToTeam> {
   late List<DragAndDropList> lists;
   TeamDto dropdownValue = const TeamDto(ekipaId: -1, usersCount: 0, name: "init");
 //
-  bool drag = false;
   bool refreshFuture = true;
   bool reorder = true;
   bool background = true;
@@ -74,11 +73,7 @@ class TaskToTeamState extends State<TaskToTeam> {
   }
 
   orderTeamTasks(List<TaskDto> taskList) {
-    // if (drag == true) {
-    //   drag = false;
-    //   return;
-    // }
-    //clean everything
+
     print(taskList.length);
     allLists.clear();
     List<DraggableListItem> backlog0 = [];
@@ -151,7 +146,6 @@ class TaskToTeamState extends State<TaskToTeam> {
             FloatingActionButton(
               mini: true,
               onPressed: () {
-                // Add your onPressed code here!
                 setState(() {
                   _sizer = zoomDrag(_sizer);
                 });
@@ -656,8 +650,13 @@ class TaskToTeamState extends State<TaskToTeam> {
                                 flex: 2,
                                 child: IconButton(
                                   //   padding: const EdgeInsets.only(left: 20),
-                                  onPressed: () {
-                                    taskConnection.deleteTask(item.task.taskId!);
+                                  onPressed: () async {
+                                    await taskConnection.deleteTask(item.task.taskId!);
+                                    Future.delayed(const Duration(seconds: 1), () {
+                                      setState(() {
+                                        reorder = true;
+                                      });
+                                    });
                                   },
                                   icon: const Icon(
                                     Icons.highlight_remove_rounded,
@@ -698,7 +697,6 @@ class TaskToTeamState extends State<TaskToTeam> {
     int newListIndex,
   ) {
     setState(() {
-      //drag = true; //reorder fix :DD
       podmiana(oldListIndex, oldItemIndex, newListIndex, newItemIndex);
       final oldListItems = lists[oldListIndex].children;
       final newListItems = lists[newListIndex].children;
