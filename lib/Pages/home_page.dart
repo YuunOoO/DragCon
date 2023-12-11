@@ -187,7 +187,7 @@ class HomePageState extends State<HomePage> {
                       backgroundColor: const Color(0xff480048),
                     ),
                     body: Container(
-                      width: 100.w,
+                      width: MediaQuery.of(context).size.width,
                       height: 100.h,
                       decoration: const BoxDecoration(
                         gradient: LinearGradient(
@@ -244,7 +244,7 @@ class HomePageState extends State<HomePage> {
                   child: Scaffold(
                     drawer: const NavBar(),
                     body: Container(
-                      width: 100.w,
+                      width: MediaQuery.of(context).size.width,
                       height: 100.h,
                       decoration: background
                           ? const BoxDecoration(

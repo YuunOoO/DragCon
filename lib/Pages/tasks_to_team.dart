@@ -196,7 +196,7 @@ class TaskToTeamState extends State<TaskToTeam> {
                                     children: <Widget>[
                                       Container(
                                         padding: EdgeInsets.symmetric(vertical: 4.h),
-                                        width: 100.w,
+                                        width:  MediaQuery.of(context).size.width,
                                         height: double.infinity,
                                         decoration: const BoxDecoration(
                                           gradient: LinearGradient(
@@ -260,7 +260,7 @@ class TaskToTeamState extends State<TaskToTeam> {
                                         padding: EdgeInsets.symmetric(vertical: 5.h),
                                         margin: const EdgeInsets.only(top: 40.0),
                                         height: 100.h,
-                                        width: 100.w,
+                                        width:  MediaQuery.of(context).size.width,
                                         child: DragAndDropLists(
                                           lastItemTargetHeight: 5,
                                           //addLastItemTargetHeightToTop: true,
@@ -321,7 +321,7 @@ class TaskToTeamState extends State<TaskToTeam> {
                                     children: <Widget>[
                                       Container(
                                         padding: EdgeInsets.symmetric(vertical: 4.h),
-                                        width: 100.w,
+                                        width:  MediaQuery.of(context).size.width,
                                         height: double.infinity,
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.start,
@@ -374,7 +374,7 @@ class TaskToTeamState extends State<TaskToTeam> {
                                         padding: EdgeInsets.only(top: 5.h),
                                         margin: const EdgeInsets.only(top: 40.0),
                                         height: 100.h,
-                                        width: 100.w,
+                                        width:  MediaQuery.of(context).size.width,
                                         child: DragAndDropLists(
                                           lastItemTargetHeight: 5,
                                           //addLastItemTargetHeightToTop: true,

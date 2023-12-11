@@ -174,7 +174,7 @@ class TeamsPageState extends State<TeamsPage> {
                               drawer: const NavBar(),
                               endDrawer: NavBarTeam(callback: callback),
                               body: Container(
-                                width: 100.w,
+                                width:  MediaQuery.of(context).size.width,
                                 height: double.infinity,
                                 decoration: const BoxDecoration(
                                   gradient: LinearGradient(
@@ -231,7 +231,7 @@ class TeamsPageState extends State<TeamsPage> {
                                 callback: callback,
                               ),
                               body: Container(
-                                width: 100.w,
+                                width:  MediaQuery.of(context).size.width,
                                 height: double.infinity,
                                 decoration: background
                                     ? const BoxDecoration(

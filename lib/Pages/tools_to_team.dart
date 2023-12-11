@@ -143,7 +143,7 @@ class ToolsToTeamState extends State<ToolsToTeam> {
                   return Scaffold(
                     drawer: const NavBar(),
                     body: Container(
-                      width: 100.w,
+                      width:  MediaQuery.of(context).size.width,
                       height: 100.h,
                       decoration: const BoxDecoration(
                         gradient: LinearGradient(
@@ -193,7 +193,7 @@ class ToolsToTeamState extends State<ToolsToTeam> {
                   return Scaffold(
                     drawer: const NavBar(),
                     body: Container(
-                      width: 100.w,
+                      width:  MediaQuery.of(context).size.width,
                       height: 100.h,
                       decoration: background
                           ? const BoxDecoration(

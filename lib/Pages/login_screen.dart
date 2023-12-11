@@ -31,7 +31,7 @@ class LoginScreenState extends State<LoginScreen> {
           body: Container(
             padding: const EdgeInsets.all(20.0),
             height: 100.h,
-            width: 100.w,
+            width: MediaQuery.of(context).size.width,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
@@ -80,67 +80,13 @@ class LoginScreenState extends State<LoginScreen> {
             ),
           ),
         );
-      } else if (constraints.maxWidth > 800 && constraints.maxWidth < 1200) {
-        return Scaffold(
-          body: Container(
-            padding: const EdgeInsets.all(20.0),
-            height: 100.h,
-            width: 100.w,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment(0.8, 1),
-                colors: <Color>[
-                  Color(0xffC04848),
-                  Color(0xff480048),
-                ],
-                tileMode: TileMode.mirror,
-              ),
-            ),
-            child: Center(
-              child: SingleChildScrollView(
-                child: AnnotatedRegion<SystemUiOverlayStyle>(
-                  value: SystemUiOverlayStyle.light,
-                  child: GestureDetector(
-                    child: Stack(
-                      children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: const Color.fromARGB(111, 72, 0, 72),
-                          ),
-                          child: Column(
-                            children: <Widget>[
-                              const SizedBox(height: 20),
-                              Image.asset(
-                                'assets/icons/logo.png',
-                                height: 300,
-                                width: 300,
-                              ),
-                              const SizedBox(height: 80),
-                              buildEmail(name),
-                              buildPassword(passw),
-                              const SizedBox(height: 20),
-                              loginButton(context),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
-      } else {
+      }  else {
         return Scaffold(
           body: Container(
             alignment: Alignment.bottomCenter,
             padding: const EdgeInsets.all(10.0),
             height: 100.h,
-            width: 100.w,
+            width: MediaQuery.of(context).size.width,
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/japan2.png"),
@@ -303,7 +249,11 @@ class LoginScreenState extends State<LoginScreen> {
 
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (BuildContext context) =>  HomePage(ekipaId: userDto.ekipaId,admin: userDto.admin,)),
+        MaterialPageRoute(
+            builder: (BuildContext context) => HomePage(
+                  ekipaId: userDto.ekipaId,
+                  admin: userDto.admin,
+                )),
         (route) => false,
       );
     } else {
@@ -328,23 +278,11 @@ class LoginScreenState extends State<LoginScreen> {
     // check if we have biometry and saved fingerprint
     final isAvailable = await Localauth.hasBiometrics();
     if (!isAvailable) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Availability Autologin'),
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              buildText('Biometrics', isAvailable),
-            ],
-          ),
-        ),
-      );
       return;
     }
 
     final isAuthenticated = await Localauth.authenticate();
+
     if (isAuthenticated) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       final String? check = prefs.getString('name');
@@ -356,7 +294,10 @@ class LoginScreenState extends State<LoginScreen> {
           await userConnection.login(LoginDto(id: prefs.getString('name')!, password: prefs.getString('password')!));
       if (userDto.keyId != -1) {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return HomePage(ekipaId: userDto.ekipaId,admin: userDto.admin,);
+          return HomePage(
+            ekipaId: userDto.ekipaId,
+            admin: userDto.admin,
+          );
         }));
       } else {
         print('wrong id/pass');
