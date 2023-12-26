@@ -73,7 +73,6 @@ class TaskToTeamState extends State<TaskToTeam> {
   }
 
   orderTeamTasks(List<TaskDto> taskList) {
-
     print(taskList.length);
     allLists.clear();
     List<DraggableListItem> backlog0 = [];
@@ -196,7 +195,7 @@ class TaskToTeamState extends State<TaskToTeam> {
                                     children: <Widget>[
                                       Container(
                                         padding: EdgeInsets.symmetric(vertical: 4.h),
-                                        width:  MediaQuery.of(context).size.width,
+                                        width: MediaQuery.of(context).size.width,
                                         height: double.infinity,
                                         decoration: const BoxDecoration(
                                           gradient: LinearGradient(
@@ -260,7 +259,7 @@ class TaskToTeamState extends State<TaskToTeam> {
                                         padding: EdgeInsets.symmetric(vertical: 5.h),
                                         margin: const EdgeInsets.only(top: 40.0),
                                         height: 100.h,
-                                        width:  MediaQuery.of(context).size.width,
+                                        width: MediaQuery.of(context).size.width,
                                         child: DragAndDropLists(
                                           lastItemTargetHeight: 5,
                                           //addLastItemTargetHeightToTop: true,
@@ -321,7 +320,7 @@ class TaskToTeamState extends State<TaskToTeam> {
                                     children: <Widget>[
                                       Container(
                                         padding: EdgeInsets.symmetric(vertical: 4.h),
-                                        width:  MediaQuery.of(context).size.width,
+                                        width: MediaQuery.of(context).size.width,
                                         height: double.infinity,
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.start,
@@ -374,7 +373,7 @@ class TaskToTeamState extends State<TaskToTeam> {
                                         padding: EdgeInsets.only(top: 5.h),
                                         margin: const EdgeInsets.only(top: 40.0),
                                         height: 100.h,
-                                        width:  MediaQuery.of(context).size.width,
+                                        width: MediaQuery.of(context).size.width,
                                         child: DragAndDropLists(
                                           lastItemTargetHeight: 5,
                                           //addLastItemTargetHeightToTop: true,
@@ -507,7 +506,12 @@ class TaskToTeamState extends State<TaskToTeam> {
                 child: Column(
                   children: <Widget>[
                     ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(50, 0, 0, 0)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(50, 0, 0, 0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(0.0),
+                        ),
+                      ),
                       onPressed: () {
                         showDialog(
                           context: context,

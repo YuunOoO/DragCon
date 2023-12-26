@@ -76,10 +76,12 @@ class UserConnection {
     var response = await apiService.makeApiGetRequest(
       '$apiHost/api/users?page=1',
     );
-
+    print(response.body);
+    print("lel");
     if (response.statusCode != 400) {
       var decodedBody = json.decode(response.body);
       var items = ResponseHelper.itemsHydra(decodedBody);
+      print(items);
       return items.map((e) => UserDto.fromJson(e)).toList();
     } else {
       throw CantFetchDataException();

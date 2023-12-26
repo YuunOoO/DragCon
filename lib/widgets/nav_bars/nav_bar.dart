@@ -18,6 +18,7 @@ class NavBarState extends State<NavBar> {
   late UserDto userDto;
   String name = "";
   String email = "";
+  String ekipaName = "";
   int admin = 2;
   int ekipaId = -1;
   bool isAdmin = false;
@@ -34,6 +35,7 @@ class NavBarState extends State<NavBar> {
     name = user.getString('name')!;
     admin = user.getInt('admin')!;
     ekipaId = user.getInt('ekipa')!;
+    ekipaName = user.getString('teamName')!;
 
     if (admin == 0) {
       isAdmin = true;
@@ -118,11 +120,11 @@ class NavBarState extends State<NavBar> {
           ),
           const Divider(),
           ListTile(
-            title: const Text('Localization'),
+            title: const Text('Location'),
             leading: const Icon(Icons.gps_fixed_outlined),
             onTap: () => Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (BuildContext context) => const GeoPage()),
+              MaterialPageRoute(builder: (BuildContext context) =>  GeoPage(teamName: ekipaName,)),
               (route) => true,
             ),
           ),

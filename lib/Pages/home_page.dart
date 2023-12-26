@@ -97,7 +97,6 @@ class HomePageState extends State<HomePage> {
   late List<DragAndDropList> lists;
 
   dragFlag() async {
-  
     if (widget.admin <= 1) {
       canDrag = true; //team master or root
     } else {
@@ -106,7 +105,6 @@ class HomePageState extends State<HomePage> {
   }
 
   getFutureTasks() async {
-
     futureList = taskConnection.getAllTasksByEkipaId(widget.ekipaId);
   }
 
@@ -322,7 +320,12 @@ class HomePageState extends State<HomePage> {
                 child: Column(
                   children: <Widget>[
                     ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(50, 0, 0, 0)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(50, 0, 0, 0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(0.0), 
+                        ),
+                      ),
                       onPressed: () {
                         showDialog(
                           context: context,
@@ -343,15 +346,6 @@ class HomePageState extends State<HomePage> {
                                     child: Center(
                                       child: Column(
                                         children: [
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                child: HomePageWidgets.textWidgetStyles(
-                                                  item.task.about,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
                                           Row(
                                             children: [
                                               HomePageWidgets.iconsStyle(Icons.map),
@@ -408,6 +402,7 @@ class HomePageState extends State<HomePage> {
                                                 clipBehavior: Clip.none,
                                                 children: <Widget>[
                                                   Container(
+                                                    margin: const EdgeInsets.only(top: 20),
                                                     width: 65.w,
                                                     height: 40.h,
                                                     decoration: BoxDecoration(
@@ -418,7 +413,10 @@ class HomePageState extends State<HomePage> {
                                                       borderRadius: BorderRadius.circular(10),
                                                       color: const Color.fromARGB(133, 185, 185, 185),
                                                     ),
-                                                    child: Text(item.task.about),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.all(3.0),
+                                                      child: Text(item.task.about),
+                                                    ),
                                                   ),
                                                   Positioned(
                                                     right: 0,

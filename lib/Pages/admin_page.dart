@@ -3,7 +3,6 @@ import 'package:dragcon/Pages/tasks_to_team.dart';
 import 'package:dragcon/Pages/tools_to_team.dart';
 import 'package:dragcon/Pages/teams_page.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({Key? key}) : super(key: key);

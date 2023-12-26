@@ -174,7 +174,7 @@ class TeamsPageState extends State<TeamsPage> {
                               drawer: const NavBar(),
                               endDrawer: NavBarTeam(callback: callback),
                               body: Container(
-                                width:  MediaQuery.of(context).size.width,
+                                width: MediaQuery.of(context).size.width,
                                 height: double.infinity,
                                 decoration: const BoxDecoration(
                                   gradient: LinearGradient(
@@ -231,7 +231,7 @@ class TeamsPageState extends State<TeamsPage> {
                                 callback: callback,
                               ),
                               body: Container(
-                                width:  MediaQuery.of(context).size.width,
+                                width: MediaQuery.of(context).size.width,
                                 height: double.infinity,
                                 decoration: background
                                     ? const BoxDecoration(
@@ -359,7 +359,12 @@ class TeamsPageState extends State<TeamsPage> {
                 child: Column(
                   children: <Widget>[
                     ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(50, 0, 0, 0)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(50, 0, 0, 0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(0.0), 
+                        ),
+                      ),
                       onPressed: () {
                         showDialog(
                           context: context,

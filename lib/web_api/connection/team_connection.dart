@@ -21,7 +21,7 @@ class TeamConnection {
     }
   }
 
-  patchTeamById(int id, UserDtoPermissionLevelPatch userDtoPermissionLevelPatch ) async {
+  patchTeamById(int id, UserDtoPermissionLevelPatch userDtoPermissionLevelPatch) async {
     final Response response = await apiService.patch('$apiHost/api/teams/$id', userDtoPermissionLevelPatch);
     return response.statusCode;
   }
@@ -42,7 +42,6 @@ class TeamConnection {
     var response = await apiService.makeApiGetRequest(
       '$apiHost/api/teams?page=1',
     );
-
     if (response.statusCode == 200 || response.statusCode == 201) {
       var decodedBody = json.decode(response.body);
       var items = ResponseHelper.itemsHydra(decodedBody);

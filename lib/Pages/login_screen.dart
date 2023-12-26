@@ -244,6 +244,7 @@ class LoginScreenState extends State<LoginScreen> {
       await user.setString('email', userDto.email);
       await user.setInt('admin', userDto.admin);
       await user.setInt('ekipa', userDto.ekipaId);
+      await user.setString('teamName', userDto.teamName!);
       passw.clear();
       name.clear();
 

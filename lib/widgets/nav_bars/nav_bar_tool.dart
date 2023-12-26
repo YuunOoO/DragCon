@@ -1,7 +1,4 @@
-import 'package:dragcon/global.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:sizer/sizer.dart';
 
@@ -33,41 +30,6 @@ class NavBarToolsState extends State<NavBarTools> {
     super.initState();
   }
 
-  Future<void> sendData() async {
-    var res = await http.post(Uri.parse(phpurl2), body: {
-      "type": typectl.text,
-      "amount": amountctl.text,
-      "mark": markctl.text,
-      "ekipa_id": numer.toString(),
-    });
-
-    if (res.statusCode == 200) {
-      var data = json.decode(res.body);
-      if (data["error"]) {
-        setState(() {
-          sending = false;
-          error = true;
-          msg = data["message"];
-        });
-      } else {
-        typectl.text = "";
-        amountctl.text = "";
-        markctl.text = "";
-        ekipaidctl.text = "";
-
-        setState(() {
-          sending = false;
-          success = true;
-        });
-      }
-    } else {
-      setState(() {
-        error = true;
-        msg = "Error during sendign data.";
-        sending = false;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +85,6 @@ class NavBarToolsState extends State<NavBarTools> {
                       sending = true;
                     },
                   );
-                  sendData();
                 },
               ),
             ],

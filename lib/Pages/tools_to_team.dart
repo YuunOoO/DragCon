@@ -143,7 +143,7 @@ class ToolsToTeamState extends State<ToolsToTeam> {
                   return Scaffold(
                     drawer: const NavBar(),
                     body: Container(
-                      width:  MediaQuery.of(context).size.width,
+                      width: MediaQuery.of(context).size.width,
                       height: 100.h,
                       decoration: const BoxDecoration(
                         gradient: LinearGradient(
@@ -193,7 +193,7 @@ class ToolsToTeamState extends State<ToolsToTeam> {
                   return Scaffold(
                     drawer: const NavBar(),
                     body: Container(
-                      width:  MediaQuery.of(context).size.width,
+                      width: MediaQuery.of(context).size.width,
                       height: 100.h,
                       decoration: background
                           ? const BoxDecoration(
@@ -305,7 +305,12 @@ class ToolsToTeamState extends State<ToolsToTeam> {
         children: list.items
             .map((item) => DragAndDropItem(
                   child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(0, 0, 0, 0)),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0.0), 
+                      ),
+                    ),
                     onPressed: () {},
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
