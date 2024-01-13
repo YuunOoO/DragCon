@@ -1,5 +1,5 @@
 
-import 'package:dragcon/NavBar.dart';
+import 'package:dragcon/widgets/nav_bars/nav_bar.dart';
 import 'package:flutter/material.dart';
 class Stat extends StatefulWidget {
   const Stat({Key? key}) : super(key: key);

@@ -1,4 +1,4 @@
-import 'package:dragcon/NavBar.dart';
+import 'package:dragcon/widgets/nav_bars/nav_bar.dart';
 import 'package:flutter/material.dart';
 
 
@@ -14,7 +14,7 @@ class SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     double rating = 400;
     return Scaffold(
-        drawer: NavBar(),
+        drawer: const NavBar(),
         body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(

@@ -1,4 +1,4 @@
-import 'package:dragcon/Pages/LoginScreen.dart';
+import 'package:dragcon/Pages/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 
@@ -94,7 +94,7 @@ class _SplashState extends State<Splash> {
               padding: const EdgeInsetsDirectional.only(start: 70.0, end: 70.0, top: 75.0),
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("assets/images/loadingback.jpg"),
+                  image: AssetImage("assets/images/japan1.png"),
                   fit: BoxFit.cover,
                 ),
               ),
